@@ -1,0 +1,87 @@
+HomePage.vue   首页页面 
+
+     {
+         MerchantCA.vue 商家中心
+	 location.vue   定位
+      } 
+
+Classify.vue   分类页面
+
+Shopping.vue   购物车页面
+
+Melt.vue       贡融页面
+
+news.vue       消息页面
+
+
+Mine.vue 我的页面
+
+     {
+        Integral.vue 贡融积分页面
+
+        Stamps.vue   贡融券页面
+
+        MyTeam.vue   我的分享人页面
+
+	RemainingSum.vue  余额页面
+	  {
+	     TouchBalance.vue 余额明细页面
+	   }
+
+        SellerCenter.vue  商户中心
+	  {
+             OrdinaryBusiness.vue 申请普通商家 
+      	     Appreciation.vue     支付增值商户年费
+          }
+
+        Information.vue   个人信息页面
+	  {
+  	      NickName.vue 昵称设置页面
+	   }
+               	
+        ID.vue  账号与安全页面
+
+
+        MyAddress.vue   管理收货地址页面
+	  {
+              AddAddress.vue  编辑收获地址页面
+	  }    
+
+     }
+
+
+未结合页面 
+
+ShareResults.vue  分享业绩页面
+
+ModifyDiscount.vue  修改让利折扣页面
+
+change.vue         线下现金交易页面
+
+talk.vue           贡荣积分商城页面
+
+CreditCard.vue     消费支付页面
+
+CreditCardOK	   消费支付页面确认支付 ? ? ?
+
+ConfirmAnOrder.vue  确认订单
+
+Product
+
+PageDetailsChild
+
+PageDetails
+
+PageAll
+
+indentAll
+
+detailsTwo
+
+ClassifySearch
+
+top
+
+sunorder
+
+collection

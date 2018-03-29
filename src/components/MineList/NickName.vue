@@ -1,0 +1,66 @@
+<template>
+    <div>
+        <header class="mint-header">
+           <div class="mint-header-button is-left">
+               <a class="router-link-active">
+                   <button class="mint-button mint-button--default mint-button--normal">
+                    <mt-button icon="back" @click='close'></mt-button>
+                   </button>
+              </a>
+            </div> 
+             <h1 class="mint-header-title">昵称设置</h1>
+            <div class="mint-header-button is-right">确认</div>
+        </header>
+       <mt-field placeholder="请输入昵称" v-model="name" @change='DataValidations'></mt-field>
+       <p class='hint'>4-10个字符,可由中英文,数字组成。</p>
+    </div>
+</template>
+
+<script>
+import { Header,Field  } from 'mint-ui';
+export default {
+    data(){
+        return {
+            name:"",
+            popupVisible:true,
+        }
+    },
+    methods:{
+      //关闭当前页面
+      close: function() {
+        this.$parent.$parent.popupVisible = false
+      },
+      DataValidations(){
+         if(/^[\u4e00-\u9fa5_a-zA-Z0-9_]{4,10}$/.test(this.name)){
+              alert('匹配正确');
+         }
+      }
+    }
+    
+}
+</script>
+
+<style scoped>
+
+header{
+    width:100%;
+    background:#fff;
+    color:#000;
+    height:.94rem;
+    border-bottom:1px solid #e7e7e7;
+    font-size:.32rem;
+}
+.mint-header-title{
+    font-size:.32rem;
+}
+.mint-header-button{
+    font-size:.28rem;
+    color:#676767;
+}
+.hint{
+    font-size:.2rem;
+    color:#c4c4c4;
+    margin-top:.2rem;
+    margin-left:.3rem;
+}
+</style>
