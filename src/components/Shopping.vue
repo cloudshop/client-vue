@@ -3,20 +3,21 @@
     <div class='content'>
       <div class="register_header">
         <p>〈</p >
-        <p>手机注册</p >
+        <p>购物车</p >
         <p></p >
       </div>
       <div class="shopping_main_all">
         <div class="shopping_main" v-for="(item,index) in serviceList" :key='index'>
-        <!--购物车标题头开始  -->
+        <!--购物车标题头开始 店铺  -->
         <div class="shopping_main_nav">
-        <div class="nav_newmain">
-          <span class="shopping_q">
-            <input type="checkbox"  class="checkboxs" name="all" v-on:click="chooseShopGoods(index)" v-model="item.checked" />
-            <img src="../assets/Shopping/未选择.png" alt="">
-          </span>
-          <span class="nav_newmain_quan">{{item.name}}</span>
-        </div>
+          <div class="nav_newmain">
+            <span class="shopping_q">
+              <!-- 店铺checkbox -->
+              <input type="checkbox"  class="checkboxs" name="all" v-model="item.checkbox" @click="pageAll(item.id,serviceList)"/>
+              <img src="../assets/Shopping/未选择.png" alt="">
+            </span>
+            <span class="nav_newmain_quan">{{item.name}}</span>
+          </div>
         </div>
         <!--购物车标题头结束  -->
         <!-- 购物车单个开始 -->
@@ -24,7 +25,8 @@
           <div class="contents_all">
             <div class="contents_left">
               <span class="shopping_q">
-                <input class="checkboxs" type="checkbox" v-model="data.checked" v-on:click="choose(index)" >
+                <!-- 每件商品 checkbox -->
+                <input class="checkboxs" type="checkbox" v-model="data.checkboxChild">
                 <img src="../assets/Shopping/未选择.png" alt="">
               </span>
             </div>
@@ -40,13 +42,13 @@
                     <div class="contents_right_center_count">
                       <span class="minus" @click="subtract(index,item.id,serviceList)">-</span>
                       <input type="text" id="inpt_s" readonly v-model="data.num" value="1" class="inpus">
-                      <span class="add" @click="add(index,serviceList)">+</span>
+                      <span class="add" @click="add(index,item.id,serviceList)">+</span>
                     </div>
                   </div>
                   <div class="contents_right_moneyAll">
                     <div class="contents_right_money">￥ {{(data.price).toFixed(2)}}</div>
                     <div class="contents_right_delete">
-                      <a href="javascript:;" @click="remove(index,item.id,serviceList)">删除</a>
+                      <a href="javascript:;" @click="remove(index,item.id,serviceList)">{{(data.price).toFixed(2)*data.num}}删除</a>
                       <span class="contents_right_shu">|</span>
                       <a href="javascript:;">加入收藏</a>
                     </div>
@@ -61,12 +63,12 @@
           <div class="shopping_footer_left">
             <div class="all">
               <span class="shopping_q">
-                <input class="checkboxs" type="checkbox" v-model="item.checked"  >
+                <input class="checkboxs"  type="checkbox" v-model="item.checked">
                 <img src="../assets/Shopping/未选择.png" alt="">
               </span>
             </div>   
             <!--{{data.price*data.num | filtermoney}}  -->
-            <div class="money">合计: ￥ 123</div>  
+            <div class="money">合计: ￥ </div>  
           </div>
           <div class="shopping_footer_right">去结算</div>
         </div>
@@ -82,55 +84,60 @@ import Foot from "./main/foot";
 export default {
   data() {
     return {
-      totalPrice: 0,
+      totalPrice: 100,
       animatenum: 0,
       serviceList: [
         {
           id: 0,
           name: "大胖的店",
-          checked: false,
+          checkbox: false,
           list: [
             {
+              id: 0,
               name: "双肩包",
               price: 108.0,
               cargo: "有货（库存*件）",
               num: 1,
-              checked: false
+              checkboxChild: false
             },
             {
+              id: 1,
               name: "双肩包",
               price: 108.0,
               cargo: "有货（库存*件）",
               num: 1,
-              checked: false
+              checkboxChild: false
             }
           ]
         },
         {
           id: 1,
           name: "大胖二店",
-          checked: false,
+          checkbox: false,
           list: [
             {
+              id: 0,
               name: "双肩包",
               price: 108.0,
               cargo: "有货（库存*件）",
               num: 1,
-              checked: false
+              checkboxChild: false
             },
             {
+              id: 1,
               name: "双肩包",
               price: 108.0,
               cargo: "有货（库存*件）",
               num: 1,
-              checked: false
+              checkboxChild: true
             },
             {
+              id: 2,
               name: "双肩包",
               price: 108.0,
               cargo: "有货（库存*件）",
               num: 1,
-              checked: false
+              checkboxChild: false
             }
           ]
         }
@@ -145,23 +152,43 @@ export default {
   watch:{
    
   },
+  computed:{
+   
+  },
   methods: {
     // 删除操作
     remove:function(index,id,serviceList){
-      serviceList[id].list.splice(index,1)
-    },
-    add:function(index,serviceList){
-      serviceList[index].list[index].num++
-    },
-    subtract:function(index,id,serviceList){
-      serviceList[index].list[index].num--;
-      if(serviceList[index].list[index].num<=0){
-          if (confirm("你确定移除该商品？")) {  
-            serviceList[id].list.splice(index,1)
-          } 
-        }
+      serviceList[id].list.splice(index,1);
+      if(serviceList[id].list.length == 0){
+        serviceList.splice(index,id)
       }
     },
+    // ++
+    add:function(index,id,serviceList){
+      // console.log(serviceList[id].list)
+      serviceList[id].list[index].num++
+    },
+    // --
+    subtract:function(index,id,serviceList){
+      serviceList[id].list[index].num--;
+      if(serviceList[id].list[index].num<=0){
+        serviceList[id].list[index].num=1;
+      }
+    },
+    // pageAll 全选
+    pageAll:function(pageId,serviceList){
+      // console.log(serviceList[pageId].list)
+      // console.log(serviceList[pageId].checked == true)
+      if(serviceList[pageId].checkbox !== true){
+        serviceList[pageId].list.map((v,i)=>{
+          // console.log(v.checked==true)
+          v.checkboxChild == true
+          // v.checked == true ? v[i].checked==true : v[i].checked==false
+            // v[i].checked==true
+        })
+      }
+    }
+  },
   components: {
     Foot
   }
@@ -182,6 +209,7 @@ export default {
   display: flex;
   position: fixed;
   top: 0;
+  z-index: 9999;
   justify-content: space-between;
   align-items: center;
   color: #2f2f2f;

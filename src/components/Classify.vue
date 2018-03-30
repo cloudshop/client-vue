@@ -24,9 +24,9 @@
                 <li>家用电器</li>
             </ul>      
             <div class='maincontent'>
-                <div class='banner' >
+                <!-- <div class='banner' >
                     <img src="../assets/Classify/bg.gif" alt="">
-                </div>
+                </div> -->
                 <div>
                     <h1>电视</h1>
                     <div class='renderContent'>
@@ -221,7 +221,7 @@ export default {
         font-size:.22rem;
         color:#2f2f2f;
     }
-    .maincontent .banner{
+    /* .maincontent .banner{
         width: 5.08rem;
         height:1.48rem;
         margin-top:.27rem;
@@ -230,7 +230,7 @@ export default {
     .maincontent .banner img{
         width: 5.08rem;
         height:1.48rem;  
-    }
+    } */
     .maincontent .renderContent{
         width:5.08rem;
         background:#fff;
