@@ -37,6 +37,7 @@
 import HomePageNav from './main/HomePageNav'
 import Foot from './main/foot'
 import { Swipe, SwipeItem } from 'mint-ui';
+import qs from 'qs';
 export default {
     data(){
       return{
@@ -56,29 +57,9 @@ export default {
       },
     },
     mounted() {
-      // var dom = document.querySelector('.main')
-      // dom.addEventListener('scroll', function () {
-      //     if(this.scrollTop>50){
-      //         $('.header').css('background',"blue");
-      //         $('.header').children('p').css('color','#000')
-      //     }else{
-      //          $('.header').css('background',"");
-      //         $('.header').children('p').css('color','#fff')
-      //     }
-      // }, false)
-     
-      // window.webkit.messageHandlers.GongrongAppModel.postMessage({      
-      //   func:'pay',
-      //   payType:'Ali',
-      //   orderStr:'alipay_sdk=alipay-sdk-java-dynamicVersionNo&app_id=2018032102418344&biz_content=%7B%22body%22%3A%22%E6%B5%8B%E8%AF%95%E6%94%AF%E4%BB%98%E5%AE%9D%22%2C%22out_trade_no%22%3A%22123457%22%2C%22passback_params%22%3A%22test+notify%22%2C%22subject%22%3A%22tititi%22%2C%22timeout_express%22%3A%2215m%22%2C%22total_amount%22%3A%220.01%22%7D&charset=utf-8&format=json&method=alipay.trade.app.pay&notify_url=http%3A%2F%2Fgongrong.ngrok.xiaomiqiu.cn%2Fpay%2Fapi%2Falipay%2Fnotify&sign=g3HxWufdovh1LKduFje5pERL6NdtFJ%2BcGKXgutBgIniYI11Tn9Td7csKw%2Br5nY7r9nP7ljU%2FFX%2BHdfOAiyWBfjdzCkZoUShYJNPYfogwqsLKlXUp7kMd3xG02oo4yM%2F02rkk%2BIia%2F%2FSZI328JyIyJcQY%2FnRey%2B56NY6inW6aySYqRNINGWpHUB%2BT5PeEKrYFxQdntjzOjO4%2Bb43VC6iBus4JoZdYr5whzgxdCvGxMayfLKu5Ugcft3KSmY6Cu5lOMGuZTQlWl%2BJzu%2BKHqt5p2c9OzF3YykYeusShNOy60bsDKZ6dXoCQafmCO7cBBAqac%2FfntLIvcW4XRv30qebPbQ%3D%3D&sign_type=RSA2&timestamp=2018-04-02+15%3A27%3A28&version=1.0'
-      //  }
-      // )
     },
     created(){
-       var that = this; 
-      // this.$http({url: '/HomePage',method: 'GET'}).then((res) => {this.data = res.data.data;
-      // console.log(this.data)
-      // });
+      //  var that = this; 
       //  this.$axios.get('/slideshow')
       //    .then(function(response) {   
       //       that.data = response.data;
@@ -86,27 +67,46 @@ export default {
       //   .catch(function(error) {
       //       console.log(error);
       //  }); 
-       let postData = {
-        'username':'admin',
-        'password':'admin'
-}
-        this.$axios.post('/apis',postData)
-          .then(function (response) {
-          console.log(response);
-          })
-          .catch(function (error) {
-          console.log(error);
-          }); 
+        // var params = {    
+        //     "username": "admin",
+        //     "password": "admin",
+        // }
+        // // params = qs.stringify(params)
+        // this.$axios({
+        //     method:'post',
+        //     url:'auth',
+        //     data:params,
+        //     headers:{
+        //        'Content-Type': 'application/json',
+        //     }
+        // })
+        // .then(function(response) {
+
+        //     console.log(response.data);
+        // })
+        // .catch((error)=>{
+        //     console.log(error);
+        // })
 
 
-        $.ajax({
-          url:'http://192.168.1.96:9080/auth/login',
-          method:'post',
-          beforeSend: function(xhr){xhr.setRequestHeader('X-Test-Header', 'test-value');},//这里设置header
-          success:function(response){
-            console.log(response)
+       var UaaApi = require('uaa_api');
+       console.log(UaaApi)
+        var api = new UaaApi.AccountResourceApi();
+        console.log(api)
+        var key = "admin"; // {String} key
+
+
+        var callback = function(error, data, response) {
+          if (error) {
+            console.error(error);
+          } else {
+            console.log('API called successfully.');
           }
-        })
+        };
+        api.isAuthenticatedUsingGET(function(error,data,response){
+          console.log(error,data,response)
+        });
+
     }, 
     components:{          
       HomePageNav,

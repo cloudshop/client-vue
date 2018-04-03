@@ -24,7 +24,9 @@ Vue.use(bus)
 Vue.use(MintUI)
 Vue.use(animate)
 Vue.use(ElementUI)
-Vue.config.productionTip = false
+
+Vue.config.productionTip = false;
+
 Vue.prototype.$axios = axios;
 
 new Vue({

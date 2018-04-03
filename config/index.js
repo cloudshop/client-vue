@@ -10,38 +10,38 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/api': {
-        target:'http://192.168.1.105:8132/api/verify/smscode?phone=15210730971', // 你请求的第三方接口
-        changeOrigin:true, // 在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
-        pathRewrite:{  // 路径重写，
-            '^/api': ''  // 替换target中的请求地址，也就是说以后你在请求http://api.jisuapi.com/XXXXX这个地址的时候直接写成/api即可。
-        }
-     },
-     '/slideshow': {
-      target:'http://192.168.1.97:8128/api/findNotDelAndLocation', // 你请求的第三方接口
-      changeOrigin:true, // 在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
-      pathRewrite:{  // 路径重写，
-          '^/slideshow': ''  // 替换target中的请求地址，也就是说以后你在请求http://api.jisuapi.com/XXXXX这个地址的时候直接写成/api即可。
-      }
-    },
-    '/classify': {
-      target:'http://192.168.1.105:8116/api/categoryTree/subnode', // 你请求的第三方接口
-      changeOrigin:true, // 在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
-      pathRewrite:{  // 路径重写，
-          '^/classify': ''  // 替换target中的请求地址，也就是说以后你在请求http://api.jisuapi.com/XXXXX这个地址的时候直接写成/api即可。
-      }
-    },
-    '/apis': {
-      target:'http://cloud.eyun.online:9080/auth/login', // 你请求的第三方接口
-      changeOrigin:true, // 在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
-      pathRewrite:{  // 路径重写，
-          '^/apis': ''  // 替换target中的请求地址，也就是说以后你在请求http://api.jisuapi.com/XXXXX这个地址的时候直接写成/api即可。
-      }
-    }
+        '/auth': {
+          target:'http://cloud.eyun.online:9080/auth/login', // 你请求的第三方接口
+          changeOrigin:true, // 在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
+          pathRewrite:{  // 路径重写，
+              '^/auth':''// 替换target中的请求地址，也就是说以后你在请求http://api.jisuapi.com/XXXXX这个地址的时候直接写成/api即可。
+          }
+        },
+        '/api': {
+            target:'http://192.168.1.105:8132/api/verify/smscode?phone=15210730971', // 你请求的第三方接口
+            changeOrigin:true, // 在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
+            pathRewrite:{  // 路径重写，
+                '^/api': ''  // 替换target中的请求地址，也就是说以后你在请求http://api.jisuapi.com/XXXXX这个地址的时候直接写成/api即可。
+          }
+        },
+        '/slideshow': {
+          target:'http://192.168.1.97:8128/api/findNotDelAndLocation', // 你请求的第三方接口
+          changeOrigin:true, // 在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
+          pathRewrite:{  // 路径重写，
+              '^/slideshow': ''  // 替换target中的请求地址，也就是说以后你在请求http://api.jisuapi.com/XXXXX这个地址的时候直接写成/api即可。
+          }
+        },
+        '/classify': {
+          target:'http://192.168.1.105:8116/api/categoryTree/subnode', // 你请求的第三方接口
+          changeOrigin:true, // 在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
+          pathRewrite:{  // 路径重写，
+              '^/classify': ''  // 替换target中的请求地址，也就是说以后你在请求http://api.jisuapi.com/XXXXX这个地址的时候直接写成/api即可。
+          }
+        },
     },
     // Various Dev Server settings
-    host: '192.168.1.102', // can be overwritten by process.env.HOST
-    port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
+    host: 'localhost', // can be overwritten by process.env.HOST
+    port: 8888, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: true,
     errorOverlay: true,
     notifyOnErrors: true,
