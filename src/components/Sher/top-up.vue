@@ -2,7 +2,8 @@
 <div>
     <header class="header">
         <ul>
-         <li><span>《</span></li>
+        <router-link  :to="{ path: '/RemainingSum' }" tag='li'><span>&lt;</span></router-link>
+
             <li>充值中心</li>
             <li></li>
         </ul>
@@ -72,12 +73,10 @@ import $ from 'jquery';
 export default {
    mounted:function(){
     $('.main_top li').on("click",function(){
-        $(this).addClass('col').siblings().removeClass('col')
-      
+        $(this).addClass('col').siblings().removeClass('col')     
     });
     $("#money").focus(function() {
-        $(".main_top li").removeClass('col')
-       
+        $(".main_top li").removeClass('col')       
     });
 
 
@@ -96,36 +95,27 @@ export default {
        
        
 // })
-        $("#btn").on('click',function(){ 
+      $("#btn").on('click',function(){ 
          if($('#money').val()== ''){
                 $(".main_top").find("li").each(function () {
             //  console.log($(this).val())
                 if($(this).is('.col')){
                   var re=$('input:radio[name="sex"]:checked').val();
-                  console.log('即将使用'+re+'为您充值'+$(this).val()+'元')
-                  
+                  console.log('即将使用'+re+'为您充值'+$(this).val()+'元')                 
                };
               })
            }else{
-                var re=$('input:radio[name="sex"]:checked').val();
+              var re=$('input:radio[name="sex"]:checked').val();
               console.log('即将使用'+re+'为您充值'+$('#money').val()+'元');
               $("#money").val('') 
           }
           
-      });
-  
-
-
+      });  
     // var re=$('input:radio[name="sex"]:checked').val();
-    // console.log(re)
-
-
-    
+    // console.log(re)  
   },
 
 }
-var  a = 1;
-
 </script>
 
 <style scoped>
@@ -144,6 +134,7 @@ var  a = 1;
         line-height: .96rem;
         background: #fff;
         text-align: center;
+        font-size:.32rem;
     }
     .header li:nth-child(1){
         text-align: left;      
@@ -285,22 +276,20 @@ var  a = 1;
         background: #ccc;
         opacity: 0;
     }
-   .buttom{
+    .buttom{
        width: 100%;
-       height: 1rem;
+        height: 1rem;
        background: #fff;
        position: absolute;
-      bottom: 0;
-   
-   }
-   button{
+      bottom: 0;   
+     }
+     button{
        width: 100%;
        height: 1rem;
        border:none;
        color: #fff;
        font-size: .32rem;
        background: #ff5064;
-   }
- 
+    }
 </style>
 

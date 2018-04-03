@@ -1,5 +1,6 @@
 <template >
 <div>
+      
         <header class='header'>
             <img src="../assets/Classify/扫码黑色.png" alt="">
              <div class='ipt'>
@@ -11,6 +12,11 @@
       <div class='content'>
         <div class='main'>
             <ul>
+                <li v-for='(item,index) in arr.firstCategory'
+                 :key='index'  @click='click(item.firstid)'
+                   :class='item.firstid == (id) ? "active":"normal"'>
+                   {{item.firstidname}} </li>
+                <!-- <li>家用电器</li>  
                 <li>家用电器</li>
                 <li>家用电器</li>
                 <li>家用电器</li>
@@ -18,102 +24,76 @@
                 <li>家用电器</li>
                 <li>家用电器</li>
                 <li>家用电器</li>
-                <li>家用电器</li>
-                <li>家用电器</li>
-                <li>家用电器</li>
-                <li>家用电器</li>
+                <li>家用电器</li> -->
             </ul>      
             <div class='maincontent'>
-                <!-- <div class='banner' >
-                    <img src="../assets/Classify/bg.gif" alt="">
-                </div> -->
-                <div>
-                    <h1>电视</h1>
-                    <div class='renderContent'>
-                        <dl>
-                            <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
-                            <dd>111</dd>
-                        </dl>
+                    <div v-for='(item,index) in arr.secondCategory' :key="index" >
+                        <h1>{{item.secondName}}</h1>
+                        <div class='renderContent'>
+                            <dl v-for='(i,v) in item.thirdCategory' :key='v' @click='ItemDescription'>
+                                <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
+                                <dd>{{i.thirdName}}</dd>
+                            </dl>
+                        </div>
+                     </div> 
+                      <!-- <div>
+                        <h1>电视</h1>
+                        <div class='renderContent'>
                             <dl>
-                            <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
-                            <dd>111</dd>
-                        </dl>
-                            <dl>
-                            <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
-                            <dd>111</dd>
-                        </dl>
-                            <dl>
-                            <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
-                            <dd>111</dd>
-                        </dl>
-                            <dl>
-                            <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
-                            <dd>111</dd>
-                        </dl>
-                            <dl>
-                            <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
-                            <dd>111</dd>
-                        </dl>
-                    </div>
-                    </div> 
+                                <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
+                                <dd>111</dd>
+                            </dl>
+                             <dl>
+                                <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
+                                <dd>111</dd>
+                            </dl>
+                             <dl>
+                                <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
+                                <dd>111</dd>
+                            </dl>
+                             <dl>
+                                <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
+                                <dd>111</dd>
+                            </dl>
+                             <dl>
+                                <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
+                                <dd>111</dd>
+                            </dl>
+                             <dl>
+                                <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
+                                <dd>111</dd>
+                            </dl>
+                        </div>
+                     </div>  
                     <div>
-                    <h1>电视</h1>
-                    <div class='renderContent'>
-                        <dl>
-                            <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
-                            <dd>111</dd>
-                        </dl>
+                        <h1>电视</h1>
+                        <div class='renderContent'>
                             <dl>
-                            <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
-                            <dd>111</dd>
-                        </dl>
-                            <dl>
-                            <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
-                            <dd>111</dd>
-                        </dl>
-                            <dl>
-                            <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
-                            <dd>111</dd>
-                        </dl>
-                            <dl>
-                            <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
-                            <dd>111</dd>
-                        </dl>
-                            <dl>
-                            <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
-                            <dd>111</dd>
-                        </dl>
-                    </div>
-                    </div>  
-                <div>
-                    <h1>电视</h1>
-                    <div class='renderContent'>
-                        <dl>
-                            <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
-                            <dd>111</dd>
-                        </dl>
-                            <dl>
-                            <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
-                            <dd>111</dd>
-                        </dl>
-                            <dl>
-                            <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
-                            <dd>111</dd>
-                        </dl>
-                            <dl>
-                            <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
-                            <dd>111</dd>
-                        </dl>
-                            <dl>
-                            <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
-                            <dd>111</dd>
-                        </dl>
-                            <dl>
-                            <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
-                            <dd>111</dd>
-                        </dl>
-                    </div>
-                    </div>                  
+                                <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
+                                <dd>111</dd>
+                            </dl>
+                             <dl>
+                                <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
+                                <dd>111</dd>
+                            </dl>
+                             <dl>
+                                <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
+                                <dd>111</dd>
+                            </dl>
+                             <dl>
+                                <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
+                                <dd>111</dd>
+                            </dl>
+                             <dl>
+                                <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
+                                <dd>111</dd>
+                            </dl>
+                             <dl>
+                                <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
+                                <dd>111</dd>
+                            </dl>
+                        </div>
+                     </div>                   -->
             </div>
         </div>       
      </div>
@@ -125,9 +105,38 @@
 import Foot from './main/foot'
 export default {
     data(){
-        return {
-            data:null
-        }
+      return {
+        num:0,
+        arr:'',
+        id:'1'
+     }
+    },
+    created(){
+      var that = this;
+      this.$axios.get('/classify/1')
+             .then(function(response) {
+               that.arr = response.data;
+           })
+            .catch(function(error) {
+                 console.log(error);
+      });       
+    },
+    methods:{
+     click(value){
+      this.id = value;
+      var that = this;
+      this.$axios.get('/classify/'+that.id)
+             .then(function(response) {
+               that.arr = response.data;
+           })
+            .catch(function(error) {
+                 console.log(error);
+           });
+             console.log(this.arr)       
+        },
+      ItemDescription(){
+           this.$router.push({name:"detailsTwo"})
+      }
     },
     components:{
         Foot
@@ -143,10 +152,8 @@ export default {
         background:#fff;
         display:flex;
         justify-content:space-between;
-        align-items: center;
-       
+        align-items: center;   
         width:100%;
-        position: absolute;
     }
     .content{
         overflow:hidden;
@@ -191,7 +198,6 @@ export default {
         margin-right:.3rem;
     }
     .main{
-        padding-top:.96rem;
         display:flex;
         height:100%;
     }
@@ -202,13 +208,19 @@ export default {
         background:#ffffff;  
     }
     .main ul li{
-        width:1.47rem;
+        width:1.55rem;
         height:.94rem;
         text-align:center;
         line-height: .94rem;
         border:1px solid #e7e7e7;
+        border-right:0;
+        border-left:0;
+        border-top:0;
         font-size:.24rem;
         color:#2f2f2f;
+    }
+    .main ul li:first-child{
+        border-top:1px solid #e7e7e7;
     }
     .maincontent{
         overflow-y:scroll;
@@ -221,7 +233,7 @@ export default {
         font-size:.22rem;
         color:#2f2f2f;
     }
-    /* .maincontent .banner{
+    .maincontent .banner{
         width: 5.08rem;
         height:1.48rem;
         margin-top:.27rem;
@@ -230,16 +242,16 @@ export default {
     .maincontent .banner img{
         width: 5.08rem;
         height:1.48rem;  
-    } */
+    }
     .maincontent .renderContent{
         width:5.08rem;
         background:#fff;
         display:flex;
         flex-wrap:wrap;
-        justify-content:center;
-        align-items: center;
-        height:2.96rem;
+
+        height:auto;
         margin:0 .3rem;
+        padding:.3rem 0;
     }
     .maincontent .renderContent dl{
         width:33%;
@@ -247,6 +259,7 @@ export default {
         flex-direction:column;
         justify-content:center;
         align-items:center;
+        margin-top:.1rem;
     }
     .maincontent .renderContent dl dt{
         width:.98rem;
@@ -260,5 +273,9 @@ export default {
         margin-top:.2rem;
         font-size:.18rem;
         color:#676767;
+    }
+    .active{
+        background:#f5f5f5;
+        color:#ff0103!important;
     }
 </style>

@@ -3,9 +3,9 @@
        <header class="mint-header">
            <div class="mint-header-button is-left">
                <a class="router-link-active">
-                   <button class="mint-button mint-button--default mint-button--normal">
-                    <mt-button icon="back" @click='SellerCenterClose'></mt-button>
-                   </button>
+                   <router-link :to="{ path: '/Mine' }" tag='button' class="mint-button mint-button--default mint-button--normal">
+                    <mt-button icon="back"></mt-button>
+                   </router-link>
               </a>
             </div> 
              <h1 class="mint-header-title">商户中心</h1>
@@ -32,8 +32,7 @@
                 <ul>
                     <li>分享增值商家入驻100元现金奖励</li>
                 </ul>
-
-                <button class='MyBtn' @click='OrdinaryBusinessPageOpen'>申请成为普通商家</button>
+                <router-link :to="{ path: '/OrdinaryBusiness' }" tag="button" class='MyBtn'>申请成为普通商家</router-link>
             </div>
             <div class='BottomContent'>
                  <h2>增值商家相关权益</h2>
@@ -57,7 +56,7 @@
                     <li>分享增值商家入驻100元现金奖励</li>
                 </ul>
 
-                 <button class='MyBtn' @click='AppreciationPageOpen'>申请成为增值商家</button>
+                     <router-link :to="{ path: '/Appreciation' }" tag="button" class='MyBtn'>申请成为增值商家</router-link>
             </div>
         </div>
 

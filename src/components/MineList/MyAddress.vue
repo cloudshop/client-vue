@@ -2,11 +2,12 @@
   <div class="manage">
       <div class="header">
           <ul>
-              <li  @click='closeAddress'>《</li>
+              <router-link :to="{ path: '/Information' }" tag='li'>&lt;</router-link>
               <li>管理收货地址</li>
               <li>&nbsp;</li>
           </ul>
       </div>
+
       <div class="main">
           <ul>
               <li>
@@ -94,7 +95,7 @@
             
       </div>
       <div class="bottom">
-              <button @click='EditAddressOpen'>＋新建地址</button> 
+           <router-link :to="{ path: '/AddAddress' }" tag='button'>＋新建地址</router-link>
       </div>
 
 
@@ -161,6 +162,7 @@ html,body{
     .header li:nth-child(1){
         text-align: left;
         padding-left: .3rem;
+         font-size: .32rem;
     }
     .header li:nth-child(2){
         font-size: .32rem;

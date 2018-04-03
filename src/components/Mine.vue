@@ -1,5 +1,6 @@
 <template>
    <div>
+
          <header class='header'>
                <div class='headRight'>
                   <router-link :to="{ path: '/Information' }" tag='p'>
@@ -18,130 +19,87 @@
      
         <div class='main content'>
               <div class='nav'>
-                    <dl @click='Open'>
-                       <dt><img src="../assets/Mine/余额.png" alt=""></dt>
-                       <dd>
-                             <p>余额</p>
-                             <span>0.00</span>
-                       </dd>
-                    </dl>
-                    <dl @click='GongStampsOpen'>
-                       <dt><img src="../assets/Mine/贡融券.png" alt=""></dt>
-                       <dd>
-                             <p>贡融券</p>
-                             <span>0.00</span>
-                       </dd>
-                    </dl>
-                    <dl @click='GongIntegralOpen'>
+                    <router-link :to="{ path: '/RemainingSum' }" tag='dl'>
+                         <dt><img src="../assets/Mine/余额.png" alt=""></dt>
+                        <dd>
+                              <p>余额</p>
+                              <span>0.00</span>
+                        </dd>
+                    </router-link>
+                  <router-link :to="{ path: '/Stamps' }" tag='dl'>
+                        <dt><img src="../assets/Mine/贡融券.png" alt=""></dt>
+                        <dd>
+                              <p>贡融券</p>
+                              <span>0.00</span>
+                        </dd>
+                    </router-link>
+                    <router-link :to="{ path: '/Integral' }" tag='dl'>
                        <dt><img src="../assets/Mine/贡融积分.png" alt=""></dt>
                        <dd>
                              <p>贡融积分</p>
                              <span>0.00</span>
                        </dd>
-                    </dl>
+                    </router-link>
               </div>
               <div class='mainContent'>
                      <h2>线上商城</h2> 
-                     <dl class='onlinelist'>
+                     <div class='onLine'>
+                     <router-link :to="{ path: '/indentAll' }" tag='dl' class='onlinelist'>
                            <dt><img src="../assets/Mine/订单.png" alt=""></dt>
                            <dd>全部订单</dd>
-                     </dl>
+                     </router-link>
+
+                     <router-link :to="{ path: '/collection' }" tag='dl' class='onlinelist'>
+                           <dt><img src="../assets/Mine/我的收藏.png" alt=""></dt>
+                           <dd>我的收藏</dd>
+                     </router-link>
+                     </div>
+                     
               </div>
-             <div class='mainContent'>
+             <div class='mainContent'> 
                      <h2>贡融服务</h2> 
                      <div class='list'>
-                         <dl>
+                          <router-link :to="{ path: '/CreditCard' }" tag='dl'>
                            <dt><img src="../assets/Mine/消费支付.png" alt=""></dt>
                            <dd>消费支付</dd>
-                         </dl>
-                         <dl>
+                          </router-link>
+                         <router-link :to="{ path: '/giving' }" tag='dl'>
                             <dt><img src="../assets/Mine/积分赠送.png" alt=""></dt>
                             <dd>积分赠送</dd>
-                          </dl>
-                          <dl @click='SellerCenterPageOpen'>
+                         </router-link>
+                          <router-link :to="{ path: '/SellerCenter' }" tag='dl'>
                             <dt><img src="../assets/Mine/商户中心.png" alt=""></dt>
                             <dd>商户中心</dd>
-                          </dl>
-                          <dl>
+                          </router-link>
+                            <router-link :to="{ path: '/MyTeam' }" tag='dl'>
                             <dt><img src="../assets/Mine/我的团队.png" alt=""></dt>
                             <dd>我的团队</dd>
-                         </dl>
+                          </router-link>
                     </div>              
               </div>
         </div>
 
         <Foot></Foot>
-             <!-- 余额 -->
-            <mt-popup
-                v-model="Remaining"
-                position="bottom"
-                :modal=false> 
-               <RemainingSum></RemainingSum>   
-            </mt-popup>
 
-             <!-- 贡融券 -->
-            <mt-popup
-                v-model="GongStamps"
-                position="bottom"
-                :modal=false> 
-               <Stamps></Stamps>   
-            </mt-popup>
-
-             <!-- 贡融积分 -->
-            <mt-popup
-                v-model="GongIntegral"
-                position="bottom"
-                :modal=false> 
-               <Integral></Integral>   
-            </mt-popup>
-
-              <!-- 商户中心 -->
-            <mt-popup
-                v-model="SellerCenterPage"
-                position="bottom"
-                :modal=false> 
-               <SellerCenter></SellerCenter>   
-            </mt-popup>
    </div>
 </template>
 
 <script>
-import Stamps from './MineList/Stamps'
-import Integral from './MineList/Integral'
+
 import Foot from './main/foot'
-import RemainingSum from '../components/MineList/RemainingSum'
-import SellerCenter from '../components/MineList/SellerCenter'
 import { Header,Popup } from 'mint-ui';
 
 export default {
       data(){
-          return{
-            Remaining:false,     
-            GongStamps:false,
-            GongIntegral:false,
-            SellerCenterPage:false
+          return{  
+          
           }
       },
       methods:{
-       Open: function() {
-        this.Remaining = true
-       },
-       GongStampsOpen:function(){
-        this.GongStamps = true
-       },
-      GongIntegralOpen:function(){
-        this.GongIntegral = true
-       },
-       SellerCenterPageOpen:function(){
-       this.SellerCenterPage=true 
-       }
+
       },
      components:{
         Foot,
-        RemainingSum,
-        Stamps,
-        Integral,
-        SellerCenter
      }
 }
 </script>
@@ -289,6 +247,9 @@ img{
       color:#2f2f2f;
       font-size:.24rem;
       margin-top:.3rem;
+}
+.onLine{
+      display:flex;
 }
 .mainContent .onlinelist{
       width:25%;

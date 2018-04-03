@@ -3,9 +3,9 @@
         <header class="mint-header">
            <div class="mint-header-button is-left">
                <a class="router-link-active">
-                   <button class="mint-button mint-button--default mint-button--normal">
-                    <mt-button icon="back" @click='OrdinaryBusinessPageClose'></mt-button>
-                   </button>
+                   <router-link :to="{ path: '/SellerCenter' }" tag='button' class="mint-button mint-button--default mint-button--normal">
+                    <mt-button icon="back"></mt-button>
+                   </router-link>
               </a>
             </div> 
              <h1 class="mint-header-title">申请商家</h1>
@@ -70,9 +70,7 @@
 import { Header } from 'mint-ui';
 export default {
         methods:{
-            OrdinaryBusinessPageClose(){
-                this.$parent.$parent.OrdinaryBusinessPage = false;
-            }
+            
         }
 }
 </script>

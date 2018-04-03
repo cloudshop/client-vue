@@ -3,9 +3,9 @@
         <header class="mint-header">
            <div class="mint-header-button is-left">
                <a class="router-link-active">
-                   <button class="mint-button mint-button--default mint-button--normal">
-                    <mt-button icon="back" @click='MyTeamClose'></mt-button>
-                   </button>
+                     <router-link :to="{ path: '/Mine' }" tag='button' class="mint-button mint-button--default mint-button--normal">
+                    <mt-button icon="back"></mt-button>
+                   </router-link>
               </a>
             </div> 
              <h1 class="mint-header-title">我的团队</h1>
@@ -93,9 +93,7 @@
 <script>
 export default {
     methods:{
-      MyTeamClose(){
-          this.$parent.$parent.Team = false
-      }  
+
     }
 }
 </script>

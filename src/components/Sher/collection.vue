@@ -2,7 +2,7 @@
   <div>
       <header class="header">
           <ul>
-              <li><span>《</span></li>
+               <router-link :to="{ path: '/Mine' }" tag='li'>&lt;</router-link>
               <li class="chage"><span class="col">商品</span><span>店铺</span></li>
               <li></li>
           </ul>
@@ -68,9 +68,12 @@ export default {
         flex: 1;
         line-height: .96rem;
         text-align: center;
+      
     }
     .header li:nth-child(1){
         text-align: left;
+          font-size:.32rem;
+          padding-left:.3rem;
     }
     .header li:nth-child(1) span{
         padding-left: .3rem;

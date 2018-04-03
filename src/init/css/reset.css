@@ -149,15 +149,9 @@ body{
     }
     /* 店铺详情页css */
     .mint-navbar .mint-tab-item.is-selected{
-        border-bottom: none !important;
+    border-bottom: none !important;
     }
-    /* .tabCon{
-        overflow-y: auto !important;
+    .slide .mint-switch-core{
+        background:#05c10e!important;     
     }
-    .mint-tab-container-wrap{
-        overflow-y: auto !important;
-    }
-    .mt-tab-container {
-        overflow-y: auto !important;
-    } */
 /*# sourceMappingURL=reset.css.map */

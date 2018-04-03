@@ -3,9 +3,9 @@
     <header class="mint-header">
            <div class="mint-header-button is-left">
                <a class="router-link-active">
-                   <button class="mint-button mint-button--default mint-button--normal">
-                    <mt-button icon="back" @click='GongStampsClose'></mt-button>
-                   </button>
+                   <router-link :to="{ path: '/Mine' }" tag='button' class="mint-button mint-button--default mint-button--normal">
+                    <mt-button icon="back"></mt-button>
+                   </router-link>
               </a>
             </div> 
              <h1 class="mint-header-title">贡融券</h1>
@@ -32,9 +32,6 @@
 import { Header,Popup } from 'mint-ui';
 export default {
     methods:{
-        GongStampsClose:function(){
-            this.$parent.$parent.GongStamps = false
-        }
     }
 }
 </script>

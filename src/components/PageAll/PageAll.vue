@@ -67,11 +67,6 @@ export default {
                         money: '999.8',
                         liststart: 3
                       },
-                      {
-                        name: '回力休闲韩版冬季帆布鞋回力休闲',
-                        money: '999.8',
-                        liststart: 4
-                      }
                     ]
                 },
                 {
@@ -112,10 +107,8 @@ export default {
 <style scoped>
 .PageAll_tab{
     width: 100%;
-    height:100%;
+    height: auto;
     background: #fff;
-    display:flex;
-    flex-direction: column;
 }
 .PageAll_tab_ul{
     display: flex;
@@ -135,13 +128,7 @@ export default {
     color: #ff0103
 }
 .tabCon{
-    flex:1;
     margin-top: .12rem;
-    width: 100%;
-    height: 100%; 
-    display: flex;
-    flex-direction: column;
-    overflow-y:scroll;
 }
 .content{
     width:100%;

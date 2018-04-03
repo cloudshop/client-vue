@@ -1,11 +1,11 @@
 <template>
-<transition  leave-active-class="animated slideOutRight">
+<!-- <transition  leave-active-class="animated slideOutRight"> -->
   <div id='main'>
       <header class="mint-header">
            <div class="mint-header-button is-left">
                <a class="router-link-active">
                    <button class="mint-button mint-button--default mint-button--normal">
-                        <router-link :to="{ path: '/Mine' }" tag='mt-button'  ><
+                        <router-link :to="{ path: '/Mine' }" tag='mt-button'><
                         </router-link> 
                    </button>
               </a>
@@ -16,12 +16,11 @@
       <div class="main">
           <ul class="list">
               <li>我的头像<span class="user_img"></span><b>></b></li>
-              <li @click='NicknameOpen'>昵称 <p class="user_name">豆腐粉条</p><b>></b></li>
+              <router-link :to="{ path: '/NickName' }" tag='li'>昵称 <p class="user_name">豆腐粉条</p><b>></b></router-link>
               <li>绑定手机号<p>13832854506</p><b>></b></li>
-              <li @click="AddressOpen">我的地址<b>></b></li>
-              <li @click='IDOpen'>账号与安全<b>></b></li>
-              <li @click='TeamOpen'>我的分享人 <b>></b></li>
-
+              <router-link :to="{ path: '/MyAddress' }" tag='li'>我的地址<b>></b></router-link>
+              <router-link :to="{ path: '/ID' }" tag='li'>账号与安全 <b>></b></router-link>            
+              <li>我的分享人 <b>></b></li>
               <li  @click="actionSheet">退出登录</li>
           </ul>
       </div>
@@ -30,50 +29,14 @@
                     :actions= "data"  
                     v-model="sheetVisible">  
         </mt-actionsheet>
-
-
-        <!-- 昵称 -->
-            <mt-popup
-                v-model="popupVisible"
-                position="right"
-                :modal=false> 
-               <Nickname></Nickname>   
-            </mt-popup>
-            
-
-         <!-- 我的地址 -->
-            <mt-popup
-                v-model="address"
-                position="right"
-                :modal=false> 
-               <Myaddress></Myaddress>   
-            </mt-popup>
-
-        <!-- 账号与安全 -->
-            <mt-popup
-                v-model="safety"
-                position="right"
-                :modal=false> 
-               <ID></ID>   
-            </mt-popup>
-
-       <!-- 我的分享人 -->
-            <mt-popup
-                v-model="Team"
-                position="right"
-                :modal=false> 
-               <MyTeam></MyTeam>   
-            </mt-popup>
-
-      
+    
   </div>
-  </transition>
+  <!-- </transition> -->
 </template>
 <script>
 
 import ID from '../MineList/ID'
 import Myaddress from '../MineList/MyAddress'
-import Nickname from '../MineList/NickName'
 import MyTeam from '../MineList/MyTeam'
 import { Header,Cell,Actionsheet,Popup } from 'mint-ui';
     export default {
@@ -84,10 +47,6 @@ import { Header,Cell,Actionsheet,Popup } from 'mint-ui';
         method : this.confirms
           }], 
          sheetVisible: false,    
-         popupVisible:false,
-         address:false,
-         safety:false,
-         Team:false
         }  
     },
     methods:{
@@ -97,24 +56,8 @@ import { Header,Cell,Actionsheet,Popup } from 'mint-ui';
         confirms:function(){
             alert('退出登陆');
         },
-        NicknameOpen: function() {
-        this.popupVisible = true
-        },
-        AddressOpen:function(){
-            this.address = true
-        },
-        IDOpen:function(){
-          this.safety = true   
-        },
-        TeamOpen:function(){
-          this.Team = true   
-        },
       },
-      components:{
-          Nickname,
-          Myaddress,
-          ID,
-          MyTeam        
+      components:{    
       },
     }
 </script>

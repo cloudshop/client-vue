@@ -1,8 +1,8 @@
 <template>
   <div>
       <header class="header">
-          <ul>
-              <li @click='closeEditAddress'>《</li>
+          <ul> 
+              <router-link :to="{ path: '/MyAddress' }" tag='li'>&lt;</router-link>
               <li>编辑收货地址</li>
               <li><span>删除</span></li>
           </ul>

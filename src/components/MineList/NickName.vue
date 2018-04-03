@@ -3,9 +3,9 @@
         <header class="mint-header">
            <div class="mint-header-button is-left">
                <a class="router-link-active">
-                   <button class="mint-button mint-button--default mint-button--normal">
-                    <mt-button icon="back" @click='close'></mt-button>
-                   </button>
+                   <router-link :to="{ path: '/Information' }" tag='button' class="mint-button mint-button--default mint-button--normal">
+                    <mt-button icon="back"></mt-button>
+                   </router-link>
               </a>
             </div> 
              <h1 class="mint-header-title">昵称设置</h1>
@@ -26,10 +26,6 @@ export default {
         }
     },
     methods:{
-      //关闭当前页面
-      close: function() {
-        this.$parent.$parent.popupVisible = false
-      },
       DataValidations(){
          if(/^[\u4e00-\u9fa5_a-zA-Z0-9_]{4,10}$/.test(this.name)){
               alert('匹配正确');

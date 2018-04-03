@@ -2,7 +2,7 @@
    <div>
        <header class="header">
         <ul>
-            <li @click="closeID">《</li>
+            <router-link :to="{ path: '/Information' }" tag='li'>&lt;</router-link>
             <li>账号和安全</li>
             <li></li>
         </ul>

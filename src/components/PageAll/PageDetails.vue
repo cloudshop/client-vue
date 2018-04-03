@@ -1,5 +1,5 @@
 <template>
-  <div class='PageDetails'>
+  <div class="content">
     <!-- 店铺首页PageDetails -->
     <div class='PageDetails_head'>
       <div class="PageDetails_header">
@@ -17,7 +17,7 @@
         <span><img src="../../assets/PageDetails/关注.png" alt=""></span><span>关注</span>
       </p>
     </div>
-    <div class="PageDetails_center content">
+    <div class="PageDetails_center">
       <mt-navbar v-model="selected">
       <mt-tab-item id="1">
         <dl>
@@ -68,7 +68,7 @@
       </mt-tab-container-item>
       <!-- 全部商品 -->
       <mt-tab-container-item id="2">
-      <PageAll></PageAll>
+        <PageAll></PageAll>
       </mt-tab-container-item>
       <!-- 热销 -->
       <mt-tab-container-item id="3">
@@ -130,7 +130,9 @@ export default {
     showHide(cur){
       // this.flag = !this.flag
       this.flag = cur;
-      // console.log("this.flag + ",this.flag);
+      console.log("this.flag + ",this.flag);
+      console.log("cur + ",cur);
+      // console.log(cur)
     }
   }
 }
@@ -146,6 +148,7 @@ export default {
 .PageDetails_header{
   width: 96%;
   margin-left: 2%;
+  height: .6rem;
   display: flex;
   padding: .45rem 0;
 }
@@ -162,9 +165,6 @@ export default {
   border: none;
   height: .6rem;
   flex: 1;
-}
-.mt-tab-container {
-  overflow-y: auto;
 }
 input[type='text']{
   padding-left: .6rem;
@@ -197,7 +197,7 @@ input[type='text']{
 }
 .PageDetails_main{
   width: 100%;
-  /* height: .75rem; */
+  height: .75rem;
   display: flex;
 }
 .PageDetails_main_img{
@@ -240,11 +240,7 @@ input[type='text']{
   background: red
 }
 .mint-navbar{ 
-  width:100%;
   display:flex;
-  position: absolute;
-  top:2.4rem;
-  z-index:666666;
 }
 .mint-navbar a{
   height: .98rem;
@@ -265,11 +261,10 @@ input[type='text']{
   color: #ff0103;
   padding-bottom: .2rem;
   border-bottom:2px solid #ff0103;
-  box-sizing: border-box;
 }
 .PageDetails_navs{
   width: 100%;
-  height: 2.6rem; /*  */
+  height: 2.6rem;
 }
 .PageDetails_wrap{
   width: 100%;
@@ -281,14 +276,14 @@ input[type='text']{
 }
 .PageDetails_wrap div{
   width: 3.2rem;
-  height: 1.8rem;/*  */
+  height: 1.8rem;
   margin-right: .12rem;
   margin-bottom: .12rem;
   background: #8f8f8f;
 }
 .PageDetails_classify{
   width: 100%;
-  overflow-y: auto;
+  height: auto;
   background: #fff;
 }
 .PageDetails_title{
@@ -321,7 +316,7 @@ input[type='text']{
   justify-content: space-between;
   align-items: center;
  }
-.mint-tab-container{
-  margin-top:1.8rem;
-}
+ .onclicks span:nth-child(2):hover{
+   transform: rotateX(180deg);
+ }
 </style>

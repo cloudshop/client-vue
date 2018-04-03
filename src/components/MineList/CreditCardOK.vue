@@ -3,9 +3,9 @@
         <header class="mint-header">
            <div class="mint-header-button is-left">
                <a class="router-link-active">
-                   <button class="mint-button mint-button--default mint-button--normal">
+                    <router-link :to="{ path: '/CreditCard' }" tag='button' class="mint-button mint-button--default mint-button--normal">
                     <mt-button icon="back"></mt-button>
-                   </button>
+                   </router-link>
               </a>
             </div> 
              <h1 class="mint-header-title">消费支付</h1>

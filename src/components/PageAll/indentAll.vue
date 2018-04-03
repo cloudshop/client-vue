@@ -3,7 +3,7 @@
       <!-- indentAll -->
     <div class="shopping_head">
         <div class="shopping_header">
-            <p>〈</p>
+             <router-link :to="{ path: '/Mine' }" tag='p'>&lt;</router-link>
             <p>全部订单</p>
             <p><img src="../../assets/Classify/消息黑色.png" alt=""><span class="shopping_red">3</span></p>
         </div>
@@ -135,7 +135,6 @@ export default {
 .shopping_head{
     width: 100%;
     background: #fff;
-    border-bottom: 1px solid #f8f8f8;
 }
 .shopping_header{
   flex-shrink: 0;
@@ -147,6 +146,9 @@ export default {
   align-items: center;
   color: #2f2f2f;
 } 
+.shopping_header p:nth-child(1){
+  font-size: .32rem;
+}
 .shopping_header p:nth-child(2){
   font-size: .32rem;
 }
@@ -178,10 +180,8 @@ export default {
 }
 .indentAll_tab_ul{
     display: flex;
-    width: 100%;
     height: .74rem;
-    position: fixed;
-    top: .97rem;
+    margin-top: .12rem;
     background: #FFF;
 }
 .indentAll_tab_ul li{
@@ -198,7 +198,7 @@ export default {
     border-bottom: 2px solid #ff0103;
 }
 .tabCon{
-    margin-top: .86rem;
+    margin-top: .12rem;
 }
 .tabCon_main{
     width: 100%;

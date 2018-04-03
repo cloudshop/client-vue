@@ -3,9 +3,9 @@
     <header class="mint-header">
            <div class="mint-header-button is-left">
                <a class="router-link-active">
-                   <button class="mint-button mint-button--default mint-button--normal">
-                    <mt-button icon="back" @click='IntegralClose'></mt-button>
-                   </button>
+                  <router-link :to="{ path: '/Mine' }" tag='button' class="mint-button mint-button--default mint-button--normal">
+                    <mt-button icon="back"></mt-button>
+                   </router-link>
               </a>
             </div> 
              <h1 class="mint-header-title">贡融积分</h1>
@@ -59,9 +59,6 @@
 import { Header,Popup } from 'mint-ui';
 export default {
     methods:{
-        IntegralClose:function(){
-            this.$parent.$parent.GongIntegral = false
-        }
     }
 }
 </script>

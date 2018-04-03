@@ -18,6 +18,11 @@
 <script>
 import PageAll from '../PageAll/PageAll'
 export default {
+   data(){
+        return{
+            data:''
+        }
+   },
   components: {
     PageAll
   }
@@ -85,7 +90,6 @@ input::-webkit-input-placeholder {
 .classify_search_option_ul{
     width: auto;
     display: flex;
-
 }
 .classify_search_option_ul li{
     width: 30%;

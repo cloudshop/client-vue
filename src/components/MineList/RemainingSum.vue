@@ -3,13 +3,13 @@
     <header class="mint-header">
            <div class="mint-header-button is-left">
                <a class="router-link-active">
-                   <button class="mint-button mint-button--default mint-button--normal">
-                    <mt-button icon="back" @click='close'></mt-button>
-                   </button>
+                   <router-link :to="{ path: '/Mine' }" tag='button' class="mint-button mint-button--default mint-button--normal">
+                    <mt-button icon="back"></mt-button>
+                   </router-link>
               </a>
             </div> 
              <h1 class="mint-header-title">余额</h1>
-            <div class="mint-header-button is-right" @click='BalanceOpen'>明细</div>
+            <div class="mint-header-button is-right"></div>
         </header>
         <div class='content'>
           <div class='banner'>
@@ -26,16 +26,9 @@
 
         <footer class='footer'>
           <button>转出</button>
-          <button>转入</button>
+          <router-link :to="{ path: '/top' }" tag='button'>转入</router-link>
         </footer>
 
-         <!-- 余额明细 -->
-            <mt-popup
-                v-model="Balance"
-                position="bottom"
-                :modal=false> 
-               <TouchBalance></TouchBalance>   
-            </mt-popup>
   </div>
 </template>
 
@@ -44,22 +37,11 @@ import TouchBalance from './TouchBalance'
 export default {
   data(){
     return {
-      Remaining:true,
-      Balance:false
     }
   },
   methods:{
-     //关闭当前页面
-     close: function() {
-        this.$parent.$parent.Remaining = false
-     },
-     BalanceOpen:function(){
-       this.Balance = true
-     }
+
   },
-  components:{
-    TouchBalance
-  }
 }
 </script>
 

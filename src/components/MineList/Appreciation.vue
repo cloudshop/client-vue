@@ -3,9 +3,9 @@
       <header class="mint-header">
            <div class="mint-header-button is-left">
                <a class="router-link-active">
-                   <button class="mint-button mint-button--default mint-button--normal">
-                    <mt-button icon="back" @click='AppreciationPageClose'></mt-button>
-                   </button>
+                    <router-link :to="{ path: '/SellerCenter' }" tag='button' class="mint-button mint-button--default mint-button--normal">
+                    <mt-button icon="back"></mt-button>
+                   </router-link>
               </a>
             </div> 
              <h1 class="mint-header-title">支付增值商户年费</h1>
@@ -26,7 +26,7 @@
                 <h2>增值商户年费</h2>
                 <p>
                     <b>￥998.00</b>
-                    <router-link :to="{ path: '/CreditCard' }" tag='button'  >开通</router-link> 
+                    <router-link :to="{ path: '/MerchantsPayCost' }" tag='button'  >开通</router-link> 
                 </p>          
             </div>
         </div>

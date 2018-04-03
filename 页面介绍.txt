@@ -25,7 +25,7 @@ Mine.vue 我的页面
 
 	RemainingSum.vue  余额页面
 	  {
-	     TouchBalance.vue 余额明细页面
+	       暂时去掉    TouchBalance.vue 余额明细页面  
 	   }
 
         SellerCenter.vue  商户中心
