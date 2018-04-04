@@ -67,6 +67,32 @@ export default {
       //   .catch(function(error) {
       //       console.log(error);
       //  }); 
+       let postData = {
+        'username':'admin',
+        'password':'admin'
+		}
+		var UaaJavascript = require('uaa-javascript');
+						  console.log(UaaJavascript);
+		var apiClient = new UaaJavascript.ApiClient();
+						  console.log(apiClient);
+
+		 var api = new UaaJavascript.AuthApi(apiClient);
+ 				  console.log(api);
+		api.login('admin', 'admin').then(function() {
+		  console.log('API called successfully.');
+		}, function(error) {
+		  console.error(error);
+		}); 
+		
+// 		apiClient.setUsernamePassword('admin', 'admin');
+		var api = new UaaJavascript.UserResourceApi();
+				  console.log(api);
+		
+		api.getAllUsersUsingGET().then(function() {
+		  console.log('API called successfully.');
+		}, function(error) {
+		  console.error(error);
+		}); 
         // var params = {    
         //     "username": "admin",
         //     "password": "admin",
