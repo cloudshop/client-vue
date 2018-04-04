@@ -42,7 +42,8 @@ export default {
     data(){
       return{
         data:null,
-        slideshow:""
+        slideshow:"",
+        tokenString:''   
       }
     },
     methods:{
@@ -55,8 +56,14 @@ export default {
                  console.log(error);
            });
       },
+      hwajax:function (strings) {
+           this.tokenString=strings;
+           console.log(this.tokenString)
+           console.log(111)
+      }
     },
-    mounted() {
+    mounted:function () {
+         window.hwajax = this.hwajax;       
     },
     created(){
       //  var that = this; 
@@ -67,72 +74,28 @@ export default {
       //   .catch(function(error) {
       //       console.log(error);
       //  }); 
-       let postData = {
-        'username':'admin',
-        'password':'admin'
-		}
-		var UaaJavascript = require('uaa-javascript');
-						  console.log(UaaJavascript);
-		var apiClient = new UaaJavascript.ApiClient();
-						  console.log(apiClient);
+        var params = {    
+            "username": "admin",
+            "password": "admin",
+        }
+        // params = qs.stringify(params)
+        this.$axios({
+            method:'post',
+            url:'auth',
+            data:params,
+            headers:{
+               'Content-Type': 'application/json',
+            }
+        })
+        .then(function(response) {
 
-		 var api = new UaaJavascript.AuthApi(apiClient);
- 				  console.log(api);
-		api.login('admin', 'admin').then(function() {
-		  console.log('API called successfully.');
-		}, function(error) {
-		  console.error(error);
-		}); 
-		
-// 		apiClient.setUsernamePassword('admin', 'admin');
-		var api = new UaaJavascript.UserResourceApi();
-				  console.log(api);
-		
-		api.getAllUsersUsingGET().then(function() {
-		  console.log('API called successfully.');
-		}, function(error) {
-		  console.error(error);
-		}); 
-        // var params = {    
-        //     "username": "admin",
-        //     "password": "admin",
-        // }
-        // // params = qs.stringify(params)
-        // this.$axios({
-        //     method:'post',
-        //     url:'auth',
-        //     data:params,
-        //     headers:{
-        //        'Content-Type': 'application/json',
-        //     }
-        // })
-        // .then(function(response) {
-
-        //     console.log(response.data);
-        // })
-        // .catch((error)=>{
-        //     console.log(error);
-        // })
-
-
-       var UaaApi = require('uaa_api');
-       console.log(UaaApi)
-        var api = new UaaApi.AccountResourceApi();
-        console.log(api)
-        var key = "admin"; // {String} key
-
-
-        var callback = function(error, data, response) {
-          if (error) {
-            console.error(error);
-          } else {
-            console.log('API called successfully.');
-          }
-        };
-        api.isAuthenticatedUsingGET(function(error,data,response){
-          console.log(error,data,response)
-        });
-
+            console.log(response.data);
+        })
+        .catch((error)=>{
+            console.log(error);
+        })
+     var api = require('uaa_api');
+     console.log(api)
     }, 
     components:{          
       HomePageNav,

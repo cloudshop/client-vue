@@ -110,7 +110,7 @@ export default {
 }
 .classify_search_ss a{
     position: absolute;
-    top: .34rem;
+    top: .26rem;
     left: .35rem;
 }
 .classify_search_ss a img{
@@ -171,6 +171,7 @@ input::-webkit-input-placeholder {
     width: 98%;
     margin-left: 1%;
     display: flex;
+    background: #fff;
 }
 .tabCon_main_left{
     width: 1.82rem;
@@ -223,4 +224,5 @@ input::-webkit-input-placeholder {
     margin-top: .11rem;
     display: inline-block;
 }
+
 </style>

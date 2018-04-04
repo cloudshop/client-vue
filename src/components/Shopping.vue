@@ -2,21 +2,21 @@
    <div>
     <div class='content'>
       <div class="register_header">
-        <p>〈</p >
-        <p>手机注册</p >
         <p></p >
+        <p>购物车</p >
+        <p><img src="../assets/Classify/消息黑色.png" alt=""><span class="shopping_red">3</span></p>
       </div>
       <div class="shopping_main_all">
         <div class="shopping_main" v-for="(item,index) in serviceList" :key='index'>
-        <!--购物车标题头开始  -->
+        <!--购物车标题头开始 店铺  -->
         <div class="shopping_main_nav">
-        <div class="nav_newmain">
-          <span class="shopping_q">
-            <input type="checkbox"  class="checkboxs" name="all" />
-            <img src="../assets/Shopping/未选择.png" alt="">
-          </span>
-          <span class="nav_newmain_quan">{{item.name}}</span>
-        </div>
+          <div class="nav_newmain">
+            <span class="shopping_q">
+              <input type="checkbox" id="tonglian"  class="checkboxs" value="通联" name="sex"  v-model="item.checkbox" @click="pageAll(item.id)"/>
+              <label for="tonglian"></label>
+            </span>
+            <span class="nav_newmain_quan">{{item.name}}</span>
+          </div>
         </div>
         <!--购物车标题头结束  -->
         <!-- 购物车单个开始 -->
@@ -24,13 +24,14 @@
           <div class="contents_all">
             <div class="contents_left">
               <span class="shopping_q">
-                <input class="checkboxs" type="checkbox" v-model="data.checked">
-                <img src="../assets/Shopping/未选择.png" alt="">
+                <input type="checkbox" id="tonglian"  class="checkboxs" value="通联" name="sex"  v-model="data.checkboxChild" @click="pageItem(item.id,index)"/>
+                <label for="tonglian"></label>
               </span>
             </div>
             <div class="contents_right">
               <div class="contents_right_all">
                 <div class="contents_right_img">
+                  
                   <img src="../assets/Mine/headportrait.jpg" alt="">
                 </div>
                 <div class="contents_right_matter">
@@ -38,15 +39,15 @@
                   <div class="contents_right_center">
                     <div class="cargo">{{data.cargo}}</div>
                     <div class="contents_right_center_count">
-                      <span class="minus" @click="subtract(index,data.id,serviceList)">-</span>
+                      <span class="minus" @click="subtract(index,item.id)">-</span>
                       <input type="text" id="inpt_s" readonly v-model="data.num" value="1" class="inpus">
-                      <span class="add" @click="add(index,serviceList)">+</span>
+                      <span class="add" @click="add(index,item.id)">+</span>
                     </div>
                   </div>
                   <div class="contents_right_moneyAll">
                     <div class="contents_right_money">￥ {{(data.price).toFixed(2)}}</div>
                     <div class="contents_right_delete">
-                      <a href="javascript:;" @click="remove(index,item.id,serviceList)">删除</a>
+                      <a href="javascript:;" @click="remove(index,item.id)">{{(data.price).toFixed(2)*data.num}}删除</a>
                       <span class="contents_right_shu">|</span>
                       <a href="javascript:;">加入收藏</a>
                     </div>
@@ -61,12 +62,12 @@
           <div class="shopping_footer_left">
             <div class="all">
               <span class="shopping_q">
-                <input class="checkboxs"  type="checkbox" v-model="item.checked"  >
-                <img src="../assets/Shopping/未选择.png" alt="">
+                <input type="checkbox" id="tonglian"  class="checkboxs" value="通联" name="sex" v-model="checkboxBig"  @click="checkboxAll(item.id=0)"/>
+                <label for="tonglian"></label>
               </span>
             </div>   
             <!--{{data.price*data.num | filtermoney}}  -->
-            <div class="money">合计: ￥ {{item.list.price}}</div>  
+            <div class="money">合计: ￥</div>   
           </div>
           <div class="shopping_footer_right">去结算</div>
         </div>
@@ -82,13 +83,14 @@ import Foot from "./main/foot";
 export default {
   data() {
     return {
-      totalPrice: 0,
+      totalPrice: 100,
       animatenum: 0,
+      checkboxBig: true,
       serviceList: [
         {
           id: 0,
           name: "大胖的店",
-          checked: false,
+          checkbox: false,
           list: [
             {
               id: 0,
@@ -96,7 +98,7 @@ export default {
               price: 108.0,
               cargo: "有货（库存*件）",
               num: 1,
-              checked: false
+              checkboxChild: false
             },
             {
               id: 1,
@@ -104,14 +106,14 @@ export default {
               price: 108.0,
               cargo: "有货（库存*件）",
               num: 1,
-              checked: false
+              checkboxChild: false
             }
           ]
         },
         {
           id: 1,
           name: "大胖二店",
-          checked: false,
+          checkbox: false,
           list: [
             {
               id: 0,
@@ -119,7 +121,7 @@ export default {
               price: 108.0,
               cargo: "有货（库存*件）",
               num: 1,
-              checked: false
+              checkboxChild: false
             },
             {
               id: 1,
@@ -127,7 +129,7 @@ export default {
               price: 108.0,
               cargo: "有货（库存*件）",
               num: 1,
-              checked: false
+              checkboxChild: false
             },
             {
               id: 2,
@@ -135,42 +137,76 @@ export default {
               price: 108.0,
               cargo: "有货（库存*件）",
               num: 1,
-              checked: false
+              checkboxChild: false
             }
           ]
         }
       ]
     };
   },
-  // filters:{
-  //   filtermoney:function(value){
-  //     return '￥'+value ;
-  //   }
-  // },
   watch:{
    
   },
   computed:{
    
   },
+  created(){
+    // var that = this;
+    // this.$axios.get('/api/')
+    //     .then(function(res){
+    //       that.arr = res.data;
+    //       console.log(res.data)
+    //     })
+    //     .catch(function(error){
+    //       console.log(error)
+    //     })
+  },
   methods: {
     // 删除操作
-    remove:function(index,id,serviceList){
-      serviceList[id].list.splice(index,1)
-    },
-    add:function(index,serviceList){
-      console.log(serviceList[index].list[index].num++)
-      // serviceList[index].list[id].num++
-    },
-    subtract:function(index,id,serviceList){
-      serviceList[index].list[index].num--;
-      if(serviceList[index].list[index].num<=0){
-          if (confirm("你确定移除该商品？")) {  
-            serviceList[id].list.splice(index,1)
-          } 
-        }
+    remove:function(index,id){
+      this.serviceList[id].list.splice(index,1);
+      if(this.serviceList[id].list.length == 0){
+        this.serviceList.splice(index,id)
       }
     },
+    // ++
+    add:function(index,id){
+      this.serviceList[id].list[index].num++
+    },
+    // --
+    subtract:function(index,id){
+      this.serviceList[id].list[index].num--;
+      if(this.serviceList[id].list[index].num<=0){
+        this.serviceList[id].list[index].num=1;
+      }
+    },
+    // pageAll 店铺全选
+    pageAll:function(pageId){
+      if(this.serviceList[pageId].checkbox !== true){
+        this.serviceList[pageId].list.map((v,i)=>{
+          v.checkboxChild = true
+        })
+      }else{
+        this.serviceList[pageId].list.map((v,i)=>{
+          v.checkboxChild = false
+        })
+      }
+    },
+    // 判断 商品是否全部选中
+    pageItem:function(pitchId,index){
+      this.serviceList[pitchId].list[index].checkboxChild = !this.serviceList[pitchId].list[index].checkboxChild;
+      let flag = true;
+      this.serviceList[pitchId].list.forEach(item => {
+        if (item.checkboxChild === false) {
+          flag = false;
+        }
+      });
+      this.serviceList[pitchId].checkbox = flag;
+    },
+    checkboxAll:function(){
+    
+    }
+  },
   components: {
     Foot
   }
@@ -178,6 +214,7 @@ export default {
 </script>
 
 <style scoped>
+
 .content {
   width: 100%;
   display: flex;
@@ -191,6 +228,7 @@ export default {
   display: flex;
   position: fixed;
   top: 0;
+  z-index: 9999;
   justify-content: space-between;
   align-items: center;
   color: #2f2f2f;
@@ -202,6 +240,16 @@ export default {
 }
 .register_header p:nth-child(2) {
   font-size: 0.32rem;
+}
+.register_header p:nth-child(3){
+  width:.5rem;
+  height:.5rem;
+  right: .3rem;
+  position: relative;
+}
+.register_header p:nth-child(3) img{
+  width: 100%;
+  height: 100%;
 }
 .shopping_main_all{
   margin-top: .96rem;
@@ -276,7 +324,24 @@ export default {
   width: 100%;
   height: 100%;
   position: absolute;
-  /* opacity: 0;; */
+}
+input[type="checkbox"] + label::before {
+  box-sizing: border-box;
+  content: " "; /*不换行空格*/
+  display: inline-block;
+  vertical-align: middle;
+  width: 1.8em;
+  height: 1.8em;
+  background: url("../assets/manage/change_no.png");
+  background-size: 100% 100%;
+  /* margin-right: .4em; */
+  border-radius: 50%;
+  margin-top: -.01rem
+}
+input[type="checkbox"]:checked + label::before {
+  background: red;
+  background: url("../assets/manage/change.png");
+  background-size: 100% 100%;
 }
 .contents {
   width: 100%;
@@ -441,7 +506,7 @@ span {
 .shopping_q .checkboxs {
   width: 100%;
   height: 100%;
-  opacity: 1;
+  opacity: 0;
 }
 .shopping_q img {
   width: 100%;

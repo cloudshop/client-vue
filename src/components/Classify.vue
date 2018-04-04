@@ -30,7 +30,7 @@
                     <div v-for='(item,index) in arr.secondCategory' :key="index" >
                         <h1>{{item.secondName}}</h1>
                         <div class='renderContent'>
-                            <dl v-for='(i,v) in item.thirdCategory' :key='v' @click='ItemDescription'>
+                            <dl v-for='(i,v) in item.thirdCategory' :key='v' :data='i.thirdid' @click='ItemDescription(i.thirdid)'>
                                 <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
                                 <dd>{{i.thirdName}}</dd>
                             </dl>
@@ -108,35 +108,35 @@ export default {
       return {
         num:0,
         arr:'',
-        id:'1'
+        id:'1',   //列表ID
+        data:"",  //自定义跳转参数
      }
     },
     created(){
       var that = this;
-      this.$axios.get('/classify/1')
+      this.$axios.get('/classify/api/categoryTree/subnode/1')
              .then(function(response) {
                that.arr = response.data;
            })
             .catch(function(error) {
                  console.log(error);
-      });   
-          
+      });     
     },
     methods:{
      click(value){
       this.id = value;
       var that = this;
-      this.$axios.get('/classify/'+that.id)
+      this.$axios.get('/classify/api/categoryTree/subnode/'+that.id)
              .then(function(response) {
                that.arr = response.data;
            })
             .catch(function(error) {
                  console.log(error);
-           });
-             console.log(this.arr)       
+           });    
         },
-      ItemDescription(){
-           this.$router.push({name:"detailsTwo"})
+      ItemDescription(value){
+           this.data = value;
+           this.$router.push({name:"detailsTwo",params:{name:this.data}})
       }
     },
     components:{

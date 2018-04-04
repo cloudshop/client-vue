@@ -8,10 +8,11 @@
             <p><img src="../../assets/Classify/消息黑色.png" alt=""><span class="shopping_red">3</span></p>
         </div>
     </div>
-    <div class="indentAll_tab content">
-        <ul class="indentAll_tab_ul">
+     <ul class="indentAll_tab_ul">
             <li v-for="(item,index) in tabs" :key="index" :class="{active:index == num}" @click="tab(index)">{{item}}</li>
         </ul>
+    <div class="indentAll_tab content">
+       
         <div class="tabCon">
             <div v-for='(itemCon,index) in tabContents' :key="index" v-show="index == num">
                 <!-- 已完成 -->
