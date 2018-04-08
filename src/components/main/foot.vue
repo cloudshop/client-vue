@@ -1,6 +1,6 @@
 <template>
 <div>
-  <footer>   
+  <footer v-show='flag'>   
       <router-link :to="{ path: '/HomePage' }"  tag='dl'>
         <dt><img src="../../assets/HomePage/首页-未选中.png" alt=""></dt>
         <dd>首页</dd>
@@ -27,6 +27,28 @@
 <script>
 
 export default {
+    data(){
+      return {
+        flag:true
+      }
+    },
+    methods:{
+    // hwajax:function (strings) {
+    //        this.data=strings;
+    //        console.log(111)
+    //        console.log(this.data)
+    //   }
+    },
+    mounted:function () {
+      var u = navigator.userAgent;
+      var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+      if(isiOS){
+           this.flag = false
+      }else{
+           this.flag=true;
+      }       
+    },
 }
 </script>
 <style scoped>

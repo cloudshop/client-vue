@@ -10,7 +10,7 @@
        <p class='conts'>新最新最新最新最新最新最新最新最新最新最</p> 
        <span>|</span><p class='more'>更多</p></h2>
        <div class='Nearbyshops'>
-              <h1>附近商家</h1>
+              <h1 >附近商家</h1>
               <div class='list'>
                   <dl v-for='(item,index) in data' :key='index'>
                     <b class='fixed'><i>让利</i><em>{{item.percentage}}</em></b>
@@ -28,7 +28,7 @@
               </div>                 
        </div>  
      </div>
-    <Foot></Foot> 
+    <Foot ></Foot> 
   </div>
   
 </template>
@@ -43,42 +43,33 @@ export default {
       return{
         data:null,
         slideshow:"",
-        tokenString:''   
+        tokenString:'',
       }
     },
     methods:{
       fn(){
-            this.$axios.get('/api')
-             .then(function(response) {
+          this.$axios.get('/api')
+            .then(function(response) {
                console.log(response);
-           })
+          })
             .catch(function(error) {
-                 console.log(error);
-           });
+               console.log(error);
+          });
       },
-      hwajax:function (strings) {
-           this.tokenString=strings;
-           console.log(this.tokenString)
-           console.log(111)
-      }
-    },
-    mounted:function () {
-         window.hwajax = this.hwajax;       
     },
     created(){
-      //  var that = this; 
-      //  this.$axios.get('/slideshow')
-      //    .then(function(response) {   
-      //       that.data = response.data;
-      //   })
-      //   .catch(function(error) {
-      //       console.log(error);
-      //  }); 
+       var that = this; 
+       this.$axios.get('/slideshow')
+         .then(function(response) {   
+            that.data = response.data;
+        })
+        .catch(function(error) {
+            console.log(error);
+       }); 
         var params = {    
             "username": "admin",
             "password": "admin",
         }
-        // params = qs.stringify(params)
         this.$axios({
             method:'post',
             url:'auth',
@@ -104,7 +95,9 @@ export default {
 }
 </script>
 <style scoped>
-
+ [v-cloak]{
+    display:none;
+}
 .banner{
   height:4rem;
 }

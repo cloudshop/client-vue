@@ -12,9 +12,28 @@
         
         <ul class="PageAll_tab_ul">
             <li v-for="(item,index) in tabs" :key="index" :class="{active:index == num}" @click="tab(index)">{{item}}</li>
-        </ul>    {{this.$route.params.name}}
+        </ul>
         <div class="tabCon">
             <div v-show="0 == num" class='content' >
+               
+                <div class="tabCon_main"  v-for='(item,index) in arr' :key="index"  :data='item.id' >
+                    <div class="tabCon_main_left">
+                        <img src="../../assets/Classify/bg.gif" alt="">
+                    </div>
+                    <div class="tabCon_main_right">
+                        
+                        <h4 class="h4">{{item.NAME}}</h4>
+                        <div class="tabCon_main_right_all">
+                            <p>￥{{item.listPrice}}</p>
+                            <p class="tabCon_main_right_all_img"><img v-for="(item,index) in item.liststart" :key="index" src="../../assets/PageAll/星星选中.png" alt=""></p>
+                            <p>送贡融积分 10</p>
+                        </div>
+                        <span class="tabCon_main_right_span">贡融券可抵扣 ￥10.00</span>
+                        <span class="tabCon_main_right_span">贡融积分可抵扣 ￥5.00</span>
+                    </div>
+                </div>
+            </div>
+            <!-- <div v-show="0 == num" class='content' >
                 <div class="tabCon_main"  v-for='(item,index) in tabCon_main' :key="index" >
                     <div class="tabCon_main_left">
                         <img src="../../assets/Classify/bg.gif" alt="">
@@ -30,8 +49,8 @@
                         <span class="tabCon_main_right_span">贡融积分可抵扣 ￥5.00</span>
                     </div>
                 </div>
-            </div>
-            <div v-show="1 == num" class='content' >
+            </div> -->
+            <!-- <div v-show="1 == num" class='content' >
                 <div class="tabCon_main"  v-for='(item,index) in tabCon_main' :key="index" >
                     <div class="tabCon_main_left">
                         <img src="../../assets/Classify/bg.gif" alt="">
@@ -81,7 +100,7 @@
                         <span class="tabCon_main_right_span">贡融积分可抵扣 ￥5.00</span>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
   </div>
 </template>
@@ -92,34 +111,8 @@ export default {
        return {
             tabs: ["综合", "销量","价格","筛选"],
             name:this.$route.params.name,
-                    'tabCon_main':[
-                      {
-                        name: '回力休闲韩版冬季帆布鞋回力休闲',
-                        money: '1212',
-                        liststart: 5
-                      },
-                      {
-                        name: '回力休闲韩版冬季帆布鞋回力休闲',
-                        money: '999.8',
-                        liststart: 5
-                      },
-                        {
-                        name: '回力休闲韩版冬季帆布鞋回力休闲',
-                        money: '1212',
-                        liststart: 5
-                      },
-                      {
-                        name: '回力休闲韩版冬季帆布鞋回力休闲',
-                        money: '999.8',
-                        liststart: 5
-                      },
-                        {
-                        name: '回力休闲韩版冬季帆布鞋回力休闲',
-                        money: '1212',
-                        liststart: 5
-                      }
-                    ],
-            num: 1
+            arr:null,
+            num: 0
         }
     },
     methods: {
@@ -129,14 +122,14 @@ export default {
     },
     created(){
     var that = this;
-     this.$axios.get('/classify//api/product/all?categoryid='+this.name)
+    this.$axios.get('/classify//api/product/all?categoryid='+this.name)
         .then(function(response) {
-            console.log(response.data);
+            that.arr = response.data.mainContent;
         })
         .catch(function(error) {
               console.log(error);
       });
-    }
+    },  
 }   
 </script>
 
