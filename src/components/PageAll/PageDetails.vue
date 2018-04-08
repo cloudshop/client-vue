@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class='PageDetails'>
     <!-- 店铺首页PageDetails -->
     <div class='PageDetails_head'>
       <div class="PageDetails_header">
@@ -17,7 +17,7 @@
         <span><img src="../../assets/PageDetails/关注.png" alt=""></span><span>关注</span>
       </p>
     </div>
-    <div class="PageDetails_center">
+    <div class="PageDetails_center content">
       <mt-navbar v-model="selected">
       <mt-tab-item id="1">
         <dl>
@@ -65,14 +65,86 @@
             <div></div>
             <div></div>
           </div>
+          <div class="PageDetails_wraps">
+            <div></div>
+            <div></div>
+          </div>
       </mt-tab-container-item>
       <!-- 全部商品 -->
-      <mt-tab-container-item id="2">
-          <div class='TAB'>
-            <header>头部</header>
-            <main>11</main>
-          </div>
-        
+      <mt-tab-container-item id="2" class='commodityAll'>
+        <ul class="PageAll_tab_ul">
+            <li v-for="(item,index) in tabs" :key="index" :class="{active:index == num}" @click="tab(index)">{{item}}</li>
+        </ul>
+        <div class="tabCon">
+            <div  v-show="0 == num" class='content' >
+                <div class="tabCon_main"  v-for='(item,index) in tabCon_main' :key="index" >
+                    <div class="tabCon_main_left">
+                        <img src="../../assets/Classify/bg.gif" alt="">
+                    </div>
+                    <div class="tabCon_main_right">
+                        <h4 class="h4">{{item.name}}</h4>
+                        <div class="tabCon_main_right_all">
+                            <p>￥{{item.money}}</p>
+                            <p class="tabCon_main_right_all_img"><img v-for="(item,index) in item.liststart" :key="index" src="../../assets/PageAll/星星选中.png" alt=""></p>
+                            <p>送贡融积分 10</p>
+                        </div>
+                        <span class="tabCon_main_right_span">贡融券可抵扣 ￥10.00</span>
+                        <span class="tabCon_main_right_span">贡融积分可抵扣 ￥5.00</span>
+                    </div>
+                </div>
+            </div>
+            <div  v-show="1 == num" class='content' >
+                <div class="tabCon_main"  v-for='(item,index) in tabCon_main' :key="index" >
+                    <div class="tabCon_main_left">
+                        <img src="../../assets/Classify/bg.gif" alt="">
+                    </div>
+                    <div class="tabCon_main_right">
+                        <h4 class="h4">{{item.name}}</h4>
+                        <div class="tabCon_main_right_all">
+                            <p>￥{{item.money}}</p>
+                            <p class="tabCon_main_right_all_img"><img v-for="(item,index) in item.liststart" :key="index" src="../../assets/PageAll/星星选中.png" alt=""></p>
+                            <p>送贡融积分 10</p>
+                        </div>
+                        <span class="tabCon_main_right_span">贡融券可抵扣 ￥10.00</span>
+                        <span class="tabCon_main_right_span">贡融积分可抵扣 ￥5.00</span>
+                    </div>
+                </div>
+            </div>
+            <div  v-show="2 == num" class='content' >
+                <div class="tabCon_main"  v-for='(item,index) in tabCon_main' :key="index" >
+                    <div class="tabCon_main_left">
+                        <img src="../../assets/Classify/bg.gif" alt="">
+                    </div>
+                    <div class="tabCon_main_right">
+                        <h4 class="h4">{{item.name}}</h4>
+                        <div class="tabCon_main_right_all">
+                            <p>￥{{item.money}}</p>
+                            <p class="tabCon_main_right_all_img"><img v-for="(item,index) in item.liststart" :key="index" src="../../assets/PageAll/星星选中.png" alt=""></p>
+                            <p>送贡融积分 10</p>
+                        </div>
+                        <span class="tabCon_main_right_span">贡融券可抵扣 ￥10.00</span>
+                        <span class="tabCon_main_right_span">贡融积分可抵扣 ￥5.00</span>
+                    </div>
+                </div>
+            </div>
+            <div  v-show="3 == num" class='content' >
+                <div class="tabCon_main"  v-for='(item,index) in tabCon_main' :key="index" >
+                    <div class="tabCon_main_left">
+                        <img src="../../assets/Classify/bg.gif" alt="">
+                    </div>
+                    <div class="tabCon_main_right">
+                        <h4 class="h4">{{item.name}}</h4>
+                        <div class="tabCon_main_right_all">
+                            <p>￥{{item.money}}</p>
+                            <p class="tabCon_main_right_all_img"><img v-for="(item,index) in item.liststart" :key="index" src="../../assets/PageAll/星星选中.png" alt=""></p>
+                            <p>送贡融积分 10</p>
+                        </div>
+                        <span class="tabCon_main_right_span">贡融券可抵扣 ￥10.00</span>
+                        <span class="tabCon_main_right_span">贡融积分可抵扣 ￥5.00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
       </mt-tab-container-item>
       <!-- 热销 -->
       <mt-tab-container-item id="3">
@@ -84,7 +156,7 @@
           <div class="PageDetails_title"><span>全部商品</span><span>></span></div>
           <div class="PageDetails_title_main"  v-for="(item,indexs) in allList" :key='indexs'>
             <div class="onclicks" v-on:click='showHide(indexs)'><span>{{item.name}}</span><span class="dowm">﹀</span></div>
-              <PageDetailsChild  v-show="flag == indexs" :path='item.serList'></PageDetailsChild>
+            <PageDetailsChild  v-show="active===indexs" :path='item.serList'></PageDetailsChild>
           </div>
         </div>
       </mt-tab-container-item>
@@ -101,7 +173,8 @@ export default {
   name: 'page-navbar',
   data() {  
     return {  
-      flag: true,
+      flag: false,
+      active: -1,
       selected: '1',
       props:['',''],
       allList:[
@@ -112,48 +185,44 @@ export default {
         },
         {
           id: 1,
-          name: '男士护肤',
-          serList:['清润保湿系列','复颜破尿酸系列','清润保湿系列','复颜破尿酸系列','清润保湿系列','复颜破尿酸系列']
-        }, {
-          id: 0,
           name: '女士护肤',
           serList:['清润保湿系列','复颜破尿酸系列','清润保湿系列','复颜破尿酸系列','清润保湿系列','复颜破尿酸系列']
-        }, {
-          id: 0,
+        },
+        {
+          id: 2,
+          name: '女士护肤',
+          serList:['清润保湿系列','复颜破尿酸系列','清润保湿系列','复颜破尿酸系列','清润保湿系列','复颜破尿酸系列']
+        },
+        {
+          id: 3,
           name: '女士护肤',
           serList:['清润保湿系列','复颜破尿酸系列','清润保湿系列','复颜破尿酸系列','清润保湿系列','复颜破尿酸系列']
         },
       ],
-        tabs: ["综合", "销量","价格","筛选"],
-            name:this.$route.params.name,
-                    'tabCon_main':[
-                      {
-                        name: '回力休闲韩版冬季帆布鞋回力休闲',
-                        money: '1212',
-                        liststart: 5
-                      },
-                      {
-                        name: '回力休闲韩版冬季帆布鞋回力休闲',
-                        money: '999.8',
-                        liststart: 5
-                      },
-                        {
-                        name: '回力休闲韩版冬季帆布鞋回力休闲',
-                        money: '1212',
-                        liststart: 5
-                      },
-                      {
-                        name: '回力休闲韩版冬季帆布鞋回力休闲',
-                        money: '999.8',
-                        liststart: 5
-                      },
-                        {
-                        name: '回力休闲韩版冬季帆布鞋回力休闲',
-                        money: '1212',
-                        liststart: 5
-                      }
-                    ],
-            num: 1
+      tabs: ["综合", "销量","价格","筛选"],
+      'tabCon_main':[
+          {
+              name: '回力休闲韩版冬季帆布鞋回力休闲',
+              money: '1212',
+              liststart: 5
+          },
+          {
+              name: '回力休闲韩版冬季帆布鞋回力休闲',
+              money: '999.8',
+              liststart: 4
+          },
+            {
+              name: '回力休闲韩版冬季帆布鞋回力休闲',
+              money: '999.8',
+              liststart: 4
+          },
+            {
+              name: '回力休闲韩版冬季帆布鞋回力休闲',
+              money: '999.8',
+              liststart: 4
+          }
+      ],
+      num: 1
     }
   },
   components: {
@@ -161,28 +230,30 @@ export default {
     PageDetailsChild
   },
   methods: {
-    showHide(cur){
-      // this.flag = !this.flag
-      this.flag = cur;
-      console.log("this.flag + ",this.flag);
-      console.log("cur + ",cur);
-      // console.log(cur)
-    },
-     tab(index) {
-            this.num = index;
-        }
+    showHide(index){
+      this.active = index
+    }
   }
 }
 </script>
 
 <style scoped>
-.tabConWiGHT{
-  width: 100%;
-    height: 100%; 
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    background:#f5f5f5;
+.commodityAll{
+  height: 10rem;
+}
+.mint-tab-container-wrap{
+  display: flex !important;
+}
+.mint-tab-container-item{
+  position: relative;
+  /* height: 30rem; */
+  overflow-y: scroll;
+}
+.tabCon{ 
+  height: 10rem;
+  position: absolute;
+  overflow-y: scroll;
+  top: 1.14rem;
 }
 .PageDetails_head{
   width: 100%;
@@ -193,8 +264,7 @@ export default {
 .PageDetails_header{
   width: 96%;
   margin-left: 2%;
-  height: .6rem;
-  display: flex;
+  display: flex; 
   padding: .45rem 0;
 }
 .PageDetails_header span:nth-child(1){
@@ -210,6 +280,9 @@ export default {
   border: none;
   height: .6rem;
   flex: 1;
+}
+.mt-tab-container {
+  overflow-y: auto;
 }
 input[type='text']{
   padding-left: .6rem;
@@ -242,7 +315,7 @@ input[type='text']{
 }
 .PageDetails_main{
   width: 100%;
-  height: .75rem;
+  /* height: .75rem; */
   display: flex;
 }
 .PageDetails_main_img{
@@ -264,7 +337,7 @@ input[type='text']{
   justify-content: flex-end;
   margin-right: .05rem;
   color: #fff;
-  margin-top: .15rem
+  margin-top: .2rem
 }
 .PageDetails_attention{
   position: relative;
@@ -285,7 +358,11 @@ input[type='text']{
   background: red
 }
 .mint-navbar{ 
+  width:100%;
   display:flex;
+  position: absolute;
+  top:2.4rem;
+  z-index:666666;
 }
 .mint-navbar a{
   height: .98rem;
@@ -306,10 +383,11 @@ input[type='text']{
   color: #ff0103;
   padding-bottom: .2rem;
   border-bottom:2px solid #ff0103;
+  box-sizing: border-box;
 }
 .PageDetails_navs{
   width: 100%;
-  height: 2.6rem;
+  height: 2.6rem; /*  */
 }
 .PageDetails_wrap{
   width: 100%;
@@ -320,15 +398,41 @@ input[type='text']{
   align-items: center;
 }
 .PageDetails_wrap div{
-  width: 3.2rem;
-  height: 1.8rem;
+  width: 2.9rem;
+  height: 1.8rem;/*  */
   margin-right: .12rem;
   margin-bottom: .12rem;
-  background: #8f8f8f;
+  background: #ccc;
+}
+.PageDetails_wrap div:nth-child(3){
+  margin-right: .12rem;
+}
+.PageDetails_wrap div:nth-child(2){
+  margin-right: 0rem;
+}
+.PageDetails_wrap div:nth-child(4){
+  margin-right: 0rem;
+}
+.PageDetails_wraps{
+  width: 96%;
+  margin-left: 2%;
+  display: flex;
+  margin-top: .12rem;
+  justify-content: center;
+  align-items: center;
+}
+.PageDetails_wraps div{
+  width: 3.6rem;
+  height: 1.8rem;/*  */
+  margin-bottom: .12rem;
+  background: #ccc;
+}
+.PageDetails_wraps div:nth-child(2){
+  margin-left: .1rem;
 }
 .PageDetails_classify{
   width: 100%;
-  height: auto;
+  overflow-y: auto;
   background: #fff;
 }
 .PageDetails_title{
@@ -361,13 +465,10 @@ input[type='text']{
   justify-content: space-between;
   align-items: center;
  }
- .onclicks span:nth-child(2):hover{
-   transform: rotateX(180deg);
- }
- .mint-tab-container-item{
-   height: 155rem;
-   overflow-y: scroll;
- }
+.mint-tab-container{
+  margin-top:1.8rem;
+}
+
 .PageAll_tab{
     width: 100%;
     height:100%;
@@ -378,9 +479,7 @@ input[type='text']{
 .PageAll_tab_ul{
     display: flex;
     height: .96rem;
-    border-top: .1rem solid #f8f8f8;
     border-bottom: .1rem solid #f8f8f8;
-    background:#fff;
     /* margin-top: .12rem; */
 }
 .PageAll_tab_ul li{
@@ -395,15 +494,17 @@ input[type='text']{
     color: #ff0103
 }
 .tabCon{
+    flex:1;
     margin-top: .12rem;
     width: 100%;
     height: 100%; 
     display: flex;
     flex-direction: column;
-     background:#fff;
     overflow-y:scroll;
 }
-
+.content{
+    width:100%;
+}
 .tabCon_main{
     width: 98%;
     margin-left: 1%;

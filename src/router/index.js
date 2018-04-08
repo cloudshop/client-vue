@@ -26,6 +26,10 @@ import indentAll from '../components/PageAll/indentAll.vue' //全部订单
 import detailsTwo from '../components/PageAll/detailsTwo.vue' //商品清单
 import giving from '../components/Sher/giving.vue' //积分赠送
 import giving2 from '../components/Sher/giving2.vue' //积分赠送——确认订单
+import changeimg from '../components/changeimg/changeImg.vue' //积分兑换
+import zhekou from '../components/sher/zhekou.vue' //积分折扣 
+import redemption from '../components/redemption/redemption.vue' //积分换购
+
 
 import ShareResults from '../components/MineList/ShareResults.vue' 
 import news from '@/components/main/news'
@@ -282,6 +286,21 @@ const  routes = [
       name: 'giving2',
       component:giving2
     },
+    { // 积分兑换
+      path: '/changeimg',
+      name: 'changeimg',
+      component:changeimg
+    },
+    { // 积分兑换
+      path: '/zhekou',
+      name: 'zhekou',
+      component:zhekou
+    },
+    { // 积分换购
+      path: '/redemption',
+      name: 'redemption',
+      component:redemption
+    }
    ]
   },
 ]

@@ -67,7 +67,7 @@
               </span>
             </div>   
             <!--{{data.price*data.num | filtermoney}}  -->
-            <div class="money">合计: ￥</div>   
+            <div class="money">合计: ￥ </div>   
           </div>
           <div class="shopping_footer_right">去结算</div>
         </div>
@@ -85,6 +85,7 @@ export default {
     return {
       totalPrice: 100,
       animatenum: 0,
+      totalAllPrice: 0,
       checkboxBig: true,
       serviceList: [
         {
@@ -204,7 +205,8 @@ export default {
       this.serviceList[pitchId].checkbox = flag;
     },
     checkboxAll:function(){
-    
+      this.totalAllPrice = 0;
+      
     }
   },
   components: {
@@ -492,16 +494,12 @@ span {
   display: flex;
   align-items: center;
 }
-
 .shopping_q {
   width: 0.32rem;
   height: 0.32rem;
   border-radius: 50%;
   margin-left: 0.2rem;
   margin-right: 0.2rem;
-
-  /* justify-content: center;
-  align-items: center; */
 }
 .shopping_q .checkboxs {
   width: 100%;
@@ -522,4 +520,3 @@ span {
   color: #2f2f2f;
 }
 </style>
-

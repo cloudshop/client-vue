@@ -20,7 +20,7 @@
                   <div class="tabCon_main_top">
                       <p><span class="tabCom_mainImg"><img src="../../assets/PageAll/店铺.png" alt=""></span><span class="font">成都赵雷</span></p>
                       <p><span class="font2">已完成</span><span class="tabCom_mainImg"><img src="../../assets/PageAll/删除.png" alt=""></span></p>
-                  </div>
+                  </div>x
                   <div class="tabCon_main_center">
                       <div class="tabCon_main_centerImg"><img src="" alt=""></div>
                       <div class="tabCon_main_center_div">时光拿走了你的美丽 岁月带走了我的脾气 对不起 我还欠你一场婚礼说着说着 我又开始不切实际 说着说着 我就醉在了你的怀里</div>

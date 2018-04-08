@@ -7,63 +7,33 @@
                 <span >搜索</span>
             </div>
         </div>
-
-
-        
         <ul class="PageAll_tab_ul">
             <li v-for="(item,index) in tabs" :key="index" :class="{active:index == num}" @click="tab(index)">{{item}}</li>
-        </ul>
+        </ul> 
         <div class="tabCon">
             <div v-show="0 == num" class='content' >
-               
-                <div class="tabCon_main"  v-for='(item,index) in arr' :key="index"  :data='item.id' >
+                <div class="tabCon_main"  v-for='(item,index) in tabCon_main' :key="index" >
                     <div class="tabCon_main_left">
                         <img src="../../assets/Classify/bg.gif" alt="">
                     </div>
                     <div class="tabCon_main_right">
-                        
-                        <h4 class="h4">{{item.NAME}}</h4>
-                        <div class="tabCon_main_right_all">
-                            <p>￥{{item.listPrice}}</p>
-                            <p class="tabCon_main_right_all_img"><img v-for="(item,index) in item.liststart" :key="index" src="../../assets/PageAll/星星选中.png" alt=""></p>
-                            <p>送贡融积分 10</p>
-                        </div>
-                        <span class="tabCon_main_right_span">贡融券可抵扣 ￥10.00</span>
-                        <span class="tabCon_main_right_span">贡融积分可抵扣 ￥5.00</span>
+                        <h4 class="h4">{{item.name}}</h4>
+                        <p class="change">福利价 <span class="changered">￥{{item.integral}}</span><span>+积分 {{item.jifen}}</span></p>
+                        <h3 class="h3">原价：<span class="prices">￥{{item.price}}</span></h3>
+                        <p class="limit">限量{{item.limit}}件</p>
                     </div>
                 </div>
             </div>
-            <!-- <div v-show="0 == num" class='content' >
+            <div v-show="1 == num" class='content' >
                 <div class="tabCon_main"  v-for='(item,index) in tabCon_main' :key="index" >
                     <div class="tabCon_main_left">
                         <img src="../../assets/Classify/bg.gif" alt="">
                     </div>
                     <div class="tabCon_main_right">
                         <h4 class="h4">{{item.name}}</h4>
-                        <div class="tabCon_main_right_all">
-                            <p>￥{{item.money}}</p>
-                            <p class="tabCon_main_right_all_img"><img v-for="(item,index) in item.liststart" :key="index" src="../../assets/PageAll/星星选中.png" alt=""></p>
-                            <p>送贡融积分 10</p>
-                        </div>
-                        <span class="tabCon_main_right_span">贡融券可抵扣 ￥10.00</span>
-                        <span class="tabCon_main_right_span">贡融积分可抵扣 ￥5.00</span>
-                    </div>
-                </div>
-            </div> -->
-            <!-- <div v-show="1 == num" class='content' >
-                <div class="tabCon_main"  v-for='(item,index) in tabCon_main' :key="index" >
-                    <div class="tabCon_main_left">
-                        <img src="../../assets/Classify/bg.gif" alt="">
-                    </div>
-                    <div class="tabCon_main_right">
-                        <h4 class="h4">{{item.name}}</h4>
-                        <div class="tabCon_main_right_all">
-                            <p>￥{{item.money}}</p>
-                            <p class="tabCon_main_right_all_img"><img v-for="(item,index) in item.liststart" :key="index" src="../../assets/PageAll/星星选中.png" alt=""></p>
-                            <p>送贡融积分 10</p>
-                        </div>
-                        <span class="tabCon_main_right_span">贡融券可抵扣 ￥10.00</span>
-                        <span class="tabCon_main_right_span">贡融积分可抵扣 ￥5.00</span>
+                        <p class="change">福利价 <span class="changered">￥{{item.integral}}</span><span>+积分 {{item.jifen}}</span></p>
+                        <h3 class="h3">原价：<span class="prices">￥{{item.price}}</span></h3>
+                        <p class="limit">限量{{item.limit}}件</p>
                     </div>
                 </div>
             </div>
@@ -74,13 +44,9 @@
                     </div>
                     <div class="tabCon_main_right">
                         <h4 class="h4">{{item.name}}</h4>
-                        <div class="tabCon_main_right_all">
-                            <p>￥{{item.money}}</p>
-                            <p class="tabCon_main_right_all_img"><img v-for="(item,index) in item.liststart" :key="index" src="../../assets/PageAll/星星选中.png" alt=""></p>
-                            <p>送贡融积分 10</p>
-                        </div>
-                        <span class="tabCon_main_right_span">贡融券可抵扣 ￥10.00</span>
-                        <span class="tabCon_main_right_span">贡融积分可抵扣 ￥5.00</span>
+                        <p class="change">福利价 <span class="changered">￥{{item.integral}}</span><span>+积分 {{item.jifen}}</span></p>
+                        <h3 class="h3">原价：<span class="prices">￥{{item.price}}</span></h3>
+                        <p class="limit">限量{{item.limit}}件</p>
                     </div>
                 </div>
             </div>
@@ -91,16 +57,12 @@
                     </div>
                     <div class="tabCon_main_right">
                         <h4 class="h4">{{item.name}}</h4>
-                        <div class="tabCon_main_right_all">
-                            <p>￥{{item.money}}</p>
-                            <p class="tabCon_main_right_all_img"><img v-for="(item,index) in item.liststart" :key="index" src="../../assets/PageAll/星星选中.png" alt=""></p>
-                            <p>送贡融积分 10</p>
-                        </div>
-                        <span class="tabCon_main_right_span">贡融券可抵扣 ￥10.00</span>
-                        <span class="tabCon_main_right_span">贡融积分可抵扣 ￥5.00</span>
+                        <p class="change">福利价 <span class="changered">￥{{item.integral}}</span><span>+积分 {{item.jifen}}</span></p>
+                        <h3 class="h3">原价：<span class="prices">￥{{item.price}}</span></h3>
+                        <p class="limit">限量{{item.limit}}件</p>
                     </div>
                 </div>
-            </div> -->
+            </div>
         </div>
   </div>
 </template>
@@ -110,9 +72,44 @@ export default {
     data() {
        return {
             tabs: ["综合", "销量","价格","筛选"],
-            name:this.$route.params.name,
-            arr:null,
-            num: 0
+                    'tabCon_main':[
+                      {
+                        name: '回力休闲韩版冬季帆布鞋回力休闲',
+                        price: '150.8',
+                        integral: 1580,
+                        limit: 1500,
+                        jifen: 200
+                      },
+                      {
+                        name: '回力休闲韩版冬季帆布鞋回力休闲',
+                        price: '150.8',
+                        integral: 1580,
+                        limit: 1500,
+                        jifen: 200
+                      },
+                        {
+                        name: '回力休闲韩版冬季帆布鞋回力休闲',
+                        price: '150.8',
+                        integral: 1580,
+                        limit: 1500,
+                        jifen: 200
+                      },
+                      {
+                        name: '回力休闲韩版冬季帆布鞋回力休闲',
+                        price: '150.8',
+                        integral: 1580,
+                        limit: 1500,
+                        jifen: 200
+                      },
+                        {
+                        name: '回力休闲韩版冬季帆布鞋回力休闲',
+                        price: '150.8',
+                        integral: 1580,
+                        limit: 1500,
+                        jifen: 200
+                      }
+                    ],
+            num: 1
         }
     },
     methods: {
@@ -120,16 +117,6 @@ export default {
             this.num = index;
         }
     },
-    created(){
-    var that = this;
-    this.$axios.get('/classify//api/product/all?categoryid='+this.name)
-        .then(function(response) {
-            that.arr = response.data.mainContent;
-        })
-        .catch(function(error) {
-              console.log(error);
-      });
-    },  
 }   
 </script>
 
@@ -232,7 +219,7 @@ input::-webkit-input-placeholder {
     height: 100%; 
     display: flex;
     flex-direction: column;
-     background:#fff;
+    background:#fff;
 }
 
 .tabCon_main{
@@ -253,6 +240,7 @@ input::-webkit-input-placeholder {
 }
 .tabCon_main_right{
     flex: 1;
+    flex-direction: column;
     height: 1.82rem;
     padding: .18rem 0;
 }
@@ -261,34 +249,29 @@ input::-webkit-input-placeholder {
     color: #2f2f2f;
     font-weight: normal;
 }
-.tabCon_main_right_all{
+.h3{
+    font-size: .28rem;
+    color:#676767;
+    font-weight: normal;
+}
+.prices{
+    text-decoration:line-through;
+}
+.change{
+    font-size: .22rem;
+    color:#6a6a6a;
+    padding: .3rem 0 .2rem 0;
+}
+.changered{
+    font-size: .28rem;
+    margin-right: .22rem;
+    color: #ff0000;
+}
+.limit{
+    font-size: .22rem;
+    color:#6a6a6a;
     display: flex;
-    margin-top: .2rem;
-}
-.tabCon_main_right_all p:nth-child(1){
-    width: 20%;
-    font-size: .26rem;
-    color: #ff0103;
-    margin-right: .24rem;
-    font-weight: bold;
-}
-.tabCon_main_right_all p:nth-child(3){
-    font-size: .18rem;
-    color: #1692e1;
-    margin-top: 0.05rem;
-}
-.tabCon_main_right_all_img{
-    width: 30%;
-    margin-right: .24rem;
-}
-.tabCon_main_right_all_img img{
-    width: 20%;
-}
-.tabCon_main_right_span{
-    width: 100%;
-    font-size: .18rem;
-    color: #676767;
-    margin-top: .11rem;
-    display: inline-block;
+    margin-right: .3rem;
+    justify-content: flex-end;
 }
 </style>

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <button  @click='fn'>axios</button>
      <div class='main content'>
           <mt-swipe :auto="4000" class='banner'>
            <mt-swipe-item v-for='(item,index) in data' :key='index'><img :src=item.image alt=""></mt-swipe-item> 
@@ -48,6 +47,7 @@ export default {
     },
     methods:{
       fn(){
+        // 点击验证码
             this.$axios.get('/api')
              .then(function(response) {
                console.log(response);
@@ -66,6 +66,7 @@ export default {
          window.hwajax = this.hwajax;       
     },
     created(){
+      // 轮播图
       //  var that = this; 
       //  this.$axios.get('/slideshow')
       //    .then(function(response) {   
@@ -74,28 +75,24 @@ export default {
       //   .catch(function(error) {
       //       console.log(error);
       //  }); 
-        var params = {    
-            "username": "admin",
-            "password": "admin",
-        }
-        // params = qs.stringify(params)
+      
+        // params = qs.stringify(params) 
         this.$axios({
             method:'post',
             url:'auth',
-            data:params,
+            // data:params,
             headers:{
-               'Content-Type': 'application/json',
+              'Content-Type': 'application/json',
             }
         })
         .then(function(response) {
-
-            console.log(response.data);
+          // console.log(1) // 可以打印
+          // console.log(response.data); //
         })
         .catch((error)=>{
             console.log(error);
         })
-     var api = require('uaa_api');
-     console.log(api)
+
     }, 
     components:{          
       HomePageNav,

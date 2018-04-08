@@ -13,11 +13,12 @@
         </header>
         <div class='content main'>
             <div class='form'>
-                   <p><label for="">账号</label><input type="text" @keydown='down' v-model="PassName" placeholder="请输入账号"></p>
-                   <p><label for="">密码</label><input type="text"  @keydown='down' v-model="PassWord" placeholder="请输入密码"></p>
-                   <button class='btn'>登录</button>
+                   <p><label for="">账号</label><input type="text" class='value' v-model="PassName" placeholder="请输入账号"  @blur="upperCase()"></p>
+                   <p><label for="">密码</label><input type="text"  v-model="PassWord" placeholder="请输入密码"></p>
+                   <button class='btn' @click='btn'>登录</button>
             </div>
             <p class='ForgetPassWord' @click='ForgetPassWord'>忘记密码?</p>
+            {{msg}}
         </div>
 
         <div class='footer'>
@@ -38,10 +39,18 @@ export default {
     data(){
         return{
             PassName:'',
-            PassWord:''
+            PassWord:'',
+            msg:''
         }
     },
     methods:{
+        created(){
+            var UaaJavascript = require('uaa-javascript');
+            console.log(api);
+            var apiClient = new UaaJavascript.ApiClient();
+            var api = new UaaJavascript.AuthApi(apiClient);
+            api.login('admin', 'admin');
+        },
         register(){
             this.$router.push({name:"Register"})
             sessionStorage.setItem('name',"注册")
@@ -49,34 +58,38 @@ export default {
         ForgetPassWord(){
             this.$router.push({name:"Register",params:{name:'重新设置密码'}})      
         },
-        down(){
-            if(this.PassName ==""   ){
-                $('.btn').removeClass('active')
-            }else{
-                 $('.btn').addClass('active')
-            }
+        messageSink(msg){
+            this.msg = msg;
+        },
+       upperCase(){
+          var theinput=document.getElementsByClassName("value")[0].value; 
+          var p1=/^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/; 
+          //(p1.test(theinput)); 
+          if(p1.test(theinput)==false) { 
+          console.log('请填写正确电话号码!!'); 
+          document.getElementsByClassName("value")[0].value=""; 
+          }else {
+          console.log("succeess")
+          }
+       },
+        btn(){
+            if(this.PassName!='' && this.PassWord!=''){
+                window.webkit.messageHandlers.GongrongAppModel.postMessage({
+                "func":"login",
+                "param":{
+                "username":this.PassName, 
+                "password":this.PassWord
+                }
+            })   
+         }                 
         }
     },
-    created(){
-       
-        // this.$http.get(`http://192.168.1.105:8103/sms/initSmsCode?phone=18310802847`).then(res => res.data);
-        // this.$http.get('http://192.168.1.105:8103/sms/initSmsCode?phone=18310802847')
-        //         .then(function (response) {
-        //         console.log(response);
-        //         })
-        //         .catch(function (error) {
-        //         console.log(error);
-        //     });
-
-        // $.ajax({
-        //     url:'http://192.168.1.105:8103/sms/initSmsCode?phone=18310802847',
-        //     method:'get',
-        //      dataType:'jsonp',
-        //     success:function(res){
-        //         console.log(res)
-        //     }
-        // })
-    }
+    mounted:function () {
+         window.messageSink = this.messageSink;
+    },
+    mounted(){
+ 
+   }
 }
 </script>
 
