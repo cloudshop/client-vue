@@ -160,11 +160,13 @@
 <style scoped>
   .mint-navbar{
     width: 100%;
-    height: .96rem;
+    height: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: .32rem;
+    position: fixed;
+    z-index: 9999;
   }
   a, .mint-tab-item{
     font-size: .32rem;
@@ -187,6 +189,17 @@
   .mint-navbar .mint-tab-item.is-selected{
     border-bottom: 2px solid #2f2f2f;
     color: #2f2f2f;
+  }
+  .mint-tab-container{
+    width: 100%;
+    height: 30rem;
+    background: #fff;
+    overflow-y: scroll;
+  }
+  .mint-cell-value{
+    width: 100% !important;
+    height: 100%;
+    overflow-y: scroll;
   }
   .details_banner{
     width: 100%;
@@ -308,6 +321,7 @@
   }
   .comment_main{
     border-bottom: 1px solid #f5f5f5;
+    margin-bottom: .96rem;
   }
   .comment_top{
     padding: .2rem 0;
@@ -402,9 +416,15 @@
     border-top: 1px solid #f8f8f8;
     border-bottom: 1px solid #f8f8f8;
   }
+  .comment_pl:first-child{
+    margin-top: 1rem;
+  }
   .comment_pl_head{
     display: flex;
     padding: .2rem 0;
+  }
+  .comment_pl:last-child{
+    margin-bottom: 1rem;
   }
   .comment_leftImg{
     width: 10%;
@@ -440,7 +460,7 @@
     margin-right: .04rem;
   }
   .comment_pl_center{
-    width: 100%;
+    /* width: 100%; */
     padding-left: 1.02rem; 
   }
   .pl_all{

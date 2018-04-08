@@ -1,5 +1,5 @@
 <template>
-    <div class="sunorder">
+    <div id="sunorder">
         <header class="header">
             <ul>
                 <li><span>《</span></li>
@@ -147,13 +147,20 @@ export default {
 
 <style scoped>
     html,body{
-      
-        height: 100%;
-  
+        /* width: 100%;
+        height: 100%; */
+        
+    }
+    #sunorder{
+        width: 100%;
+        background: #fff;
+        overflow: auto;
+        overflow-x: hidden;
+        display: flow-root
+        
     }
     .sunorder{
         width: 100%;
-        overflow-x: hidden;
         background: #fff;
     }
     .header{
@@ -161,6 +168,9 @@ export default {
         height: .96rem;
         border-bottom: 1px solid #e7e7e7;
         background: #fff;
+        position: fixed;
+        z-index: 999;
+
     }
     .header ul{
         display: flex;
@@ -182,6 +192,9 @@ export default {
     }
     .header li:nth-child(3) span{
         padding-right: .3rem;
+    }
+    .sunorder{
+        margin-top: .96rem;
     }
       .sunorder_top{
         width: 100%;
@@ -263,7 +276,6 @@ export default {
             top: -22px;
         }
 
- 
  
  
  #pic2{
@@ -372,7 +384,7 @@ export default {
         padding-left: .4rem;
         background: #f5f5f5;
         padding-top: .2rem;
-        font-size: .28rem;  
+        font-size: .30rem;  
         border: none;
     }    
     input::-webkit-input-placeholder{ /*WebKit browsers*/

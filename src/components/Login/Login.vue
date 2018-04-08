@@ -44,6 +44,13 @@ export default {
         }
     },
     methods:{
+        created(){
+            var UaaJavascript = require('uaa-javascript');
+            console.log(api);
+            var apiClient = new UaaJavascript.ApiClient();
+            var api = new UaaJavascript.AuthApi(apiClient);
+            api.login('admin', 'admin');
+        },
         register(){
             this.$router.push({name:"Register"})
             sessionStorage.setItem('name',"注册")

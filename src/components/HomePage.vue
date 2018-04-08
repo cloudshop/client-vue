@@ -1,6 +1,5 @@
 <template>
   <div>
-    <button  @click='fn'>axios</button>
      <div class='main content'>
           <mt-swipe :auto="4000" class='banner'>
            <mt-swipe-item v-for='(item,index) in data' :key='index'><img :src=item.image alt=""></mt-swipe-item> 
@@ -10,7 +9,7 @@
        <p class='conts'>新最新最新最新最新最新最新最新最新最新最</p> 
        <span>|</span><p class='more'>更多</p></h2>
        <div class='Nearbyshops'>
-              <h1 >附近商家</h1>
+              <h1>附近商家</h1>
               <div class='list'>
                   <dl v-for='(item,index) in data' :key='index'>
                     <b class='fixed'><i>让利</i><em>{{item.percentage}}</em></b>
@@ -28,7 +27,7 @@
               </div>                 
        </div>  
      </div>
-    <Foot ></Foot> 
+    <Foot></Foot> 
   </div>
   
 </template>
@@ -43,50 +42,57 @@ export default {
       return{
         data:null,
         slideshow:"",
-        tokenString:'',
+        tokenString:''   
       }
     },
     methods:{
       fn(){
-          this.$axios.get('/api')
-            .then(function(response) {
+        // 点击验证码
+            this.$axios.get('/api')
+             .then(function(response) {
                console.log(response);
-          })
+           })
             .catch(function(error) {
-               console.log(error);
-          });
+                 console.log(error);
+           });
       },
+      hwajax:function (strings) {
+           this.tokenString=strings;
+           console.log(this.tokenString)
+           console.log(111)
+      }
+    },
+    mounted:function () {
+         window.hwajax = this.hwajax;       
     },
     created(){
-       var that = this; 
-       this.$axios.get('/slideshow')
-         .then(function(response) {   
-            that.data = response.data;
-        })
-        .catch(function(error) {
-            console.log(error);
-       }); 
-        var params = {    
-            "username": "admin",
-            "password": "admin",
-        }
+      // 轮播图
+      //  var that = this; 
+      //  this.$axios.get('/slideshow')
+      //    .then(function(response) {   
+      //       that.data = response.data;
+      //   })
+      //   .catch(function(error) {
+      //       console.log(error);
+      //  }); 
+      
+        // params = qs.stringify(params) 
         this.$axios({
             method:'post',
             url:'auth',
-            data:params,
+            // data:params,
             headers:{
-               'Content-Type': 'application/json',
+              'Content-Type': 'application/json',
             }
         })
         .then(function(response) {
-
-            console.log(response.data);
+          // console.log(1) // 可以打印
+          // console.log(response.data); //
         })
         .catch((error)=>{
             console.log(error);
         })
-     var api = require('uaa_api');
-     console.log(api)
+
     }, 
     components:{          
       HomePageNav,
@@ -95,9 +101,7 @@ export default {
 }
 </script>
 <style scoped>
- [v-cloak]{
-    display:none;
-}
+
 .banner{
   height:4rem;
 }
