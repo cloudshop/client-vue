@@ -9,7 +9,7 @@
       </div>
 
       <div class="main">
-          <ul>
+          <ul class="list">
               <li>
                   <span class="name">皮皮虾</span>
                   <span class="tel">12312321312</span>
@@ -24,7 +24,7 @@
                         默认地址
                         <p>
                             <img src="../../assets/manage/编辑.png" alt="">编辑
-                            <img src="../../assets/manage/删除.png" alt="">删除
+                           <b><img src="../../assets/manage/删除.png" alt="">删除</b> 
                         </p>
                   </span>   
               </li>
@@ -45,7 +45,7 @@
                         默认地址
                         <p>
                             <img src="../../assets/manage/编辑.png" alt="">编辑
-                            <img src="../../assets/manage/删除.png" alt="">删除
+                            <b><img src="../../assets/manage/删除.png" alt="">删除</b> 
                         </p>
                   </span>   
               </li>
@@ -66,7 +66,7 @@
                         默认地址
                         <p>
                             <img src="../../assets/manage/编辑.png" alt="">编辑
-                            <img src="../../assets/manage/删除.png" alt="">删除
+                            <b><img src="../../assets/manage/删除.png" alt="">删除</b>
                         </p>
                   </span>   
               </li>
@@ -87,7 +87,7 @@
                         默认地址
                         <p>
                             <img src="../../assets/manage/编辑.png" alt="">编辑
-                            <img src="../../assets/manage/删除.png" alt="">删除
+                            <b><img src="../../assets/manage/删除.png" alt="">删除</b>
                         </p>
                   </span>   
               </li>
@@ -106,6 +106,16 @@
                 :modal=false> 
                <AddAddress></AddAddress>   
             </mt-popup> 
+
+       <div class="del">
+           <div>
+               确定删除地址吗？
+           </div>
+           <p>
+               <span class="no">取消</span>
+               <span class="yes">确定</span>
+           </p>
+       </div>     
   </div>
 </template>
 <script>
@@ -127,6 +137,24 @@ export default {
    },
    components:{
        AddAddress
+   },
+   mounted:function(){
+       $(".no").click(function(){
+            $('.del').hide()
+            if($('.yes').click())
+            console.log($(".main b").length)
+            var a = $(".main b")
+        //   function a(item, index) {
+        //         // demoP.innerHTML = demoP.innerHTML + "index[" + index + "]: " + item + "<br>"; 
+        //         console.log(item)
+        //         console.log(index)
+        //     }
+           
+        });
+       $(".list b").click(function(){
+            $('.del').show()
+        });
+         
    }
 } 
 </script>
@@ -269,8 +297,6 @@ button{
     color: #fff;
     margin-left: 5%;
     background: #ff0103;
- 
- 
 }
 .bottom{
     width: 100%;
@@ -278,5 +304,46 @@ button{
     background: #fff;
     position: absolute;
     bottom: 0;
+}
+.del{
+    display: none;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.5);
+    z-index: 999;
+    text-align: center;
+}
+.del div{
+    width: 70%;
+    height: 2rem;
+    line-height: 2rem;
+    background: #fff;
+    text-align: center;
+    margin: auto;
+    margin-top:60%;
+    border-top-left-radius: .2rem;
+    border-top-right-radius: .2rem;
+}
+.del p{
+    width: 70%;
+    background: #fff;
+    height: .7rem;
+    line-height: .7rem;
+    display: flex;
+    margin: auto;
+    border-top: 1px solid #e7e7e7;
+    border-bottom-left-radius: .2rem;
+    border-bottom-right-radius: .2rem;
+    overflow: hidden;
+}
+.del span{
+    flex: 1;
+}
+.del span:last-child{
+    background: #ff0103;
+    color: #fff;
+    
 }
 </style>

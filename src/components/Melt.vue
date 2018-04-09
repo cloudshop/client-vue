@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Foot from './main/foot'
+import Foot from './main/Foot'
 export default {
   components:{
     Foot

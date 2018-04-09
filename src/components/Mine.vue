@@ -86,7 +86,7 @@
 
 <script>
 
-import Foot from './main/foot'
+import Foot from './main/Foot'
 import { Header,Popup } from 'mint-ui';
 
 export default {
