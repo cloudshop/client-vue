@@ -72,8 +72,9 @@
 						by node distribution -->
 					<npmVersion>${npm.version}</npmVersion>
 					<!-- optional: where to download node and npm from. Defaults to https://nodejs.org/dist/ -->
-					<downloadRoot>https://nodejs.org/dist/</downloadRoot>
-				</configuration>
+     			    <npmDownloadRoot>https://npm.taobao.org/mirrors/npm/</npmDownloadRoot>
+<!-- 					<downloadRoot>https://nodejs.org/dist/</downloadRoot>
+ -->				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>com.spotify</groupId>
