@@ -72,8 +72,8 @@
 						by node distribution -->
 					<npmVersion>${npm.version}</npmVersion>
 					<!-- optional: where to download node and npm from. Defaults to https://nodejs.org/dist/ -->
-     			    <npmDownloadRoot>https://npm.taobao.org/mirrors/npm/</npmDownloadRoot>
-<!-- 					<downloadRoot>https://nodejs.org/dist/</downloadRoot>
+<!--      			    <npmDownloadRoot>https://npm.taobao.org/mirrors/npm/</npmDownloadRoot>
+ --><!-- 					<downloadRoot>https://nodejs.org/dist/</downloadRoot>
  -->				</configuration>
 			</plugin>
 			<plugin>
