@@ -15,7 +15,7 @@
                   <span class="tel">{{item.tel}}</span>
               </li>
               <li class="address">
-                  河北省河北省河北省
+                  {{item.address}}
               </li>
               <li>
                   <span>       
@@ -23,7 +23,7 @@
                        <label for="adress-03"></label>
                         默认地址
                         <p>
-                            <img src="../../assets/manage/编辑.png" alt="">编辑
+                            <b @click="sendParams"><img src="../../assets/manage/编辑.png" alt="">编辑</b>
                             <b @click="display(item)"><img src="../../assets/manage/删除.png" alt="">删除</b>
                         </p>
                   </span>   
@@ -61,13 +61,14 @@ import { Header, Cell, Actionsheet, Popup } from "mint-ui";
 export default {
   data() {
     return {
+        msg: 'test message',
       EditAddress: false,
       items: [
-        { name: "刘一", tel: "1234566789" },
-        { name: "陈二", tel: "1234566789" },
-        { name: "张三", tel: "1234566789" },
-        { name: "李四", tel: "1234566789" },
-        { name: "王五", tel: "1234566789" }
+        { name: "刘一", tel: "1234566789",address:"河北省" },
+        { name: "陈二", tel: "1234566789",address:"山东省" },
+        { name: "张三", tel: "1234566789",address:"河南省" },
+        { name: "李四", tel: "1234566789",address:"台湾省" },
+        { name: "王五", tel: "1234566789",address:"福建省" }
       ],
       init: null
     };
@@ -93,12 +94,28 @@ export default {
       let index = this.items.indexOf(this.init);
       this.items.splice(index, 1);
       $(".del").hide();
-    }
+    },
+    //编辑地址
+     sendParams() {
+        this.$router.push({
+            path: '/AddAddress', 
+            name: 'AddAddress',
+            params: { 
+                name: 'name', 
+                dataObj: this.msg
+            }
+            /*query: {
+                name: 'name', 
+                dataObj: this.msg
+            }*/
+        })
+      }
   },
   components: {
     AddAddress
   },
   mounted: function() {
+
   }
 };
 </script>
@@ -194,6 +211,7 @@ body {
   display: inline-block;
   width: 80%;
   position: absolute;
+  font-weight: normal;
   right: 0;
   text-align: right;
   padding-right: 0.3rem;
@@ -207,6 +225,9 @@ body {
 }
 .main li:nth-child(3) p img:nth-child(2) {
   margin-left: 0.5rem;
+}
+.main li:nth-child(3) p b{
+    font-weight: normal;
 }
 input[type="radio"] + label::before {
   box-sizing: border-box;

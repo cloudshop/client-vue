@@ -17,7 +17,7 @@
       </div>
       <ul class="bottom">
           <li>地区：<input type="text" id="address_big"></li>
-          <li>详细地址：</li>
+          <li>详细地址：msg</li>
       </ul>
       
       <div class="button">
@@ -29,13 +29,19 @@
    export default {
     data(){
           return {
-
+              msg:''
          }
     },
     methods:{
         closeEditAddress:function(){
             this.$parent.$parent.EditAddress = false
         },
+        getParams () {
+        // 取到路由带过来的参数 
+        let routerParams = this.$route.params.dataobj
+        // 将数据放在当前组件的数据内
+        this.msg = routerParams
+      }
     }
    } 
 </script>
