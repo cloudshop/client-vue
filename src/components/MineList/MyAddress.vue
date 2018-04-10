@@ -30,7 +30,7 @@
               </li>
           </ul>
 
-          <ul>
+          <ul class="list">
               <li>
                   <span class="name">大闸蟹</span>
                   <span class="tel">23423423423</span>
@@ -141,9 +141,13 @@ export default {
    mounted:function(){
        $(".no").click(function(){
             $('.del').hide()
-            if($('.yes').click())
-            console.log($(".main b").length)
-            var a = $(".main b")
+            var a = $(".main b").text()
+            console.log(a)
+        //     var res = a.forEach(function(item, index, input) {
+        //     console.log(item);
+        //     console.log(index);
+        //     console.log(input);
+        // })
         //   function a(item, index) {
         //         // demoP.innerHTML = demoP.innerHTML + "index[" + index + "]: " + item + "<br>"; 
         //         console.log(item)
@@ -153,8 +157,12 @@ export default {
         });
        $(".list b").click(function(){
             $('.del').show()
+            var b = $(this).text()
+            $(".yes").click(function(){
+                console.log(b)
+            //    b.parent().remove();
+            })
         });
-         
    }
 } 
 </script>
