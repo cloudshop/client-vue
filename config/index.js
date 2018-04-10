@@ -5,117 +5,117 @@
 const path = require('path')
 const url = require('url')
 module.exports = {
-  dev: {
-    // Paths
-    assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
-    proxyTable: {
-        '/uaa/auth': {
-          target:'http://cloud.eyun.online:9080', // 你请求的第三方接口
-          changeOrigin:true, // 在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
-          pathRewrite:{  // 路径重写，
-              '^/uaa/auth': '/auth'  // 替换target中的请求地址，也就是说以后你在请求http://api.jisuapi.com/XXXXX这个地址的时候直接写成/api即可。
-          }
+    dev: {
+        // Paths
+        assetsSubDirectory: 'static',
+        assetsPublicPath: './',
+        proxyTable: {
+            '/uaa/auth': {
+                target: 'http://cloud.eyun.online:9080', // 你请求的第三方接口
+                changeOrigin: true, // 在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
+                pathRewrite: { // 路径重写，
+                    '^/uaa/auth': '/auth' // 替换target中的请求地址，也就是说以后你在请求http://api.jisuapi.com/XXXXX这个地址的时候直接写成/api即可。
+                }
+            },
+            '/uaa': {
+                target: 'http://cloud.eyun.online:9080', // 你请求的第三方接口
+                changeOrigin: true, // 在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
+                pathRewrite: { // 路径重写，
+                    '^/uaa': '/uaa' // 替换target中的请求地址，也就是说以后你在请求http://api.jisuapi.com/XXXXX这个地址的时候直接写成/api即可。
+                }
+            },
+            '/auth': {
+                target: 'http://cloud.eyun.online:9080/auth/login', // 你请求的第三方接口
+                changeOrigin: true, // 在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
+                pathRewrite: { // 路径重写，
+                    '^/auth': '' // 替换target中的请求地址，也就是说以后你在请求http://api.jisuapi.com/XXXXX这个地址的时候直接写成/api即可。
+                }
+            },
+            '/api': {
+                target: 'http://192.168.1.105:8132/api/verify/smscode?phone=15210730971', // 你请求的第三方接口
+                changeOrigin: true, // 在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
+                pathRewrite: { // 路径重写，
+                    '^/api': '' // 替换target中的请求地址，也就是说以后你在请求http://api.jisuapi.com/XXXXX这个地址的时候直接写成/api即可。
+                }
+            },
+            '/slideshow': {
+                target: 'http://192.168.1.97:8128/api/findNotDelAndLocation', // 你请求的第三方接口
+                changeOrigin: true, // 在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
+                pathRewrite: { // 路径重写，
+                    '^/slideshow': '' // 替换target中的请求地址，也就是说以后你在请求http://api.jisuapi.com/XXXXX这个地址的时候直接写成/api即可。
+                }
+            },
+            '/classify': {
+                target: 'http://192.168.1.105:8116', // 你请求的第三方接口
+                changeOrigin: true, // 在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
+                pathRewrite: { // 路径重写，
+                    '^/classify': '' // 替换target中的请求地址，也就是说以后你在请求http://api.jisuapi.com/XXXXX这个地址的时候直接写成/api即可。
+                }
+            },
         },
-        '/uaa': {
-          target:'http://cloud.eyun.online:9080', // 你请求的第三方接口
-          changeOrigin:true, // 在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
-          pathRewrite:{  // 路径重写，
-              '^/uaa': '/uaa'  // 替换target中的请求地址，也就是说以后你在请求http://api.jisuapi.com/XXXXX这个地址的时候直接写成/api即可。
-          }
-        },
-        '/auth': {
-          target:'http://cloud.eyun.online:9080/auth/login', // 你请求的第三方接口
-          changeOrigin:true, // 在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
-          pathRewrite:{  // 路径重写，
-              '^/auth':''// 替换target中的请求地址，也就是说以后你在请求http://api.jisuapi.com/XXXXX这个地址的时候直接写成/api即可。
-          }
-        },
-        '/api': {
-            target:'http://192.168.1.105:8132/api/verify/smscode?phone=15210730971', // 你请求的第三方接口
-            changeOrigin:true, // 在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
-            pathRewrite:{  // 路径重写，
-                '^/api': ''  // 替换target中的请求地址，也就是说以后你在请求http://api.jisuapi.com/XXXXX这个地址的时候直接写成/api即可。
-          }
-        },
-        '/slideshow': {
-          target:'http://192.168.1.97:8128/api/findNotDelAndLocation', // 你请求的第三方接口
-          changeOrigin:true, // 在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
-          pathRewrite:{  // 路径重写，
-              '^/slideshow': ''  // 替换target中的请求地址，也就是说以后你在请求http://api.jisuapi.com/XXXXX这个地址的时候直接写成/api即可。
-          }
-        },
-        '/classify': {
-          target:'http://192.168.1.105:8116', // 你请求的第三方接口
-          changeOrigin:true, // 在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
-          pathRewrite:{  // 路径重写，
-              '^/classify': ''  // 替换target中的请求地址，也就是说以后你在请求http://api.jisuapi.com/XXXXX这个地址的时候直接写成/api即可。
-          }
-        },
+        // Various Dev Server settings
+        host: 'localhost', // can be overwritten by process.env.HOST
+        port: 8888, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
+        autoOpenBrowser: true,
+        errorOverlay: true,
+        notifyOnErrors: true,
+        poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
+        // Use Eslint Loader?
+        // If true, your code will be linted during bundling and
+        // linting errors and warnings will be shown in the console.
+        useEslint: true,
+        // If true, eslint errors and warnings will also be shown in the error overlay
+        // in the browser.
+        showEslintErrorsInOverlay: false,
+
+        /**
+         * Source Maps
+         */
+
+        // https://webpack.js.org/configuration/devtool/#development
+        devtool: 'eval-source-map',
+
+        // If you have problems debugging vue-files in devtools,
+        // set this to false - it *may* help
+        // https://vue-loader.vuejs.org/en/options.html#cachebusting
+        cacheBusting: true,
+
+        // CSS Sourcemaps off by default because relative paths are "buggy"
+        // with this option, according to the CSS-Loader README
+        // (https://github.com/webpack/css-loader#sourcemaps)
+        // In our experience, they generally work as expected,
+        // just be aware of this issue when enabling this option.
+        cssSourceMap: false,
     },
-    // Various Dev Server settings
-    host: 'localhost', // can be overwritten by process.env.HOST
-    port: 8888, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
-    autoOpenBrowser: true,
-    errorOverlay: true,
-    notifyOnErrors: true,
-    poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
-    // Use Eslint Loader?
-    // If true, your code will be linted during bundling and
-    // linting errors and warnings will be shown in the console.
-    useEslint: true,
-    // If true, eslint errors and warnings will also be shown in the error overlay
-    // in the browser.
-    showEslintErrorsInOverlay: false,
 
-    /**
-     * Source Maps
-     */
+    build: {
+        // Template for index.html
+        index: path.resolve(__dirname, '../dist/index.html'),
 
-    // https://webpack.js.org/configuration/devtool/#development
-    devtool: 'eval-source-map',
+        // Paths
+        assetsRoot: path.resolve(__dirname, '../dist'),
+        assetsSubDirectory: 'static',
+        assetsPublicPath: '/',
 
-    // If you have problems debugging vue-files in devtools,
-    // set this to false - it *may* help
-    // https://vue-loader.vuejs.org/en/options.html#cachebusting
-    cacheBusting: true,
+        /**
+         * Source Maps
+         */
 
-    // CSS Sourcemaps off by default because relative paths are "buggy"
-    // with this option, according to the CSS-Loader README
-    // (https://github.com/webpack/css-loader#sourcemaps)
-    // In our experience, they generally work as expected,
-    // just be aware of this issue when enabling this option.
-    cssSourceMap: false,
-  },
+        productionSourceMap: true,
+        // https://webpack.js.org/configuration/devtool/#production
+        devtool: '#source-map',
 
-  build: {
-    // Template for index.html
-    index: path.resolve(__dirname, '../dist/index.html'),
+        // Gzip off by default as many popular static hosts such as
+        // Surge or Netlify already gzip all static assets for you.
+        // Before setting to `true`, make sure to:
+        // npm install --save-dev compression-webpack-plugin
+        productionGzip: false,
+        productionGzipExtensions: ['js', 'css'],
 
-    // Paths
-    assetsRoot: path.resolve(__dirname, '../dist'),
-    assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
-
-    /**
-     * Source Maps
-     */
-
-    productionSourceMap: true,
-    // https://webpack.js.org/configuration/devtool/#production
-    devtool: '#source-map',
-
-    // Gzip off by default as many popular static hosts such as
-    // Surge or Netlify already gzip all static assets for you.
-    // Before setting to `true`, make sure to:
-    // npm install --save-dev compression-webpack-plugin
-    productionGzip: false,
-    productionGzipExtensions: ['js', 'css'],
-
-    // Run the build command with an extra argument to
-    // View the bundle analyzer report after build finishes:
-    // `npm run build --report`
-    // Set to `true` or `false` to always turn it on or off
-    bundleAnalyzerReport: process.env.npm_config_report
-  },
+        // Run the build command with an extra argument to
+        // View the bundle analyzer report after build finishes:
+        // `npm run build --report`
+        // Set to `true` or `false` to always turn it on or off
+        bundleAnalyzerReport: process.env.npm_config_report
+    },
 }

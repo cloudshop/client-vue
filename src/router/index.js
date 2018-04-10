@@ -27,7 +27,7 @@ import DetailsTwo from '../components/PageAll/DetailsTwo.vue' //商品清单
 import giving from '../components/Sher/Giving.vue' //积分赠送
 import giving2 from '../components/Sher/Giving2.vue' //积分赠送——确认订单
 import IntegralDiscount from '../components/IntegralDiscount/IntegralDiscount.vue' //积分兑换
-import zhekou from '../components/sher/ChangeDiscount.vue' //积分折扣 
+// import zhekou from '../components/sher/ChangeDiscount.vue' //积分折扣 
 import Redemption from '../components/redemption/Redemption.vue' //积分换购
 
 // import Change from '../components/MineList/Change.vue'
@@ -293,11 +293,11 @@ const routes = [{
                 name: 'IntegralDiscount',
                 component: IntegralDiscount
             },
-            { // 积分兑换
-                path: '/zhekou',
-                name: 'zhekou',
-                component: zhekou
-            },
+            // { // 修改折扣
+            //     path: '/zhekou',
+            //     name: 'zhekou',
+            //     component: zhekou
+            // },
             { // 积分换购
                 path: '/Redemption',
                 name: 'Redemption',
