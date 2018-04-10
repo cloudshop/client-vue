@@ -32,6 +32,7 @@ import Redemption from '../components/redemption/Redemption.vue' //积分换购
 
 // import Change from '../components/MineList/Change.vue'
 import ShareResults from '../components/MineList/ShareResults.vue'
+import Pay from '../components/MineList/Pay.vue'
 import News from '@/components/main/News'
 // import Location from "@/components/main/location.vue"
 // import Talk from '../components/main/talk'
@@ -121,6 +122,11 @@ const routes = [{
                 path: '/CreditCard',
                 name: 'CreditCard',
                 component: CreditCard,
+            },
+            { //支付方式
+                path: '/Pay',
+                name: 'Pay',
+                component: Pay,
             },
             { //消费支付页面确认？？
                 path: '/CreditCardOK',

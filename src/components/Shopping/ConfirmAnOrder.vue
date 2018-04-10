@@ -58,7 +58,33 @@
                  <input type="text" placeholder="选填:填写内容已和商家协商确认">
              </li>
          </ul>
+    
+         <div class="change">
+            <p>
+                <img src="../../assets/Mine/贡融积分.png" alt="">
+               <ul>
+                   <li> 贡融积分(需支付<b>400</b>积分)</li>
+                   <li>0.00</li>
+               </ul>
+                <span>
+                    <input type="radio" id="jifen" name="sex" value="贡融积分" checked/>
+                    <label for="jifen"></label>
+                </span>
+            </p>
+            <p>
+                <img src="../../assets/Mine/贡融券.png" alt="">
+                <ul>
+                    <li>贡融卷(可抵扣<b>1</b>元)</li>
+                    <li>1.00</li>
+                </ul>
+                <span>
+                    <input type="radio" id="juan" name="sex" value="贡融卷"/>
+                    <label for="juan"></label>
+                </span>
+            </p>
+         </div>
         </div>
+        
         <div class='Compute'>
             <p><span>共一件商品</span><b>小计:<em>￥128.00</em></b></p>
         </div>
@@ -267,6 +293,42 @@ header{
     background:#ff0103;
     border:0;
 }
+.change{
+    width: 100%;
+    height: 2.1rem;
+    background: #fff;
+    margin-top: .2rem;
+}
+.change p{
+    height: 1rem;
+    line-height: 1rem;
+    padding-left: .3rem;
+    box-sizing: border-box;
+}
+.change p:first-child{
+    border-bottom: 1px solid #e7e7e7;
+}
+.change p span{
+    float: right;
+    padding-right: .3rem;
+}
+.change p input{
+    display: none;
+}
+.change p ul{
+    float: left;
+    margin-left: .15rem;
+    margin-top: .15rem;
+}
+.change p li{
+    line-height: .4rem;
+}
+.change img{
+    width: .5rem;
+    float: left;
+    vertical-align: middle;
+    margin-top: .2rem
+}
 .Manner{
     background:#fff;
 }
@@ -287,6 +349,7 @@ header{
     border:0;
     font-size:.24rem;
 }
+
 h2{
     font-weight:normal;
 }
@@ -309,4 +372,24 @@ input::-webkit-input-placeholder{
 .Compute p b{
     font-size:.32rem;
 }
+
+input[type="radio"] + label::before {
+        box-sizing: border-box;
+        content: " "; /*不换行空格*/
+        display: inline-block;
+        vertical-align: middle;
+        width: 2em;
+        height: 2em;
+        background: url("../../assets/manage/change_no.png");
+        background-size: 100% 100%;
+        /* margin-right: .4em; */
+        border-radius: 50%;
+        margin-top: -.1rem
+    }
+    input[type="radio"]:checked + label::before {
+        background: red;
+        background: url("../../assets/manage/change.png");
+        
+        background-size: 100% 100%;
+    }
 </style>

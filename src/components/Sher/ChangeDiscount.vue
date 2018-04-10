@@ -18,10 +18,10 @@
       </div>
       <p class="change_zhe">手动设置折扣 <input type="text"  v-model="changeval">折</p>
       <p class="change_zhe2">
-         <mt-range v-model="changeval" :step="1" :max='10' :bar-height="10">
+         <!-- <mt-range v-model="changeval" :step="1" :max='10' :bar-height="10">
             <div slot="start">1折</div>
             <div slot="end">10折</div>
-         </mt-range>
+         </mt-range> -->
       </p>
       <div class="bottom">
           <h2>折扣说明</h2>
