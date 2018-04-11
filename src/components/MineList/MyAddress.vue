@@ -2,7 +2,7 @@
   <div class="manage">
       <div class="header">
           <ul>
-              <router-link :to="{ path: '/Information' }" tag='li'>&lt;</router-link>
+              <li @click='PreviousMenu'>&lt;</li>
               <li>管理收货地址</li>
               <li>&nbsp;</li>
           </ul>
@@ -109,6 +109,13 @@ export default {
                 dataObj: this.msg
             }*/
         })
+      },
+      PreviousMenu(){
+        if(this.$route.params.address == '/ConfirmAnOrder'){
+             this.$router.push({name:"ConfirmAnOrder"}) 
+        }else{
+             this.$router.push({name:"Information"}) 
+        }
       }
   },
   components: {

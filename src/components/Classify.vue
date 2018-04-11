@@ -109,12 +109,11 @@ export default {
         num:0,
         arr:'',
         id:'1',   //列表ID
-        data:"",  //自定义跳转参数
      }
     },
     created(){
       var that = this;
-      this.$axios.get('/classify/api/categoryTree/subnode/1')
+      this.$axios.get('http://cloud.eyun.online:9080/product/api/categoryTree/subnode/1')
              .then(function(response) {
                that.arr = response.data;
            })
@@ -126,7 +125,7 @@ export default {
      click(value){
       this.id = value;
       var that = this;
-      this.$axios.get('/classify/api/categoryTree/subnode/'+that.id)
+      this.$axios.get('http://cloud.eyun.online:9080/product/api/categoryTree/subnode/'+that.id)
              .then(function(response) {
                that.arr = response.data;
            })
@@ -136,7 +135,8 @@ export default {
         },
       ItemDescription(value){
            this.data = value;
-           this.$router.push({name:"detailsTwo",params:{name:this.data}})
+        sessionStorage.setItem("name",value)        
+        this.$router.push({name:"DetailsTwo"})
       }
     },
     components:{

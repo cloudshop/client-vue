@@ -5,23 +5,62 @@
            <mt-swipe-item v-for='(item,index) in data' :key='index'><img :src=item.image alt=""></mt-swipe-item> 
       </mt-swipe>
        <HomePageNav></HomePageNav>
-       <h2><h3>贡融</h3><b></b><p class='newest'>最新</p> 
+       <!-- <h2><h3>贡融</h3><b></b><p class='newest'>最新</p> 
        <p class='conts'>新最新最新最新最新最新最新最新最新最新最</p> 
-       <span>|</span><p class='more'>更多</p></h2>
+       <span>|</span><p class='more'>更多</p></h2> -->
        <div class='Nearbyshops'>
               <h1>附近商家</h1>
               <div class='list'>
-                  <dl v-for='(item,index) in data' :key='index'>
-                    <b class='fixed'><i>让利</i><em>{{item.percentage}}</em></b>
-                    <dt><img :src="item.imgurl" alt=""></dt>
+                  <dl>
+                    <b class='fixed'><i>让利</i><em>111</em></b>
+                    <dt><img src='../assets/Classify/bg.gif'></dt>
                     <dd>
-                        <h3><span>{{item.name}}</span></h3>
+                        <h3><span>11</span></h3>
                         <p class='star'>
-                          <span>{{item.stars}}</span>
+                          <span>11</span>
                           <b>|</b>
-                          <em><i>{{item.peoples}}</i>人光临</em>
+                          <em><i>11</i>人光临</em>
                         </p>
-                        <p class='aside'><b>{{item.contnet}}</b><em>{{item.km}}</em></p>
+                        <p class='aside'><b>111</b><em>111</em></p>
+                    </dd>
+                  </dl>
+                    <dl>
+                    <b class='fixed'><i>让利</i><em>111</em></b>
+                    <dt><img src='../assets/Classify/bg.gif'></dt>
+                    <dd>
+                        <h3><span>11</span></h3>
+                        <p class='star'>
+                          <span>11</span>
+                          <b>|</b>
+                          <em><i>11</i>人光临</em>
+                        </p>
+                        <p class='aside'><b>111</b><em>111</em></p>
+                    </dd>
+                  </dl>
+                    <dl>
+                    <b class='fixed'><i>让利</i><em>111</em></b>
+                    <dt><img src='../assets/Classify/bg.gif'></dt>
+                    <dd>
+                        <h3><span>11</span></h3>
+                        <p class='star'>
+                          <span>11</span>
+                          <b>|</b>
+                          <em><i>11</i>人光临</em>
+                        </p>
+                        <p class='aside'><b>111</b><em>111</em></p>
+                    </dd>
+                  </dl>
+                    <dl>
+                    <b class='fixed'><i>让利</i><em>111</em></b>
+                    <dt><img src='../assets/Classify/bg.gif'></dt>
+                    <dd>
+                        <h3><span>11</span></h3>
+                        <p class='star'>
+                          <span>11</span>
+                          <b>|</b>
+                          <em><i>11</i>人光临</em>
+                        </p>
+                        <p class='aside'><b>111</b><em>111</em></p>
                     </dd>
                   </dl>
               </div>                 
@@ -67,14 +106,14 @@ export default {
     },
     created(){
       // 轮播图
-      //  var that = this; 
-      //  this.$axios.get('/slideshow')
-      //    .then(function(response) {   
-      //       that.data = response.data;
-      //   })
-      //   .catch(function(error) {
-      //       console.log(error);
-      //  }); 
+       var that = this; 
+       this.$axios.get('http://cloud.eyun.online:9080/advertising/api/findNotDelByLoc')
+         .then(function(response) {   
+            that.data = response.data;
+        })
+        .catch(function(error) {
+            console.log(error);
+       }); 
       
         // params = qs.stringify(params) 
         this.$axios({

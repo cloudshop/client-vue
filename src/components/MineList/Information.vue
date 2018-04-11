@@ -18,7 +18,7 @@
               <li>我的头像<span class="user_img"></span><b>></b></li>
               <router-link :to="{ path: '/NickName' }" tag='li'>昵称 <p class="user_name">豆腐粉条</p><b>></b></router-link>
               <li>绑定手机号<p>13832854506</p><b>></b></li>
-              <router-link :to="{ path: '/MyAddress' }" tag='li'>我的地址<b>></b></router-link>
+              <li @click="address">我的地址<b>></b></li>
               <router-link :to="{ path: '/ID' }" tag='li'>账号与安全 <b>></b></router-link>            
               <li>我的分享人 <b>></b></li>
               <li  @click="actionSheet">退出登录</li>
@@ -56,6 +56,9 @@ import { Header,Cell,Actionsheet,Popup } from 'mint-ui';
         confirms:function(){
             alert('退出登陆');
         },
+        address:function(){
+           this.$router.push({name:"MyAddress"}) 
+        }
       },
       components:{    
       },

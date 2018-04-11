@@ -15,7 +15,7 @@ import store from './store/'
 import bus from './plugin/bus';
 import $ from 'jquery'
 import './init/font/iconfont.css'
-import animate from 'animate.css'
+import animate from './init/css/animate.css'
 // import  './plugin/SmsApi.js'
 import './plugin/VerifyApi.js'
 
