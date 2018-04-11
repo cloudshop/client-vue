@@ -121,13 +121,13 @@
           <span><img src="../../assets/Comment/联系客服.png" alt=""></span>
           <span class='names'>联系卖家</span>
         </p>
-        <p class="details_footer_dp">
+        <p class="details_footer_dp" @click='store'>
           <span><img src="../../assets/Comment/店铺.png" alt=""></span>
           <span class='names'>店铺</span>
         </p>
-        <p class="details_footer_sc">
-          <span><img src="../../assets/Comment/收藏.png" alt=""></span>
-          <span class='names'>收藏</span>
+        <p class="details_footer_sc" @click='collect'>
+          <span><em  class="iconfont collect">&#xe603;</em></span>
+          <span class='names collect'>收藏</span>
         </p>
       </div>
       <span class="goShopping" @click='addShopping'>加入购物车</span>
@@ -190,7 +190,7 @@
         flag:false,
         address:false,
         val:1,
-        data:null, //数据
+        data:"", //数据
       } 
     }, 
      methods: {
@@ -243,9 +243,20 @@
             .catch((error)=>{
                 console.log(error);
             }) 
+      },
+      collect(){
+        if($('.collect').hasClass('active')){
+           $('.collect').removeClass("active");
+        }else{
+           $('.collect').addClass("active");
+        }      
+      },
+      store(){
+         this.$router.push({name:"PageDetails"}) 
       }
     },
     created(){
+      console.log(this.data.productContent)
       //商品内容
        var that = this; 
        const Goods=sessionStorage.getItem("GoodsID"); // 商品id 
@@ -819,6 +830,9 @@
     width: 85%;
     margin-top: .01rem;
   }
+    .details_footer_sc em{
+      font-size:.4rem;
+    }
   .details_footer_sc span:nth-child(2){
     font-size: .2rem;
     color: #696969;

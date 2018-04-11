@@ -53,7 +53,7 @@ import PageAll from '../components/PageAll/PageAll.vue'
 import PageDetails from '../components/PageAll/PageDetails.vue'
 import PageDetailsChild from '../components/PageAll/PageDetailsChild.vue'
 import Product from '../components/PageAll/Product.vue'
-
+import RegisterNew from '../components/Login/RegisterNew.vue'
 
 import sunorder from '../components/Sher/Sunorder.vue'
 import top from '../components/Sher/Topup.vue'
@@ -147,6 +147,11 @@ const routes = [{
                 path: '/Register',
                 name: 'Register',
                 component: Register
+            },
+            { //验证码
+                path: '/RegisterNew',
+                name: 'RegisterNew',
+                component: RegisterNew
             },
             { //设置密码
                 path: '/SetPsd',

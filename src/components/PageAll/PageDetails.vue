@@ -275,6 +275,9 @@ export default {
   align-items: center;
   color: #fff;
 }
+.PageDetails_header span{
+  margin-top:.2rem;
+}
 .PageDetails_header input{
   border-radius: .3rem;
   border: none;

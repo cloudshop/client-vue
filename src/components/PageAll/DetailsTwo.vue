@@ -3,8 +3,8 @@
         <div class="classify_search_header">
             <div class="classify_search_ss">
                 <a><img src="../../assets/HomePage/搜索.png" alt=""></a>
-                <p><input type="text" placeholder="  请输入搜索关键词"></p>
-                <span >搜索</span>
+                <p><input type="text" placeholder="  请输入搜索关键词" @keydown='seek' v-model="seekContent"></p>
+                <span @click='seekAll'>搜索</span>
             </div>
         </div>
 
@@ -42,7 +42,8 @@ export default {
             tabs: ["综合", "销量","价格","筛选"],
             arr:null,
             num: 0,
-            name:''
+            name:'',
+            seekContent:''
         }
     },
     methods: {
@@ -86,8 +87,13 @@ export default {
         },
         details(id){
           sessionStorage.setItem("GoodsID",id)                       
-          this.$router.push({name:"Product"}) 
-          
+          this.$router.push({name:"Product"})         
+        },
+        seek(){
+            console.log(this.seekContent)
+        },
+        seekAll(){
+            alert(1)
         }
     },
     created(){

@@ -5,9 +5,7 @@
            <mt-swipe-item v-for='(item,index) in data' :key='index'><img :src=item.image alt=""></mt-swipe-item> 
       </mt-swipe>
        <HomePageNav></HomePageNav>
-       <!-- <h2><h3>贡融</h3><b></b><p class='newest'>最新</p> 
-       <p class='conts'>新最新最新最新最新最新最新最新最新最新最</p> 
-       <span>|</span><p class='more'>更多</p></h2> -->
+       <h2>{{XX}}{{YY}}</h2>
        <div class='Nearbyshops'>
               <h1>附近商家</h1>
               <div class='list'>
@@ -81,7 +79,8 @@ export default {
       return{
         data:null,
         slideshow:"",
-        tokenString:''   
+        XX:'',  //经度
+        YY:''   //纬度
       }
     },
     methods:{
@@ -95,14 +94,16 @@ export default {
                  console.log(error);
            });
       },
-      hwajax:function (strings) {
-           this.tokenString=strings;
-           console.log(this.tokenString)
-           console.log(111)
+      // 经度  纬度
+      GeographicalLocation:function (X,Y) {
+           this.XX=X;
+           this.YY=Y;
+           console.log(this.XX)
+           console.log(this.YY)
       }
     },
     mounted:function () {
-         window.hwajax = this.hwajax;       
+         window.GeographicalLocation = this.GeographicalLocation;       
     },
     created(){
       // 轮播图

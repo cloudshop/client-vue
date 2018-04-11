@@ -31,7 +31,6 @@
             <div class="contents_right">
               <div class="contents_right_all">
                 <div class="contents_right_img">
-                  
                   <img src="../assets/Mine/headportrait.jpg" alt="">
                 </div>
                 <div class="contents_right_matter">
@@ -80,6 +79,7 @@
 </template>
 <script>
 import Foot from "./main/Foot";
+import { setCookie,getCookie } from '../assets/js/cookie.js'
 export default {
   data() {
     return {
@@ -152,6 +152,41 @@ export default {
    
   },
   created(){
+      // console.log(this.serviceList)
+      // this.serviceList.forEach((item,index)=>{
+      //   item.list.forEach((v,i)=>{
+      //     if(v.checkboxChild==true){
+      //       console.log(0)
+      //     }
+      //   })
+      // })
+      var accessToken = getCookie('access_token')
+      if(accessToken == ''){
+          var  val={
+              "func":"openURL",
+              "param":{
+                  "URL":'http://192.168.1.102:8888/#/login'
+              },
+          };
+          var u = navigator.userAgent;
+          var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+          var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+          if(isiOS){
+            this.$router.push('/login');
+             window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+          }else if(isAndroid){  
+            this.$router.push('/login');
+            window.androidObject.JSCallAndroid(val);
+          }
+          
+          
+          // this.$router.push('/Login')
+      }
+      // this.serviceList[index].list.forEach((item,index){
+      //   if (item.checkboxChild == true) {
+      //     console.log(item)
+      //   }
+      // });
     // var that = this;
     // this.$axios.get('/api/')
     //     .then(function(res){
@@ -206,8 +241,10 @@ export default {
     },
     checkboxAll:function(){
       this.totalAllPrice = 0;
-      
-    }
+    },
+    // 选中计算总价
+    
+
   },
   components: {
     Foot
@@ -433,7 +470,7 @@ span {
 .inpus {
   border: none;
   width: 0.7rem;
-  height: 0.35rem;
+  height: 0.36rem;
   font-size: 0.24rem;
   color: #2f2f2f;
   line-height: 0.43rem;

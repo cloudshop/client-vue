@@ -12,21 +12,62 @@
            <div class="mint-header-button is-right"></div>
         </header>
       <div class="center content">
-          <p>设置密码<input type="password"></p>
+          <p>设置密码<input type="password" id="setPassword" v-model="setPassword"></p>
           <p class="yzm">
-             确认密码<input type="password">
+            确认密码<input type="password" id="affirmPassword" v-model="affirmPassword">
           </p>
           <p class="next">
-              <button>完成</button>
+              <button @click="accomplish">完成</button>
           </p>
       </div>
   </div>
 </template>
 <script>
+import { setCookie,getCookie } from '../../assets/js/cookie.js'
 export default {
+    data(){
+        return{
+            setPassword:'',
+            affirmPassword: ''
+        }
+    },
     methods:{
+        accomplish(){
+            var setPassword=document.getElementById("setPassword").value; 
+            var affirmPassword=document.getElementById("affirmPassword").value; 
+            var iphone = getCookie('iphone')
+            var authCode = getCookie('authCode')
+            var val ={
+                    // "authorities": [
+                    //     "ROLE_USER"
+                    // ],
+                    // "login": this.iphone,
+                    // "password": this.setPassword,
+                    // "verifyCode": this.authCode
+                    "authorities": [
+                        "ROLE_USER"
+                    ],
+                    "login": '13261012313',
+                    "password": this.setPassword,
+                    "verifyCode": '12345'
+                }
+            if(setPassword == affirmPassword){
+            this.$axios.post('/register',val)
+                .then(function(res) {
+                  console.log(res)
+                })
+                .catch(function(error) {
+                   console.log(error);
+                });
+            }else{
+                alert('两次密码输入不符')
+                document.getElementById("setPassword").value="";
+                document.getElementById("affirmPassword").value="";
+            }
+        },
         Register(){
-            this.$router.push({name:"Register"})  
+            console.log(this.$router)
+            this.$router.push({name:"Register"})
         }
     }
 }
