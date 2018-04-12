@@ -8,7 +8,7 @@ module.exports = {
     dev: {
         // Paths
         assetsSubDirectory: 'static',
-        assetsPublicPath: '/',
+        assetsPublicPath: './',
         proxyTable: {
             '/uaa': {
                 target:'http://cloud.eyun.online:9080', // 你请求的第三方接口
