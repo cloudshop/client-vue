@@ -3,7 +3,7 @@
       <header class="mint-header">
            <div class="mint-header-button is-left">
                <a class="router-link-active">
-                   <button class="mint-button mint-button--default mint-button--normal" @click='back'>
+                   <button class="mint-button mint-button--default mint-button--normal">
                     <mt-button icon="back"></mt-button>
                    </button>
               </a>
@@ -35,6 +35,8 @@
             </dl>
         </div>
         <div class='content'>
+             <router-link :to="{ path: '/Talk' }"  tag='p'>跳转
+             </router-link> 
             <ul class='list'>
                 <li>
                     <dl>
@@ -55,9 +57,8 @@
 <script>
 import { Header } from 'mint-ui';
 export default {
-    data(){
-        return {
 
+<<<<<<< HEAD
         }
     },
     methods:{
@@ -78,6 +79,8 @@ export default {
                    }         
         }
     }
+=======
+>>>>>>> 453a37309aba20470f813c3495f79314bac76ac1
 }
 </script>
 

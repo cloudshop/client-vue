@@ -199,6 +199,8 @@ export default {
                 $('.btn').removeClass('Color')  
              }
         })
+
+
     },
     
 }

@@ -31,7 +31,7 @@
                         <h1>{{item.secondName}}</h1>
                         <div class='renderContent'>
                             <dl v-for='(i,v) in item.thirdCategory' :key='v' :data='i.thirdid' @click='ItemDescription(i.thirdid)'>
-                                <dt><img :src="i.logo" alt=""></dt>
+                                <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
                                 <dd>{{i.thirdName}}</dd>
                             </dl>
                         </div>
@@ -263,12 +263,12 @@ export default {
         margin-top:.1rem;
     }
     .maincontent .renderContent dl dt{
-        width:1.18rem;
-        height:.89rem;
+        width:.98rem;
+        height:.69rem;
     }
     .maincontent .renderContent dl dt img{
-        width:100%;
-        height:100%;
+        width:.98rem;
+        height:.69rem;
     }
     .maincontent .renderContent dl dd{
         margin-top:.2rem;

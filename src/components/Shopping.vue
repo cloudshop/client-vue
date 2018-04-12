@@ -61,12 +61,12 @@
           <div class="shopping_footer_left">
             <div class="all">
               <span class="shopping_q">
-                <input type="checkbox" id="tonglian"  class="checkboxs" value="通联" name="sex" v-model="checkboxBig"  @click="checkboxAll(item.id=0)"/>
+                <input type="checkbox" id="tonglian"  class="checkboxs" value="通联" name="sex" v-model="checkboxBig"  @click="checkboxAll(0)"/>
                 <label for="tonglian"></label>
               </span>
             </div>   
             <!--{{data.price*data.num | filtermoney}}  -->
-            <div class="money">合计: ￥ </div>   
+            <div class="money">合计: ￥ {{totalPrice}}</div>   
           </div>
           <div class="shopping_footer_right">去结算</div>
         </div>
@@ -83,10 +83,10 @@ import { setCookie,getCookie } from '../assets/js/cookie.js'
 export default {
   data() {
     return {
-      totalPrice: 100,
+      totalPrice: 0,
       animatenum: 0,
       totalAllPrice: 0,
-      checkboxBig: true,
+      checkboxBig: false,
       serviceList: [
         {
           id: 0,
@@ -153,19 +153,13 @@ export default {
   },
   created(){
       // console.log(this.serviceList)
-      // this.serviceList.forEach((item,index)=>{
-      //   item.list.forEach((v,i)=>{
-      //     if(v.checkboxChild==true){
-      //       console.log(0)
-      //     }
-      //   })
-      // })
+    
       var accessToken = getCookie('access_token')
       if(accessToken == ''){
           var  val={
               "func":"openURL",
               "param":{
-                  "URL":'http://192.168.1.102:8888/#/login'
+                  "URL":'http://192.168.1.109:8888/#/login'
               },
           };
           var u = navigator.userAgent;
@@ -219,6 +213,7 @@ export default {
     // pageAll 店铺全选
     pageAll:function(pageId){
       if(this.serviceList[pageId].checkbox !== true){
+        // this.serviceList.
         this.serviceList[pageId].list.map((v,i)=>{
           v.checkboxChild = true
         })
@@ -238,12 +233,32 @@ export default {
         }
       });
       this.serviceList[pitchId].checkbox = flag;
+      
+      // if(this.serviceList[pitchId].list[index].checkboxChild == true ||  this.serviceList[pitchId].checkbox == true){
+      //   var Money = this.serviceList[pitchId].list[index].num * this.serviceList[pitchId].list[index].price;
+      //   this.totalPrice = Money;
+      // }
     },
-    checkboxAll:function(){
-      this.totalAllPrice = 0;
+    // 全选选中计算
+    checkboxAll:function(pageId){
+      for(var pageId = 0; pageId < this.serviceList.length; pageId++){
+        if(this.checkboxBig !== true){
+          this.serviceList[pageId].checkbox = true;
+          this.serviceList[pageId].list.map((v,i)=>{
+            v.checkboxChild = true
+            if(v.checkboxChild == false){
+              this.serviceList[pageId].checkbox = false;
+            }
+          })
+        }else{
+          this.serviceList[pageId].checkbox = false;
+          this.serviceList[pageId].list.map((v,i)=>{
+            v.checkboxChild = false
+          })
+        }
+      }
     },
     // 选中计算总价
-    
 
   },
   components: {

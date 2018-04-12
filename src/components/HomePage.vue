@@ -1,21 +1,13 @@
 <template>
   <div>
-     <header>
-          <p>洪山区</p>
-          <input type="text" placeholder="内容推荐">
-          <ul>
-            <li><img src="../assets/HomePage/扫码黑色.png" alt="" @click='Camera'></li>
-            <li><img src="../assets/HomePage/消息黑色.png" alt="" @click='news'></li>
-          </ul>
-     </header>
      <div class='main content'>
           <mt-swipe :auto="4000" class='banner'>
            <mt-swipe-item v-for='(item,index) in data' :key='index'><img :src=item.image alt="" @click='banner(item.link)'></mt-swipe-item> 
       </mt-swipe>
        <HomePageNav></HomePageNav>
-       <!-- <h2>{{XX}}{{YY}}</h2> -->
+       <h2>{{XX}}{{YY}}</h2>
        <div class='Nearbyshops'>
-              <h1>附近商家{{Locations}}</h1>
+              <h1>附近商家</h1>
               <div class='list'>
                   <dl>
                     <b class='fixed'><i>让利</i><em>111</em></b>
@@ -88,17 +80,22 @@ export default {
         data:null,
         slideshow:"",
         XX:'',  //经度
+<<<<<<< HEAD
         YY:'',   //纬度
         Locations:'',
+=======
+        YY:''   //纬度
+>>>>>>> 453a37309aba20470f813c3495f79314bac76ac1
       }
     },
     methods:{
       // 经度  纬度
       GeographicalLocation:function (X,Y) {
            this.XX=X;
-           this.YY=Y;          
+           this.YY=Y;
            console.log(this.XX)
            console.log(this.YY)
+<<<<<<< HEAD
            var that = this;
            this.$axios.post('http://cloud.eyun.online:9080/user/api/mercuries/info-list/'+this.XX+'/'+this.YY)
               .then(function(response) {
@@ -164,6 +161,12 @@ export default {
     mounted:function () {
        window.GeographicalLocation = this.GeographicalLocation;
        window.Camera = this.Camera;
+=======
+      }
+    },
+    mounted:function () {
+         window.GeographicalLocation = this.GeographicalLocation;       
+>>>>>>> 453a37309aba20470f813c3495f79314bac76ac1
     },
     created(){
       // 轮播图
@@ -176,6 +179,27 @@ export default {
         .catch(function(error) {
             console.log(error);
        }); 
+<<<<<<< HEAD
+=======
+      
+        // params = qs.stringify(params) 
+        // this.$axios({
+        //     method:'post',
+        //     url:'auth',
+        //     // data:params,
+        //     headers:{
+        //       'Content-Type': 'application/json',
+        //     }
+        // })
+        // .then(function(response) {
+        //   // console.log(1) // 可以打印
+        //   // console.log(response.data); //
+        // })
+        // .catch((error)=>{
+        //     console.log(error);
+        // })
+
+>>>>>>> 453a37309aba20470f813c3495f79314bac76ac1
     }, 
     components:{          
       HomePageNav,
@@ -184,33 +208,7 @@ export default {
 }
 </script>
 <style scoped>
-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:0 .1rem;
-  height:.8rem;
-}
-header input{
-  width:55%;
-  height:.4rem;
-  border-radius:.2rem;
-  padding-left:.3rem;
-  border:0;
-}
-header p{
-  font-size:.3rem;
-}
-header ul{
-  display:flex;
-}
-header ul li{
-  margin:0 .1rem;
-}
-header ul li img{
-  width:.5rem;
-  height:.5rem;
-}
+
 .banner{
   height:4rem;
 }
