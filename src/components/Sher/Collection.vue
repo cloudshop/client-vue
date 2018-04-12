@@ -9,12 +9,12 @@
       </header>
       <div class="center">
           <div class="shops">
-              <div class="change_top">
+              <div class="change_top" v-for='(item,index) in data'>
                   <p class="img">
                         <img src="../../assets/Mine/headportrait.jpg" alt="">
                     </p>
                     <ul>
-                        <li>双肩包双肩包双肩包双肩包双肩包双肩包双肩包双肩 </li>
+                        <li>{{item.name}}</li>
                         <li>￥<b>128.00</b></li>
                         <li>
                            <span>看相似</span>
@@ -22,7 +22,7 @@
                            <i></i>
                         </li>
                     </ul>  
-              </div>
+              </div>             
           </div>
           <div class="shophouse">
               <div class="change2_top">
@@ -42,6 +42,23 @@
 
 <script>
 export default {
+  data(){
+      return {
+          data:'',
+      }
+  },
+  created(){
+       var Goods=sessionStorage.getItem("GoodsID"); // 商品id 
+       var that = this;
+      this.$axios.get('http://cloud.eyun.online:9080/favorite/api/delFavorite/'+ Goods)
+         .then(function(response) {
+             that.data = response.data; 
+            console.log(response.data);
+        })
+        .catch(function(error) {
+            console.log(error);
+       }); 
+  },
   mounted:function(){
       $('.chage span').click(function(){
          var a =  $(this).addClass('col').siblings().removeClass("col");
@@ -100,7 +117,8 @@ export default {
     }
     .change_top{
         width: 100%;
-    
+        margin-top:.1rem;
+        overflow: hidden;
         /* border-top: 1px solid #e7e7e7; */
     }
     .change_top ul{
@@ -111,10 +129,10 @@ export default {
     .img{
         width: 2rem;
         height: 2rem;     
-        background: #fff;
         padding: .3rem;
         float: left;
         padding-right: .34rem;
+        overflow: hidden;
     }
     .change_top ul li:nth-child(1){
         padding-top: .3rem;
@@ -168,8 +186,6 @@ export default {
     .img{
         width: 2rem;
         height: 2rem;     
-        background: #fff;
-        padding: .3rem;
         float: left;
         padding-right: .34rem;
     }
