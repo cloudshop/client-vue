@@ -52,7 +52,8 @@ export default {
                     "verifyCode": '12345'
                 }
             if(setPassword == affirmPassword){
-            this.$axios.post('/register',val)
+                console.log('0')
+                 this.$axios.post('http://cloud.eyun.online:9080/uaa/api/register',val)
                 .then(function(res) {
                   console.log(res)
                 })
@@ -79,12 +80,12 @@ export default {
         background: #fff;
     }
     header{
-    width:100%;
-    background:#fff;
-    color:#2f2f2f;
-    height:.94rem;
-    font-size:.32rem;
-    border-bottom:1px solid #e7e7e7;
+        width:100%;
+        background:#fff;
+        color:#2f2f2f;
+        height:.94rem;
+        font-size:.32rem;
+        border-bottom:1px solid #e7e7e7;
     }
     .center{
         width: 100%;

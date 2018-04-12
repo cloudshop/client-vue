@@ -10,7 +10,7 @@
      </header>
      <div class='main content'>
           <mt-swipe :auto="4000" class='banner'>
-           <mt-swipe-item v-for='(item,index) in data' :key='index'><img :src=item.image alt=""></mt-swipe-item> 
+           <mt-swipe-item v-for='(item,index) in data' :key='index'><img :src=item.image alt="" @click='banner(item.link)'></mt-swipe-item> 
       </mt-swipe>
        <HomePageNav></HomePageNav>
        <!-- <h2>{{XX}}{{YY}}</h2> -->
@@ -89,20 +89,10 @@ export default {
         slideshow:"",
         XX:'',  //经度
         YY:'',   //纬度
-        Locations:''
+        Locations:'',
       }
     },
     methods:{
-      fn(){
-        // 点击验证码
-            this.$axios.get('/api')
-             .then(function(response) {
-               console.log(response);
-           })
-            .catch(function(error) {
-                 console.log(error);
-           });
-      },
       // 经度  纬度
       GeographicalLocation:function (X,Y) {
            this.XX=X;
@@ -122,21 +112,22 @@ export default {
             var val = {
             'func':'scan',
             'param':{}
-        }
+        } 
         var u = navigator.userAgent;
         var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
         var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
         if(isiOS){
         window.webkit.messageHandlers.GongrongAppModel.postMessage(val);   
-        }else if(isAndroid){                      
-        window.androidObject.JSCallAndroid(val);
+        }else if(isAndroid){                  
+        window.androidObject.JSCallAndroid(JSON.stringify(val))
         }
       },
       news(){
+        var that = this;
           var  val={
               "func":"openURL",
               "param":{
-                  "URL":'http://192.168.1.102:8888/#/News'
+                  "URL":'http://192.168.1.102:8888/#/News',
               },
           };
           var u = navigator.userAgent;
@@ -145,37 +136,34 @@ export default {
           if(isiOS){
              window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
           }else if(isAndroid){  
-            window.androidObject.JSCallAndroid(val);
+             window.androidObject.JSCallAndroid(JSON.stringify(val));
           }
+      },
+      banner(link){
+        console.log(link)
+        var http=new RegExp("http");
+        var product=new RegExp("product");
+        var that = this;
+       if(http.test(link) == true){
+         window.location.href=link
+       }else if(product.test(link) == true){
+         this.$router.push({name:"Product"})
+          var Goods=sessionStorage.setItem("GoodsID",link.split('/')[2]); // 商品id 
+          var Goods=sessionStorage.getItem("GoodsID");
+           this.$axios.get('http://cloud.eyun.online:9080/product/api/product/content?id='+Goods)
+              .then(function(response) {   
+                  that.data = response.data;
+                  console.log(response.data)
+              })
+              .catch(function(error) {
+                  console.log(error);
+            }); 
+       }
       }
     },
     mounted:function () {
        window.GeographicalLocation = this.GeographicalLocation;
        window.Camera = this.Camera;
-//       var browser={
-//      versions:function(){
-//         var u = navigator.userAgent, app = navigator.appVersion;
-//         return {
-//             trident: u.indexOf('Trident') > -1, //IE内核
-//             presto: u.indexOf('Presto') > -1, //opera内核
-//             webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
-//             gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1,//火狐内核
-//             mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
-//             ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
-//             android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
-//             iPhone: u.indexOf('iPhone') > -1 , //是否为iPhone或者QQHD浏览器
-//             iPad: u.indexOf('iPad') > -1, //是否iPad
-//             webApp: u.indexOf('Safari') == -1, //是否web应该程序，没有头部与底部
-//             weixin: u.indexOf('MicroMessenger') > -1, //是否微信 （2015-01-22新增）
-//             qq: u.match(/\sQQ/i) == " qq" //是否QQ
-//         };
-//     }(),
-//     language:(navigator.browserLanguage || navigator.language).toLowerCase()
-// }
-    
-//       if(browser.versions.android){}
-//       if(browser.versions.ios){}     
-    
     },
     created(){
       // 轮播图
@@ -183,28 +171,11 @@ export default {
        this.$axios.get('http://cloud.eyun.online:9080/advertising/api/findNotDelByLoc')
          .then(function(response) {   
             that.data = response.data;
+            console.log(response)
         })
         .catch(function(error) {
             console.log(error);
        }); 
-      
-        // // params = qs.stringify(params) 
-        // this.$axios({
-        //     method:'post',
-        //     url:'auth',
-        //     // data:params,
-        //     headers:{
-        //       'Content-Type': 'application/json',
-        //     }
-        // })
-        // .then(function(response) {
-        //   // console.log(1) // 可以打印
-        //   // console.log(response.data); //
-        // })
-        // .catch((error)=>{
-        //     console.log(error);
-        // })
-
     }, 
     components:{          
       HomePageNav,

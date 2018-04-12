@@ -13,8 +13,8 @@
         </header>
         <div class='content main'>
             <div class='form'>
-                   <p><label for="" id='zh'>账号</label><input type="text" class='value val' v-model="PassName" placeholder="请输入账号" ></p>
-                   <p><label for="">密码</label><input type="password"  class='val' v-model="PassWord" placeholder="请输入密码"></p>
+                   <p><label for="" >账号</label><input type="text" class='value' v-model="PassName" placeholder="请输入账号" id='passname'></p>
+                   <p><label for="">密码</label><input type="password"   v-model="PassWord" placeholder="请输入密码" id='password'></p>
                    <button class='btn' @click='btn'>登录</button>
             </div>
             <p class='ForgetPassWord'><span @click='ForgetPassWord'>忘记密码?</span></p>
@@ -82,20 +82,12 @@ export default {
             
         },
         // 传token
-        // setToken(token){
-        //     var tokenLength = token.length;
-        //     if(token != null && tokenLength>10){
-        //         $('.h2').text('yes');
-        //         // setCookie('access_token',token,1000*60)
-        //     }else{
-        //         $('.h2').text('no');
-        //     }
-        // },
+     
         upperCase(){
           var theinput=document.getElementsByClassName("value")[0].value; 
           var p1=/^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/; 
           //(p1.test(theinput)); 
-          if(p1.test(theinput)==false) { 
+          if(p1.test(theinput)==false) {
             console.log('请填写正确电话号码!!'); 
             document.getElementsByClassName("value")[0].value=""; 
           }else {
@@ -122,7 +114,7 @@ export default {
         closeCurrent(){
                     var  val={
                         "func":"closeCurrent",
-                        "param":{},
+                        "param":{ "backToHome":true},
                     };
                     var u = navigator.userAgent;
                     var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
@@ -132,96 +124,63 @@ export default {
                         window.webkit.messageHandlers.GongrongAppModel.postMessage(val);   
                     }else if(isAndroid){   
                         this.$router.push('/')            
-                       window.androidObject.JSCallAndroid(val);
+                    //    window.androidObject.JSCallAndroid(val);
                    }
                
         },
         btn(){
             // IOS 方法 传token
-                let data = {'username':this.PassName,'password':this.PassWord}
-                this.$axios.post('/auth',data)
+                var data = {'username':this.PassName,'password':this.PassWord}
+                this.$axios.post('http://cloud.eyun.online:9080/auth/login',data)
                 .then((res)=>{
-                var accessToken = res.data.access_token;
-                alert(1)
-                var refreshToken = res.data.refresh_token;
-                setCookie('access_token',accessToken,1000*60)
-
-                // var  val={
-                //     "func":"setAccessToken",
-                //     "param":{
-                //         "accessToken":accessToken
-                //     },
-                // };
-                // var u = navigator.userAgent;
-                // var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-                // var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-                // if(isiOS){
-                //     window.webkit.messageHandlers.GongrongAppModel.postMessage(val)   
-                // }else if(isAndroid){               
-                //     window.androidObject.JSCallAndroid(val);
-                // }else{
-                //     this.$router.push('/Login')
-                // }
-
-                var accessToken = getCookie('access_token');
-                if(accessToken !== ''){
-                    var  val={
-                        "func":"closeCurrent",
-                        "param":{},
-                    };
-                    var u = navigator.userAgent;
-                    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-                    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-                    if(isiOS){
-                        this.$router.push('/')
-                        window.webkit.messageHandlers.GongrongAppModel.postMessage(val);   
-                    }else if(isAndroid){   
-                        this.$router.push('/')            
-                        window.androidObject.JSCallAndroid(val);
+                    var accessToken = res.data.access_token;
+                    setCookie('access_token',accessToken,1000*60)
+                    var accessToken = getCookie('access_token');
+                    if(accessToken !== ''){
+                        var  val={
+                            "func":"closeCurrent",
+                            "param":{},
+                        };
+                        var u = navigator.userAgent;
+                        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+                        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+                        if(isiOS){
+                            this.$router.push('/')
+                            window.webkit.messageHandlers.GongrongAppModel.postMessage(val);   
+                        }else if(isAndroid){   
+                            this.$router.push('/')            
+                            // window.androidObject.JSCallAndroid(val);
+                        }
+                    }else{
+                        this.$router.push('/Login')
                     }
-                }else{
-                    this.$router.push('/Login')
-                }
-                
-                // 再次请求
-                // this.$axios.get("/order")
-                // .then((res)=>{
-                //     console.log(res)
-                // })
-                
-                // if(res.data == -1){
-                // 	this.tishi = "该用户不存在"
-                // 	this.showTishi = true
-                // }else if(res.data == 0){
-                // 	this.tishi = "密码输入错误"
-                // 	this.showTishi = true
-                // }else if(res.data == 'admin'){
-                // 	this.$router.push('/main')
-                // }else{
-                // 	this.tishi = "登录成功"
-                // 	this.showTishi = true
-                //  setCookie('access_token',datas,1000*60)
-                // 	setTimeout(function(){
-                // 		this.$router.push({path:'home',query:{id:1}})
-                // 	}.bind(this),1000)
-                // }
+                    
+                    // 再次请求
+                    // this.$axios.get("/order")
+                    // .then((res)=>{
+                    //     console.log(res)
+                    // })
+                    
+                    // if(res.data == -1){
+                    // 	this.tishi = "该用户不存在"
+                    // 	this.showTishi = true
+                    // }else if(res.data == 0){
+                    // 	this.tishi = "密码输入错误"
+                    // 	this.showTishi = true
+                    // }else if(res.data == 'admin'){
+                    // 	this.$router.push('/main')
+                    // }else{
+                    // 	this.tishi = "登录成功"
+                    // 	this.showTishi = true
+                    //  setCookie('access_token',datas,1000*60)
+                    // 	setTimeout(function(){
+                    // 		this.$router.push({path:'home',query:{id:1}})
+                    // 	}.bind(this),1000)
+                    // }
             })
         }
     },
     created(){
-        // 获取
-        // var getCookieDid = getCookie('access_token');
-        // if(getCookieDid == ""){
-        //     this.$nextTick(() => { 
-        //         $('.h2').text('Nocookie');
-        //     })
-        //     this.requestToken()
-        // }else{
-        //     this.$nextTick(() => { 
-        //         $('.h2').text('有cookie');
-        //     })
-        // }
-
         // var UaaJavascript = require('uaa-javascript');
         // console.log(api);
         // var apiClient = new UaaJavascript.ApiClient();
@@ -233,16 +192,22 @@ export default {
         window.mobileSetToken = this.mobileSetToken;
         window.setToken = this.setToken;
         window.closeCurrent = this.closeCurrent;
-      
-        // 获取token
-        // let uname = getCookie('access_token')
-        // console.log(uname)
+        $('input').on('keyup',function(){
+             if($('#passname').val().length>=11 && $('#password').val().length>=6){
+                $('.btn').addClass('Color')         
+             }else{
+                $('.btn').removeClass('Color')  
+             }
+        })
     },
     
 }
 </script>
 
 <style scoped>
+.Color{
+    background:red!important;
+}
 .Login{
     width: 100%;
     height: 100%; 

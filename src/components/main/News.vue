@@ -74,7 +74,7 @@ export default {
                         window.webkit.messageHandlers.GongrongAppModel.postMessage(val);   
                     }else if(isAndroid){   
                         this.$router.push('/')            
-                       window.androidObject.JSCallAndroid(val);
+                       window.androidObject.JSCallAndroid(JSON.stringify(val));
                    }         
         }
     }
