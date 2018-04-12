@@ -85,7 +85,7 @@
 </template>
 
 <script>
-
+import { setCookie,getCookie } from '../assets/js/cookie.js'
 import Foot from './main/Foot'
 import { Header,Popup } from 'mint-ui';
 
@@ -100,6 +100,28 @@ export default {
       },
      components:{
         Foot,
+     },
+     created(){
+      var accessToken = getCookie('access_token')
+      if(accessToken == ''){
+          var  val={
+              "func":"openURL",
+              "param":{
+                  "URL":'http://192.168.1.102:8888/#/login'
+              },
+          };
+          var u = navigator.userAgent;
+          var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+          var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+            if(isiOS){
+                  this.$router.push('/Login')
+                  window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+            }else if(isAndroid){   
+                  this.$router.push('/Login')
+                  window.androidObject.JSCallAndroid(val);
+            }
+      //     this.$router.push('/Login')
+      }
      }
 }
 </script>

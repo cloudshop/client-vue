@@ -1,7 +1,7 @@
 <template>
 <div class='content'>
   <mt-navbar v-model="selected">
-    <span class="spans">〈</span>
+    <router-link :to="{ path: '/Classify' }" tag='span'  class="spans">〈</router-link>
     <mt-tab-item id="1">商品</mt-tab-item>
     <mt-tab-item id="2">详情</mt-tab-item>
     <mt-tab-item id="3">评论</mt-tab-item>
@@ -15,8 +15,8 @@
           <img src="../../assets/HomePage/bg.gif" alt="">
         </div>
         <div class="details_cantent">
-          <h4>Apple iPone X (A1865) 64GB 深空灰色  移动联通电信4G手机 </h4>
-          <p><span class="details_red">￥ 8388.00 </span><span class='details_sc'>贡融商城</span></p>
+          <h4> {{data.productContent.productname}}</h4>
+          <p><span class="details_red">￥ {{data.productContent.price}} </span><span class='details_sc'>贡融商城</span></p>
           <small class="small"><span><i class='imgcopy'><img src="../../assets/details/选择拷贝.png" alt=""></i>贡融券可以抵扣 10.00</span><span><i class='imgcopy'><img src="../../assets/details/选择拷贝.png" alt=""></i>送贡融券积分 10</span><span><i class='imgcopy'><img src="../../assets/details/选择拷贝.png" alt=""></i>贡融积分可抵扣5.00</span></small>
         </div>
         <div class="pitch">
@@ -31,7 +31,7 @@
           <span class="details_checkeder">送至</span>
           <p class="details_p">
             <span class="imgWz"><img src="../../assets/details/定位.png" alt=""></span>
-            <span>湖北省武汉市洪山区街道口未来城E座205</span>
+            <span @click='Address'>湖北省武汉市洪山区街道口未来城E座205</span>
           </p>
           <span class="omit"><img src="../../assets/details/定位.png" alt=""></span>
         </div>
@@ -121,19 +121,60 @@
           <span><img src="../../assets/Comment/联系客服.png" alt=""></span>
           <span class='names'>联系卖家</span>
         </p>
-        <p class="details_footer_dp">
+        <p class="details_footer_dp" @click='store'>
           <span><img src="../../assets/Comment/店铺.png" alt=""></span>
           <span class='names'>店铺</span>
         </p>
-        <p class="details_footer_sc">
-          <span><img src="../../assets/Comment/收藏.png" alt=""></span>
-          <span class='names'>收藏</span>
+        <p class="details_footer_sc" @click='collect'>
+          <span><em  class="iconfont collect">&#xe603;</em></span>
+          <span class='names collect'>收藏</span>
         </p>
       </div>
-      <span class="goShopping">加入购物车</span>
-      <span class="newBuy">立即购买</span>
+      <span class="goShopping" @click='addShopping'>加入购物车</span>
+      <span class="newBuy" @click='SelectiveTypeOpen'>立即购买</span>
     </div>
   </mt-tab-container>
+  <transition  enter-active-class="animated fadeInUp"  leave-active-class="animated fadeOutDown">
+        <div class="box" v-show='flag'>
+            <div class="mainCon">
+              <div class='mainCwe'>
+                  <div class='Imgs'>
+                    <img src="../../assets/Mine/headportrait.jpg" alt="">
+                  </div>
+                  <div class='mainConHead'>
+                     <h2>￥{{data.productContent.price}}</h2>
+                     <p>商品编号:{{data.productContent.skucode}}</p>
+                  </div> 
+                  <div class='span' @click='SelectiveTypeclose'>X</div>              
+              </div>
+                <div class='content webCont'>
+                  <div v-for='(item,index) in data.attrbute' :key='index'>
+                    <p>{{item.attname}}</p>
+                        <ul>
+                          <li  v-for='(i,index) in item.attvalue' :key='index'>{{i}}</li>
+                        </ul>
+                  </div>                                        
+                  <p class='Cont'><span>数量</span> <em> <i @click='subtract'>-</i> <input type="text" v-model="val"><i @click='add'>+</i></em></p>
+                </div>
+                <button @click='ConfirmAnOrder'>确定</button>  
+            </div>
+        </div>
+  </transition>
+  <transition  enter-active-class="animated fadeInUp"  leave-active-class="animated fadeOutDown">
+        <div class="box" v-show='address'>
+            <div class="mainCon">
+                  <h2 class='h2'>配送至</h2>
+                  <div class='span' @click='addressClose'>X</div> 
+                   <ol class='content list'>
+                      <li class='active'>收获地址</li>
+                      <li>收获地址</li>
+                      <li>收获地址</li>
+                      <li>收获地址</li>
+                </ol>            
+            </div>
+
+        </div>
+  </transition>
 </div>
 </template>
 
@@ -145,29 +186,249 @@
         selected: '1',
         tabs: ["商品介绍", "规格参数","包装售后"],
         tabContents: ["内容一", "内容二","内容三"],
-        num: 1  
+        num: 1 ,
+        flag:false,
+        address:false,
+        val:1,
+        data:"", //数据
       } 
     }, 
      methods: {
       tab(index) {
         this.num = index
+      },
+      SelectiveTypeOpen: function() {
+         this.flag = true;
+       },
+      SelectiveTypeclose:function(){
+         this.flag = false; 
+      },
+      subtract:function(){
+        if(this.val>1){
+           this.val--;
+        }
+      },
+      add:function(){
+        if(this.val<10){
+           this.val++;
+        }
+      },
+      Address:function(){
+        this.address = true;
+      },
+      addressClose:function(){
+        this.address = false;
+      },
+      ConfirmAnOrder(){
+        this.$router.push(
+          {name:"ConfirmAnOrder",
+          params:{'price':this.data.productContent.price,'count':this.val}
+          }) 
+      },
+      addShopping(){
+        var that = this;
+        var params = 
+          {"userId":1,"skuId":1,"shopid":1,"skuName":"Iphone X 白色 128G 4G","unitPrice":9889,"count":10}
+         this.$axios({
+                method:'post',
+                url:'/addShopping/api/shoppingcar/add',
+                data:params,
+                headers:{
+                'Content-Type': 'application/json',
+                }
+            })
+            .then(function(response) {
+            console.log(response.data);
+            })
+            .catch((error)=>{
+                console.log(error);
+            }) 
+      },
+      collect(){
+        var Goods=sessionStorage.getItem("GoodsID"); // 商品id 
+        this.$axios.get('http://cloud.eyun.online:9080/favorite/api/favProduct/'+Goods+'/1')
+         .then(function(response) {   
+            if(response.data == true){
+               $('.collect').addClass("active");
+            }else{
+               $('.collect').removeClass("active");
+            }
+        })
+        .catch(function(error) {
+            console.log(error);
+       });   
+      },
+      store(){
+         this.$router.push({name:"PageDetails"}) 
       }
-    }
+    },
+    created(){
+      console.log(this.data.productContent)   
+       var that = this; //商品内容
+       var Goods=sessionStorage.getItem("GoodsID"); // 商品id 
+        this.$axios.get('http://cloud.eyun.online:9080/product/api/product/content?id='+Goods)
+         .then(function(response) {   
+            that.data = response.data;
+            console.log(response.data)
+        })
+        .catch(function(error) {
+            console.log(error);
+       }); 
+    } 
   };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .mint-navbar{
+.active{
+  color:#d81e06!important;
+}
+.list{ 
+  margin-top:.3rem;
+}
+.list li {
+  border-bottom:1px solid #eeeeee;
+  font-size:.28rem;
+  color:#2f2f2f;
+  line-height: .5rem;
+  height:.5rem;
+  margin-left:.6rem;
+}
+.h2{
+  text-align:center;
+  font-size:.28rem;
+  color:#696969;
+  margin-top:.15rem;
+  font-weight:normal;
+}
+.box{
+    width: 100%;
+    height: 100%; 
+    background:rgba(0, 0,0,.5);
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right:0px;
+    bottom:0px;
+}
+.mainCon{
+  width:100%;
+  height:60%;
+  position:absolute;
+  bottom:0;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+.mainCon .Imgs{
+  width:1.8rem;
+  height:1.8rem;
+  position: absolute;
+  top:-.43rem;
+  left:.29rem;
+}
+.mainCon .Imgs img{
+  width:1.8rem;
+  height:1.8rem;
+  border-radius: .14rem;
+  border:1px solid #e7e7e7;
+}
+.mainConHead{
+  padding-left:2.5rem;
+}
+.mainConHead h2{
+  color:#e80404;
+  font-size:.28rem;
+  padding-top:.38rem;
+}
+.mainConHead p{
+  font-size:.22rem;
+  color:#2f2f2f;
+   padding-top:.3rem;
+}
+.span{
+  position: absolute;
+  right:.2rem;
+  top:.2rem;
+  font-size:.3rem;
+  color:#666666;
+}
+.mainCwe{
+  padding-bottom:.5rem;
+  border-bottom:1px solid #e7e7e7;
+}
+.mainCon button{
+  width:100%;
+  height:.88rem;
+  background:#df443b;
+  font-size:.32rem;
+  color:#fff;
+  border:0;
+}
+.webCont p{
+  margin-top:.28rem;
+  font-size:.28rem;
+  color:#696969;
+}
+.webCont {
+  margin-left:.32rem;
+}
+.webCont ul{
+  display:flex;
+  flex-wrap:wrap;
+  width:100%;
+}
+.webCont ul li{
+  box-sizing:border-box;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  width:30%;
+  height:.44rem;
+  border:1px solid #e7e7e7;
+  padding:0 .4em;
+  margin:.15rem .1rem;  
+}
+.Cont{
+  display:flex;
+  justify-content:space-between;
+  padding-right:.3rem;
+  margin-bottom:.2rem;
+}
+.Cont input{
+  width:.7rem;
+  height:.4rem;
+  border:0;
+  border:1px solid #707070;
+  display:inline-block; 
+  text-align:center;
+}
+.Cont em {
+  display:flex;
+}
+.Cont i{
+   display:inline-block;
+   width:.48rem;
+   height:.44rem;
+   border:1px solid #707070;
+   text-align:center;
+   line-height: .44rem;
+}
+.Cont i:first-child{
+  border-right:0;
+}
+.Cont i:last-child{
+  border-left:0;
+}
+.mint-navbar{
     width: 100%;
     height: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: .32rem;
-    position: fixed;
-    z-index: 9999;
-  }
+    position: fixed;  
+}
   a, .mint-tab-item{
     font-size: .32rem;
   }
@@ -195,6 +456,7 @@
     height: 30rem;
     background: #fff;
     overflow-y: scroll;
+    margin-top:1rem;
   }
   .mint-cell-value{
     width: 100% !important;
@@ -202,6 +464,7 @@
     overflow-y: scroll;
   }
   .details_banner{
+    margin-top:.4rem;
     width: 100%;
     height: 4.8rem;
   }
@@ -529,6 +792,13 @@
     justify-content: center;
     align-items: center;
   }
+  .details_footer_left p span{
+    margin-top:.05rem;
+    margin-left:.02rem;
+  }
+   .details_footer_left .names{
+     margin-right:.1rem;
+   }
   .goShopping{
     color: #fff;
     background: #ff9d1e;
@@ -566,6 +836,9 @@
     width: 85%;
     margin-top: .01rem;
   }
+    .details_footer_sc em{
+      font-size:.4rem;
+    }
   .details_footer_sc span:nth-child(2){
     font-size: .2rem;
     color: #696969;

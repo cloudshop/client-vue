@@ -3,7 +3,7 @@
        <header class="mint-header">
            <div class="mint-header-button is-left">
                <a class="router-link-active">
-                   <button class="mint-button mint-button--default mint-button--normal">
+                   <button class="mint-button mint-button--default mint-button--normal" @click ='PreviousMenu'>
                     <mt-button icon="back"></mt-button>
                    </button>
               </a>
@@ -13,7 +13,7 @@
         </header>
         <div class='content'>
             <div class='nav'>
-                <dl>
+                <dl @click='HarvestAddress'>
                     <dt> <b>皮皮虾啊</b>&nbsp;<b>138****438</b></dt>
                     <dd>
                         <img src="../../assets/Mine/定位.png" alt="">
@@ -30,7 +30,7 @@
                     <dd>
                         <h2>双肩包双肩包双肩包双肩包双肩包双肩包双肩包双肩包</h2>
                         <p>商品属性商品属性商品属性商品属性商品属性商品属性</p>
-                        <div class='price'><b>￥128.00</b><em>X1</em></div>
+                        <div class='price'><b>￥{{price}}</b><em>X{{text}}</em></div>
                     </dd>
                 </dl>
             </div>
@@ -86,7 +86,7 @@
         </div>
         
         <div class='Compute'>
-            <p><span>共一件商品</span><b>小计:<em>￥128.00</em></b></p>
+            <p><span>共一件商品</span><b>小计:<em>￥{{price*text}}</em></b></p>
         </div>
         <div class='footer'>
             <p><span>抵扣1.00</span><b>合计:￥127</b></p>
@@ -99,7 +99,8 @@
 export default {
     data(){
         return{
-            text:1  // 购买数量
+            text:this.$route.params.count,  // 购买数量
+            price:this.$route.params.price, //单价
         }
     },
     methods:{
@@ -112,7 +113,15 @@ export default {
             if(this.text>1){
                 this.text--;
             }           
+        },
+        PreviousMenu(){
+            this.$router.push({name:"Product"}) 
+        },
+        HarvestAddress(){
+            this.$router.push({name:"MyAddress",params:{'address':'/ConfirmAnOrder'}}) 
         }
+    },
+    mounted(){
     }
 }
 </script>

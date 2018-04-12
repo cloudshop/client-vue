@@ -3,8 +3,8 @@
         <div class="classify_search_header">
             <div class="classify_search_ss">
                 <a><img src="../../assets/HomePage/搜索.png" alt=""></a>
-                <p><input type="text" placeholder="  请输入搜索关键词"></p>
-                <span >搜索</span>
+                <p><input type="text" placeholder="  请输入搜索关键词" @keydown='seek' v-model="seekContent"></p>
+                <span @click='seekAll'>搜索</span>
             </div>
         </div>
 
@@ -14,14 +14,12 @@
             <li v-for="(item,index) in tabs" :key="index" :class="{active:index == num}" @click="tab(index)">{{item}}</li>
         </ul>
         <div class="tabCon">
-            <div v-show="0 == num" class='content' >
-               
-                <div class="tabCon_main"  v-for='(item,index) in arr' :key="index"  :data='item.id' >
+            <div class='content' >             
+                <div class="tabCon_main"  v-for='(item,index) in arr' :key="index"  :data='item.id' @click='details(item.id)'>
                     <div class="tabCon_main_left">
                         <img src="../../assets/Classify/bg.gif" alt="">
                     </div>
                     <div class="tabCon_main_right">
-                        
                         <h4 class="h4">{{item.NAME}}</h4>
                         <div class="tabCon_main_right_all">
                             <p>￥{{item.listPrice}}</p>
@@ -33,74 +31,6 @@
                     </div>
                 </div>
             </div>
-            <!-- <div v-show="0 == num" class='content' >
-                <div class="tabCon_main"  v-for='(item,index) in tabCon_main' :key="index" >
-                    <div class="tabCon_main_left">
-                        <img src="../../assets/Classify/bg.gif" alt="">
-                    </div>
-                    <div class="tabCon_main_right">
-                        <h4 class="h4">{{item.name}}</h4>
-                        <div class="tabCon_main_right_all">
-                            <p>￥{{item.money}}</p>
-                            <p class="tabCon_main_right_all_img"><img v-for="(item,index) in item.liststart" :key="index" src="../../assets/PageAll/星星选中.png" alt=""></p>
-                            <p>送贡融积分 10</p>
-                        </div>
-                        <span class="tabCon_main_right_span">贡融券可抵扣 ￥10.00</span>
-                        <span class="tabCon_main_right_span">贡融积分可抵扣 ￥5.00</span>
-                    </div>
-                </div>
-            </div> -->
-            <!-- <div v-show="1 == num" class='content' >
-                <div class="tabCon_main"  v-for='(item,index) in tabCon_main' :key="index" >
-                    <div class="tabCon_main_left">
-                        <img src="../../assets/Classify/bg.gif" alt="">
-                    </div>
-                    <div class="tabCon_main_right">
-                        <h4 class="h4">{{item.name}}</h4>
-                        <div class="tabCon_main_right_all">
-                            <p>￥{{item.money}}</p>
-                            <p class="tabCon_main_right_all_img"><img v-for="(item,index) in item.liststart" :key="index" src="../../assets/PageAll/星星选中.png" alt=""></p>
-                            <p>送贡融积分 10</p>
-                        </div>
-                        <span class="tabCon_main_right_span">贡融券可抵扣 ￥10.00</span>
-                        <span class="tabCon_main_right_span">贡融积分可抵扣 ￥5.00</span>
-                    </div>
-                </div>
-            </div>
-            <div v-show="2 == num" class='content' >
-                <div class="tabCon_main"  v-for='(item,index) in tabCon_main' :key="index" >
-                    <div class="tabCon_main_left">
-                        <img src="../../assets/Classify/bg.gif" alt="">
-                    </div>
-                    <div class="tabCon_main_right">
-                        <h4 class="h4">{{item.name}}</h4>
-                        <div class="tabCon_main_right_all">
-                            <p>￥{{item.money}}</p>
-                            <p class="tabCon_main_right_all_img"><img v-for="(item,index) in item.liststart" :key="index" src="../../assets/PageAll/星星选中.png" alt=""></p>
-                            <p>送贡融积分 10</p>
-                        </div>
-                        <span class="tabCon_main_right_span">贡融券可抵扣 ￥10.00</span>
-                        <span class="tabCon_main_right_span">贡融积分可抵扣 ￥5.00</span>
-                    </div>
-                </div>
-            </div>
-            <div v-show="3 == num" class='content' >
-                <div class="tabCon_main"  v-for='(item,index) in tabCon_main' :key="index" >
-                    <div class="tabCon_main_left">
-                        <img src="../../assets/Classify/bg.gif" alt="">
-                    </div>
-                    <div class="tabCon_main_right">
-                        <h4 class="h4">{{item.name}}</h4>
-                        <div class="tabCon_main_right_all">
-                            <p>￥{{item.money}}</p>
-                            <p class="tabCon_main_right_all_img"><img v-for="(item,index) in item.liststart" :key="index" src="../../assets/PageAll/星星选中.png" alt=""></p>
-                            <p>送贡融积分 10</p>
-                        </div>
-                        <span class="tabCon_main_right_span">贡融券可抵扣 ￥10.00</span>
-                        <span class="tabCon_main_right_span">贡融积分可抵扣 ￥5.00</span>
-                    </div>
-                </div>
-            </div> -->
         </div>
   </div>
 </template>
@@ -110,25 +40,68 @@ export default {
     data() {
        return {
             tabs: ["综合", "销量","价格","筛选"],
-            name:this.$route.params.name,
             arr:null,
-            num: 0
+            num: 0,
+            name:'',
+            seekContent:''
         }
     },
     methods: {
         tab(index) {
-            this.num = index;
+            this.num = index; 
+            if(this.num == 0){
+                var params = {
+                   'categoryId':this.name
+                } 
+                this.PostMan(params)
+            }else if(this.num == 1){
+                var params = {
+                   'categoryId':this.name,
+                   "sale":1
+                } 
+                this.PostMan(params)
+            }else if(this.num == 2){
+                 var params = {
+                   'categoryId':this.name,
+                   "price":1
+                } 
+                this.PostMan(params)
+            } 
+        },
+        PostMan(params){
+            var that = this;
+            this.$axios({
+                method:'post',
+                url:'http://cloud.eyun.online:9080/product/api/product/all',
+                data:params,
+                headers:{
+                'Content-Type': 'application/json',
+                }
+            })
+            .then(function(response) {
+            that.arr = response.data.mainContent;
+            })
+            .catch((error)=>{
+                console.log(error);
+            }) 
+        },
+        details(id){
+          sessionStorage.setItem("GoodsID",id)                       
+          this.$router.push({name:"Product"})         
+        },
+        seek(){
+            console.log(this.seekContent)
+        },
+        seekAll(){
+            alert(1)
         }
     },
     created(){
-    var that = this;
-    this.$axios.get('/classify//api/product/all?categoryid='+this.name)
-        .then(function(response) {
-            that.arr = response.data.mainContent;
-        })
-        .catch(function(error) {
-              console.log(error);
-      });
+       this.name = sessionStorage.getItem("name")       
+       var params = {
+            'categoryId':this.name
+       } 
+       this.PostMan(params)
     },  
 }   
 </script>
