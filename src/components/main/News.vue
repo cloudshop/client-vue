@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 <template>
   <div class='news'>
       <header class="mint-header">
@@ -165,7 +165,6 @@ header{
     padding-top:.2rem; 
 }
 </style>
-=======
 <template>
   <div class='news'>
       <header class="mint-header">
@@ -225,10 +224,6 @@ header{
 <script>
 import { Header } from 'mint-ui';
 export default {
-
-<<<<<<< HEAD
-        }
-    },
     methods:{
         back(){
               var  val={
@@ -247,8 +242,6 @@ export default {
                    }         
         }
     }
-=======
->>>>>>> 453a37309aba20470f813c3495f79314bac76ac1
 }
 </script>
 
