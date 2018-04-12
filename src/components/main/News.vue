@@ -3,7 +3,7 @@
       <header class="mint-header">
            <div class="mint-header-button is-left">
                <a class="router-link-active">
-                   <button class="mint-button mint-button--default mint-button--normal">
+                   <button class="mint-button mint-button--default mint-button--normal" @click='back'>
                     <mt-button icon="back"></mt-button>
                    </button>
               </a>
@@ -35,8 +35,6 @@
             </dl>
         </div>
         <div class='content'>
-             <router-link :to="{ path: '/Talk' }"  tag='p'>跳转
-             </router-link> 
             <ul class='list'>
                 <li>
                     <dl>
@@ -57,7 +55,29 @@
 <script>
 import { Header } from 'mint-ui';
 export default {
+    data(){
+        return {
 
+        }
+    },
+    methods:{
+        back(){
+              var  val={
+                        "func":"closeCurrent",
+                        "param":{},
+                    };
+                    var u = navigator.userAgent;
+                    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+                    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+                    if(isiOS){
+                        this.$router.push('/')
+                        window.webkit.messageHandlers.GongrongAppModel.postMessage(val);   
+                    }else if(isAndroid){   
+                        this.$router.push('/')            
+                       window.androidObject.JSCallAndroid(val);
+                   }         
+        }
+    }
 }
 </script>
 

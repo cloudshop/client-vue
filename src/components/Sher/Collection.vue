@@ -9,20 +9,20 @@
       </header>
       <div class="center">
           <div class="shops">
-              <div class="change_top" v-for='(item,index) in data'>
+              <div v-for="(item,index) in items" class="change_top">
                   <p class="img">
                         <img src="../../assets/Mine/headportrait.jpg" alt="">
                     </p>
                     <ul>
-                        <li>{{item.name}}</li>
-                        <li>￥<b>128.00</b></li>
+                        <li>{{item.name}} </li>
+                        <li>￥<b>{{item.price}}</b></li>
                         <li>
                            <span>看相似</span>
                            <span>取消关注</span>
                            <i></i>
                         </li>
                     </ul>  
-              </div>             
+              </div>
           </div>
           <div class="shophouse">
               <div class="change2_top">
@@ -42,26 +42,34 @@
 
 <script>
 export default {
-  data(){
-      return {
-          data:'',
-      }
-  },
-  created(){
-       var Goods=sessionStorage.getItem("GoodsID"); // 商品id 
-       var that = this;
-      this.$axios.get('http://cloud.eyun.online:9080/favorite/api/delFavorite/'+ Goods)
-         .then(function(response) {
-             that.data = response.data; 
-            console.log(response.data);
+    data(){
+        return{
+            items:[
+                {id:'1',name:'双肩包双肩包双肩包双肩包双肩包双肩包双肩包双肩 ',price:'181'},
+                {id:'1',name:'单肩包单肩包单肩包单肩包单肩包单肩包单肩包单肩 ',price:'511'},
+                {id:'1',name:'三间包三间包三间包三间包三间包三间包三间包三间 ',price:'1821'},
+            ],
+            data:''
+        }
+    },
+    created(){
+        var Goods=sessionStorage.getItem("GoodsID"); // 商品id 
+        var that = this;
+        this.$axios.get('http://cloud.eyun.online:9080/favorite/api/delFavorite/'+ Goods)
+        .then(function(response) {
+        // that.data = response.data; 
+        console.log(response);
         })
         .catch(function(error) {
-            console.log(error);
-       }); 
-  },
-  mounted:function(){
+        console.log(error);
+        }); 
+
+    },
+    mounted:function(){
+      
       $('.chage span').click(function(){
          var a =  $(this).addClass('col').siblings().removeClass("col");
+   
          $('.center>div:eq('+$(this).index()+')').show().siblings().hide();	
       })
   }
@@ -117,8 +125,9 @@ export default {
     }
     .change_top{
         width: 100%;
-        margin-top:.1rem;
         overflow: hidden;
+       padding-bottom: .1rem;
+  
         /* border-top: 1px solid #e7e7e7; */
     }
     .change_top ul{
@@ -129,10 +138,10 @@ export default {
     .img{
         width: 2rem;
         height: 2rem;     
-        padding: .3rem;
+        overflow: hidden;
         float: left;
         padding-right: .34rem;
-        overflow: hidden;
+    
     }
     .change_top ul li:nth-child(1){
         padding-top: .3rem;
@@ -170,7 +179,7 @@ export default {
     }
     .img img{
         width: 100%;
-        height: 100%;
+        height: 94%;
     }
 
     .change2_top{
@@ -186,6 +195,7 @@ export default {
     .img{
         width: 2rem;
         height: 2rem;     
+        padding: .3rem;
         float: left;
         padding-right: .34rem;
     }
@@ -223,4 +233,5 @@ export default {
         background: url('../../assets/collection/che.png');
         background-size: 100% 100%;
     }
+ 
 </style>

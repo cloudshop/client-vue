@@ -142,7 +142,7 @@ export default {
                 this.$axios.post('/auth',data)
                 .then((res)=>{
                 var accessToken = res.data.access_token;
-                
+                alert(1)
                 var refreshToken = res.data.refresh_token;
                 setCookie('access_token',accessToken,1000*60)
 
