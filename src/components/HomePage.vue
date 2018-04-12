@@ -1,21 +1,13 @@
 <template>
   <div>
-     <header>
-          <p>洪山区</p>
-          <input type="text" placeholder="内容推荐">
-          <ul>
-            <li><img src="../assets/HomePage/扫码黑色.png" alt="" @click='Camera'></li>
-            <li><img src="../assets/HomePage/消息黑色.png" alt="" @click='news'></li>
-          </ul>
-     </header>
      <div class='main content'>
           <mt-swipe :auto="4000" class='banner'>
            <mt-swipe-item v-for='(item,index) in data' :key='index'><img :src=item.image alt=""></mt-swipe-item> 
       </mt-swipe>
        <HomePageNav></HomePageNav>
-       <!-- <h2>{{XX}}{{YY}}</h2> -->
+       <h2>{{XX}}{{YY}}</h2>
        <div class='Nearbyshops'>
-              <h1>附近商家{{Locations}}</h1>
+              <h1>附近商家</h1>
               <div class='list'>
                   <dl>
                     <b class='fixed'><i>让利</i><em>111</em></b>
@@ -88,8 +80,7 @@ export default {
         data:null,
         slideshow:"",
         XX:'',  //经度
-        YY:'',   //纬度
-        Locations:''
+        YY:''   //纬度
       }
     },
     methods:{
@@ -106,76 +97,13 @@ export default {
       // 经度  纬度
       GeographicalLocation:function (X,Y) {
            this.XX=X;
-           this.YY=Y;          
+           this.YY=Y;
            console.log(this.XX)
            console.log(this.YY)
-           var that = this;
-           this.$axios.post('http://cloud.eyun.online:9080/user/api/mercuries/info-list/'+this.XX+'/'+this.YY)
-              .then(function(response) {
-                  that.Locations = response;
-              })
-              .catch(function(error) {
-                  console.log(error);
-           }); 
-      },
-      Camera(){
-            var val = {
-            'func':'scan',
-            'param':{}
-        }
-        var u = navigator.userAgent;
-        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-        if(isiOS){
-        window.webkit.messageHandlers.GongrongAppModel.postMessage(val);   
-        }else if(isAndroid){                      
-        window.androidObject.JSCallAndroid(val);
-        }
-      },
-      news(){
-          var  val={
-              "func":"openURL",
-              "param":{
-                  "URL":'http://192.168.1.102:8888/#/News'
-              },
-          };
-          var u = navigator.userAgent;
-          var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-          var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-          if(isiOS){
-             window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-          }else if(isAndroid){  
-            window.androidObject.JSCallAndroid(val);
-          }
       }
     },
     mounted:function () {
-       window.GeographicalLocation = this.GeographicalLocation;
-       window.Camera = this.Camera;
-//       var browser={
-//      versions:function(){
-//         var u = navigator.userAgent, app = navigator.appVersion;
-//         return {
-//             trident: u.indexOf('Trident') > -1, //IE内核
-//             presto: u.indexOf('Presto') > -1, //opera内核
-//             webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
-//             gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1,//火狐内核
-//             mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
-//             ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
-//             android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
-//             iPhone: u.indexOf('iPhone') > -1 , //是否为iPhone或者QQHD浏览器
-//             iPad: u.indexOf('iPad') > -1, //是否iPad
-//             webApp: u.indexOf('Safari') == -1, //是否web应该程序，没有头部与底部
-//             weixin: u.indexOf('MicroMessenger') > -1, //是否微信 （2015-01-22新增）
-//             qq: u.match(/\sQQ/i) == " qq" //是否QQ
-//         };
-//     }(),
-//     language:(navigator.browserLanguage || navigator.language).toLowerCase()
-// }
-    
-//       if(browser.versions.android){}
-//       if(browser.versions.ios){}     
-    
+         window.GeographicalLocation = this.GeographicalLocation;       
     },
     created(){
       // 轮播图
@@ -188,7 +116,7 @@ export default {
             console.log(error);
        }); 
       
-        // // params = qs.stringify(params) 
+        // params = qs.stringify(params) 
         // this.$axios({
         //     method:'post',
         //     url:'auth',
@@ -213,33 +141,7 @@ export default {
 }
 </script>
 <style scoped>
-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:0 .1rem;
-  height:.8rem;
-}
-header input{
-  width:55%;
-  height:.4rem;
-  border-radius:.2rem;
-  padding-left:.3rem;
-  border:0;
-}
-header p{
-  font-size:.3rem;
-}
-header ul{
-  display:flex;
-}
-header ul li{
-  margin:0 .1rem;
-}
-header ul li img{
-  width:.5rem;
-  height:.5rem;
-}
+
 .banner{
   height:4rem;
 }

@@ -245,27 +245,21 @@
             }) 
       },
       collect(){
-        var Goods=sessionStorage.getItem("GoodsID"); // 商品id 
-        this.$axios.get('http://cloud.eyun.online:9080/favorite/api/favProduct/'+Goods+'/1')
-         .then(function(response) {   
-            if(response.data == true){
-               $('.collect').addClass("active");
-            }else{
-               $('.collect').removeClass("active");
-            }
-        })
-        .catch(function(error) {
-            console.log(error);
-       });   
+        if($('.collect').hasClass('active')){
+           $('.collect').removeClass("active");
+        }else{
+           $('.collect').addClass("active");
+        }      
       },
       store(){
          this.$router.push({name:"PageDetails"}) 
       }
     },
     created(){
-      console.log(this.data.productContent)   
-       var that = this; //商品内容
-       var Goods=sessionStorage.getItem("GoodsID"); // 商品id 
+      console.log(this.data.productContent)
+      //商品内容
+       var that = this; 
+       const Goods=sessionStorage.getItem("GoodsID"); // 商品id 
         this.$axios.get('http://cloud.eyun.online:9080/product/api/product/content?id='+Goods)
          .then(function(response) {   
             that.data = response.data;

@@ -107,7 +107,7 @@ export default {
           var  val={
               "func":"openURL",
               "param":{
-                  "URL":'http://192.168.1.102:8888/#/login'
+                  "URL":'http://192.168.1.109:8888/#/login'
               },
           };
           var u = navigator.userAgent;
