@@ -53,7 +53,7 @@ export default {
                 }
             if(setPassword == affirmPassword){
                 console.log('0')
-                 this.$axios.post('/register',val)
+                 this.$axios.post('http://cloud.eyun.online:9080/uaa/api/register',val)
                 .then(function(res) {
                   console.log(res)
                 })
