@@ -153,7 +153,6 @@ export default {
            this.$axios.get('http://cloud.eyun.online:9080/product/api/product/content?id='+Goods)
               .then(function(response) {   
                   that.data = response.data;
-                  console.log(response.data)
               })
               .catch(function(error) {
                   console.log(error);

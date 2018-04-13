@@ -9,7 +9,7 @@
       </div>
 
       <div class="main">
-         <ul v-for="item in items" class="list">
+         <ul v-for="(item,index) in items" :key='index' class="list">
              <li>
                   <span class="name">{{item.name}}</span>
                   <span class="tel">{{item.tel}}</span>
