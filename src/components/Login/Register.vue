@@ -15,7 +15,7 @@
       <div class="iphone">
         <p>+86 <span>∨</span></p>
         <input type="text" placeholder="请输入手机号" id="mytest"  v-model="phone">
-        <div class="iphones"><span class="one">|</span><span class="iphone_btn" @click='gain'>获取验证码</span></div>
+        <div class="iphones"><span class="one">|</span><button class="iphone_btn"  id='iphone_btn' @click='gain(".iphone_btn")'>获取验证码</button></div>
       </div>
 
       <div class="iphone">
@@ -77,7 +77,7 @@ export default {
           }
           // this.$router.push({path:'/SetPsd'})
       },
-      gain(){
+      gain(obj){
           var theinput=document.getElementById("mytest").value; 
           setCookie('iphone',this.theinput,1000*60)
           var p1=/^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/; 
@@ -85,18 +85,38 @@ export default {
             alert('请填写正确手机号！'); 
             document.getElementById("mytest").value="";
           }else {
+
             $.ajax({
               url:'http://cloud.eyun.online:9080/verify/api/verify/smscode?phone='+this.phone,
               method:'get',
               callback:'cb',
               success:function(res){
                 console.log(res)
+                var countdown=60;
+                settime(obj);
+                function settime(obj) {
+                    if (countdown == 0) {
+                        $(obj).attr("disabled",false);
+                        $(obj).text("获取验证码");
+                        countdown = 60;
+                        return;
+                    } else {
+                        $(obj).attr("disabled",true);
+                        $(obj).text(countdown + " s 重新发送");
+                        countdown--;
+                    }
+                      setTimeout(function() {
+                        settime(obj) 
+                      }
+                    ,1000)
+                  }
               },  
               error(res){
                 console.log(res)
               }
             })
-            $('.')
+            
+           
           }
       }
     },
@@ -168,12 +188,25 @@ header{
   display: flex;
   align-items: center;
 }
+button{
+  border: none;
+  background: #fff;
+}
 .next_btn .iphone_btn{
-  width: 30%;
+  /* width: 30%; */
   height: 100%;
   display: flex;
-  font-size: .32rem;
+  font-size: .24rem;
   color: #2f2f2f;
+  border: none;
+}
+#iphone_btn{
+  /* width: 30%; */
+  height: 100%;
+  display: flex;
+  font-size: .24rem;
+  color: #2f2f2f;
+  border: none;
 }
 .iphone .authCode img{
   width: 53%;
