@@ -19,8 +19,8 @@
       </div>
 
       <div class="iphone">
-        <p class="authCode"><img src="../../assets/Login/验证码-(1).png" alt=""></p>
-        <input type="text" placeholder="请输入验证码"  v-model="authCode">
+        <p class="authCodes"><img src="../../assets/Login/验证码-(1).png" alt=""></p>
+        <input type="text" placeholder="请输入验证码"  id='authCode' v-model="authCode">
       </div>
 
       <div class="iphoneRecommend">
@@ -49,8 +49,9 @@ export default {
     methods:{
       next(){
           var recommends=document.getElementById("recommends").value; 
+          var authCode=document.getElementById("authCode").value; 
           var p1=/^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;
-          setCookie('authCode',this.authCode,1000*60)
+          setCookie('authCode',authCode,1000*60)
           //(p1.test(theinput)); 
           var that = this;
           if(p1.test(recommends) != "") { 
@@ -79,13 +80,13 @@ export default {
       },
       gain(obj){
           var theinput=document.getElementById("mytest").value; 
-          setCookie('iphone',this.theinput,1000*60)
+          setCookie('iphone',theinput,1000*60)
+
           var p1=/^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/; 
           if(p1.test(theinput)==false) { 
             alert('请填写正确手机号！'); 
             document.getElementById("mytest").value="";
           }else {
-
             $.ajax({
               url:'http://cloud.eyun.online:9080/verify/api/verify/smscode?phone='+this.phone,
               method:'get',
@@ -208,7 +209,7 @@ button{
   color: #2f2f2f;
   border: none;
 }
-.iphone .authCode img{
+.iphone .authCodes img{
   width: 53%;
   margin-right: .2rem;
 }

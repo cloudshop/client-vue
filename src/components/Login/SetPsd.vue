@@ -38,22 +38,12 @@ export default {
             var iphone = getCookie('iphone')
             var authCode = getCookie('authCode')
             var val ={
-                    "authorities": [
-                        "ROLE_USER"
-                    ],
-                    "login": this.iphone,
+                    "login": iphone,
                     "password": this.setPassword,
-                    "verifyCode": this.authCode
-                    // "authorities": [
-                    //     "ROLE_USER"
-                    // ],
-                    // "login": '13261012313',
-                    // "password": this.setPassword,
-                    // "verifyCode": '12345'
+                    "verifyCode": authCode
                 }
             if(setPassword == affirmPassword){
-                console.log('0')
-                 this.$axios.post('http://cloud.eyun.online:9080/uaa/api/register',val)
+                this.$axios.post('http://cloud.eyun.online:9080/uaa/api/register/app',val)
                 .then(function(res) {
                   console.log(res)
                 })
