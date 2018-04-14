@@ -16,7 +16,7 @@
               <dt><img src="../../assets/HomePageNav/积分竞购.png" alt=""></dt>
               <dd>积分竞购</dd>
             </dl>
-             <dl>
+             <!-- <dl>
               <dt><img src="../../assets/HomePageNav/会员中心.png" alt=""></dt>
               <dd>会员中心</dd>
             </dl>
@@ -31,7 +31,7 @@
              <dl>
               <dt><img src="../../assets/HomePageNav/交易中心.png" alt=""></dt>
               <dd>交易中心</dd>
-            </dl>
+            </dl> -->
 
 
        <!-- 商家中心 -->
@@ -69,7 +69,7 @@ export default {
   display:flex;
   flex-wrap:wrap;
   background:#ffffff;
-  height:3.14rem;
+  height:1.54rem;
 }
 .nav dl{
   width:25%;

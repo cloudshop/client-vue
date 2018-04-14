@@ -38,16 +38,6 @@
                 <li><p>购买数量</p> <h2><span @click='Reduce'>-</span><input type="text" readonly v-model="text"><span @click='CountAdd'>+</span></h2></li>
             </ul>
          </div>
-
-        <!-- <div class='MoreTwo'>
-            <dl>
-                <dt>
-                    <img src="../../assets/Mine/headportrait.jpg" alt="">
-                    <img src="../../assets/Mine/headportrait.jpg" alt="">
-                </dt>
-                <dd>共<em>二</em>件&nbsp;&gt;</dd>
-            </dl>
-        </div> -->
          <ul class='Manner'>
              <li>
                  <p>配送方式</p>
@@ -58,8 +48,18 @@
                  <input type="text" placeholder="选填:填写内容已和商家协商确认">
              </li>
          </ul>
+        <!-- <div class='MoreTwo'>
+            <dl>
+                <dt>
+                    <img src="../../assets/Mine/headportrait.jpg" alt="">
+                    <img src="../../assets/Mine/headportrait.jpg" alt="">
+                </dt>
+                <dd>共<em>二</em>件&nbsp;&gt;</dd>
+            </dl>
+        </div> -->
+         
     
-         <div class="change">
+         <!-- <div class="change">
             <p>
                 <img src="../../assets/Mine/贡融积分.png" alt="">
                <ul>
@@ -82,7 +82,7 @@
                     <label for="juan"></label>
                 </span>
             </p>
-         </div>
+         </div> -->
         </div>
         
         <div class='Compute'>
@@ -223,6 +223,9 @@ header{
 }
 .Single h2{
     font-weight:bold;
+}
+.More{
+    margin-top:.1rem;
 }
 .More ul li{
     height:.8rem;

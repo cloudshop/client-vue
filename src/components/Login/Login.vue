@@ -112,20 +112,19 @@ export default {
         //     }
         // },
         closeCurrent(){
-            var  val={
-                "func":"closeCurrent",
-                "param":{ "backToHome":true},
-            };
-            var u = navigator.userAgent;
-            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-            if(isiOS){
-                this.$router.push('/')
-                window.webkit.messageHandlers.GongrongAppModel.postMessage(val);   
-            }else if(isAndroid){   
-                this.$router.push('/')            
-            //    window.androidObject.JSCallAndroid(val);
-            }
+            //点击返回
+                    var  val={
+                        "func":"closeCurrent",
+                        "param":{},
+                    };
+                    var u = navigator.userAgent;
+                    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+                    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+                    if(isiOS){
+                        window.webkit.messageHandlers.GongrongAppModel.postMessage(val);   
+                    }else if(isAndroid){            
+                     window.androidObject.JSCallAndroid(JSON.stringify(val));
+                   }            
         },
         btn(){
             // IOS 方法 传token
@@ -143,22 +142,24 @@ export default {
                     // request.set({'Authorization': 'Bearer ' + auth.accessToken});
                     var accessToken = getCookie('access_token');
                     if(accessToken !== ''){
+                        if(this.$route.params.name =='/Shopping'){
+                             this.$router.push({name:'Shopping'})
+                        }else{
+                             this.$router.push({name:'Mine'})
+                        }
+                       
                         var  val={
                             "func":"closeCurrent",
-                            "param":{},
+                            "param":{'refreshAll':true},
                         };
                         var u = navigator.userAgent;
                         var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
                         var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
                         if(isiOS){
-                            this.$router.push('/')
                             window.webkit.messageHandlers.GongrongAppModel.postMessage(val);   
-                        }else if(isAndroid){   
-                            this.$router.push('/')            
-                            // window.androidObject.JSCallAndroid(val);
+                        }else if(isAndroid){               
+                            window.androidObject.JSCallAndroid(JSON.stringify(val));
                         }
-                    }else{
-                        this.$router.push('/Login')
                     }
                     
                     // 再次请求
@@ -199,7 +200,7 @@ export default {
         window.setToken = this.setToken;
         window.closeCurrent = this.closeCurrent;
         $('input').on('keyup',function(){
-             if($('#passname').val().length>=11 && $('#password').val().length>=6){
+             if($('#passname').val().length>=1 && $('#password').val().length>=1){
                 $('.btn').addClass('Color')         
              }else{
                 $('.btn').removeClass('Color')  

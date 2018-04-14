@@ -1,7 +1,7 @@
 <template>
 <div class='content'>
   <mt-navbar v-model="selected">
-    <router-link :to="{ path: '/Classify' }" tag='span'  class="spans">〈</router-link>
+    <span class="spans" @click='back'>〈</span>
     <mt-tab-item id="1">商品</mt-tab-item>
     <mt-tab-item id="2">详情</mt-tab-item>
     <mt-tab-item id="3">评论</mt-tab-item>
@@ -148,7 +148,7 @@
                   <div class='span' @click='SelectiveTypeclose'>X</div>              
               </div>
                 <div class='content webCont'>
-                  <div v-for='(item,index) in data.attrbute' :key='index'>
+                  <div v-for='(item,index) in data.attrbute' :key='index' class='list'>
                     <p>{{item.attname}}</p>
                         <ul>
                           <li  v-for='(i,index) in item.attvalue' :key='index'>{{i}}</li>
@@ -179,6 +179,7 @@
 </template>
 
 <script>
+
   export default {  
     name: 'page-navbar',  
     data() {  
@@ -199,6 +200,12 @@
       },
       SelectiveTypeOpen: function() {
          this.flag = true;
+           $('.list ul').each(function(){
+              $(this).find('li').eq(0).addClass('active').siblings().removeClass('active')
+            $(this).find('li').on('click',function(){
+                 $(this).addClass('active').siblings().removeClass('active')
+            })
+           })
        },
       SelectiveTypeclose:function(){
          this.flag = false; 
@@ -260,25 +267,65 @@
       },
       store(){
          this.$router.push({name:"PageDetails"}) 
-      }
+      },
+      back(){   
+        if(this.$route.params.name == '/DetailsTwo'){
+           this.$router.push({name:"DetailsTwo"}) 
+          }else{
+                var  val={
+                "func":"closeCurrent",
+                  "param":{},
+                };
+              var u = navigator.userAgent;
+              var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+              var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+              if(isiOS){
+                window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+              }else if(isAndroid){  
+                window.androidObject.JSCallAndroid(JSON.stringify(val));
+              }
+          }
+        //  else if(this.$route.params.name == '/HomePage'){
+        //    this.$router.push({name:"HomePage"}) 
+        //  }else{
+        //     this.$router.push({name:"DetailsTwo"}) 
+        //  }
+      },
+      GetParams(id){
+          var that = this;
+          id = JSON.parse(id);
+          this.$axios.get('http://cloud.eyun.online:9080/product/api/product/content?id='+id.ProductId)
+          .then(function(response) {   
+              that.data = response.data;
+          })
+          .catch(function(error) {
+              console.log(error);
+        });
+        }
     },
-    created(){
-      console.log(this.data.productContent)   
+    created(){    
+      //  if(Goods == undefined || Goods == null){
+      //      sessionStorage.setItem("GoodsID",2);
+      //   }
        var that = this; //商品内容
        var Goods=sessionStorage.getItem("GoodsID"); // 商品id 
-        this.$axios.get('http://cloud.eyun.online:9080/product/api/product/content?id='+Goods)
-         .then(function(response) {   
-            that.data = response.data;
-            console.log(response.data)
-        })
-        .catch(function(error) {
-            console.log(error);
-       }); 
-    } 
+       if(Goods){
+          this.$axios.get('http://cloud.eyun.online:9080/product/api/product/content?id='+Goods)
+          .then(function(response) {   
+              that.data = response.data;
+          })
+          .catch(function(error) {
+              console.log(error);
+        }); 
+       }
+       
+    },
+    mounted(){
+      window.GetParams = this.GetParams;   
+    }
   };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .active{
   color:#d81e06!important;

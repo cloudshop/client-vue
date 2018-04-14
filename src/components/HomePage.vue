@@ -4,7 +4,6 @@
           <p>洪山区</p>
           <input type="text" placeholder="内容推荐">
           <ul>
-            <li><img src="../assets/HomePage/扫码黑色.png" alt="" @click='Camera'></li>
             <li><img src="../assets/HomePage/消息黑色.png" alt="" @click='news'></li>
           </ul>
      </header>
@@ -13,7 +12,7 @@
            <mt-swipe-item v-for='(item,index) in data' :key='index'><img :src=item.image alt="" @click='banner(item.link)'></mt-swipe-item> 
       </mt-swipe>
        <HomePageNav></HomePageNav>
-       <!-- <h2>{{XX}}{{YY}}</h2> -->
+       <h2>{{XX}}{{YY}}{{msg}}</h2>
        <div class='Nearbyshops'>
               <h1>附近商家{{Locations}}</h1>
               <div class='list'>
@@ -81,6 +80,7 @@
 import HomePageNav from './main/HomePageNav'
 import Foot from './main/Foot'
 import { Swipe, SwipeItem } from 'mint-ui';
+import { IOSAndroid } from '../assets/js/IOSAndroid.js'
 import qs from 'qs';
 export default {
     data(){
@@ -90,40 +90,28 @@ export default {
         XX:'',  //经度
         YY:'',   //纬度
         Locations:'',
+        msg:''
       }
     },
     methods:{
       // 经度  纬度
       GeographicalLocation:function (X,Y) {
-           this.XX=X;
-           this.YY=Y;          
-           console.log(this.XX)
-           console.log(this.YY)
-           var that = this;
-           this.$axios.post('http://cloud.eyun.online:9080/user/api/mercuries/info-list/'+this.XX+'/'+this.YY)
-              .then(function(response) {
-                  that.Locations = response;
-              })
-              .catch(function(error) {
-                  console.log(error);
-           }); 
-      },
-      Camera(){
-            var val = {
-            'func':'scan',
-            'param':{}
-        } 
-        var u = navigator.userAgent;
-        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-        if(isiOS){
-        window.webkit.messageHandlers.GongrongAppModel.postMessage(val);   
-        }else if(isAndroid){                  
-        window.androidObject.JSCallAndroid(JSON.stringify(val))
-        }
+          //  this.XX=X;
+          //  this.YY=Y;          
+          // //  console.log(this.XX)
+          // //  console.log(this.YY)
+          //  this.msg = '正在请求中http://192.168.1.10:9080/user/api/mercuries/info-list/'+this.XX+'/'+this.YY
+          //  var that = this;
+          //  this.$axios.get('http://192.168.1.10:9080/user/api/mercuries/info-list/'+this.XX+'/'+this.YY)
+          //     .then(function(response) {
+          //       that.Locations = response.data
+          //         // that.Locations = response;
+          //     })
+          //     .catch(function(error) {
+          //         console.log(error);
+          //  }); 
       },
       news(){
-        var that = this;
           var  val={
               "func":"openURL",
               "param":{
@@ -140,23 +128,45 @@ export default {
           }
       },
       banner(link){
-        console.log(link)
         var http=new RegExp("http");
         var product=new RegExp("product");
         var that = this;
+        var  linkval = {
+              "func":"openURL",
+              "param":{
+                  "URL":link,
+                  "showClose":true
+              },
+          };
        if(http.test(link) == true){
-         window.location.href=link
+         //window.location.href=link
+         IOSAndroid(linkval)
        }else if(product.test(link) == true){
-         this.$router.push({name:"Product"})
+         //this.$router.push({name:"Product",params:{name:'/HomePage'}})
           var Goods=sessionStorage.setItem("GoodsID",link.split('/')[2]); // 商品id 
           var Goods=sessionStorage.getItem("GoodsID");
-           this.$axios.get('http://cloud.eyun.online:9080/product/api/product/content?id='+Goods)
-              .then(function(response) {   
-                  that.data = response.data;
-              })
-              .catch(function(error) {
-                  console.log(error);
-            }); 
+          // this.$axios.get('http://cloud.eyun.online:9080/product/api/product/content?id='+Goods)
+          //     .then(function(response) {   
+          //         that.data = response.data;
+          //         console.log(response.data)
+          //     })
+          //     .catch(function(error) {
+          //         console.log(error);
+          //   }); 
+           var  val={
+              "func":"openURL",
+              "param":{
+                  "URL":'http://192.168.1.102:8888/#/Product?ProductId='+Goods,
+              },
+          };
+          var u = navigator.userAgent;
+          var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+          var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+          if(isiOS){
+             window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+          }else if(isAndroid){  
+             window.androidObject.JSCallAndroid(JSON.stringify(val));
+          }
        }
       }
     },
@@ -170,7 +180,7 @@ export default {
        this.$axios.get('http://cloud.eyun.online:9080/advertising/api/findNotDelByLoc')
          .then(function(response) {   
             that.data = response.data;
-            console.log(response)
+            // console.log(response)
         })
         .catch(function(error) {
             console.log(error);
@@ -191,7 +201,7 @@ header{
   height:.8rem;
 }
 header input{
-  width:55%;
+  width:65%;
   height:.4rem;
   border-radius:.2rem;
   padding-left:.3rem;

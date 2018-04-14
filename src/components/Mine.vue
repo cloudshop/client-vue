@@ -1,6 +1,5 @@
 <template>
    <div>
-
          <header class='header'>
                <div class='headRight'>
                   <router-link :to="{ path: '/Information' }" tag='p'>
@@ -78,7 +77,11 @@
                     </div>              
               </div>
         </div>
-
+       <div class='mark' v-show='flag'>
+              <img src="../assets/HomePage/LOGO.png" alt="">
+              <p>此功能需先登陆</p>
+              <button @click='logins'>登陆</button>
+       </div>
         <Foot></Foot>
 
    </div>
@@ -92,19 +95,13 @@ import { Header,Popup } from 'mint-ui';
 export default {
       data(){
           return{  
-          
+              flag:false,
           }
       },
       methods:{
-
-      },
-     components:{
-        Foot,
-     },
-     created(){
-      var accessToken = getCookie('access_token')
-      if(accessToken == ''){
-          var  val={
+       logins:function(){  
+         this.$router.push({name:"Login",params:{name:'/Mine'}})   
+        var  val={
               "func":"openURL",
               "param":{
                   "URL":'http://192.168.1.102:8888/#/login'
@@ -113,20 +110,72 @@ export default {
           var u = navigator.userAgent;
           var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
           var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-            if(isiOS){
-                  this.$router.push('/Login')
-                  window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-            }else if(isAndroid){   
-                  this.$router.push('/Login')
-                  window.androidObject.JSCallAndroid(val);
-            }
-      //     this.$router.push('/Login')
+          if(isiOS){           
+             window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+          }else if(isAndroid){  
+            window.androidObject.JSCallAndroid(JSON.stringify(val));
+       }
+    },
+      },
+     components:{
+        Foot,
+     },
+     created(){
+      var accessToken = getCookie('access_token')
+         if(accessToken == ''){
+           this.flag = true;
+         }else{
+            this.flag = false;
+           }
       }
-     }
 }
 </script>
 <style scoped>
-
+.mark{
+  position: absolute;
+  top:0;
+  width:100%;
+  height:100%;
+  background:rgba(255, 255, 255,1);
+}
+.mark img{
+  position:fixed;
+  top:-5rem;
+  left:0;
+  right:0;
+  bottom:0;
+  margin:auto;
+}
+.mark p{
+  text-align:center;
+  margin-top:40%;
+  font-size:.32rem;
+   position:fixed;
+  top:40%;
+  left:0;
+  right:0;
+  bottom:0;
+  margin:auto;
+  color:#ccc;
+}
+.mark button{
+  margin-top:.2rem;
+  margin-left:20%;
+  width:60%;
+  height:.6rem;
+  font-size:.32rem;
+  border:0;
+  border-radius:.2rem;
+  background:#fff;
+  border:1px solid red;
+  color:#ff0103;
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  margin:auto;
+}
 .header{
    width:100%;
    height:1.92rem;
@@ -238,6 +287,10 @@ export default {
       border-top:1px solid #e7e7e7;
       margin:0 .4rem;
 }
+.mainContent img{
+      width:.5rem;
+      height:.5rem;
+}
 .mainContent h2{
       margin:.3rem 0;
       font-size:.24rem;
@@ -261,10 +314,7 @@ export default {
       width:.5rem;
       height:.5rem;
 }
-img{
-      width:.5rem;
-      height:.5rem;
-}
+
 .mainContent .list dl  dd{
       color:#2f2f2f;
       font-size:.24rem;

@@ -137,6 +137,20 @@ export default {
            this.data = value;
         sessionStorage.setItem("name",value)        
         this.$router.push({name:"DetailsTwo"})
+         var  val={
+              "func":"openURL",
+              "param":{
+                  "URL":'http://192.168.1.102:8888/#/DetailsTwo?DetailsTwo='+value,
+              },
+          };
+          var u = navigator.userAgent;
+          var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+          var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+          if(isiOS){
+             window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+          }else if(isAndroid){  
+             window.androidObject.JSCallAndroid(JSON.stringify(val));
+          }
       }
     },
     components:{

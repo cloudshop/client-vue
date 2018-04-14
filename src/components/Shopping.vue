@@ -73,6 +73,11 @@
       </div>
     </div>
   </div>
+         <div class='mark' v-show='flag'>
+              <img src="../assets/HomePage/LOGO.png" alt="">
+              <p>此功能需先登陆</p>
+              <button @click='logins'>登陆</button>
+       </div>
   <Foot></Foot>
  </div>
    
@@ -80,6 +85,7 @@
 <script>
 import Foot from "./main/Foot";
 import { setCookie,getCookie } from '../assets/js/cookie.js'
+import { isAndroid } from '../assets/js/IOSAndroid.js'
 export default {
   data() {
     return {
@@ -87,6 +93,7 @@ export default {
       animatenum: 0,
       totalAllPrice: 0,
       checkboxBig: false,
+      flag:false,
       serviceList: [
         {
           id: 0,
@@ -145,47 +152,14 @@ export default {
       ]
     };
   },
-  watch:{
-   
-  },
-  computed:{
-   
-  },
   created(){
-      var accessToken = getCookie('access_token');
+      var accessToken = getCookie('access_token')
       if(accessToken == ''){
-        var  val={
-            "func":"openURL",
-            "param":{
-                "URL":'http://192.168.1.109:8888/#/login'
-            },
-        };
-        var u = navigator.userAgent;
-        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-        if(isiOS){
-          this.$router.push('/login');
-          window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-        }else if(isAndroid){  
-          this.$router.push('/login');
-          window.androidObject.JSCallAndroid(val);
-        }
-        // this.$router.push('/Login')
+        this.flag = true;
+      }else{
+        this.flag = false;
       }
 
-        // this.$axios.get('http://192.168.1.105:8095/api/shoppingcar/user/1',{
-        //   header:{
-        //     'Access-Control-Allow-Origin': '*'
-        //   }
-        // })
-        // .then(function(res){
-        //   console.log(res)
-        // })
-        // .catch(function(error){
-        //   console.log(error)
-        // })
-
-          var accessToken = getCookie('access_token');
         this.$axios.get('http://cloud.eyun.online:9080/wallet/api/wallets/user',{
           headers:{
             'Authorization': 'Bearer ' + accessToken,
@@ -197,24 +171,31 @@ export default {
         .catch(function(error){
           console.log(error)
         })
-    
   },
   methods: {
+    logins:function(){    
+       this.$router.push({name:"Login",params:{name:'/Shopping'}}) 
+        var  val={
+              "func":"openURL",
+              "param":{
+                  "URL":'http://192.168.1.102:8888/#/login'
+              },
+          };
+          var u = navigator.userAgent;
+          var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+          var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+          if(isiOS){ 
+             window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+          }else if(isAndroid){  
+            window.androidObject.JSCallAndroid(JSON.stringify(val));
+          }
+          
+    },
     // 删除操作
-    removeAll:function(index,id){
+    remove:function(index,id){
       this.serviceList[id].list.splice(index,1);
-      // this.$axios.get('http://localhost:8095/api/shoppingcar/del/1')
-      // .then(function(res){
-      //   that.arr = res.data;
-      //   console.log(res.data)
-      // })
-      // .catch(function(error){
-      //   console.log(error)
-      // })
-
       if(this.serviceList[id].list.length == 0){
-        var str = this.serviceList.length-1;
-        $('.shopping_main')[id].remove()
+        this.serviceList.splice(index,id)
       }
     },
     // ++
@@ -250,31 +231,13 @@ export default {
         }
       });
       this.serviceList[pitchId].checkbox = flag;
-      if(this.serviceList[pitchId].list[index].checkboxChild == true ||  this.serviceList[pitchId].checkbox == true){
-        var Money = this.serviceList[pitchId].list[index].num * this.serviceList[pitchId].list[index].price;
-        this.totalPrice = Money;
-      }
     },
-    // 全选 选中计算
-    checkboxAll:function(pageId){
-      for(var pageId = 0; pageId < this.serviceList.length; pageId++){
-        if(this.checkboxBig !== true){
-          this.serviceList[pageId].checkbox = true;
-          this.serviceList[pageId].list.map((v,i)=>{
-            v.checkboxChild = true
-            if(v.checkboxChild == false){
-              this.serviceList[pageId].checkbox = false;
-            }
-          })
-        }else{
-          this.serviceList[pageId].checkbox = false;
-          this.serviceList[pageId].list.map((v,i)=>{
-            v.checkboxChild = false
-          })
-        }
-      }
+    checkboxAll:function(){
+      this.totalAllPrice = 0;
     },
     // 选中计算总价
+    
+
   },
   components: {
     Foot
@@ -283,7 +246,52 @@ export default {
 </script>
 
 <style scoped>
-
+.mark{
+  position: absolute;
+  top:0;
+  width:100%;
+  height:100%;
+  background:rgba(255, 255, 255,1);
+  margin-top:.96rem;
+}
+.mark img{
+  position:fixed;
+  top:-5rem;
+  left:0;
+  right:0;
+  bottom:0;
+  margin:auto;
+}
+.mark p{
+  text-align:center;
+  margin-top:40%;
+  font-size:.32rem;
+   position:fixed;
+  top:40%;
+  left:0;
+  right:0;
+  bottom:0;
+  margin:auto;
+  color:#ccc;
+}
+.mark button{
+  margin-top:.2rem;
+  margin-left:20%;
+  width:60%;
+  height:.6rem;
+  font-size:.32rem;
+  border:0;
+  border-radius:.2rem;
+  background:#fff;
+  border:1px solid red;
+  color:#ff0103;
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  margin:auto;
+}
 .content {
   width: 100%;
   display: flex;
