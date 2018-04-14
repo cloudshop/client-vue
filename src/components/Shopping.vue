@@ -46,7 +46,7 @@
                   <div class="contents_right_moneyAll">
                     <div class="contents_right_money">￥ {{(data.price).toFixed(2)}}</div>
                     <div class="contents_right_delete"> 
-                      <a href="javascript:;" @click="removeAll(index,item.id)"><small class="priceAlls">{{data.price*data.num}}</small>删除</a>
+                      <a href="javascript:;" @click="removeAll(index,item.id)">删除</a>
                       <span class="contents_right_shu">|</span>
                       <a href="javascript:;">加入收藏</a>
                     </div>
@@ -212,7 +212,6 @@ export default {
       // .catch(function(error){
       //   console.log(error)
       // })
-
       if(this.serviceList[id].list.length == 0){
         var str = this.serviceList.length-1;
         $('.shopping_main')[id].remove()
@@ -220,7 +219,6 @@ export default {
     },
     // ++
     add:function(index,id){
-      console.log(index,id)
       if(this.serviceList[id].list[index].checkboxChild == true){
         var Money = this.serviceList[id].list[index].price;
         this.totalPrice += Money;
