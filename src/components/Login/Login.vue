@@ -112,29 +112,35 @@ export default {
         //     }
         // },
         closeCurrent(){
-                    var  val={
-                        "func":"closeCurrent",
-                        "param":{ "backToHome":true},
-                    };
-                    var u = navigator.userAgent;
-                    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-                    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-                    if(isiOS){
-                        this.$router.push('/')
-                        window.webkit.messageHandlers.GongrongAppModel.postMessage(val);   
-                    }else if(isAndroid){   
-                        this.$router.push('/')            
-                    //    window.androidObject.JSCallAndroid(val);
-                   }
-               
+            var  val={
+                "func":"closeCurrent",
+                "param":{ "backToHome":true},
+            };
+            var u = navigator.userAgent;
+            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+            if(isiOS){
+                this.$router.push('/')
+                window.webkit.messageHandlers.GongrongAppModel.postMessage(val);   
+            }else if(isAndroid){   
+                this.$router.push('/')            
+            //    window.androidObject.JSCallAndroid(val);
+            }
         },
         btn(){
             // IOS 方法 传token
+            // var UaaJavascript = require('uaa-javascript');
+            // var apiClient = new UaaJavascript.ApiClient(); 
+            // var api = new UaaJavascript.AuthApi(apiClient);
+            // api.login(this.PassName,this.PassWord);
+
+
                 var data = {'username':this.PassName,'password':this.PassWord}
                 this.$axios.post('http://cloud.eyun.online:9080/auth/login',data)
                 .then((res)=>{
                     var accessToken = res.data.access_token;
                     setCookie('access_token',accessToken,1000*60)
+                    // request.set({'Authorization': 'Bearer ' + auth.accessToken});
                     var accessToken = getCookie('access_token');
                     if(accessToken !== ''){
                         var  val={

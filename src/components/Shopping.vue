@@ -65,8 +65,8 @@
                 <label for="tonglian"></label>
               </span>
             </div>   
-            <!--{{data.price*data.num | filtermoney}}  -->
-            <div class="money">合计: ￥ {{totalPrice}}</div>   
+            <!--{{data.price*data.num | filtermoney totalPrice}}  -->
+            <div class="money">合计: ￥ {{item.list[index].price * item.list[index].num}}</div>   
           </div>
           <div class="shopping_footer_right">去结算</div>
         </div>
@@ -152,7 +152,7 @@ export default {
    
   },
   created(){
-      var accessToken = getCookie('access_token')
+      var accessToken = getCookie('access_token');
       if(accessToken == ''){
         var  val={
             "func":"openURL",
@@ -165,15 +165,45 @@ export default {
         var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
         if(isiOS){
           this.$router.push('/login');
-            window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+          window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
         }else if(isAndroid){  
           this.$router.push('/login');
           window.androidObject.JSCallAndroid(val);
         }
         // this.$router.push('/Login')
       }
-      // var that = this;
-      // this.$axios.get('/api/')
+
+        // this.$axios.get('http://192.168.1.105:8095/api/shoppingcar/user/1',{
+        //   header:{
+        //     'Access-Control-Allow-Origin': '*'
+        //   }
+        // })
+        // .then(function(res){
+        //   console.log(res)
+        // })
+        // .catch(function(error){
+        //   console.log(error)
+        // })
+
+          var accessToken = getCookie('access_token');
+        this.$axios.get('http://cloud.eyun.online:9080/wallet/api/wallets/user',{
+          headers:{
+            'Authorization': 'Bearer ' + accessToken,
+          }
+        })
+        .then(function(res){
+          console.log(res.data)
+        })
+        .catch(function(error){
+          console.log(error)
+        })
+    
+  },
+  methods: {
+    // 删除操作
+    removeAll:function(index,id){
+      this.serviceList[id].list.splice(index,1);
+      // this.$axios.get('http://localhost:8095/api/shoppingcar/del/1')
       // .then(function(res){
       //   that.arr = res.data;
       //   console.log(res.data)
@@ -181,11 +211,7 @@ export default {
       // .catch(function(error){
       //   console.log(error)
       // })
-  },
-  methods: {
-    // 删除操作
-    removeAll:function(index,id){
-      this.serviceList[id].list.splice(index,1);
+
       if(this.serviceList[id].list.length == 0){
         var str = this.serviceList.length-1;
         $('.shopping_main')[id].remove()
@@ -249,7 +275,6 @@ export default {
       }
     },
     // 选中计算总价
-
   },
   components: {
     Foot
