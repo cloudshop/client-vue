@@ -226,13 +226,14 @@ export default {
     },
     // 删除操作
     removeAll:function(index,id){
-      // if(this.serviceList[id].list[index].checkboxChild == true){
-      //   this.serviceList[id].list.splice(index,1);
-      //   var Money = this.serviceList[id].list[index].price*this.serviceList[id].list[index].num;
-      //   this.totalPrice -= Money;
-      // }else{
-      //    this.serviceList[id].list.splice(index,1);
-      // }
+      if(this.serviceList[id].list[index].checkboxChild == true){
+        var Money = this.serviceList[id].list[index].price*this.serviceList[id].list[index].num;
+        console.log(this.serviceList[id].list[index].price)
+        this.totalPrice = this.totalPrice - Money;
+        setTimeout(function(){
+          this.serviceList[id].list.splice(index,1);
+        }, 0); 
+      }
       this.serviceList[id].list.splice(index,1);
       // this.$axios.get('http://localhost:8095/api/shoppingcar/del/1')
       // .then(function(res){
