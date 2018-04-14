@@ -10,7 +10,7 @@
             </div>
         </div>
 <div @click='back'>返回箭头</div>    
-        <ul class="PageAll_tab_ul">
+        <ul class="PageAll_tab_ul" v-show='flag'>
             <li v-for="(item,index) in tabs" :key="index" :class="{active:index == num}" @click="tab(index)">{{item}}</li>
         </ul>
         <div class="tabCon">
@@ -43,7 +43,8 @@ export default {
             arr:null,
             num: 0,
             id:null,
-            seekContent:''
+            seekContent:'',
+            flag:true,
         }
     },
     methods: {
@@ -138,21 +139,46 @@ export default {
             console.log(this.seekContent)
         },
         seekAll(){
-            alert(1)
+           var that = this;
+            this.$axios({
+                method:'post',
+                url:'http://cloud.eyun.online:9080/product/api/product/all',
+                data:{
+                "categoryId":this.id.DetailsTwo,
+                "productName":this.seekContent
+                },
+                headers:{
+                'Content-Type': 'application/json',
+                }
+            })
+            .then(function(response) {
+                
+            that.arr = response.data.mainContent;
+            })
+            .catch((error)=>{
+                console.log(error);
+            }) 
         },
         back(){
-          var  val={
-             "func":"closeCurrent",
-              "param":{},
-             };
-          var u = navigator.userAgent;
-          var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-          var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-          if(isiOS){
-             window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-          }else if(isAndroid){  
-             window.androidObject.JSCallAndroid(JSON.stringify(val));
-          }
+         
+       
+        //   var  val={
+        //      "func":"closeCurrent",
+        //       "param":{},
+        //      };
+        //   var u = navigator.userAgent;
+        //   var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+        //   var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+        //   if(isiOS){
+        //      window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+        //   }else if(isAndroid){  
+        //      window.androidObject.JSCallAndroid(JSON.stringify(val));
+        //   }
+        if(this.$route.params.name == '/FromPage'){
+            this.$router.push({name:"HomePage"})    
+        }else{
+              this.$router.push({name:"Classify"})
+        }
         },
         GetParams(id){
           var that = this;
@@ -177,11 +203,15 @@ export default {
         }
     },
     created(){
-       this.name = sessionStorage.getItem("name")       
+       if(this.$route.params.name == '/FromPage'){
+           this.flag = false;
+       }else{
+             this.name = sessionStorage.getItem("name")       
        var params = {
             'categoryId':this.name
        } 
-       this.PostMan(params)
+       this.PostMan(params);
+       }
     },
     mounted(){
         window.GetParams = this.GetParams;

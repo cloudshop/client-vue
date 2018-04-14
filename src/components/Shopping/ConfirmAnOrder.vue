@@ -14,7 +14,7 @@
         <div class='content'>
             <div class='nav'>
                 <dl @click='HarvestAddress'>
-                    <dt> <b>皮皮虾啊</b>&nbsp;<b>138****438</b></dt>
+                    <dt> <b id='nick'>皮皮虾啊</b>&nbsp;<b>138****438</b></dt>
                     <dd>
                         <img src="../../assets/Mine/定位.png" alt="">
                         <p>湖北武汉市洪山区城区群光广场1707</p>
@@ -35,7 +35,7 @@
                 </dl>
             </div>
             <ul>
-                <li><p>购买数量</p> <h2><span @click='Reduce'>-</span><input type="text" readonly v-model="text"><span @click='CountAdd'>+</span></h2></li>
+                <li><p>购买数量</p> <h2><span @click='Reduce'>-</span><input type="text" v-model="text"><span @click='CountAdd'>+</span></h2></li>
             </ul>
          </div>
          <ul class='Manner'>
@@ -45,7 +45,7 @@
              </li>
              <li>
                  <p>卖家留言:</p>
-                 <input type="text" placeholder="选填:填写内容已和商家协商确认">
+                 <input type="text" v-model="LeaveWord" placeholder="选填:填写内容已和商家协商确认">
              </li>
          </ul>
         <!-- <div class='MoreTwo'>
@@ -86,11 +86,11 @@
         </div>
         
         <div class='Compute'>
-            <p><span>共一件商品</span><b>小计:<em>￥{{price*text}}</em></b></p>
+            <p><span>共{{text}}件商品</span><b>小计:<em>￥{{price*text}}</em></b></p>
         </div>
         <div class='footer'>
-            <p><span>抵扣1.00</span><b>合计:￥127</b></p>
-            <button>去结算</button>
+            <p><span></span><b>合计:￥{{price*text}}</b></p>
+            <button @click='Pay'>去结算</button>
         </div>
   </div>
 </template>
@@ -99,8 +99,13 @@
 export default {
     data(){
         return{
-            text:this.$route.params.count,  // 购买数量
-            price:this.$route.params.price, //单价
+            text:'',  // 购买数量
+            price:'', //单价
+            LeaveWord:'',//卖家留言
+            nick:'',  //卖家昵称
+            storeID:'',//店铺ID
+            GoodsID:'',// 商品ID
+            
         }
     },
     methods:{
@@ -119,9 +124,32 @@ export default {
         },
         HarvestAddress(){
             this.$router.push({name:"MyAddress",params:{'address':'/ConfirmAnOrder'}}) 
+        },
+        Pay(){
+             this.$router.push(
+                 {name:"Pay",
+                    params:
+                   {'payment':this.price*this.text,
+                   'postFee':null,
+                   'buyerMessage':this.LeaveWord,
+                   'buyerNick':this.nick,
+                   'shopId':this.storeID,
+                   'productSkuId':this.GoodsID,
+                   "count":this.text,
+                   'price':this.price
+                   }
+                 }) 
         }
     },
+    created(){
+        this.price = sessionStorage.getItem("price"); 
+        this.text = sessionStorage.getItem("count");
+        
+    },
     mounted(){
+        this.nick = $('#nick').text();
+        this.storeID = sessionStorage.getItem("storeID");
+        this.GoodsID = sessionStorage.getItem("GoodsID");
     }
 }
 </script>

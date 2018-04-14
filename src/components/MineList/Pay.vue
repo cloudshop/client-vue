@@ -2,7 +2,7 @@
   <div>
      <header class="header">
          <ul>
-             <li><span>《</span></li>
+             <li @click='back'><span>《</span></li>
              <li>选择支付方式</li>
              <li></li>
          </ul>
@@ -54,7 +54,7 @@
                 </span>
             </p>
          </div>
-             <button class="botton">
+             <button class="botton" @click='OpenindentAll'>
                  确认支付（<span></span>元）
              </button>
     
@@ -64,7 +64,65 @@
 
 <script>
 export default {
+    methods:{
+        OpenindentAll:function(){
+              var  val={
+              "func":"openURL",
+              "param":{
+                  "URL":'http://192.168.1.102:8888/#/indentAll',
+              },
+          };
+            var u = navigator.userAgent;
+            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+            if(isiOS){
+                window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+            }else if(isAndroid){  
+                window.androidObject.JSCallAndroid(JSON.stringify(val));
+            }
+        },
+        back(){
+             this.$router.push({name:"ConfirmAnOrder"})
+        }
+    },
+    created(){
+        var that = this;
+        var params = 
+                    [{
+                "payment":this.$route.params.payment,
+                "postFee": this.$route.params.postFee,
+                "paymentType":null,
+                "buyerMessage": this.$route.params.buyerMessage,
+                "buyerNick": this.$route.params.buyerNick,
+                "shopId":this.$route.params.shopId,
+                "proOrderItems":[
+                {
+                    "productSkuId":this.$route.params.productSkuId,
+                    "count":this.$route.params.count,
+                    "price":this.$route.params.price
+                
+                },
+              ]
+            }
+            ]
+         this.$axios({
+                method:'post',
+                url:'http://192.168.1.10:9080/order/api/shop-proorders',
+                data:params,
+                headers:{
+                'Content-Type': 'application/json',
+                }
+            })
+            .then(function(response) {
+            console.log(response.data);
+            })
+            .catch((error)=>{
+                console.log(error);
+            }) 
+    },
     mounted:function(){
+        
+        window.OpenindentAll = this.OpenindentAll;
         $(".nomoney").hide()
         var a = $('.center_top i').text()
         $('.need').text(a)
@@ -86,10 +144,7 @@ export default {
          $(".botton").on('click',function(){ 
     
                 var re=$('input:radio[name="sex"]:checked').val();
-              console.log('即将使用'+re+'支付'+a+'元');
-          
-          
-          
+              console.log('即将使用'+re+'支付'+a+'元');                           
       });
     }
 }

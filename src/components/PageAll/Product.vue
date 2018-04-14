@@ -227,10 +227,11 @@
         this.address = false;
       },
       ConfirmAnOrder(){
-        this.$router.push(
-          {name:"ConfirmAnOrder",
-          params:{'price':this.data.productContent.price,'count':this.val}
-          }) 
+        this.$router.push({name:"ConfirmAnOrder",}) 
+         sessionStorage.setItem("price",this.data.productContent.price); 
+         sessionStorage.setItem("count",this.val); 
+         sessionStorage.setItem("storeID", this.data.productContent.id); 
+             
       },
       addShopping(){
         var that = this;
@@ -271,25 +272,25 @@
       back(){   
         if(this.$route.params.name == '/DetailsTwo'){
            this.$router.push({name:"DetailsTwo"}) 
-          }else{
-                var  val={
-                "func":"closeCurrent",
-                  "param":{},
-                };
-              var u = navigator.userAgent;
-              var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-              var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-              if(isiOS){
-                window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-              }else if(isAndroid){  
-                window.androidObject.JSCallAndroid(JSON.stringify(val));
-              }
-          }
-        //  else if(this.$route.params.name == '/HomePage'){
-        //    this.$router.push({name:"HomePage"}) 
-        //  }else{
-        //     this.$router.push({name:"DetailsTwo"}) 
-        //  }
+          // }else{
+          //       var  val={
+          //       "func":"closeCurrent",
+          //         "param":{},
+          //       };
+          //     var u = navigator.userAgent;
+          //     var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+          //     var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+          //     if(isiOS){
+          //       window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+          //     }else if(isAndroid){  
+          //       window.androidObject.JSCallAndroid(JSON.stringify(val));
+          //     }
+          // }
+         }else if(this.$route.params.name == '/HomePage'){
+           this.$router.push({name:"HomePage"}) 
+         }else{
+            this.$router.push({name:"DetailsTwo"}) 
+         }
       },
       GetParams(id){
           var that = this;
@@ -312,6 +313,7 @@
        if(Goods){
           this.$axios.get('http://cloud.eyun.online:9080/product/api/product/content?id='+Goods)
           .then(function(response) {   
+            console.log(response.data)
               that.data = response.data;
           })
           .catch(function(error) {

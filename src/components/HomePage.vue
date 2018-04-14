@@ -2,7 +2,7 @@
   <div>
      <header>
           <p>洪山区</p>
-          <input type="text" placeholder="内容推荐">
+          <input type="text" placeholder="内容推荐" @click='GoogleSearch'>
           <ul>
             <li><img src="../assets/HomePage/消息黑色.png" alt="" @click='news'></li>
           </ul>
@@ -139,35 +139,38 @@ export default {
               },
           };
        if(http.test(link) == true){
-         //window.location.href=link
-         IOSAndroid(linkval)
+         window.location.href=link
+        //  IOSAndroid(linkval)
        }else if(product.test(link) == true){
-         //this.$router.push({name:"Product",params:{name:'/HomePage'}})
+         this.$router.push({name:"Product",params:{name:'/HomePage'}})
           var Goods=sessionStorage.setItem("GoodsID",link.split('/')[2]); // 商品id 
           var Goods=sessionStorage.getItem("GoodsID");
-          // this.$axios.get('http://cloud.eyun.online:9080/product/api/product/content?id='+Goods)
-          //     .then(function(response) {   
-          //         that.data = response.data;
-          //         console.log(response.data)
-          //     })
-          //     .catch(function(error) {
-          //         console.log(error);
-          //   }); 
-           var  val={
-              "func":"openURL",
-              "param":{
-                  "URL":'http://192.168.1.102:8888/#/Product?ProductId='+Goods,
-              },
-          };
-          var u = navigator.userAgent;
-          var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-          var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-          if(isiOS){
-             window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-          }else if(isAndroid){  
-             window.androidObject.JSCallAndroid(JSON.stringify(val));
-          }
+          this.$axios.get('http://cloud.eyun.online:9080/product/api/product/content?id='+Goods)
+              .then(function(response) {   
+                  that.data = response.data;
+                  console.log(response.data)
+              })
+              .catch(function(error) {
+                  console.log(error);
+            }); 
+          //  var  val={
+          //     "func":"openURL",
+          //     "param":{
+          //         "URL":'http://192.168.1.102:8888/#/Product?ProductId='+Goods,
+          //     },
+          // };
+          // var u = navigator.userAgent;
+          // var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+          // var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+          // if(isiOS){
+          //    window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+          // }else if(isAndroid){  
+          //    window.androidObject.JSCallAndroid(JSON.stringify(val));
+          // }
        }
+      },
+      GoogleSearch(){
+         this.$router.push({name:"DetailsTwo",params:{name:'/FromPage'}})
       }
     },
     mounted:function () {

@@ -3,7 +3,7 @@
       <!-- indentAll -->
     <div class="shopping_head">
         <div class="shopping_header">
-             <router-link :to="{ path: '/Mine' }" tag='p'>&lt;</router-link>
+             <p @click='close'>&lt;</p>
             <p>全部订单</p>
             <p><img src="../../assets/Classify/消息黑色.png" alt=""><span class="shopping_red">3</span></p>
         </div>
@@ -127,6 +127,20 @@ export default {
     methods: {
         tab(index) {
             this.num = index;
+        },
+        close(){
+            var  val={
+                "func":"closeCurrent",
+                  "param":{'finallyIndex':4},
+                };
+              var u = navigator.userAgent;
+              var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+              var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+              if(isiOS){
+                window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+              }else if(isAndroid){  
+                window.androidObject.JSCallAndroid(JSON.stringify(val));
+              }
         }
     }
 }
