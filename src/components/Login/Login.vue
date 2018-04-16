@@ -142,11 +142,11 @@ export default {
                     // request.set({'Authorization': 'Bearer ' + auth.accessToken});
                     var accessToken = getCookie('access_token');
                     if(accessToken !== ''){
-                        if(this.$route.params.name =='/Shopping'){
-                             this.$router.push({name:'Shopping'})
-                        }else{
-                             this.$router.push({name:'Mine'})
-                        }
+                        // if(this.$route.params.name =='/Shopping'){
+                        //      this.$router.push({name:'Shopping'})
+                        // }else{
+                        //      this.$router.push({name:'Mine'})
+                        // }
                        
                         var  val={
                             "func":"closeCurrent",

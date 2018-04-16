@@ -12,11 +12,24 @@
            <mt-swipe-item v-for='(item,index) in data' :key='index'><img :src=item.image alt="" @click='banner(item.link)'></mt-swipe-item> 
       </mt-swipe>
        <HomePageNav></HomePageNav>
-       <h2>{{XX}}{{YY}}{{msg}}</h2>
+       <!-- <h2>{{XX}}{{YY}}</h2> -->
        <div class='Nearbyshops'>
-              <h1>附近商家{{Locations}}</h1>
+              <h1>附近商家</h1>
               <div class='list'>
-                  <dl>
+                  <dl v-for='(item,index) in Locations' :key='index' @click='Nearbyshops'>
+                    <!-- <b class='fixed'><i>让利</i><em>111</em></b> -->
+                    <dt><img :src='item.img_license'></dt>
+                    <dd>
+                        <h3><span>{{item.name}}</span></h3>
+                        <p class='star'>
+                          <span>222</span>
+                          <b>|</b>
+                          <em><i>546</i>人光临</em>
+                        </p>
+                        <p class='aside'><b>{{item.city}}</b><em>55km</em></p>
+                    </dd>
+                  </dl>
+                    <!-- <dl>
                     <b class='fixed'><i>让利</i><em>111</em></b>
                     <dt><img src='../assets/Classify/bg.gif'></dt>
                     <dd>
@@ -54,20 +67,7 @@
                         </p>
                         <p class='aside'><b>111</b><em>111</em></p>
                     </dd>
-                  </dl>
-                    <dl>
-                    <b class='fixed'><i>让利</i><em>111</em></b>
-                    <dt><img src='../assets/Classify/bg.gif'></dt>
-                    <dd>
-                        <h3><span>11</span></h3>
-                        <p class='star'>
-                          <span>11</span>
-                          <b>|</b>
-                          <em><i>11</i>人光临</em>
-                        </p>
-                        <p class='aside'><b>111</b><em>111</em></p>
-                    </dd>
-                  </dl>
+                  </dl> -->
               </div>                 
        </div>  
      </div>
@@ -81,6 +81,7 @@ import HomePageNav from './main/HomePageNav'
 import Foot from './main/Foot'
 import { Swipe, SwipeItem } from 'mint-ui';
 import { IOSAndroid } from '../assets/js/IOSAndroid.js'
+import { setCookie,getCookie } from '../assets/js/cookie.js'
 import qs from 'qs';
 export default {
     data(){
@@ -97,31 +98,27 @@ export default {
       // 经度  纬度
       GeographicalLocation:function (X,Y) {
            this.XX=X;
-           this.YY=Y;          
-          //  console.log(this.XX)
-          //  console.log(this.YY)
-          //  var that = this;
-          //  this.$axios.post('http://192.168.1.10:9080/user/api/mercuries/info-list/'+this.XX+'/'+this.YY)
-          //     .then(function(response) {
-          //       that.Locations = response.data
-          //         // that.Locations = response;
-          //     })
-          //     .catch(function(error) {
-          //         console.log(error);
-          //  }); 
+           this.YY=Y;
+           var that = this;
             this.$axios({
                 method:'post',
                 url:'http://cloud.eyun.online:9080/user/api/mercuries/info-list/MercuryInfo',
-                data:{
-                  "langitude": this.XX,
-                  "lantitude": this.YY
-                  },
+                data:
+                {
+                "langitude": 116.66847,
+                "lantitude": 39.88372
+                },
+                // {
+                //   "langitude": this.XX,
+                //   "lantitude": this.YY
+                //   },
                 headers:{
                 'Content-Type': 'application/json',
                 }
+                
             })
             .then(function(response) {
-                
+              console.log(response.data)
              that.Locations = response.data
             })
             .catch((error)=>{
@@ -132,7 +129,7 @@ export default {
           var  val={
               "func":"openURL",
               "param":{
-                  "URL":'http://192.168.1.102:8888/#/News',
+                  "URL":'http://cloud.eyun.online:8888/#/News',
               },
           };
           var u = navigator.userAgent;
@@ -156,10 +153,10 @@ export default {
               },
           };
        if(http.test(link) == true){
-         window.location.href=link
-        //  IOSAndroid(linkval)
+        //  window.location.href=link
+         IOSAndroid(linkval)
        }else if(product.test(link) == true){
-         this.$router.push({name:"Product",params:{name:'/HomePage'}})
+        //  this.$router.push({name:"Product",params:{name:'/HomePage'}})
           var Goods=sessionStorage.setItem("GoodsID",link.split('/')[2]); // 商品id 
           var Goods=sessionStorage.getItem("GoodsID");
           this.$axios.get('http://cloud.eyun.online:9080/product/api/product/content?id='+Goods)
@@ -170,41 +167,58 @@ export default {
               .catch(function(error) {
                   console.log(error);
             }); 
-          //  var  val={
-          //     "func":"openURL",
-          //     "param":{
-          //         "URL":'http://192.168.1.102:8888/#/Product?ProductId='+Goods,
-          //     },
-          // };
-          // var u = navigator.userAgent;
-          // var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-          // var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-          // if(isiOS){
-          //    window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-          // }else if(isAndroid){  
-          //    window.androidObject.JSCallAndroid(JSON.stringify(val));
-          // }
+           var  val={
+              "func":"openURL",
+              "param":{
+                  "URL":'http://cloud.eyun.online:8888/#/Product?ProductId='+Goods,
+              },
+          };
+          var u = navigator.userAgent;
+          var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+          var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+          if(isiOS){
+             window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+          }else if(isAndroid){  
+             window.androidObject.JSCallAndroid(JSON.stringify(val));
+          }
        }
       },
-      GoogleSearch(){ this.$router.push({name:"DetailsTwo",params:{name:'/FromPage'}})
-        
+      GoogleSearch(){ 
+        this.$router.push({name:"DetailsTwo",params:{name:'/FromPage'}})    
+      },
+      Nearbyshops(){
+           var  val={
+              "func":"openURL",
+              "param":{
+                  "URL":'http://cloud.eyun.online:8888/#/PageDetails',
+              },
+          };
+          var u = navigator.userAgent;
+          var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+          var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+          if(isiOS){
+             window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+          }else if(isAndroid){  
+             window.androidObject.JSCallAndroid(JSON.stringify(val));
+          }
       }
     },
     mounted:function () {
-       window.GeographicalLocation = this.GeographicalLocation;
+       window.GeographicalLocation = this.GeographicalLocation();
        window.Camera = this.Camera;
-    },
-    created(){
-      // 轮播图
+
+       // 轮播图
        var that = this; 
        this.$axios.get('http://cloud.eyun.online:9080/advertising/api/findNotDelByLoc')
          .then(function(response) {   
             that.data = response.data;
-            // console.log(response)
         })
         .catch(function(error) {
             console.log(error);
        }); 
+    },
+    created(){
+    
     }, 
     components:{          
       HomePageNav,

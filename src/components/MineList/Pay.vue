@@ -8,7 +8,7 @@
          </ul>
      </header>
      <div class="center">
-        <p class="center_top">请您尽快完支付 <span><i>{{this.$route.params.payment}}</i>元</span></p>
+        <p class="center_top" >请您尽快完支付 <span><i>{{this.$route.params.payment}}</i>元</span></p>
         <div class="change">
             <p class="one">
                 <img src="../../assets/Mine/余额.png" alt="">
@@ -33,13 +33,14 @@
                     <label for="zhifubao"></label>
                 </span>
             </p>
-            <p>
-                <img src="../../assets/top/快捷支付.png" alt="">
+            {{took}}
+            <!-- <p>
+                <img src="../../assets/top/快捷支付.png" alt=""> -->
                 <!-- <ul>
                     <li>贡融卷(可抵扣<b>1</b>元)</li>
                     <li>1.00</li>
                 </ul> -->
-                快捷支付
+                <!-- 快捷支付
                 <span>
                     <input type="radio" id="kuaijiezhifu" name="sex" value="快捷支付"/>
                     <label for="kuaijiezhifu"></label>
@@ -52,20 +53,31 @@
                     <input type="radio" id="yinlian" name="sex" value="银联"/>
                     <label for="yinlian"></label>
                 </span>
-            </p>
+            </p> -->
          </div>
-             <button class="botton" @click='OpenindentAll'>
+             <button class="botton">
                  确认支付（<span></span>元）
              </button>
+            
     
      </div>
+
+     <div class="del">
+           <div>
+               {{type}}
+           </div>
+           <p>
+               <!-- <span class="no" @click="cancel">取消</span> -->
+               <span class="yes" @click="q">确定</span>
+           </p>
+       </div>  
   </div>
 </template>
 
 <script>
-
+import axios from 'axios'
+import { setCookie,getCookie } from '../../assets/js/cookie.js'
 export default {
-    
     data(){
         return {
             payment:this.$route.params.payment,
@@ -77,10 +89,38 @@ export default {
             count:this.$route.params.count,
             price:this.$route.params.price,
             data:null,
-            money:null                
+            money:null,
+            type:null,  // 类型   
+            took:null,
+            web:null        
         }
     },
     methods:{
+        // display(e) {
+       
+        // },
+        //取消事件
+        cancel() {
+        $(".del").hide();
+        },
+        //确定事件
+        q() {
+         var  val={
+              "func":"openURL",
+              "param":{
+                  "URL":'http://192.168.1.102:8888/#/indentAll',
+              },
+          };
+          var u = navigator.userAgent;
+          var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+          var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+          if(isiOS){
+             window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+          }else if(isAndroid){  
+             window.androidObject.JSCallAndroid(JSON.stringify(val));
+          }
+        $(".del").hide();
+        },
         OpenindentAll:function(){
         //       var  val={
         //       "func":"openURL",
@@ -97,61 +137,78 @@ export default {
         //         window.androidObject.JSCallAndroid(JSON.stringify(val));
         //     }
                
-                 var params =     [{
-                    "payment":this.payment,
-                    "postFee": this.postFee,
-                    "buyerMessage": this.buyerMessage,
-                    "buyerNick": this.buyerNick,
-                    "shopId": Number(this.shopId),
-                    "proOrderItems":[
-                    {
-                        "productSkuId": Number(this.productSkuId),
-                        "count": Number(this.count),
-                        "price": Number(this.price)           
-                    },
-                ]
-                }]
-          console.log(params)
-    //         var paramss = [{
-    //         "payment": 500,
-    //         "postFee": 0,
-    //         "buyerMessage": null,
-    //         "buyerNick": "sjskfs",
-    //         "shopId": 3,
-    //         "proOrderItems":[
-    //         {
-    //             "productSkuId":2,
-    //             "count":1,
-    //             "price":64815
-    //         }
-    //         ]
-    //     }
-    //     ]
-    // console.log(paramss)
-         this.$axios({
-                method:'post',
-                url:'http://cloud.eyun.online:9080/order/api/depproorders',
-                data:params,
-                headers:{
-                'Content-Type': 'application/json',
-                }
-            })
-            .then(function(response) {
-            console.log(response.data);
-            })
-            .catch((error)=>{
-                console.log(error);
-            });
+    //              var params =     [{
+    //                 "payment":this.payment,
+    //                 "postFee": this.postFee,
+    //                 "buyerMessage": this.buyerMessage,
+    //                 "buyerNick": this.buyerNick,
+    //                 "shopId": Number(this.shopId),
+    //                 "proOrderItems":[
+    //                 {
+    //                     "productSkuId": Number(this.productSkuId),
+    //                     "count": Number(this.count),
+    //                     "price": Number(this.price)           
+    //                 },
+    //             ]
+    //             }]
+    //       console.log(params)
+    // //         var paramss = [{
+    // //         "payment": 500,
+    // //         "postFee": 0,
+    // //         "buyerMessage": null,
+    // //         "buyerNick": "sjskfs",
+    // //         "shopId": 3,
+    // //         "proOrderItems":[
+    // //         {
+    // //             "productSkuId":2,
+    // //             "count":1,
+    // //             "price":64815
+    // //         }
+    // //         ]
+    // //     }
+    // //     ]
+    // // console.log(paramss)
+    //      this.$axios({
+    //             method:'post',
+    //             url:'http://cloud.eyun.online:9080/order/api/depproorders',
+    //             data:params,
+    //             headers:{
+    //             'Content-Type': 'application/json',
+    //             }
+    //         })
+    //         .then(function(response) {
+    //         console.log(response.data);
+    //         })
+    //         .catch((error)=>{
+    //             console.log(error);
+    //         });
+
+            
         },
         back(){
              this.$router.push({name:"ConfirmAnOrder"})
+        },
+        payStatus(type,item){
+            this.init = item;
+            $(".del").show();
+            this.type = type;
+            if(this.type == 'success'){
+                this.type = '支付成功'
+            }else if(this.type=='cancel'){
+               this.type = '用户取消'
+            }else if(this.type=='failed'){
+                this.type = '支付失败'
+            }else if(this.type=='unknown'){
+                this.type = '未知状态'
+            }
         }
     },
     created(){
             this.money = sessionStorage.getItem("money");
     },
     mounted:function(){
-        
+        var that = this;
+        window.payStatus = this.payStatus;
         window.OpenindentAll = this.OpenindentAll;
         $(".nomoney").hide()
         var a = $('.center_top i').text()
@@ -171,16 +228,175 @@ export default {
             $(".nomoney").hide()
            console.log('有钱')
         }
-         $(".botton").on('click',function(){ 
-    
-                var re=$('input:radio[name="sex"]:checked').val();
-              console.log('即将使用'+re+'支付'+a+'元');                           
-      });
+          $(".botton").on('click',function(){    
+              var re=$('input:radio[name="sex"]:checked').val();
+              console.log('即将使用'+re+'支付'+a+'元'); 
+
+              if(re == '余额'){
+                   var paramss ={
+                    "payment": that.payment,
+                    "postFee": that.postFee,
+                    "paymentType":1,
+                    "buyerMessage": that.buyerMessage,
+                    "buyerNick":that.buyerNick,
+                    "shopId":  Number(that.shopId),
+                    "proOrderItems":[
+                    {
+                        "productSkuId":Number(that.productSkuId),
+                        "count":Number(that.count),
+                        "price":Number(that.price) 
+                    
+                    }
+                    ]
+                }
+          var accessToken = getCookie('access_token');
+            axios({
+                    method:'post',
+                    url:'http://cloud.eyun.online:9080/order/api/depproorders',
+                    data:paramss,
+                    headers:{
+                    // 'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + accessToken,
+                    }
+                })
+                .then(function(response) {
+                    that.web = response.data;
+                    console.log(that.web)
+                        axios({
+                            method:'post',
+                            url:'http://cloud.eyun.online:9080/wallet/api/wallets/balance/pay',
+                            data:{
+                            "orderNo":that.web,
+                            "password": 123456
+                            },
+                            headers:{
+                            // 'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + accessToken,
+                            }
+                        })
+                        .then(function(res) {
+                                if(res.data ==''){
+                                    that.payStatus('success');
+                                };
+                        })
+                        .catch((error)=>{
+                            console.log(error);
+                        }); 
+                })
+                .catch((error)=>{
+                    console.log(error);
+                }); 
+            }else if(re == '支付宝'){                          
+                 var paramss ={
+                    "payment": that.payment,
+                    "postFee": that.postFee,
+                    "paymentType":2,
+                    "buyerMessage": that.buyerMessage,
+                    "buyerNick":that.buyerNick,
+                    "shopId":  Number(that.shopId),
+                    "proOrderItems":[
+                    {
+                        "productSkuId":Number(that.productSkuId),
+                        "count":Number(that.count),
+                        "price":Number(that.price) 
+                    
+                    }
+                    ]
+                }
+          var accessToken = getCookie('access_token');
+            axios({
+                    method:'post',
+                    url:'http://cloud.eyun.online:9080/order/api/depproorders',
+                    data:paramss,
+                    headers:{
+                    // 'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + accessToken,
+                    }
+                })
+                .then(function(response) {
+                    that.took = response.data;
+                 var  val={
+                        "func":'pay',
+                        "param":{
+                        "payType":'Ali',
+                        "orderStr": that.took
+                        }
+                    }
+                var u = navigator.userAgent;
+                    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+                    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+                    if(isiOS){
+                        window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+                    }else if(isAndroid){  
+                        window.androidObject.JSCallAndroid(JSON.stringify(val));
+                    }
+                    })
+                    .catch((error)=>{
+                        console.log(error);
+                    }); 
+            }
+                //  var params =     [{
+                //     "payment":that.payment,
+                //     "postFee": that.postFee,
+                //     "buyerMessage": that.buyerMessage,
+                //     "buyerNick": that.buyerNick,
+                //     "paymentType":2,
+                //     "shopId": Number(that.shopId),
+                //     "proOrderItems":[
+                //     {
+                //         "productSkuId": Number(that.productSkuId),
+                //         "count": Number(that.count),
+                //         "price": Number(that.price)           
+                //     },
+                // ]
+                // }]
+            // console.log(params)
+       });
     }
 }
 </script>
 
 <style scoped>
+.del {
+  display: none;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  text-align: center;
+}
+.del div {
+  width: 70%;
+  height: 2rem;
+  line-height: 2rem;
+  background: #fff;
+  text-align: center;
+  margin: auto;
+  margin-top: 60%;
+  border-top-left-radius: 0.2rem;
+  border-top-right-radius: 0.2rem;
+}
+.del p {
+  width: 70%;
+  background: #fff;
+  height: 0.7rem;
+  line-height: 0.7rem;
+  display: flex;
+  margin: auto;
+  border-top: 1px solid #e7e7e7;
+  border-bottom-left-radius: 0.2rem;
+  border-bottom-right-radius: 0.2rem;
+  overflow: hidden;
+}
+.del span {
+  flex: 1;
+}
+.del span:last-child {
+  background: #ff0103;
+  color: #fff;
+}
     .header{
         width: 100%;
         height: .96rem;

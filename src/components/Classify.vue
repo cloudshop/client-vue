@@ -134,13 +134,13 @@ export default {
            });    
         },
       ItemDescription(value){
-           this.data = value;
+       this.data = value;
         sessionStorage.setItem("name",value)        
-        this.$router.push({name:"DetailsTwo"})
+        // this.$router.push({name:"DetailsTwo"})
          var  val={
               "func":"openURL",
               "param":{
-                  "URL":'http://192.168.1.102:8888/#/DetailsTwo?DetailsTwo='+value,
+                  "URL":'http://cloud.eyun.online:8888/#/DetailsTwo?DetailsTwo='+value,
               },
           };
           var u = navigator.userAgent;

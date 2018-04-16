@@ -2,17 +2,20 @@
 <template>
   <div class='news'>
       <header class="mint-header">
-           <div class="mint-header-button is-left">
-               <a class="router-link-active">
-                   <button class="mint-button mint-button--default mint-button--normal" @click='back'>
-                    <mt-button icon="back"></mt-button>
+           <div class="mint-header-button is-left" >
+               <a class="router-link-active" >
+                   <button class="mint-button mint-button--default mint-button--normal" >
+                    <mt-button icon="back" @click='backHome'></mt-button>
                    </button>
               </a>
             </div> 
              <h1 class="mint-header-title">消息</h1>
             <div class="mint-header-button is-right"></div>
+          
         </header>
-
+           <router-link :to="{ path: '/HomePage' }">
+                          返回
+                     </router-link>
         <div class='nav'>
             <dl>
                 <dt><img src="../../assets/news/物流快递.png" alt=""></dt>
@@ -45,7 +48,7 @@
                             <span>有什么需要帮助的呢？</span>
                         </dd>
                     </dl>
-                    <p>16:50</p>
+                    <p>16:50</p>12313123
                 </li>
             </ul>
            
@@ -63,12 +66,20 @@ export default {
         }
     },
     methods:{
-        back(){
-              var  val={
-                        "func":"closeCurrent",
-                        "param":{},
-                    };
-            IOSAndroid(val);
+        backHome(){
+            alert(1)
+            //   var  val={
+            //     "func":"closeCurrent",
+            //       "param":{},
+            //     };
+            //   var u = navigator.userAgent;
+            //   var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+            //   var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+            //   if(isiOS){
+            //     window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+            //   }else if(isAndroid){  
+            //     window.androidObject.JSCallAndroid(JSON.stringify(val));
+            //   }
         }
     }
 }
@@ -194,8 +205,6 @@ header{
             </dl>
         </div>
         <div class='content'>
-             <router-link :to="{ path: '/Talk' }"  tag='p'>跳转
-             </router-link> 
             <ul class='list'>
                 <li>
                     <dl>

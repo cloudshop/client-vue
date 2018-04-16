@@ -179,7 +179,7 @@
 </template>
 
 <script>
-
+import { setCookie,getCookie } from '../../assets/js/cookie.js';
   export default {  
     name: 'page-navbar',  
     data() {  
@@ -227,7 +227,26 @@
         this.address = false;
       },
       ConfirmAnOrder(){
-        this.$router.push({name:"ConfirmAnOrder",}) 
+        var accessToken = getCookie('access_token');
+        if(accessToken != ''){
+           this.$router.push({name:"ConfirmAnOrder",}) 
+        }else{
+          alert('请先登陆');
+           var  val={
+              "func":"openURL",
+              "param":{
+                  "URL":'http://cloud.eyun.online:8888/#/Login',
+              },
+          };
+          var u = navigator.userAgent;
+          var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+          var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+          if(isiOS){
+             window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+          }else if(isAndroid){  
+             window.androidObject.JSCallAndroid(JSON.stringify(val));
+          }
+        }
          sessionStorage.setItem("price",this.data.productContent.price); 
          sessionStorage.setItem("count",this.val); 
          sessionStorage.setItem("storeID", this.data.productContent.id);
@@ -235,15 +254,19 @@
              
       },
       addShopping(){
+         var accessToken = getCookie('access_token');
         var that = this;
-        var params = 
-          {"userId":1,"skuId":1,"shopid":1,"skuName":"Iphone X 白色 128G 4G","unitPrice":9889,"count":10}
+        var params = {
+            "count": 1,
+            "shopId":30,
+            "skuId":97
+          };
          this.$axios({
                 method:'post',
-                url:'/addShopping/api/shoppingcar/add',
+                url:'http://cloud.eyun.online:9080/shoppingcart/api/shoppingcar/add',
                 data:params,
                 headers:{
-                'Content-Type': 'application/json',
+               'Authorization': 'Bearer ' + accessToken,
                 }
             })
             .then(function(response) {
@@ -268,11 +291,11 @@
        });   
       },
       store(){
-         this.$router.push({name:"PageDetails"}) 
+        //  this.$router.push({name:"PageDetails"}) 
       },
       back(){   
-        if(this.$route.params.name == '/DetailsTwo'){
-           this.$router.push({name:"DetailsTwo"}) 
+        // if(this.$route.params.name == '/DetailsTwo'){
+        //    this.$router.push({name:"DetailsTwo"}) 
           // }else{
           //       var  val={
           //       "func":"closeCurrent",
@@ -287,11 +310,25 @@
           //       window.androidObject.JSCallAndroid(JSON.stringify(val));
           //     }
           // }
-         }else if(this.$route.params.name == '/HomePage'){
-           this.$router.push({name:"HomePage"}) 
-         }else{
-            this.$router.push({name:"DetailsTwo"}) 
-         }
+        //  }else if(this.$route.params.name == '/HomePage'){
+        //    this.$router.push({name:"HomePage"}) 
+        //  }else{
+        //     this.$router.push({name:"DetailsTwo"}) 
+        //  }
+         var  val={
+                "func":"closeCurrent",
+                  "param":{
+                    'refreshParent':true
+                  },
+                };
+              var u = navigator.userAgent;
+              var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+              var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+              if(isiOS){
+                window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+              }else if(isAndroid){  
+                window.androidObject.JSCallAndroid(JSON.stringify(val));
+              }
       },
       GetParams(id){
           var that = this;

@@ -131,11 +131,11 @@ export default {
      },
       methods:{
       logins:function(){  
-         this.$router.push({name:"Login",params:{name:'/Mine'}})   
+      //  this.$router.push({name:"Login",params:{name:'/Mine'}})   
         var  val={
               "func":"openURL",
               "param":{
-                  "URL":'http://192.168.1.102:8888/#/login'
+                  "URL":'http://cloud.eyun.online:8888/#/login'
               },
           };
           var u = navigator.userAgent;

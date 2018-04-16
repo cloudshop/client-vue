@@ -161,12 +161,6 @@ export default {
   },
 
   created(){
-     var accessToken = getCookie('access_token')
-      if(accessToken == ''){
-        this.flag = true;
-      }else{
-        this.flag = false;
-      }
 
         this.$axios.get('http://cloud.eyun.online:9080/wallet/api/wallets/user',{
           headers:{
@@ -190,28 +184,34 @@ export default {
       // .catch(function(error){
       //   console.log(error)
       // })
+      var accessToken = getCookie('access_token')
+      if(accessToken == ''){
+        this.flag = true;
+      }else{
+        this.flag = false;
+      }
 
-      var accessToken = getCookie('access_token');
-      this.$axios.get('http://cloud.eyun.online:9080/wallet/api/wallets/user',{
-        headers:{
-          'Authorization': 'Bearer ' + accessToken,
-        }
-      })
-      .then(function(res){
-        console.log(res.data)
-      })
-      .catch(function(error){
-        console.log(error)
-      })
+      // var accessToken = getCookie('access_token');
+      // this.$axios.get('http://cloud.eyun.online:9080/wallet/api/wallets/user',{
+      //   headers:{
+      //     'Authorization': 'Bearer ' + accessToken,
+      //   }
+      // })
+      // .then(function(res){
+      //   console.log(res.data)
+      // })
+      // .catch(function(error){
+      //   console.log(error)
+      // })
     
   },
   methods: {
      logins:function(){    
-       this.$router.push({name:"Login",params:{name:'/Shopping'}}) 
+      //  this.$router.push({name:"Login",params:{name:'/Shopping'}}) 
         var  val={
               "func":"openURL",
               "param":{
-                  "URL":'http://192.168.1.102:8888/#/login'
+                  "URL":'http://cloud.eyun.online:8888/#/login'
               },
           };
           var u = navigator.userAgent;

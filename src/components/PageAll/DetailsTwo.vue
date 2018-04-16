@@ -16,7 +16,7 @@
         </ul>
         <div class="tabCon">
             <div class='content' >             
-                <div class="tabCon_main"  v-for='(item,index) in arr' :key="index"  :data='item.id' @click='details(item.id)'>
+                <div class="tabCon_main"  v-for='(item,index) in arr.mainContent' :key="index"  :data='item.id' @click='details(item.id)'>
                     <div class="tabCon_main_left">
                         <img src="../../assets/Classify/bg.gif" alt="">
                     </div>
@@ -53,87 +53,84 @@ export default {
         tab(index) {
             this.num = index; 
             if(this.num == 0){
-            this.name = sessionStorage.getItem("name")       
-            var that = this;
-            this.$axios({
-                method:'post',
-                url:'http://cloud.eyun.online:9080/product/api/product/all',
-                data:{
-                     'categoryId':this.name,
-                },
-                headers:{
-                'Content-Type': 'application/json',
-                }
-            })
-            .then(function(response) {
-                
-            that.arr = response.data.mainContent;
-            })
-            .catch((error)=>{
-                console.log(error);
-            }) 
+                var that = this;
+                this.$axios({
+                        method:'post',
+                        url:'http://cloud.eyun.online:9080/product/api/product/all',
+                        data: {
+                            'categoryId':this.id.DetailsTwo,
+                            },
+                        headers:{
+                        'Content-Type': 'application/json',
+                        }
+                })
+                .then(function(response) {
+                    console.log(response.data)   
+                    that.arr = response.data;
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
             }else if(this.num == 1){
-            this.name = sessionStorage.getItem("name")       
-            var that = this;
-            this.$axios({
-                method:'post',
-                url:'http://cloud.eyun.online:9080/product/api/product/all',
-                data:{
-                    'categoryId':this.name,
-                    "sale":1
-                },
-                headers:{
-                'Content-Type': 'application/json',
-                }
-            })
-            .then(function(response) {
-                
-            that.arr = response.data.mainContent;
-            })
-            .catch((error)=>{
-                console.log(error);
-            })  
+             var that = this;
+                this.$axios({
+                        method:'post',
+                        url:'http://cloud.eyun.online:9080/product/api/product/all',
+                        data: {
+                            'categoryId':97,
+                            'sale':1,
+                            },
+                        headers:{
+                        'Content-Type': 'application/json',
+                        }
+                })
+                .then(function(response) {
+                    console.log(response.data)   
+                    that.arr = response.data;
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
             }else if(this.num == 2){                      
-            this.name = sessionStorage.getItem("name")       
             var that = this;
             this.$axios({
-                method:'post',
-                url:'http://cloud.eyun.online:9080/product/api/product/all',
-                data:{
-                    'categoryId':this.name,
-                    "price":1
-                },
-                headers:{
-                'Content-Type': 'application/json',
-                }
+                    method:'post',
+                    url:'http://cloud.eyun.online:9080/product/api/product/all',
+                    data: {
+                        'categoryId':this.id.DetailsTwo,
+                         "price":1
+                        },
+                    headers:{
+                    'Content-Type': 'application/json',
+                    }
             })
             .then(function(response) {
-                
-            that.arr = response.data.mainContent;
+                console.log(response.data)   
+                that.arr = response.data;
             })
-            .catch((error)=>{
+            .catch(function(error) {
                 console.log(error);
-            })             
-            } 
+            });
+             } 
         },
-        PostMan(params){
-            var that = this;
-            this.$axios({
-                method:'post',
-                url:'http://cloud.eyun.online:9080/product/api/product/all',
-                data:params,
-                headers:{
-                'Content-Type': 'application/json',
-                }
-            })
-            .then(function(response) {
+        // PostMan(params){
+        //     var that = this;
+        //     this.$axios({
+        //         method:'post',
+        //         url:'http://cloud.eyun.online:9080/product/api/product/all',
+        //         data:params,
+        //         headers:{
+        //         'Content-Type': 'application/json',
+        //         }
+        //     })
+        //     .then(function(response) {
                 
-            that.arr = response.data.mainContent;
-            })
-            .catch((error)=>{
-                console.log(error);
-            }) 
-        },
+        //     that.arr = response.data.mainContent;
+        //     })
+        //     .catch((error)=>{
+        //         console.log(error);
+        //     }) 
+        // },
         details(id){
           sessionStorage.setItem("GoodsID",id);                 
           this.$router.push({name:"Product",params:{name:'/DetailsTwo'}})         
@@ -161,26 +158,24 @@ export default {
                 console.log(error);
             }) 
         },
-        back(){
-         
-       
-        //   var  val={
-        //      "func":"closeCurrent",
-        //       "param":{},
-        //      };
-        //   var u = navigator.userAgent;
-        //   var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-        //   var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-        //   if(isiOS){
-        //      window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-        //   }else if(isAndroid){  
-        //      window.androidObject.JSCallAndroid(JSON.stringify(val));
-        //   }
-        if(this.$route.params.name == '/FromPage'){
-            this.$router.push({name:"HomePage"})    
-        }else{
-              this.$router.push({name:"Classify"})
-        }
+        back(){        
+          var  val={
+             "func":"closeCurrent",
+              "param":{'refreshParent':true},
+             };
+          var u = navigator.userAgent;
+          var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+          var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+          if(isiOS){
+             window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+          }else if(isAndroid){  
+             window.androidObject.JSCallAndroid(JSON.stringify(val));
+          }
+        // if(this.$route.params.name == '/FromPage'){
+        //     this.$router.push({name:"HomePage"})    
+        // }else{
+        //       this.$router.push({name:"Classify"})
+        // }
         },
         GetParams(id){
           var that = this;
@@ -206,32 +201,6 @@ export default {
     },
     created(){
       
-
-            if(this.$route.params.name == '/FromPage'){
-                this.flag = false;
-            }else if(this.$route.params.name == '/FromClass'){
-                 this.flag = false;
-            }else{
-                 this.name = sessionStorage.getItem("name")       
-        var that = this;
-            this.$axios({
-                method:'post',
-                url:'http://cloud.eyun.online:9080/product/api/product/all',
-                data:{
-                     'categoryId':this.name,
-                },
-                headers:{
-                'Content-Type': 'application/json',
-                }
-            })
-            .then(function(response) {
-                
-            that.arr = response.data.mainContent;
-            })
-            .catch((error)=>{
-                console.log(error);
-            }) 
-            }
     },
     mounted(){
         window.GetParams = this.GetParams;
