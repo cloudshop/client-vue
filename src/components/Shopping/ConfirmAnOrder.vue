@@ -96,7 +96,9 @@
 </template>
 
 <script>
+import { setCookie,getCookie } from '../../assets/js/cookie.js'
 export default {
+    
     data(){
         return{
             text:'',  // 购买数量
@@ -104,7 +106,8 @@ export default {
             LeaveWord:'',//卖家留言
             nick:'',  //卖家昵称
             storeID:'',//店铺ID
-            GoodsID:'',// 商品ID
+            shopID:'',// 商品ID
+            money:'' // money
             
         }
     },
@@ -130,11 +133,11 @@ export default {
                  {name:"Pay",
                     params:
                    {'payment':this.price*this.text,
-                   'postFee':null,
+                   'postFee':0,
                    'buyerMessage':this.LeaveWord,
                    'buyerNick':this.nick,
                    'shopId':this.storeID,
-                   'productSkuId':this.GoodsID,
+                   'productSkuId':this.shopID,
                    "count":this.text,
                    'price':this.price
                    }
@@ -144,12 +147,29 @@ export default {
     created(){
         this.price = sessionStorage.getItem("price"); 
         this.text = sessionStorage.getItem("count");
+
+        
+        var accessToken = getCookie('access_token')
+        var that = this;
+        this.$axios.get('http://cloud.eyun.online:9080/wallet/api/wallets/user',{
+          headers:{
+            'Authorization': 'Bearer ' + accessToken,
+          }
+        })
+        .then(function(res){
+            console.log(res)
+           sessionStorage.setItem("money",res.data.balance);
+        })
+        .catch(function(error){
+          console.log(error)
+        })
         
     },
     mounted(){
         this.nick = $('#nick').text();
-        this.storeID = sessionStorage.getItem("storeID");
+            
         this.GoodsID = sessionStorage.getItem("GoodsID");
+        this.shopID = sessionStorage.getItem("shopID");
     }
 }
 </script>

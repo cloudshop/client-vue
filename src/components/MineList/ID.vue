@@ -10,10 +10,10 @@
         <div class="center">
             <ul>
                 <li>账号安全等级<span>低</span><b>请设置以下项目保护账号</b></li>
-                <li><img src="../../assets/ID/绑定手机.png">已绑定手机<input type="tel" value="138****4338"><a>></a></li>
-                <li><img src="../../assets/ID/登录密码..png">登录密码<a>></a></li>
-                <li><img src="../../assets/ID/支付密码.png">支付密码<a>></a></li>
-                <li><img src="../../assets/ID/重置手机密码.png">重置手机密码<a>></a></li>
+                <li><img src="../../assets/ID/绑定手机.png">已绑定手机<input type="tel" value="138****4338"> <router-link to="/phone"><a>></a></router-link></li>
+                <li><img src="../../assets/ID/登录密码..png">登录密码 <router-link to="/setnewpsd"><a>></a></router-link></li>
+                <li><img src="../../assets/ID/支付密码.png">支付密码 <router-link to="/setpaypsd"><a>></a></router-link></li>
+                <li><img src="../../assets/ID/重置手机密码.png">重置手机支付密码 <router-link to="/restpaypsd"><a>></a></router-link></li>
             </ul>
         </div>
 </div>      

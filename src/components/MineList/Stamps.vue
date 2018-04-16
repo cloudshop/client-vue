@@ -14,7 +14,7 @@
         <div class='content'>
           <div class='banner'>
                   <p>贡融券</p>
-                  <h2>0.16</h2>
+                  <h2>{{$route.params.num}}</h2>
           </div>
           <ul class='list'>
             <li>
@@ -30,7 +30,32 @@
 
 <script>
 import { Header,Popup } from 'mint-ui';
+import { setCookie,getCookie } from '../../assets/js/cookie'
 export default {
+  data(){
+          return{  
+              arr:'null'
+          }
+          
+      },
+     created(){
+             var that = this
+       var accessToken = getCookie('access_token');
+        this.$axios.get('http://cloud.eyun.online:9080/wallet/api/wallets/user',{
+          headers:{
+            'Authorization': 'Bearer ' + accessToken,
+          }
+        })
+        .then(function(res){
+      //     console.log(res.data.balance)
+          that.arr = res.data
+      //      that.arr = res.data
+      //      console.log(arr)
+        })
+        .catch(function(error){
+          console.log(error)
+        })
+     },
     methods:{
     }
 }

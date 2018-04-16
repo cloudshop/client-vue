@@ -2,19 +2,19 @@
   <div>
      <header class="header">
          <ul>
-             <li @click='back'><span>《</span></li>
+             <li @click='back'><span>&lt;</span></li>
              <li>选择支付方式</li>
              <li></li>
          </ul>
      </header>
      <div class="center">
-        <p class="center_top">请您尽快完支付 <span><i>400</i>元</span></p>
+        <p class="center_top">请您尽快完支付 <span><i>{{this.$route.params.payment}}</i>元</span></p>
         <div class="change">
             <p class="one">
                 <img src="../../assets/Mine/余额.png" alt="">
                <ul>
                    <li> 余额(需支付<b class="need"></b>元)</li>
-                   <li><i class="now">1000</i>  <span class="nomoney">(余额不足)</span></li>
+                   <li><i class="now">{{money}}</i>  <span class="nomoney">(余额不足)</span></li>
                </ul>
                 <span>
                     <input type="radio" id="yue" name="sex" value="余额" checked/>
@@ -63,51 +63,74 @@
 </template>
 
 <script>
+
 export default {
-    methods:{
-        OpenindentAll:function(){
-              var  val={
-              "func":"openURL",
-              "param":{
-                  "URL":'http://192.168.1.102:8888/#/indentAll',
-              },
-          };
-            var u = navigator.userAgent;
-            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-            if(isiOS){
-                window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-            }else if(isAndroid){  
-                window.androidObject.JSCallAndroid(JSON.stringify(val));
-            }
-        },
-        back(){
-             this.$router.push({name:"ConfirmAnOrder"})
+    
+    data(){
+        return {
+            payment:this.$route.params.payment,
+            postFee: this.$route.params.postFee,
+            buyerMessage: this.$route.params.buyerMessage,
+            buyerNick: this.$route.params.buyerNick,
+            shopId:this.$route.params.shopId,
+            productSkuId:this.$route.params.productSkuId,
+            count:this.$route.params.count,
+            price:this.$route.params.price,
+            data:null,
+            money:null                
         }
     },
-    created(){
-        var that = this;
-        var params = 
-                    [{
-                "payment":this.$route.params.payment,
-                "postFee": this.$route.params.postFee,
-                "paymentType":null,
-                "buyerMessage": this.$route.params.buyerMessage,
-                "buyerNick": this.$route.params.buyerNick,
-                "shopId":this.$route.params.shopId,
-                "proOrderItems":[
-                {
-                    "productSkuId":this.$route.params.productSkuId,
-                    "count":this.$route.params.count,
-                    "price":this.$route.params.price
-                
-                },
-              ]
-            }
-            ]
+    methods:{
+        OpenindentAll:function(){
+        //       var  val={
+        //       "func":"openURL",
+        //       "param":{
+        //           "URL":'http://192.168.1.102:8888/#/indentAll',
+        //       },
+        //   };
+        //     var u = navigator.userAgent;
+        //     var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+        //     var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+        //     if(isiOS){
+        //         window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+        //     }else if(isAndroid){  
+        //         window.androidObject.JSCallAndroid(JSON.stringify(val));
+        //     }
+               
+                 var params =     [{
+                    "payment":this.payment,
+                    "postFee": this.postFee,
+                    "buyerMessage": this.buyerMessage,
+                    "buyerNick": this.buyerNick,
+                    "shopId": Number(this.shopId),
+                    "proOrderItems":[
+                    {
+                        "productSkuId": Number(this.productSkuId),
+                        "count": Number(this.count),
+                        "price": Number(this.price)           
+                    },
+                ]
+                }]
+          console.log(params)
+    //         var paramss = [{
+    //         "payment": 500,
+    //         "postFee": 0,
+    //         "buyerMessage": null,
+    //         "buyerNick": "sjskfs",
+    //         "shopId": 3,
+    //         "proOrderItems":[
+    //         {
+    //             "productSkuId":2,
+    //             "count":1,
+    //             "price":64815
+    //         }
+    //         ]
+    //     }
+    //     ]
+    // console.log(paramss)
          this.$axios({
                 method:'post',
-                url:'http://192.168.1.10:9080/order/api/shop-proorders',
+                url:'http://cloud.eyun.online:9080/order/api/depproorders',
                 data:params,
                 headers:{
                 'Content-Type': 'application/json',
@@ -118,7 +141,14 @@ export default {
             })
             .catch((error)=>{
                 console.log(error);
-            }) 
+            });
+        },
+        back(){
+             this.$router.push({name:"ConfirmAnOrder"})
+        }
+    },
+    created(){
+            this.money = sessionStorage.getItem("money");
     },
     mounted:function(){
         
@@ -157,6 +187,7 @@ export default {
         border-bottom: 1px solid #e7e7e7;
         box-sizing: border-box;
         background: #fff;
+        font-size:.32rem;
     }
     .header ul{
         display: flex;

@@ -4,12 +4,13 @@
         <div class="classify_search_header">
            
             <div class="classify_search_ss">
-                <a><img src="../../assets/HomePage/搜索.png" alt=""></a>
-                <p><input type="text" placeholder="  请输入搜索关键词" @keydown='seek' v-model="seekContent"></p>
+                <em @click='back'>&lt;</em>
+                
+                <p><a><img src="../../assets/HomePage/搜索.png" alt=""></a><input type="text" placeholder="  请输入搜索关键词" v-model="seekContent"></p>
                 <span @click='seekAll'>搜索</span>
             </div>
         </div>
-<div @click='back'>返回箭头</div>    
+   
         <ul class="PageAll_tab_ul" v-show='flag'>
             <li v-for="(item,index) in tabs" :key="index" :class="{active:index == num}" @click="tab(index)">{{item}}</li>
         </ul>
@@ -44,73 +45,75 @@ export default {
             num: 0,
             id:null,
             seekContent:'',
-            flag:true,
+            name:null,
+            flag:true
         }
     },
     methods: {
         tab(index) {
             this.num = index; 
             if(this.num == 0){
-                var that = this;
-                this.$axios({
-                method:'post',
-                url:'http://cloud.eyun.online:9080/product/api/product/all',
-                data:{
-                    'categoryId':this.id.DetailsTwo,
-                 } ,
-                headers:{
-                   'Content-Type': 'application/json',
-                }
-                })
-                .then(function(response) {
-                    console.log(response.data)   
-                    that.arr = response.data;
-                })
-                .catch(function(error) {
-                    console.log(error);
-                });
-            }else if(this.num == 1){
-                var that = this;
-                var type = {
-                   'categoryId':this.id.DetailsTwo,
-                   "sale":1
-                } 
-                this.$axios({
-                method:'post',
-                url:'http://cloud.eyun.online:9080/product/api/product/all',
-                data:type,
-                headers:{
-                'Content-Type': 'application/json',
-                }
-                })
-                .then(function(response) {
-                    console.log(response.data)   
-                    that.arr = response.data;
-                })
-                .catch(function(error) {
-                    console.log(error);
-                });
-            }else if(this.num == 2){                      
-             var that = this; 
-             var type = {
-                    'categoryId':this.id.DetailsTwo,
-                    "price":1
-                    }  
+            this.name = sessionStorage.getItem("name")       
+            var that = this;
             this.$axios({
                 method:'post',
                 url:'http://cloud.eyun.online:9080/product/api/product/all',
-                data:type,
+                data:{
+                     'categoryId':this.name,
+                },
                 headers:{
                 'Content-Type': 'application/json',
                 }
-                })
-                .then(function(response) {
-                    console.log(response.data)   
-                    that.arr = response.data;
-                })
-                .catch(function(error) {
-                    console.log(error);
-                });            
+            })
+            .then(function(response) {
+                
+            that.arr = response.data.mainContent;
+            })
+            .catch((error)=>{
+                console.log(error);
+            }) 
+            }else if(this.num == 1){
+            this.name = sessionStorage.getItem("name")       
+            var that = this;
+            this.$axios({
+                method:'post',
+                url:'http://cloud.eyun.online:9080/product/api/product/all',
+                data:{
+                    'categoryId':this.name,
+                    "sale":1
+                },
+                headers:{
+                'Content-Type': 'application/json',
+                }
+            })
+            .then(function(response) {
+                
+            that.arr = response.data.mainContent;
+            })
+            .catch((error)=>{
+                console.log(error);
+            })  
+            }else if(this.num == 2){                      
+            this.name = sessionStorage.getItem("name")       
+            var that = this;
+            this.$axios({
+                method:'post',
+                url:'http://cloud.eyun.online:9080/product/api/product/all',
+                data:{
+                    'categoryId':this.name,
+                    "price":1
+                },
+                headers:{
+                'Content-Type': 'application/json',
+                }
+            })
+            .then(function(response) {
+                
+            that.arr = response.data.mainContent;
+            })
+            .catch((error)=>{
+                console.log(error);
+            })             
             } 
         },
         PostMan(params){
@@ -135,16 +138,15 @@ export default {
           sessionStorage.setItem("GoodsID",id);                 
           this.$router.push({name:"Product",params:{name:'/DetailsTwo'}})         
         },
-        seek(){
-            console.log(this.seekContent)
-        },
         seekAll(){
+            console.log(this.seekContent)
+             this.name = sessionStorage.getItem("name")       
            var that = this;
             this.$axios({
                 method:'post',
                 url:'http://cloud.eyun.online:9080/product/api/product/all',
                 data:{
-                "categoryId":this.id.DetailsTwo,
+                "categoryId":this.name,
                 "productName":this.seekContent
                 },
                 headers:{
@@ -203,15 +205,33 @@ export default {
         }
     },
     created(){
-       if(this.$route.params.name == '/FromPage'){
-           this.flag = false;
-       }else{
-             this.name = sessionStorage.getItem("name")       
-       var params = {
-            'categoryId':this.name
-       } 
-       this.PostMan(params);
-       }
+      
+
+            if(this.$route.params.name == '/FromPage'){
+                this.flag = false;
+            }else if(this.$route.params.name == '/FromClass'){
+                 this.flag = false;
+            }else{
+                 this.name = sessionStorage.getItem("name")       
+        var that = this;
+            this.$axios({
+                method:'post',
+                url:'http://cloud.eyun.online:9080/product/api/product/all',
+                data:{
+                     'categoryId':this.name,
+                },
+                headers:{
+                'Content-Type': 'application/json',
+                }
+            })
+            .then(function(response) {
+                
+            that.arr = response.data.mainContent;
+            })
+            .catch((error)=>{
+                console.log(error);
+            }) 
+            }
     },
     mounted(){
         window.GetParams = this.GetParams;
@@ -232,51 +252,44 @@ export default {
     background: #fff;
     border-bottom: 1px solid #f8f8f8;
 }
-.classify_search_ss{
-    width: 94%;
-    margin-left: 3%;
-    display: flex;
-}
-.classify_search_ss a{
-    position: absolute;
-    top: .34rem;
-    left: .35rem;
-}
-.classify_search_ss a img{
-    width: 40%;
-}
-.classify_search_option{
-    width: 100%;
-    height: .88rem;
-    background: #fff;
-}
-.classify_search_ss p{
-    flex: 1;
-    height: .58rem;
-    margin: .2rem 0;
-    border-radius: .2rem 0 0 .2rem;
-    background: #f8f8f8;
-}
-.classify_search_ss input{
-    height: .58rem;
-    margin-left: .5rem;
-    border:none;
-    background: #f8f8f8;
-}
 input::-webkit-input-placeholder {
     color: #aab2bd;
 }
+.classify_search_ss {
+    height:.96rem;
+}
+.classify_search_ss em{
+    float:left;
+    font-size:.24rem;
+    line-height:.96rem;
+    margin:0 .2rem;
+}
+.classify_search_ss img{
+    width:.4rem;
+    height:.4rem;
+    position: absolute;
+    left:.6rem;
+    top:.25rem;
+    z-index: 999;
+}
+.classify_search_ss input{
+    border-radius:.12rem 0 0 .12rem;
+    height:.5rem;
+      float:left;
+      width:65%;
+      margin-top:.2rem;
+      border:0;
+      background:#f2f2f2;
+      padding-left:.8rem;
+      position: relative;
+}
 .classify_search_ss span{
-    width: 15%;
-    height: .58rem;
-    margin: .2rem 0;
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: .24rem;
-    background:#1692e1; 
-    border-radius: 0 .2rem .2rem 0;
+    float:left;
+    background:#1c90db;
+    padding:.14rem .24rem;
+    color:#fff;
+    margin-top:.2rem;
+    border-radius:0 .12rem .12rem 0;
 }
 .classify_search_option_ul{
     width: auto;

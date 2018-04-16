@@ -4,7 +4,7 @@
         <header class='header'>
             <img src="../assets/Classify/扫码黑色.png" alt="">
              <div class='ipt'>
-                  <input type="text" placeholder="内容推荐">
+                  <input type="text" placeholder="内容推荐" @click='GoogleSearch'>
                   <i class='sou'></i>
             </div> 
             <img src="../assets/Classify/消息黑色.png" alt="">  
@@ -151,6 +151,9 @@ export default {
           }else if(isAndroid){  
              window.androidObject.JSCallAndroid(JSON.stringify(val));
           }
+      },
+      GoogleSearch(){
+           this.$router.push({name:"DetailsTwo",params:{name:'/FromClass'}})
       }
     },
     components:{

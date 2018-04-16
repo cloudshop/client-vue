@@ -14,7 +14,8 @@
         <div class='content'>
           <div class='banner'>
                   <p>贡融积分</p>
-                  <h2>91.0</h2>
+                  <!-- <h2>91.0</h2> -->
+                  <h2>{{$route.params.num}}</h2>
           </div>
           <ul class='list'>
                <li>

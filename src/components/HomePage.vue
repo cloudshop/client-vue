@@ -96,13 +96,12 @@ export default {
     methods:{
       // 经度  纬度
       GeographicalLocation:function (X,Y) {
-          //  this.XX=X;
-          //  this.YY=Y;          
-          // //  console.log(this.XX)
-          // //  console.log(this.YY)
-          //  this.msg = '正在请求中http://192.168.1.10:9080/user/api/mercuries/info-list/'+this.XX+'/'+this.YY
+           this.XX=X;
+           this.YY=Y;          
+          //  console.log(this.XX)
+          //  console.log(this.YY)
           //  var that = this;
-          //  this.$axios.get('http://192.168.1.10:9080/user/api/mercuries/info-list/'+this.XX+'/'+this.YY)
+          //  this.$axios.post('http://192.168.1.10:9080/user/api/mercuries/info-list/'+this.XX+'/'+this.YY)
           //     .then(function(response) {
           //       that.Locations = response.data
           //         // that.Locations = response;
@@ -110,6 +109,24 @@ export default {
           //     .catch(function(error) {
           //         console.log(error);
           //  }); 
+            this.$axios({
+                method:'post',
+                url:'http://cloud.eyun.online:9080/user/api/mercuries/info-list/MercuryInfo',
+                data:{
+                  "langitude": this.XX,
+                  "lantitude": this.YY
+                  },
+                headers:{
+                'Content-Type': 'application/json',
+                }
+            })
+            .then(function(response) {
+                
+             that.Locations = response.data
+            })
+            .catch((error)=>{
+                console.log(error);
+            }) 
       },
       news(){
           var  val={
@@ -169,8 +186,8 @@ export default {
           // }
        }
       },
-      GoogleSearch(){
-         this.$router.push({name:"DetailsTwo",params:{name:'/FromPage'}})
+      GoogleSearch(){ this.$router.push({name:"DetailsTwo",params:{name:'/FromPage'}})
+        
       }
     },
     mounted:function () {

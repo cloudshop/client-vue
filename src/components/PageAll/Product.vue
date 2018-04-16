@@ -230,7 +230,8 @@
         this.$router.push({name:"ConfirmAnOrder",}) 
          sessionStorage.setItem("price",this.data.productContent.price); 
          sessionStorage.setItem("count",this.val); 
-         sessionStorage.setItem("storeID", this.data.productContent.id); 
+         sessionStorage.setItem("storeID", this.data.productContent.id);
+         sessionStorage.setItem("shopID", this.data.productContent.shopid); 
              
       },
       addShopping(){

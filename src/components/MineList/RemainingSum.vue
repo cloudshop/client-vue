@@ -14,7 +14,7 @@
         <div class='content'>
           <div class='banner'>
                   <p>余额</p>
-                  <h2>203.00</h2>
+                  <h2>{{arr.balance}}</h2>
           </div>
           <ul class='list'>
             <li>
@@ -33,15 +33,42 @@
 </template>
 
 <script>
-import TouchBalance from './TouchBalance'
+import TouchBalance from './TouchBalance';
+import { setCookie,getCookie } from '../../assets/js/cookie'
 export default {
-  data(){
-    return {
-    }
-  },
-  methods:{
-
-  },
+      data(){
+          return{  
+              arr:'null'
+          }
+          
+      },
+   
+      created:{
+            
+      },
+      created(){
+             var that = this
+       var accessToken = getCookie('access_token');
+        this.$axios.get('http://cloud.eyun.online:9080/wallet/api/wallets/user',{
+          headers:{
+            'Authorization': 'Bearer ' + accessToken,
+          }
+        })
+        .then(function(res){
+      //     console.log(res.data.balance)
+          that.arr = res.data
+      //      that.arr = res.data
+      //      console.log(arr)
+        })
+        .catch(function(error){
+          console.log(error)
+        })
+     },
+      methods:{
+            one:function(){
+                  
+            }
+      },
 }
 </script>
 

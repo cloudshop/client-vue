@@ -1,5 +1,6 @@
 <template>
    <div>
+
          <header class='header'>
                <div class='headRight'>
                   <router-link :to="{ path: '/Information' }" tag='p'>
@@ -18,25 +19,28 @@
      
         <div class='main content'>
               <div class='nav'>
-                    <router-link :to="{ path: '/RemainingSum' }" tag='dl'>
+                    <!-- <router-link :to="{ path: '/RemainingSum' }" tag='dl'> -->
+                    <router-link :to="{ name: 'RemainingSum',params:{num:arr.balance} }" tag='dl'>
                          <dt><img src="../assets/Mine/余额.png" alt=""></dt>
                         <dd>
                               <p>余额</p>
-                              <span>0.00</span>
+                              <span>{{arr.balance}}</span>
                         </dd>
                     </router-link>
-                  <router-link :to="{ path: '/Stamps' }" tag='dl'>
+                  <!-- <router-link :to="{ path: '/Stamps' }" tag='dl'> -->
+                  <router-link :to="{ name: 'Stamps',params:{num:arr.ticket} }" tag='dl'>
                         <dt><img src="../assets/Mine/贡融券.png" alt=""></dt>
                         <dd>
                               <p>贡融券</p>
-                              <span>0.00</span>
+                              <span>{{arr.ticket}}</span>
                         </dd>
                     </router-link>
-                    <router-link :to="{ path: '/Integral' }" tag='dl'>
+                    <!-- <router-link :to="{ path: '/Integral' }" tag='dl'> -->
+                     <router-link :to="{ name: 'Integral',params:{num:arr.integral} }" tag='dl'>
                        <dt><img src="../assets/Mine/贡融积分.png" alt=""></dt>
                        <dd>
                              <p>贡融积分</p>
-                             <span>0.00</span>
+                             <span>{{arr.integral}}</span>
                        </dd>
                     </router-link>
               </div>
@@ -77,7 +81,7 @@
                     </div>              
               </div>
         </div>
-       <div class='mark' v-show='flag'>
+        <div class='mark' v-show='flag'>
               <img src="../assets/HomePage/LOGO.png" alt="">
               <p>此功能需先登陆</p>
               <button @click='logins'>登陆</button>
@@ -95,11 +99,38 @@ import { Header,Popup } from 'mint-ui';
 export default {
       data(){
           return{  
+              arr:'null',
               flag:false,
           }
+          
       },
+       created(){
+             var that = this
+       var accessToken = getCookie('access_token');
+        this.$axios.get('http://cloud.eyun.online:9080/wallet/api/wallets/user',{
+          headers:{
+            'Authorization': 'Bearer ' + accessToken,
+          }
+        })
+        .then(function(res){
+           
+          that.arr = res.data
+      //      that.arr = res.data
+      //      console.log(arr)
+        })
+        .catch(function(error){
+          console.log(error)
+        })
+
+        var accessToken = getCookie('access_token')
+         if(accessToken == ''){
+           this.flag = true;
+         }else{
+            this.flag = false;
+           }
+     },
       methods:{
-       logins:function(){  
+      logins:function(){  
          this.$router.push({name:"Login",params:{name:'/Mine'}})   
         var  val={
               "func":"openURL",
@@ -115,19 +146,12 @@ export default {
           }else if(isAndroid){  
             window.androidObject.JSCallAndroid(JSON.stringify(val));
        }
-    },
-      },
+       },
+     },
      components:{
         Foot,
      },
-     created(){
-      var accessToken = getCookie('access_token')
-         if(accessToken == ''){
-           this.flag = true;
-         }else{
-            this.flag = false;
-           }
-      }
+     
 }
 </script>
 <style scoped>
@@ -287,10 +311,6 @@ export default {
       border-top:1px solid #e7e7e7;
       margin:0 .4rem;
 }
-.mainContent img{
-      width:.5rem;
-      height:.5rem;
-}
 .mainContent h2{
       margin:.3rem 0;
       font-size:.24rem;
@@ -314,7 +334,10 @@ export default {
       width:.5rem;
       height:.5rem;
 }
-
+img{
+      width:.5rem;
+      height:.5rem;
+}
 .mainContent .list dl  dd{
       color:#2f2f2f;
       font-size:.24rem;
