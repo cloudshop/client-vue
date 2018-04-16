@@ -17,7 +17,7 @@
         <span><img src="../../assets/PageDetails/关注.png" alt=""></span><span>关注</span>
       </p>
     </div>
-     <div  class='content' >
+     <div @click="pushClassifySearch"  class='content'>
         <div class="tabCon_main"  v-for='(item,index) in tabCon_main' :key="index" >
           <div class="tabCon_main_left">
               <img src="../../assets/Classify/bg.gif" alt="">
@@ -82,18 +82,21 @@ export default {
       this.active = index
     },
     back(){
-            var  val={
-                       "func":"closeCurrent",
-                        "param":{},
-                    };
-                    var u = navigator.userAgent;
-                    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-                    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-                    if(isiOS){
-                        window.webkit.messageHandlers.GongrongAppModel.postMessage(val);   
-                    }else if(isAndroid){            
-                     window.androidObject.JSCallAndroid(JSON.stringify(val));
-                   }          
+      var  val={
+          "func":"closeCurrent",
+          "param":{},
+      };
+      var u = navigator.userAgent;
+      var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+      if(isiOS){
+          window.webkit.messageHandlers.GongrongAppModel.postMessage(val);   
+      }else if(isAndroid){            
+        window.androidObject.JSCallAndroid(JSON.stringify(val));
+      }          
+    },
+    pushClassifySearch(){
+      this.$router.push({name:"ClassifySearch",params:{name:'/ClassifySearch'}})
     }
   }
 }
