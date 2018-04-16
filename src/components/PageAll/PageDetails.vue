@@ -17,151 +17,23 @@
         <span><img src="../../assets/PageDetails/关注.png" alt=""></span><span>关注</span>
       </p>
     </div>
-    <div class="PageDetails_center content">
-      <mt-navbar v-model="selected">
-      <mt-tab-item id="1">
-        <dl>
-          <dt><img src="../../assets/PageDetails/店铺.1.png" alt=""></dt>
-          <dd>首页</dd>
-        </dl>
-      </mt-tab-item>
-      <mt-tab-item id="2">
-        <dl>
-          <dt><img src="../../assets/PageDetails/全部商品.png" alt=""></dt>
-          <dd>全部商品</dd>
-        </dl>
-        </mt-tab-item>
-      <mt-tab-item id="3">
-        <dl>
-          <dt><img src="../../assets/PageDetails/椭圆9.png" alt=""></dt>
-          <dd>热销</dd>
-        </dl>
-       </mt-tab-item>
-      <mt-tab-item id="4">
-      <dl>
-          <dt><img class='aa' src="../../assets/PageDetails/分类.png" alt=""></dt>
-          <dd>分类</dd>
-        </dl>
-      </mt-tab-item>
-    </mt-navbar>
-
-    <!-- tab-container -->
-    <mt-tab-container v-model="selected">
-      <!-- 首页 -->
-      <mt-tab-container-item id="1">
-          <div class="PageDetails_navs">
-            <mt-swipe class='banner'>
-              <mt-swipe-item><img src="../../assets/HomePage/bg.gif" alt=""></mt-swipe-item> 
-              <mt-swipe-item><img src="../../assets/HomePage/bg.gif" alt=""></mt-swipe-item>
-              <mt-swipe-item><img src="../../assets/HomePage/bg.gif" alt=""></mt-swipe-item>
-              <mt-swipe-item><img src="../../assets/HomePage/bg.gif" alt=""></mt-swipe-item>
-              <mt-swipe-item><img src="../../assets/HomePage/bg.gif" alt=""></mt-swipe-item>
-              <mt-swipe-item><img src="../../assets/HomePage/bg.gif" alt=""></mt-swipe-item>
-            </mt-swipe>
+     <div  class='content' >
+        <div class="tabCon_main"  v-for='(item,index) in tabCon_main' :key="index" >
+          <div class="tabCon_main_left">
+              <img src="../../assets/Classify/bg.gif" alt="">
           </div>
-          <div class="PageDetails_wrap">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-          <div class="PageDetails_wraps">
-            <div></div>
-            <div></div>
-          </div>
-      </mt-tab-container-item>
-      <!-- 全部商品 -->
-      <mt-tab-container-item id="2" class='commodityAll'>
-        <ul class="PageAll_tab_ul">
-            <li v-for="(item,index) in tabs" :key="index" :class="{active:index == num}" @click="tab(index)">{{item}}</li>
-        </ul>
-        <div class="tabCon">
-            <div  v-show="0 == num" class='content' >
-                <div class="tabCon_main"  v-for='(item,index) in tabCon_main' :key="index" >
-                    <div class="tabCon_main_left">
-                        <img src="../../assets/Classify/bg.gif" alt="">
-                    </div>
-                    <div class="tabCon_main_right">
-                        <h4 class="h4">{{item.name}}</h4>
-                        <div class="tabCon_main_right_all">
-                            <p>￥{{item.money}}</p>
-                            <p class="tabCon_main_right_all_img"><img v-for="(item,index) in item.liststart" :key="index" src="../../assets/PageAll/星星选中.png" alt=""></p>
-                            <p>送贡融积分 10</p>
-                        </div>
-                        <span class="tabCon_main_right_span">贡融券可抵扣 ￥10.00</span>
-                        <span class="tabCon_main_right_span">贡融积分可抵扣 ￥5.00</span>
-                    </div>
-                </div>
-            </div>
-            <div  v-show="1 == num" class='content' >
-                <div class="tabCon_main"  v-for='(item,index) in tabCon_main' :key="index" >
-                    <div class="tabCon_main_left">
-                        <img src="../../assets/Classify/bg.gif" alt="">
-                    </div>
-                    <div class="tabCon_main_right">
-                        <h4 class="h4">{{item.name}}</h4>
-                        <div class="tabCon_main_right_all">
-                            <p>￥{{item.money}}</p>
-                            <p class="tabCon_main_right_all_img"><img v-for="(item,index) in item.liststart" :key="index" src="../../assets/PageAll/星星选中.png" alt=""></p>
-                            <p>送贡融积分 10</p>
-                        </div>
-                        <span class="tabCon_main_right_span">贡融券可抵扣 ￥10.00</span>
-                        <span class="tabCon_main_right_span">贡融积分可抵扣 ￥5.00</span>
-                    </div>
-                </div>
-            </div>
-            <div  v-show="2 == num" class='content' >
-                <div class="tabCon_main"  v-for='(item,index) in tabCon_main' :key="index" >
-                    <div class="tabCon_main_left">
-                        <img src="../../assets/Classify/bg.gif" alt="">
-                    </div>
-                    <div class="tabCon_main_right">
-                        <h4 class="h4">{{item.name}}</h4>
-                        <div class="tabCon_main_right_all">
-                            <p>￥{{item.money}}</p>
-                            <p class="tabCon_main_right_all_img"><img v-for="(item,index) in item.liststart" :key="index" src="../../assets/PageAll/星星选中.png" alt=""></p>
-                            <p>送贡融积分 10</p>
-                        </div>
-                        <span class="tabCon_main_right_span">贡融券可抵扣 ￥10.00</span>
-                        <span class="tabCon_main_right_span">贡融积分可抵扣 ￥5.00</span>
-                    </div>
-                </div>
-            </div>
-            <div  v-show="3 == num" class='content' >
-                <div class="tabCon_main"  v-for='(item,index) in tabCon_main' :key="index" >
-                    <div class="tabCon_main_left">
-                        <img src="../../assets/Classify/bg.gif" alt="">
-                    </div>
-                    <div class="tabCon_main_right">
-                        <h4 class="h4">{{item.name}}</h4>
-                        <div class="tabCon_main_right_all">
-                            <p>￥{{item.money}}</p>
-                            <p class="tabCon_main_right_all_img"><img v-for="(item,index) in item.liststart" :key="index" src="../../assets/PageAll/星星选中.png" alt=""></p>
-                            <p>送贡融积分 10</p>
-                        </div>
-                        <span class="tabCon_main_right_span">贡融券可抵扣 ￥10.00</span>
-                        <span class="tabCon_main_right_span">贡融积分可抵扣 ￥5.00</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-      </mt-tab-container-item>
-      <!-- 热销 -->
-      <mt-tab-container-item id="3">
-        <mt-cell v-for="(n,index) in 3"  :key='index' :title="'选项 ' + n" />
-      </mt-tab-container-item>
-      <!-- 分类 -->
-      <mt-tab-container-item id="4">
-        <div class="PageDetails_classify">
-          <div class="PageDetails_title"><span>全部商品</span><span>></span></div>
-          <div class="PageDetails_title_main"  v-for="(item,indexs) in allList" :key='indexs'>
-            <div class="onclicks" v-on:click='showHide(indexs)'><span>{{item.name}}</span><span class="dowm">﹀</span></div>
-            <PageDetailsChild  v-show="active===indexs" :path='item.serList'></PageDetailsChild>
+          <div class="tabCon_main_right">
+              <h4 class="h4">{{item.name}}</h4>
+              <div class="tabCon_main_right_all">
+                <p>￥{{item.money}}</p>
+                <p class="tabCon_main_right_all_img"><img v-for="(item,index) in item.liststart" :key="index" src="../../assets/PageAll/星星选中.png" alt=""></p>
+                <p>送贡融积分 10</p>
+              </div>
+              <span class="tabCon_main_right_span">贡融券可抵扣 ￥10.00</span>
+              <span class="tabCon_main_right_span">贡融积分可抵扣 ￥5.00</span>
           </div>
         </div>
-      </mt-tab-container-item>
-    </mt-tab-container>
-    </div>
+      </div>
   </div>
 </template>
 
@@ -176,30 +48,6 @@ export default {
       flag: false,
       active: -1,
       selected: '1',
-      props:['',''],
-      allList:[
-        {
-          id: 0,
-          name: '女士护肤',
-          serList:['清润保湿系列','复颜破尿酸系列','清润保湿系列','复颜破尿酸系列','清润保湿系列','复颜破尿酸系列']
-        },
-        {
-          id: 1,
-          name: '女士护肤',
-          serList:['清润保湿系列','复颜破尿酸系列','清润保湿系列','复颜破尿酸系列','清润保湿系列','复颜破尿酸系列']
-        },
-        {
-          id: 2,
-          name: '女士护肤',
-          serList:['清润保湿系列','复颜破尿酸系列','清润保湿系列','复颜破尿酸系列','清润保湿系列','复颜破尿酸系列']
-        },
-        {
-          id: 3,
-          name: '女士护肤',
-          serList:['清润保湿系列','复颜破尿酸系列','清润保湿系列','复颜破尿酸系列','清润保湿系列','复颜破尿酸系列']
-        },
-      ],
-      tabs: ["综合", "销量","价格","筛选"],
       'tabCon_main':[
           {
               name: '回力休闲韩版冬季帆布鞋回力休闲',
