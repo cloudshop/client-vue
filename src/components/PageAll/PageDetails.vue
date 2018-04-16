@@ -17,7 +17,7 @@
         <span><img src="../../assets/PageDetails/关注.png" alt=""></span><span>关注</span>
       </p>
     </div>
-     <div @click="pushClassifySearch"  class='content'>
+     <div @click="pushProduct"  class='content'>
         <div class="tabCon_main"  v-for='(item,index) in tabCon_main' :key="index" >
           <div class="tabCon_main_left">
               <img src="../../assets/Classify/bg.gif" alt="">
@@ -95,8 +95,9 @@ export default {
         window.androidObject.JSCallAndroid(JSON.stringify(val));
       }          
     },
-    pushClassifySearch(){
-      this.$router.push({name:"ClassifySearch",params:{name:'/ClassifySearch'}})
+    pushProduct(){
+      sessionStorage.setItem("ProductID",79) 
+      this.$router.push({name:"Product",params:{name:'/Product'}})
     }
   }
 }
