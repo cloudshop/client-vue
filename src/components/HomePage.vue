@@ -159,7 +159,7 @@ export default {
         //  this.$router.push({name:"Product",params:{name:'/HomePage'}})
           var Goods=sessionStorage.setItem("GoodsID",link.split('/')[2]); // 商品id 
           var Goods=sessionStorage.getItem("GoodsID");
-          this.$axios.get('http://cloud.eyun.online:8888/product/api/product/content?id='+Goods)
+          this.$axios.get('http://cloud.eyun.online:9080/product/api/product/content?id='+Goods)
               .then(function(response) {   
                   that.data = response.data;
                   console.log(response.data)
