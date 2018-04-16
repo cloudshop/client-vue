@@ -96,7 +96,7 @@ export default {
       }          
     },
     pushProduct(){
-      sessionStorage.setItem("ProductID",79) 
+      sessionStorage.setItem("ProductID",30) 
       this.$router.push({name:"Product",params:{name:'/Product'}})
     }
   }
