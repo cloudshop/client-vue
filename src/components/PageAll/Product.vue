@@ -1,7 +1,7 @@
 <template>
 <div class='content'>
   <mt-navbar v-model="selected">
-    <span class="spans" @click='back'>〈</span>
+    <router-link :to="{ path: '/Classify' }" tag='span'  class="spans">〈</router-link>
     <mt-tab-item id="1">商品</mt-tab-item>
     <mt-tab-item id="2">详情</mt-tab-item>
     <mt-tab-item id="3">评论</mt-tab-item>
@@ -148,7 +148,7 @@
                   <div class='span' @click='SelectiveTypeclose'>X</div>              
               </div>
                 <div class='content webCont'>
-                  <div v-for='(item,index) in data.attrbute' :key='index' class='list'>
+                  <div v-for='(item,index) in data.attrbute' :key='index'>
                     <p>{{item.attname}}</p>
                         <ul>
                           <li  v-for='(i,index) in item.attvalue' :key='index'>{{i}}</li>
@@ -179,7 +179,6 @@
 </template>
 
 <script>
-import { setCookie,getCookie } from '../../assets/js/cookie.js';
   export default {  
     name: 'page-navbar',  
     data() {  
@@ -200,12 +199,6 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
       },
       SelectiveTypeOpen: function() {
          this.flag = true;
-           $('.list ul').each(function(){
-              $(this).find('li').eq(0).addClass('active').siblings().removeClass('active')
-            $(this).find('li').on('click',function(){
-                 $(this).addClass('active').siblings().removeClass('active')
-            })
-           })
        },
       SelectiveTypeclose:function(){
          this.flag = false; 
@@ -227,46 +220,21 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
         this.address = false;
       },
       ConfirmAnOrder(){
-        var accessToken = getCookie('access_token');
-        if(accessToken != ''){
-           this.$router.push({name:"ConfirmAnOrder",}) 
-        }else{
-          alert('请先登陆');
-           var  val={
-              "func":"openURL",
-              "param":{
-                  "URL":'http://cloud.eyun.online:9080/#/Login',
-              },
-          };
-          var u = navigator.userAgent;
-          var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-          var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-          if(isiOS){
-             window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-          }else if(isAndroid){  
-             window.androidObject.JSCallAndroid(JSON.stringify(val));
-          }
-        }
-         sessionStorage.setItem("price",this.data.productContent.price); 
-         sessionStorage.setItem("count",this.val); 
-         sessionStorage.setItem("storeID", this.data.productContent.id);
-         sessionStorage.setItem("shopID", this.data.productContent.shopid); 
-             
+        this.$router.push(
+          {name:"ConfirmAnOrder",
+          params:{'price':this.data.productContent.price,'count':this.val}
+          }) 
       },
       addShopping(){
-         var accessToken = getCookie('access_token');
         var that = this;
-        var params = {
-            "count": 1,
-            "shopId":30,
-            "skuId":97
-          };
+        var params = 
+          {"userId":1,"skuId":1,"shopid":1,"skuName":"Iphone X 白色 128G 4G","unitPrice":9889,"count":10}
          this.$axios({
                 method:'post',
-                url:'http://cloud.eyun.online:9080/shoppingcart/api/shoppingcar/add',
+                url:'/addShopping/api/shoppingcar/add',
                 data:params,
                 headers:{
-               'Authorization': 'Bearer ' + accessToken,
+                'Content-Type': 'application/json',
                 }
             })
             .then(function(response) {
@@ -277,6 +245,7 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
             }) 
       },
       collect(){
+        var ProductID=sessionStorage.getItem("ProductID");
         var Goods=sessionStorage.getItem("GoodsID"); // 商品id 
         this.$axios.get('http://cloud.eyun.online:9080/favorite/api/favProduct/'+Goods+'/1')
          .then(function(response) {   
@@ -291,81 +260,26 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
        });   
       },
       store(){
-        //  this.$router.push({name:"PageDetails"}) 
-      },
-      back(){   
-        // if(this.$route.params.name == '/DetailsTwo'){
-        //    this.$router.push({name:"DetailsTwo"}) 
-          // }else{
-          //       var  val={
-          //       "func":"closeCurrent",
-          //         "param":{},
-          //       };
-          //     var u = navigator.userAgent;
-          //     var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-          //     var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-          //     if(isiOS){
-          //       window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-          //     }else if(isAndroid){  
-          //       window.androidObject.JSCallAndroid(JSON.stringify(val));
-          //     }
-          // }
-        //  }else if(this.$route.params.name == '/HomePage'){
-        //    this.$router.push({name:"HomePage"}) 
-        //  }else{
-        //     this.$router.push({name:"DetailsTwo"}) 
-        //  }
-         var  val={
-                "func":"closeCurrent",
-                  "param":{
-                    'refreshParent':true
-                  },
-                };
-              var u = navigator.userAgent;
-              var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-              var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-              if(isiOS){
-                window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-              }else if(isAndroid){  
-                window.androidObject.JSCallAndroid(JSON.stringify(val));
-              }
-      },
-      GetParams(id){
-          var that = this;
-          id = JSON.parse(id);
-          this.$axios.get('http://cloud.eyun.online:9080/product/api/product/content?id='+id.ProductId)
-          .then(function(response) {   
-              that.data = response.data;
-          })
-          .catch(function(error) {
-              console.log(error);
-        });
-        }
+         this.$router.push({name:"PageDetails"}) 
+      }
     },
-    created(){    
-      //  if(Goods == undefined || Goods == null){
-      //      sessionStorage.setItem("GoodsID",2);
-      //   }
+    created(){
+      console.log(this.data.productContent)   
        var that = this; //商品内容
        var Goods=sessionStorage.getItem("GoodsID"); // 商品id 
-       if(Goods){
-          this.$axios.get('http://cloud.eyun.online:9080/product/api/product/content?id='+Goods)
-          .then(function(response) {   
+        this.$axios.get('http://cloud.eyun.online:9080/product/api/product/content?id='+Goods)
+         .then(function(response) {   
+            that.data = response.data;
             console.log(response.data)
-              that.data = response.data;
-          })
-          .catch(function(error) {
-              console.log(error);
-        }); 
-       }
-       
-    },
-    mounted(){
-      window.GetParams = this.GetParams;   
-    }
+        })
+        .catch(function(error) {
+            console.log(error);
+       }); 
+    } 
   };
 </script>
 
+<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .active{
   color:#d81e06!important;
