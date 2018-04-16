@@ -334,7 +334,7 @@ export default {
       width:.5rem;
       height:.5rem;
 }
-img{
+dl dt img{
       width:.5rem;
       height:.5rem;
 }
