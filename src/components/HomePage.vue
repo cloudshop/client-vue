@@ -129,7 +129,7 @@ export default {
           var  val={
               "func":"openURL",
               "param":{
-                  "URL":'http://cloud.eyun.online:8888/#/News',
+                  "URL":'http://cloud.eyun.online:9080/..#/News',
               },
           };
           var u = navigator.userAgent;
@@ -170,7 +170,7 @@ export default {
            var  val={
               "func":"openURL",
               "param":{
-                  "URL":'http://cloud.eyun.online:8888/#/Product?ProductId='+Goods,
+                  "URL":'http://cloud.eyun.online:9080/#/Product?ProductId='+Goods,
               },
           };
           var u = navigator.userAgent;
@@ -190,7 +190,7 @@ export default {
            var  val={
               "func":"openURL",
               "param":{
-                  "URL":'http://cloud.eyun.online:8888/#/PageDetails',
+                  "URL":'http://cloud.eyun.online:9080/#/PageDetails',
               },
           };
           var u = navigator.userAgent;
