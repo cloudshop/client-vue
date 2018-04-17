@@ -50,7 +50,7 @@ export default {
                 })
                 .catch(function(error) {
                    console.log(error);
-                   alert('注册失败')
+                   alert(error)
                 });
             }else{
                 alert('两次密码输入不符')
