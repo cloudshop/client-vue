@@ -44,8 +44,8 @@ export default {
                 }
             if(setPassword == affirmPassword){
                 this.$axios.post('http://cloud.eyun.online:9080/uaa/api/register/app',val)
-                .then(function(res) {
-                  console.log(res)
+                .then(function(response) {
+                  console.log(response)
                   alert('注册成功')
                 })
                 .catch(function(error) {
