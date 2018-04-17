@@ -43,15 +43,39 @@ export default {
                     "verifyCode": authCode
                 }
             if(setPassword == affirmPassword){
-                this.$axios.post('http://cloud.eyun.online:9080/uaa/api/register/app',val)
-                .then(res=>{
-                    console.log(res) 
-                    alert('注册成功')
-                })
-	            .catch(err=>{ 
-	                console.log(err)
-	                alert(err)
-	            })
+                $.ajax({
+url:
+"http://cloud.eyun.online:9080/uaa/api/register/app",
+type: "POST",
+contentType: "application/json",
+dataType: "json",
+data: JSON.stringify(val),
+success: function(res) {
+var Success = confirm('注册成功')
+if(Success==true){
+console.log('注册成功')
+setTimeout(function(){
+that.$router.push({path:'/Login'})
+},0)
+}else{
+that.$router.push({path:'/SetPsd'})
+}
+},
+error(error) {
+console.log(error);
+// $('.faild').style.display='block'
+// alert('注册失败了')
+}
+})
+            //     this.$axios.post('http://cloud.eyun.online:9080/uaa/api/register/app',val)
+            //     .then(res=>{
+            //         console.log(res) 
+            //         alert('注册成功')
+            //     })
+	           // .catch(err=>{ 
+	           //     console.log(err)
+	           //     alert(err)
+	           // })
                 // .then(function(response) {
                 //   console.log(response)
                 //   alert('注册成功')
