@@ -47,9 +47,8 @@ export default {
 url:
 "http://cloud.eyun.online:9080/uaa/api/register/app",
 type: "POST",
-contentType: "application/json",
-dataType: "text",
 data: JSON.stringify(val),
+callback:'cb',
 success: function(res) {
 var Success = confirm('注册成功')
 if(Success==true){
