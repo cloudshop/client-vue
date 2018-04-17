@@ -121,6 +121,15 @@ export default {
           }
       }
     },
+    mounted:function () {
+        $('input').on('keyup',function(){
+             if($('#mytest').val().length>=1 && $('#authCode').val().length>=1){
+                $('.next_btn').addClass('Color')         
+             }else{
+                $('.next_btn').removeClass('Color')  
+             }
+        })
+    },
     created(){
 
     }
