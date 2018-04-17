@@ -137,6 +137,9 @@ export default {
 </script>
 
 <style scoped>
+.Color{
+    background:red!important;
+}
 .registers{
   width: 100%;
   display: flex;
