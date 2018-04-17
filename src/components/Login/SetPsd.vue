@@ -46,9 +46,11 @@ export default {
                 this.$axios.post('http://cloud.eyun.online:9080/uaa/api/register/app',val)
                 .then(function(res) {
                   console.log(res)
+                  alert('注册成功')
                 })
                 .catch(function(error) {
                    console.log(error);
+                   alert('注册失败')
                 });
             }else{
                 alert('两次密码输入不符')
