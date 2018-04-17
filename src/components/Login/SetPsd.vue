@@ -44,14 +44,22 @@ export default {
                 }
             if(setPassword == affirmPassword){
                 this.$axios.post('http://cloud.eyun.online:9080/uaa/api/register/app',val)
-                .then(function(response) {
-                  console.log(response)
-                  alert('注册成功')
+                .then(res=>{
+                    console.log(res) 
+                    alert('注册成功')
                 })
-                .catch(function(error) {
-                   console.log(error);
-                   alert(error)
-                });
+	            .catch(err=>{ 
+	                console.log(err)
+	                alert(err)
+	            })
+                // .then(function(response) {
+                //   console.log(response)
+                //   alert('注册成功')
+                // })
+                // .catch(function(error) {
+                //   console.log(error);
+                //   alert(error)
+                // });
             }else{
                 alert('两次密码输入不符')
                 document.getElementById("setPassword").value="";
