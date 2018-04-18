@@ -209,7 +209,7 @@ export default {
 
        // 轮播图
        var that = this; 
-       this.$axios.get('http://cloud.eyun.online:8888/advertising/api/findNotDelByLoc')
+       this.$axios.get('http://cloud.eyun.online:9080/advertising/api/findNotDelByLoc')
          .then(function(response) {   
             that.data = response.data;
         })
