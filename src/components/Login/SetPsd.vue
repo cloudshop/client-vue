@@ -61,7 +61,7 @@ var callback = function(error, data, response) {
     alert('注册成功')
   }
 }
-apiInstance.registerAccountUsingPOST(managedUserVM, callback);
+apiInstance.registerAppAccountUsingPOST(managedUserVM, callback);
 
             //     this.$axios.post('http://cloud.eyun.online:9080/uaa/api/register/app',val)
             //     .then(res=>{
