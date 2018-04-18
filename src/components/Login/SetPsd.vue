@@ -43,9 +43,9 @@ export default {
                     "verifyCode": authCode
                 }
             if(setPassword == affirmPassword){
-var UaaApi = require('uaa-api');
+var UaaApi = require('api-uaa');
 UaaApi.ApiClient.instance.basePath = 'http://cloud.eyun.online:9080/uaa'
-var apiInstance = new UaaApi.AccountresourceApi();
+var apiInstance = new UaaApi.AccountResourceApi();
 
 var managedUserVM = new UaaApi.ManagedUserVM(); // ManagedUserVM | managedUserVM
 managedUserVM.login = iphone
@@ -61,6 +61,8 @@ var callback = function(error, data, response) {
     alert('注册成功')
   }
 }
+apiInstance.registerAppAccountUsingPOST(managedUserVM, callback);
+
             //     this.$axios.post('http://cloud.eyun.online:9080/uaa/api/register/app',val)
             //     .then(res=>{
             //         console.log(res) 
