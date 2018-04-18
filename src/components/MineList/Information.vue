@@ -16,8 +16,8 @@
       <div class="main">
           <ul class="list">
               <li>我的头像<span class="user_img"></span><b>></b></li>
-              <router-link :to="{ path: '/NickName' }" tag='li'>昵称 <p class="user_name"></p><b>></b></router-link>
-              <li>绑定手机号<p>13832854506</p><b>></b></li>
+              <router-link :to="{ path: '/NickName' }" tag='li'>昵称 <p class="user_name">{{arr.nickname}}</p><b>></b></router-link>
+              <li>手机号<p>{{arr.phone}}</p><b></b></li>
               <li @click="address">我的地址<b>></b></li>
               <router-link :to="{ path: '/ID' }" tag='li'>账号与安全 <b>></b></router-link>            
               <li>我的分享人 <b>></b></li>
@@ -38,10 +38,11 @@ import ID from "../MineList/ID";
 import Myaddress from "../MineList/MyAddress";
 import MyTeam from "../MineList/MyTeam";
 import { Header, Cell, Actionsheet, Popup } from "mint-ui";
-import { setCookie,getCookie } from '../../assets/js/cookie'
+import { setCookie, getCookie, delCookie } from "../../assets/js/cookie";
 export default {
   data() {
     return {
+      arr: "null",
       data: [
         {
           name: "确定",
@@ -51,47 +52,76 @@ export default {
       sheetVisible: false
     };
   },
+  created() {
+    var that = this;
+    var accessToken = getCookie("access_token");
+
+    $.ajax({
+      // url: "http://cloud.eyun.online:9080/user/api/user-annexes/userInfo/3/",
+      url: "http://cloud.eyun.online:9080/user/api/user-annexes/userInfo/3/",
+      method: "get",
+      callback: "cb",
+      contentType: "application/json",
+      headers: {
+        Authorization: "Bearer " + accessToken
+        //   'Content-Type':"application/json"
+      },
+      success: function(res) {
+        console.log(res.nickname);
+        that.arr = res;
+      },
+      error(res) {
+        console.log(res);
+      }
+    });
+    // this.$axios
+    //   .get(
+    //     "http://cloud.eyun.online:9080/user/api/user-annexes/userInfo/",
+    //     {
+    //       headers: {
+    //         Authorization: "Bearer " + accessToken
+    //       }
+    //     }
+    //   )
+    //   .then(function(res) {
+    //     console.log(res);
+    //   })
+    //   .catch(function(error) {
+    //     console.log(error);
+    //   });
+  },
   methods: {
     actionSheet: function() {
       this.sheetVisible = true;
     },
     confirms: function() {
-      alert("退出登陆22");
+      alert("退出登陆");
       var accessToken = getCookie("access_token");
-       $.ajax({
-        url:'http://cloud.eyun.online:9080/auth/logout',
-       // method:'post',
-        type : 'POST',  
-        contentType : 'application/json',  
-        // dataType : 'json',  
-        // data : JSON.stringify(datas),  
-        // data : datas,  
-        headers:{
-             'Authorization': 'Bearer ' + accessToken,
-            //   'Content-Type':"application/json"
+      $.ajax({
+        url: "http://cloud.eyun.online:9080/auth/logout",
+        // method:'post',
+        type: "POST",
+        contentType: "application/json",
+        headers: {
+          Authorization: "Bearer " + accessToken
+          //   'Content-Type':"application/json"
         },
-        success:function(res){
-           console.log(res)
-        },  
-        error(res){
-            console.log(res)
+        success: function(res) {
+          console.log(res);
+          var deltoken = delCookie("access_token");
+          var val = {
+            func: "closeCurrent",
+            param: {
+              finallyIndex: 1,
+              refreshAll: true
+            }
+          };
+          window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+        },
+        error(res) {
+          console.log(res);
         }
-    })
-    // var accessToken = getCookie('access_token');
-    // this.$axios.post('http://cloud.eyun.online:9080/auth/logout',{
-    //     header:{
-    //         'Authorization': 'Bearer ' + accessToken,
-    //     }
-    // })
-    // .then((res)=>{
-    //     console.log(res)
-    // })
-    // .catch(function(error){
-    //     console.log(error)
-    // })
-
-
-    
+      });
     },
     address: function() {
       this.$router.push({ name: "MyAddress" });
