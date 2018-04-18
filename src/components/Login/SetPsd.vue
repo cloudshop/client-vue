@@ -58,7 +58,30 @@ export default {
                         alert(error)
                     } else {
                         console.log('API called successfully.');
-                        alert('注册成功')
+                        var data = {'username': iphone,'password': this.setPassword}
+                        this.$axios.post('http://cloud.eyun.online:9080/auth/login',data)
+                        .then((res)=>{
+                            var accessToken = res.data.access_token;
+                            setCookie('access_token',accessToken,1000*60)
+                            // request.set({'Authorization': 'Bearer ' + auth.accessToken});
+                            var accessToken = getCookie('access_token');
+                            if(accessToken !== ''){
+                                var  val={
+                                    "func":"closeCurrent",
+                                    "param":{'finallyIndex':4},
+                                    };
+                                var u = navigator.userAgent;
+                                var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+                                var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+                                if(isiOS){
+                                    window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+                                }else if(isAndroid){  
+                                    window.androidObject.JSCallAndroid(JSON.stringify(val));
+                                }
+                            }
+                        })
+
+                        
                     }
                 }
                 apiInstance.registerAppAccountUsingPOST(managedUserVM, callback);
