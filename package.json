@@ -13,7 +13,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "uaa-javascript": "0.0.1",
+    "api-uaa": "0.0.1",
     "axios": "^0.17.1",
     "axios-mock-adapter": "^1.10.0",
     "grunt": "^1.0.2",

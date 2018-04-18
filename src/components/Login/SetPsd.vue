@@ -43,30 +43,24 @@ export default {
                     "verifyCode": authCode
                 }
             if(setPassword == affirmPassword){
-                $.ajax({
-url:
-"http://cloud.eyun.online:9080/uaa/api/register/app",
-type: "POST",
-data: JSON.stringify(val),
-contentType: "application/json",
-dataType: "json",
-success: function(res) {
-var Success = confirm('注册成功')
-if(Success==true){
-console.log('注册成功')
-setTimeout(function(){
-that.$router.push({path:'/Login'})
-},0)
-}else{
-that.$router.push({path:'/SetPsd'})
+var UaaApi = require('uaa_api');
+
+var apiInstance = new UaaApi.AccountresourceApi();
+
+var managedUserVM = new UaaApi.ManagedUserVM(); // ManagedUserVM | managedUserVM
+managedUserVM.login = iphone
+managedUserVM.password = this.setPassword
+managedUserVM.verifyCode = authCode
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+    alert(error)
+  } else {
+    console.log('API called successfully.');
+    alert('注册成功')
+  }
 }
-},
-error(error) {
-console.log(error);
-// $('.faild').style.display='block'
-// alert('注册失败了')
-}
-})
             //     this.$axios.post('http://cloud.eyun.online:9080/uaa/api/register/app',val)
             //     .then(res=>{
             //         console.log(res) 
