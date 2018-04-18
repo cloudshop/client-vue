@@ -113,7 +113,7 @@ export default {
     },
     created(){
       var that = this;
-      this.$axios.get('http://cloud.eyun.online:8888/product/api/categoryTree/subnode/1')
+      this.$axios.get('http://cloud.eyun.online:9080/product/api/categoryTree/subnode/1')
              .then(function(response) {
                that.arr = response.data;
            })
@@ -125,7 +125,7 @@ export default {
      click(value){
       this.id = value;
       var that = this;
-      this.$axios.get('http://cloud.eyun.online:8888/product/api/categoryTree/subnode/'+that.id)
+      this.$axios.get('http://cloud.eyun.online:9080/product/api/categoryTree/subnode/'+that.id)
              .then(function(response) {
                that.arr = response.data;
            })
