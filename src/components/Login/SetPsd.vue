@@ -17,7 +17,7 @@
             确认密码<input type="password" id="affirmPassword" v-model="affirmPassword">
           </p>
           <p class="next">
-              <button @click="accomplish">完成</button>
+              <button @click="accomplish" class="btn">完成</button>
           </p>
       </div>
   </div>
@@ -43,25 +43,25 @@ export default {
                     "verifyCode": authCode
                 }
             if(setPassword == affirmPassword){
-var UaaApi = require('api-uaa');
-UaaApi.ApiClient.instance.basePath = 'http://cloud.eyun.online:9080/uaa'
-var apiInstance = new UaaApi.AccountResourceApi();
+                var UaaApi = require('api-uaa');
+                UaaApi.ApiClient.instance.basePath = 'http://cloud.eyun.online:9080/uaa'
+                var apiInstance = new UaaApi.AccountResourceApi();
 
-var managedUserVM = new UaaApi.ManagedUserVM(); // ManagedUserVM | managedUserVM
-managedUserVM.login = iphone
-managedUserVM.password = this.setPassword
-managedUserVM.verifyCode = authCode
+                var managedUserVM = new UaaApi.ManagedUserVM(); // ManagedUserVM | managedUserVM
+                managedUserVM.login = iphone
+                managedUserVM.password = this.setPassword
+                managedUserVM.verifyCode = authCode
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-    alert(error)
-  } else {
-    console.log('API called successfully.');
-    alert('注册成功')
-  }
-}
-apiInstance.registerAppAccountUsingPOST(managedUserVM, callback);
+                var callback = function(error, data, response) {
+                    if (error) {
+                        console.error(error);
+                        alert(error)
+                    } else {
+                        console.log('API called successfully.');
+                        alert('注册成功')
+                    }
+                }
+                apiInstance.registerAppAccountUsingPOST(managedUserVM, callback);
 
             //     this.$axios.post('http://cloud.eyun.online:9080/uaa/api/register/app',val)
             //     .then(res=>{
@@ -89,11 +89,23 @@ apiInstance.registerAppAccountUsingPOST(managedUserVM, callback);
         Register(){
             console.log(this.$router)
             this.$router.push({name:"Register"})
-        }
+        },
+    }, 
+    mounted:function () {
+        $('input').on('keyup',function(){
+            if($('#setPassword').val().length>=1 && $('#affirmPassword').val().length>=1){
+                $('.btn').addClass('Color')         
+            }else{
+                $('.btn').removeClass('Color')  
+            }
+        })
     }
 }
 </script>
 <style scoped>
+    .Color{
+        background:red!important;
+    }
     .change_psd{
         width: 100%;
         height: 100%;
