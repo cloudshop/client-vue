@@ -59,7 +59,7 @@ export default {
                     } else {
                         console.log('API called successfully.');
                         var data = {'username': iphone,'password': managedUserVM.password}
-                        this.$axios.post('http://cloud.eyun.online:9080/auth/login',data)
+                        $axios.post('http://cloud.eyun.online:9080/auth/login',data)
                         .then((res)=>{
                             var accessToken = res.data.access_token;
                             setCookie('access_token',accessToken,1000*60)
