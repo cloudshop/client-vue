@@ -45,7 +45,7 @@ export default {
             if(setPassword == affirmPassword){
 var UaaApi = require('api-uaa');
 UaaApi.ApiClient.instance.basePath = 'http://cloud.eyun.online:9080/uaa'
-var apiInstance = new UaaApi.AccountresourceApi();
+var apiInstance = new UaaApi.AccountResourceApi();
 
 var managedUserVM = new UaaApi.ManagedUserVM(); // ManagedUserVM | managedUserVM
 managedUserVM.login = iphone
