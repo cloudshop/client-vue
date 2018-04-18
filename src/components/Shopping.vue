@@ -8,77 +8,71 @@
       </div>
       <div class="shopping_main_all">
         <div class="shopping_main" v-for="(item,index) in serviceList" :key='index'>
-        <!--购物车标题头开始 店铺  -->
-        <div class="shopping_main_nav">
-          <div class="nav_newmain">
-            <span class="shopping_q">
-              <input type="checkbox" id="tonglian"  class="checkboxs" value="通联" name="sex"  v-model="item.checkbox" @click="pageAll(item.id)"/>
-              <label for="tonglian"></label>
-            </span>
-            <span class="nav_newmain_quan"  @click='ok(item.id,index)'>{{item.name}}</span>
-          </div>
-        </div>
-        <!--购物车标题头结束  -->
-        <!-- 购物车单个开始 -->
-        <div class="contents"  v-for="(data,index) in item.list" :key='index'>
-          <div class="contents_all">
-            <div class="contents_left">
+          <!--购物车标题头开始 店铺  -->
+          <div class="shopping_main_nav">
+            <div class="nav_newmain">
               <span class="shopping_q">
-                <input type="checkbox" id="tonglian"  class="checkboxs" value="通联" name="sex"  v-model="data.checkboxChild" @click="pageItem(item.id,index)"/>
+                <input type="checkbox" id="tonglian"  class="checkboxs" value="通联" name="sex"  v-model="item.checkbox" @click="pageAll(item.id)"/>
                 <label for="tonglian"></label>
               </span>
+              <span class="nav_newmain_quan"  @click='ok(item.id,index)'>{{item.shopName}}</span>
             </div>
-            <div class="contents_right">
-              <div class="contents_right_all">
-                <div class="contents_right_img">
-                  <img src="../assets/Mine/headportrait.jpg" alt="">
-                </div>
-                <div class="contents_right_matter">
-                  <div class="h5">{{data.name}}</div>
-                  <div class="contents_right_center">
-                    <div class="cargo">{{data.cargo}}</div>
-                    <div class="contents_right_center_count">
-                      <span class="minus" @click="subtract(index,item.id)">-</span>
-                      <input type="text" id="inpt_s" readonly v-model="data.num" value="1" class="inpus">
-                      <span class="add" @click="add(index,item.id)">+</span>
-                    </div>
+          </div>
+          <!--购物车标题头结束  -->
+          <!-- 购物车单个开始 -->
+          <div class="contents"  v-for="(data,index) in item.sku" :key='index'>
+            <div class="contents_all">
+              <div class="contents_left">
+                <span class="shopping_q">
+                  <input type="checkbox" id="tonglian" class="checkboxs"  value="通联" name="sex"  v-model="data.checkboxChild" @click="pageItem(item.id,index,$event)"/>
+                  <label for="tonglian"></label>
+                </span>
+              </div>
+              <div class="contents_right">
+                <div class="contents_right_all">
+                  <div class="contents_right_img">
+                    <img :src = data.url alt="">
                   </div>
-                  <div class="contents_right_moneyAll">
-                    <div class="contents_right_money">￥ {{(data.price).toFixed(2)}}</div>
-                    <div class="contents_right_delete"> 
-                      <a href="javascript:;" @click="removeAll(index,item.id)">删除</a>
-                      <span class="contents_right_shu">|</span>
-                      <a href="javascript:;">加入收藏</a>
+                  <div class="contents_right_matter">
+                    <div class="h5">{{data.skuName}}</div>
+                    <div class="contents_right_center">
+                      <div class="cargo">有货（库存{{data.count}}件）</div>
+                      <div class="contents_right_center_count">
+                        <span class="minus" @click="subtract(index,item.id)">-</span>
+                        <input type="text" id="inpt_s" readonly v-model="data.count" value="1" class="inpus">
+                        <span class="add" @click="add(index,item.id)">+</span>
+                      </div>
+                    </div>
+                    <div class="contents_right_moneyAll">
+                      <div class="contents_right_money">￥ {{(data.unitPrice).toFixed(2)}}</div>
+                      <div class="contents_right_delete"> 
+                        <a href="javascript:;" @click="removeAll(index,item.id)">删除</a>
+                        <span class="contents_right_shu">|</span>
+                        <a href="javascript:;">加入收藏</a>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <!-- footer -->
-          <div class="shopping_footer">
-            <div class="shopping_footer_left">
-              <div class="all">
-                <span class="shopping_q">
-                  <input type="checkbox" id="tonglian"  class="checkboxs" value="通联" name="sex" v-model="checkboxBig"  @click="checkboxAll(0)"/>
-                  <label for="tonglian"></label>
-                </span>
-              </div>   
-              <!--{{data.price*data.num | filtermoney totalPrice}}  -->
-              <div class="money">合计: ￥ {{totalPrice}}</div>   
+            <!-- footer -->
+            <div class="shopping_footer">
+              <div class="shopping_footer_left">
+                <div class="all">
+                  <span class="shopping_q">
+                    <input type="checkbox" id="tonglian"  class="checkboxs" value="通联" name="sex" v-model="checkboxBig"  @click="checkboxAll(0)"/>
+                    <label for="tonglian"></label>
+                  </span>
+                </div>   
+                <!--{{data.price*data.num | filtermoney totalPrice}}  -->
+                <div class="money">合计: ￥ {{totalPrice}}</div>   
+              </div>
+              <div class="shopping_footer_right" @click="toTal">去结算</div>
             </div>
-            <div class="shopping_footer_right">去结算</div>
           </div>
         </div>
-         
       </div>
-    </div>
   </div>
-    <div class='mark' v-show='flag'>
-              <img src="../assets/HomePage/LOGO.png" alt="">
-              <p>此功能需先登陆</p>
-              <button @click='logins'>登陆</button>
-       </div>
   <Foot></Foot>
  </div>
    
@@ -86,67 +80,77 @@
 <script>
 import Foot from "./main/Foot";
 import { setCookie,getCookie } from '../assets/js/cookie.js'
-import { isAndroid } from '../assets/js/IOSAndroid.js'
 export default {
   data() {
     return {
+      productSkuId: '',
+      price: 0,
+      shopId:'',
+      count:0,
+      postFee:0,
       totalPrice: 0,
       animatenum: 0,
       totalAllPrice: 0,
       checkboxBig: false,
-        flag:false,
       serviceList: [
         {
           id: 0,
-          name: "大胖的店",
+          shopId: 1,
+          shopName: "大胖的店",
           checkbox: false,
-          list: [
+          sku: [
             {
-              id: 0,
-              name: "双肩包",
-              price: 1,
-              cargo: "有货（库存*件）",
-              num: 1,
-              checkboxChild: false
+              index: 0,
+              skuName: "iphone8 白色 128G",
+              unitPrice: 9889,
+              count: 10,
+              skuid: 1,
+              checkboxChild: false,
+              url: "http://img20.360buyimg.com/focus/jfs/t13759/194/897734755/2493/1305d4c4/5a1692ebN8ae73077.jpg"
             },
             {
-              id: 1,
-              name: "双肩包",
-              price: 108.0,
-              cargo: "有货（库存*件）",
-              num: 1,
-              checkboxChild: false
+              index: 1,
+              skuName: "iphone8 白色 128G",
+              unitPrice: 108.0,
+              count: 20,
+              skuid: 5,
+              checkboxChild: false,
+              url: "http://img20.360buyimg.com/focus/jfs/t13759/194/897734755/2493/1305d4c4/5a1692ebN8ae73077.jpg"
             }
           ]
         },
         {
           id: 1,
-          name: "大胖二店",
+          shopId: 3,
+          shopName: "大胖二店",
           checkbox: false,
-          list: [
+          sku: [
             {
-              id: 0,
-              name: "双肩包",
-              price: 1,
-              cargo: "有货（库存*件）",
-              num: 1, 
-              checkboxChild: false
+              index: 0,
+              skuName: "iphone8 白色 128G",
+              unitPrice: 1,
+              count: 5, 
+              skuid: 3,
+              checkboxChild: false,
+              url: "http://img20.360buyimg.com/focus/jfs/t13759/194/897734755/2493/1305d4c4/5a1692ebN8ae73077.jpg"
             },
             {
-              id: 1,
-              name: "双肩包",
-              price: 108.0,
-              cargo: "有货（库存*件）",
-              num: 1,
-              checkboxChild: false
+              index: 1,
+              skuName: "iphone8 白色 128G",
+              unitPrice: 108.0,
+              count: 6,
+              skuid: 4,
+              checkboxChild: false,
+              url: "http://img20.360buyimg.com/focus/jfs/t13759/194/897734755/2493/1305d4c4/5a1692ebN8ae73077.jpg"
             },
             {
-              id: 2,
-              name: "双肩包",
-              price: 108.0,
-              cargo: "有货（库存*件）",
-              num: 1,
-              checkboxChild: false
+              index: 2,
+              skuName: "iphone8 白色 128G",
+              unitPrice: 108.0,
+              count: 1,
+              skuid: 9,
+              checkboxChild: false,
+              url: "http://img20.360buyimg.com/focus/jfs/t13759/194/897734755/2493/1305d4c4/5a1692ebN8ae73077.jpg"
             }
           ]
         }
@@ -159,20 +163,29 @@ export default {
   computed:{
    
   },
-
+ 
   created(){
-
-        this.$axios.get('http://cloud.eyun.online:9080/wallet/api/wallets/user',{
-          headers:{
-            'Authorization': 'Bearer ' + accessToken,
-          }
-        })
-        .then(function(res){
-          console.log(res.data)
-        })
-        .catch(function(error){
-          console.log(error)
-        })
+      var  sf = null;
+      var accessToken = getCookie('access_token');
+      if(accessToken == ''){
+        var  val={
+            "func":"openURL",
+            "param":{
+                "URL":'http://192.168.1.109:8888/#/login'
+            },
+        };
+        var u = navigator.userAgent;
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+        if(isiOS){
+          this.$router.push('/login');
+          window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+        }else if(isAndroid){  
+          this.$router.push('/login');
+          window.androidObject.JSCallAndroid(val);
+        }
+        // this.$router.push('/Login')
+      }
       // this.$axios.get('http://192.168.1.105:8095/api/shoppingcar/user/1',{
       //   header:{
       //     'Access-Control-Allow-Origin': '*'
@@ -184,57 +197,18 @@ export default {
       // .catch(function(error){
       //   console.log(error)
       // })
-      var accessToken = getCookie('access_token')
-      if(accessToken == ''){
-        this.flag = true;
-      }else{
-        this.flag = false;
-      }
-
-      // var accessToken = getCookie('access_token');
-      // this.$axios.get('http://cloud.eyun.online:9080/wallet/api/wallets/user',{
-      //   headers:{
-      //     'Authorization': 'Bearer ' + accessToken,
-      //   }
-      // })
-      // .then(function(res){
-      //   console.log(res.data)
-      // })
-      // .catch(function(error){
-      //   console.log(error)
-      // })
-    
   },
   methods: {
-     logins:function(){    
-      //  this.$router.push({name:"Login",params:{name:'/Shopping'}}) 
-        var  val={
-              "func":"openURL",
-              "param":{
-                  "URL":'http://cloud.eyun.online:9080/#/login'
-              },
-          };
-          var u = navigator.userAgent;
-          var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-          var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-          if(isiOS){ 
-             window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-          }else if(isAndroid){  
-            window.androidObject.JSCallAndroid(JSON.stringify(val));
-          }
-          
-    },
     // 删除操作
     removeAll:function(index,id){
-      if(this.serviceList[id].list[index].checkboxChild == true){
-        var Money = this.serviceList[id].list[index].price*this.serviceList[id].list[index].num;
-        console.log(this.serviceList[id].list[index].price)
+      if(this.serviceList[id].sku[index].checkboxChild == true){
+        var Money = this.serviceList[id].sku[index].unitPrice*this.serviceList[id].sku[index].count;
         this.totalPrice = this.totalPrice - Money;
         setTimeout(function(){
-          this.serviceList[id].list.splice(index,1);
+          this.serviceList[id].sku.splice(index,1);
         }, 0); 
       }
-      this.serviceList[id].list.splice(index,1);
+      this.serviceList[id].sku.splice(index,1);
       // this.$axios.get('http://localhost:8095/api/shoppingcar/del/1')
       // .then(function(res){
       //   that.arr = res.data;
@@ -243,85 +217,126 @@ export default {
       // .catch(function(error){
       //   console.log(error)
       // })
-      if(this.serviceList[id].list.length == 0){
+      if(this.serviceList[id].sku.length == 0){
         var str = this.serviceList.length-1;
         $('.shopping_main')[id].remove()
       }
     },
     // ++
     add:function(index,id){
-      if(this.serviceList[id].list[index].checkboxChild == true){
-        var Money = this.serviceList[id].list[index].price;
+      if(this.serviceList[id].sku[index].checkboxChild == true){
+        var Money = this.serviceList[id].sku[index].unitPrice;
         this.totalPrice += Money;
       }
-      this.serviceList[id].list[index].num++;
+      this.serviceList[id].sku[index].count++;
     },
     // --
     subtract:function(index,id){
-       if(this.serviceList[id].list[index].num>1){
-        if(this.serviceList[id].list[index].checkboxChild == true){
-          var Money = this.serviceList[id].list[index].price ;
+       if(this.serviceList[id].sku[index].count>1){
+        if(this.serviceList[id].sku[index].checkboxChild == true){
+          var Money = this.serviceList[id].sku[index].unitPrice ;
           this.totalPrice -= Money;
         }
-       this.serviceList[id].list[index].num--;
+       this.serviceList[id].sku[index].count--;
       }
     },
     // pageAll 店铺全选
     pageAll:function(pageId){
       if(this.serviceList[pageId].checkbox !== true){
-        this.serviceList[pageId].list.map((v,i)=>{
+        this.serviceList[pageId].sku.map((v,i)=>{
           if(v.checkboxChild==false){
-            var Money = v.price;
+            var Money = v.unitPrice;
             this.totalPrice += Money;
             v.checkboxChild = true;
           } 
         })
       }else{
-        this.serviceList[pageId].list.map((v,i)=>{
-          var Money = v.price;
+        this.serviceList[pageId].sku.map((v,i)=>{
+          var Money = v.unitPrice;
           this.totalPrice -= Money;
           v.checkboxChild = false
         })
       }
     },
     // 判断 商品是否全部选中
-    pageItem:function(pitchId,index){
-      this.serviceList[pitchId].list[index].checkboxChild = !this.serviceList[pitchId].list[index].checkboxChild;
+    pageItem:function(pitchId,index,e){
+      this.serviceList[pitchId].sku[index].checkboxChild = !this.serviceList[pitchId].sku[index].checkboxChild;
       let flag = true;
-      this.serviceList[pitchId].list.forEach(item => {
-        if (item.checkboxChild === false) {
+      this.serviceList[pitchId].sku.forEach((item,index) => {
+        if(item.checkboxChild === false) {
           flag = false;
         }
       });
       this.serviceList[pitchId].checkbox = flag;
-      if(this.serviceList[pitchId].list[index].checkboxChild == false){
-        var Money = this.serviceList[pitchId].list[index].price*this.serviceList[pitchId].list[index].num;
-         this.totalPrice -= Money;
+      // 金额
+      if(this.serviceList[pitchId].sku[index].checkboxChild == false){
+        var Money = this.serviceList[pitchId].sku[index].unitPrice*this.serviceList[pitchId].sku[index].count;
+        this.totalPrice -= Money;
       }else{
-        var Money = this.serviceList[pitchId].list[index].price*this.serviceList[pitchId].list[index].num;
+        var Money = this.serviceList[pitchId].sku[index].unitPrice*this.serviceList[pitchId].sku[index].count;
         this.totalPrice += Money;
       }
+
+      if(this.serviceList[pitchId].sku[index].checkboxChild == true){
+        this.price = this.serviceList[pitchId].sku[index].unitPrice;
+        this.shopId = this.serviceList[pitchId].shopId;
+        this.count = this.serviceList[pitchId].sku[index].count;
+        this.productSkuId = this.serviceList[pitchId].sku[index].skuid;
+        this.postFee = this.price*this.count;
+      }
     },
-    // 全选 选中计算
+    // 全选 选中计算   
     checkboxAll:function(pageId,index){
       for(var pageId = 0; pageId < this.serviceList.length; pageId++){
         if(this.checkboxBig !== true){
           this.serviceList[pageId].checkbox = true;
-          this.serviceList[pageId].list.map((v,i)=>{
-            v.checkboxChild = true
+          this.serviceList[pageId].sku.map((v,i)=>{
+            v.checkboxChild = true;
             if(v.checkboxChild == false){
               this.serviceList[pageId].checkbox = false;
             }
           })
         }else{
           this.serviceList[pageId].checkbox = false;
-          this.serviceList[pageId].list.map((v,i)=>{
+          this.serviceList[pageId].sku.map((v,i)=>{
             v.checkboxChild = false
           })
         }
       }
     },
-    // 选中计算总价
+    // 点击结算
+    toTal:function(){
+      var accessToken = getCookie('access_token');
+      var params = [{
+        "buyerMessage": 0, // 邮费
+        "buyerNick": '',  // 付款类型
+        "shopId": this.shopId, // 店铺id
+        "payment":'',  // 可选
+        "postFee": this.postFee, // 商品合计
+        "proOrderItems":[
+          {
+              "productSkuId": this.productSkuId, // 商品id
+              "count": this.count, // 数量
+              "price":  this.price   // 价钱     
+          }
+        ]
+      }]
+       
+       this.$axios({
+          method:'POST',
+          url:'http://cloud.eyun.online:9080/order/api/depproorders',
+          data: params,
+          headers:{
+            Authorization: "Bearer " + accessToken
+          }
+        })
+        .then(function(response) {
+          console.log(response.data);
+        })
+        .catch((error)=>{
+          console.log(error);
+        });
+        }
   },
   components: {
     Foot
@@ -330,52 +345,6 @@ export default {
 </script>
 
 <style scoped>
-.mark{
-  position: absolute;
-  top:0;
-  width:100%;
-  height:100%;
-  background:rgba(255, 255, 255,1);
-  margin-top:.96rem;
-}
-.mark img{
-  position:fixed;
-  top:-5rem;
-  left:0;
-  right:0;
-  bottom:0;
-  margin:auto;
-}
-.mark p{
-  text-align:center;
-  margin-top:40%;
-  font-size:.32rem;
-   position:fixed;
-  top:40%;
-  left:0;
-  right:0;
-  bottom:0;
-  margin:auto;
-  color:#ccc;
-}
-.mark button{
-  margin-top:.2rem;
-  margin-left:20%;
-  width:60%;
-  height:.6rem;
-  font-size:.32rem;
-  border:0;
-  border-radius:.2rem;
-  background:#fff;
-  border:1px solid red;
-  color:#ff0103;
-  position:fixed;
-  top:0;
-  left:0;
-  right:0;
-  bottom:0;
-  margin:auto;
-}
 .content {
   width: 100%;
   display: flex;
@@ -495,12 +464,11 @@ input[type="checkbox"] + label::before {
   height: 1.8em;
   background: url("../assets/manage/change_no.png");
   background-size: 100% 100%;
-  /* margin-right: .4em; */
   border-radius: 50%;
   margin-top: -.01rem
 }
 input[type="checkbox"]:checked + label::before {
-  background: red;
+  /* background: red; */
   background: url("../assets/manage/change.png");
   background-size: 100% 100%;
 }
