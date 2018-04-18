@@ -43,7 +43,7 @@ export default {
                     "verifyCode": authCode
                 }
             if(setPassword == affirmPassword){
-var UaaApi = require('uaa-api');
+var UaaApi = require('api-uaa');
 UaaApi.ApiClient.instance.basePath = 'http://cloud.eyun.online:9080/uaa'
 var apiInstance = new UaaApi.AccountresourceApi();
 
