@@ -56,7 +56,7 @@ export default {
             // var apiClient = new UaaJavascript.ApiClient(); 
             // var api = new UaaJavascript.AuthApi(apiClient);
             // api.login('admin', 'admin');
-            var UaaJavascript = require('uaa-javascript');
+            var UaaJavascript = require('api-uaa');
             var apiInstance = new UaaJavascript.AccountResourceApi();
             var managedUserVM = new UaaJavascript.ManagedUserVM(); // ManagedUserVM | managedUserVM
             var callback = function(error, data, response) {
