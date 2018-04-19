@@ -165,38 +165,7 @@ export default {
   },
  
   created(){
-      var  sf = null;
-      var accessToken = getCookie('access_token');
-      if(accessToken == ''){
-        var  val={
-            "func":"openURL",
-            "param":{
-                "URL":'http://192.168.1.109:8888/#/login'
-            },
-        };
-        var u = navigator.userAgent;
-        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-        if(isiOS){
-          this.$router.push('/login');
-          window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-        }else if(isAndroid){  
-          this.$router.push('/login');
-          window.androidObject.JSCallAndroid(val);
-        }
-        // this.$router.push('/Login')
-      }
-      // this.$axios.get('http://192.168.1.105:8095/api/shoppingcar/user/1',{
-      //   header:{
-      //     'Access-Control-Allow-Origin': '*'
-      //   }
-      // })
-      // .then(function(res){
-      //   console.log(res)
-      // })
-      // .catch(function(error){
-      //   console.log(error)
-      // })
+ 
   },
   methods: {
     // 删除操作
