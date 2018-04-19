@@ -36,7 +36,7 @@
                   <div class="contents_right_matter">
                     <div class="h5">{{data.skuName}}</div>
                     <div class="contents_right_center">
-                      <div class="cargo">有货（库存{{data.count}}件）</div>
+                      <div class="cargo">有货（库存{{data.skuCount}}件）</div>
                       <div class="contents_right_center_count">
                         <span class="minus" @click="subtract(index,item.id)">-</span>
                         <input type="text" id="inpt_s" readonly v-model="data.count" value="1" class="inpus">
@@ -103,6 +103,7 @@ export default {
               index: 0,
               skuName: "iphone8 白色 128G",
               unitPrice: 9889,
+              skuCount:10,
               count: 10,
               skuid: 1,
               checkboxChild: false,
@@ -112,7 +113,8 @@ export default {
               index: 1,
               skuName: "iphone8 白色 128G",
               unitPrice: 108.0,
-              count: 20,
+              skuCount:11,
+              count: 3,
               skuid: 5,
               checkboxChild: false,
               url: "http://img20.360buyimg.com/focus/jfs/t13759/194/897734755/2493/1305d4c4/5a1692ebN8ae73077.jpg"
@@ -129,7 +131,8 @@ export default {
               index: 0,
               skuName: "iphone8 白色 128G",
               unitPrice: 1,
-              count: 5, 
+              skuCount:5,
+              count: 2, 
               skuid: 3,
               checkboxChild: false,
               url: "http://img20.360buyimg.com/focus/jfs/t13759/194/897734755/2493/1305d4c4/5a1692ebN8ae73077.jpg"
@@ -138,7 +141,8 @@ export default {
               index: 1,
               skuName: "iphone8 白色 128G",
               unitPrice: 108.0,
-              count: 6,
+              skuCount:5,
+              count: 1,
               skuid: 4,
               checkboxChild: false,
               url: "http://img20.360buyimg.com/focus/jfs/t13759/194/897734755/2493/1305d4c4/5a1692ebN8ae73077.jpg"
@@ -147,6 +151,7 @@ export default {
               index: 2,
               skuName: "iphone8 白色 128G",
               unitPrice: 108.0,
+              skuCount:5,
               count: 1,
               skuid: 9,
               checkboxChild: false,
@@ -197,7 +202,12 @@ export default {
         var Money = this.serviceList[id].sku[index].unitPrice;
         this.totalPrice += Money;
       }
-      this.serviceList[id].sku[index].count++;
+      if(this.serviceList[id].sku[index].count>=this.serviceList[id].sku[index].skuCount){
+        alert('没有库存了哦')
+        this.serviceList[id].sku[index].count=this.serviceList[id].sku[index].skuCount;
+      }else{
+        this.serviceList[id].sku[index].count++;
+      }
     },
     // --
     subtract:function(index,id){
