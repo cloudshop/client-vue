@@ -86,7 +86,7 @@
               <p>此功能需先登陆</p>
               <button @click='logins'>登陆</button>
        </div>
-        <Foot></Foot>
+       <Foot></Foot>
 
    </div>
 </template>
@@ -105,57 +105,30 @@ export default {
           
       },
        created(){
-            var accessToken = getCookie('access_token');
-            var ApiWallet = require('api-wallet');
-            ApiWallet.ApiClient.instance.basePath = '/api/wallet';
-            ApiWallet.ApiClient.instance.defaultHeaders = {
-                  'Authorization': 'Bearer ' + accessToken
-            }
-            var apiInstance = new ApiWallet.WalletResourceApi();
-            var callback = function(error, data, response) {
-            if (error) {
-            console.error(error);
-            } else {
-            console.log('API called successfully. Returned data: ' + data);
-            }
-            };
-            //ApiWallet.instance.findWalletsByUseridUsingGET(callback);
-            apiInstance.findWalletsByUseridUsingGET(callback);
-
+           
 
       //  var that = this
-      //  var accessToken = getCookie('access_token');
-      //   this.$axios.get('http://192.168.1.10:9080/wallet/api/wallets/user',{
-      //     headers:{
-      //       'Authorization': 'Bearer ' + accessToken,
-      //     }
-      //   })
-      //   .then(function(res){
-           
-      //     that.arr = res.data
-      // //      that.arr = res.data
-      // //      console.log(arr)
-      //   })
-      //   .catch(function(error){
-      //     console.log(error)
-      //   })
-
-        var accessToken = getCookie('access_token')
-         if(accessToken == ''){
-           this.flag = true;
-         }else{
-            this.flag = false;
-         }
-      },
+        var accessToken = getCookie('access_token');
+        if(accessToken == ''){
+              this.flag=true;
+              console.log('diyici 登陆true')
+        }
+        else{
+              this.flag=false;
+              console.log('diyici 登陆false')
+        }
+        
+       },
+      
       methods:{
       logins:function(){  
-      //  this.$router.push({name:"Login",params:{name:'/Mine'}})   
         var  val={
-              "func":"openURL",
-              "param":{
+            "func":"openURL",
+            "param":{
                   "URL":'http://cloud.eyun.online:8888/#/login'
-              },
-          };
+                  // "URL":'http://192.168.1.109:8888/#/login'
+            },
+        };
           var u = navigator.userAgent;
           var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
           var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
@@ -163,13 +136,12 @@ export default {
              window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
           }else if(isAndroid){  
             window.androidObject.JSCallAndroid(JSON.stringify(val));
-       }
+          }
        },
-     },
-     components:{
+      },
+      components:{
         Foot,
-     },
-     
+      },
 }
 </script>
 <style scoped>
