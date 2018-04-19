@@ -252,7 +252,7 @@ export default {
           var accessToken = getCookie('access_token');
             axios({
                     method:'post',
-                    url:'http://cloud.eyun.online:9080/order/api/depproorders',
+                    url:'http://cloud.eyun.online:9080/order/api/depproorders/1',
                     data:paramss,
                     headers:{
                     // 'Content-Type': 'application/json',
