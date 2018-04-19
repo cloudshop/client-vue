@@ -35,284 +35,277 @@
 </template>
 
 <script>
-import { setCookie,getCookie } from '../../assets/js/cookie.js'
+import { setCookie, getCookie } from "../../assets/js/cookie.js";
 
 export default {
-    data(){
-        return{
-            PassName:'',
-            PassWord:'',
-            msg:'',
-        }
+  data() {
+    return {
+      PassName: "",
+      PassWord: "",
+      msg: ""
+    };
+  },
+  methods: {
+    created() {
+      // var UaaJavascript = require('uaa-javascript');
+      // console.log(api);
+      // var apiClient = new UaaJavascript.ApiClient();
+      // var api = new UaaJavascript.AuthApi(apiClient);
+      // api.login('admin', 'admin');
     },
-    methods:{
-        mobileSetToken(token,ss){
-          $('.h2').text(token+ss);
-          setCookie('token',token,1000*60);
+    register() {
+      this.$router.push({ name: "Register" });
+    },
+    ForgetPassWord() {
+      this.$router.push({ name: "RegisterNew" });
+    },
+    messageSink(msg) {},
+    // 传token
+
+    upperCase() {
+      var theinput = document.getElementsByClassName("value")[0].value;
+      var p1 = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;
+      //(p1.test(theinput));
+      if (p1.test(theinput) == false) {
+        console.log("请填写正确电话号码!!");
+        document.getElementsByClassName("value")[0].value = "";
+      } else {
+        console.log("succeess");
+      }
+    },
+    // requestToken(){ // 再次去请求token
+    //     console.log('requestToken')
+    //     var  val={
+    //         "func":"requestToken",
+    //         "param":{
+    //             "callBack": "setToken"
+    //         },
+    //     };
+    //     var u = navigator.userAgent;
+    //     var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+    //     var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+    //     if(isiOS){
+    //         window.webkit.messageHandlers.GongrongAppModel.postMessage(val)
+    //     }else{
+    //          window.androidObject.JSCallAndroid(val);
+    //     }
+    // },
+    closeCurrent() {
+      //点击返回
+      var val = {
+        func: "closeCurrent",
+        param: {}
+      };
+      var u = navigator.userAgent;
+      var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+      if (isiOS) {
+        window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+      } else if (isAndroid) {
+        window.androidObject.JSCallAndroid(JSON.stringify(val));
+      }
+    },
+    btn() {
+      var credentials = {
+        client: {
+          id: "web_app",
+          secret: "w1eb_app"
         },
-        denglu(){
-            // var UaaJavascript = require('uaa-javascript');
-            // console.log(api);
-            // var apiClient = new UaaJavascript.ApiClient(); 
-            // var api = new UaaJavascript.AuthApi(apiClient);
-            // api.login('admin', 'admin');
-            var UaaJavascript = require('api-uaa');
-            var apiInstance = new UaaJavascript.AccountResourceApi();
-            var managedUserVM = new UaaJavascript.ManagedUserVM(); // ManagedUserVM | managedUserVM
-            var callback = function(error, data, response) {
-                if (error) {
-                    console.error(error);
-                } else {
-                    console.log('API called successfully.');
-                }
-            };
-            apiInstance.registerAccountUsingPOST(managedUserVM, function(error,data,response){
-                console.log(error)
-                console.log(data)
-                console.log(response)
-            });
+        auth: {
+          tokenHost: "http://cloud.eyun.online:9080",
+          tokenPath: "/auth/login"
         },
-        register(){
-            this.$router.push({name:"Register"})
-        },
-        ForgetPassWord(){
-            this.$router.push({name:"RegisterNew"})
-        },
-        messageSink(msg){
-            
-        },
-        // 传token
-     
-        upperCase(){
-          var theinput=document.getElementsByClassName("value")[0].value; 
-          var p1=/^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/; 
-          //(p1.test(theinput)); 
-          if(p1.test(theinput)==false) {
-            console.log('请填写正确电话号码!!'); 
-            document.getElementsByClassName("value")[0].value=""; 
-          }else {
-            console.log("succeess")
+        http: {
+          headers: {
+            Accept: "application/json"
           }
         },
-        // requestToken(){ // 再次去请求token
-        //     console.log('requestToken')
-        //     var  val={
-        //         "func":"requestToken",
-        //         "param":{
-        //             "callBack": "setToken"
-        //         },
-        //     };
-        //     var u = navigator.userAgent;
-        //     var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-        //     var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-        //     if(isiOS){
-        //         window.webkit.messageHandlers.GongrongAppModel.postMessage(val)   
-        //     }else{               
-        //          window.androidObject.JSCallAndroid(val);
-        //     }
-        // },
-        closeCurrent(){
-            //点击返回
-                    var  val={
-                        "func":"closeCurrent",
-                        "param":{},
-                    };
-                    var u = navigator.userAgent;
-                    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-                    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-                    if(isiOS){
-                        window.webkit.messageHandlers.GongrongAppModel.postMessage(val);   
-                    }else if(isAndroid){            
-                     window.androidObject.JSCallAndroid(JSON.stringify(val));
-                   }            
-        },
-        btn(){
-            // IOS 方法 传token
-            // var UaaJavascript = require('uaa-javascript');
-            // var apiClient = new UaaJavascript.ApiClient(); 
-            // var api = new UaaJavascript.AuthApi(apiClient);
-            // api.login(this.PassName,this.PassWord);
-
-
-                var data = {'username':this.PassName,'password':this.PassWord}
-                this.$axios.post('http://cloud.eyun.online:9080/auth/login',data)
-                .then((res)=>{
-                    var accessToken = res.data.access_token;
-                    setCookie('access_token',accessToken,1000*60)
-                    // request.set({'Authorization': 'Bearer ' + auth.accessToken});
-                    var accessToken = getCookie('access_token');
-                    if(accessToken !== ''){
-                        // if(this.$route.params.name =='/Shopping'){
-                        //      this.$router.push({name:'Shopping'})
-                        // }else{
-                        //      this.$router.push({name:'Mine'})
-                        // }
-                       
-                        var  val={
-                            "func":"closeCurrent",
-                            "param":{'refreshAll':true},
-                        };
-                        var u = navigator.userAgent;
-                        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-                        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-                        if(isiOS){
-                            window.webkit.messageHandlers.GongrongAppModel.postMessage(val);   
-                        }else if(isAndroid){               
-                            window.androidObject.JSCallAndroid(JSON.stringify(val));
-                        }
-                    }
-                    
-                    // 再次请求
-                    // this.$axios.get("/order")
-                    // .then((res)=>{
-                    //     console.log(res)
-                    // })
-                    
-                    // if(res.data == -1){
-                    // 	this.tishi = "该用户不存在"
-                    // 	this.showTishi = true
-                    // }else if(res.data == 0){
-                    // 	this.tishi = "密码输入错误"
-                    // 	this.showTishi = true
-                    // }else if(res.data == 'admin'){
-                    // 	this.$router.push('/main')
-                    // }else{
-                    // 	this.tishi = "登录成功"
-                    // 	this.showTishi = true
-                    //  setCookie('access_token',datas,1000*60)
-                    // 	setTimeout(function(){
-                    // 		this.$router.push({path:'home',query:{id:1}})
-                    // 	}.bind(this),1000)
-                    // }
-            })
+        options: {
+          bodyFormat: "json"
         }
-    },
-    created(){
-        // var UaaJavascript = require('uaa-javascript');
-        // console.log(api);
-        // var apiClient = new UaaJavascript.ApiClient();
-        // var api = new UaaJavascript.AuthApi(apiClient);
-        // api.login('admin', 'admin');
-    },
-    mounted:function () {
-        window.messageSink = this.messageSink;
-        window.mobileSetToken = this.mobileSetToken;
-        window.setToken = this.setToken;
-        window.closeCurrent = this.closeCurrent;
-        $('input').on('keyup',function(){
-             if($('#passname').val().length>=1 && $('#password').val().length>=1){
-                $('.btn').addClass('Color')         
-             }else{
-                $('.btn').removeClass('Color')  
-             }
-        })
-    },
-    
-}
+      };
+      const oauth2 = require("simple-oauth2").create(credentials);
+      const tokenConfig = {
+        username: this.PassName,
+        password: this.PassWord
+      };
+      var token;
+      oauth2.ownerPassword.getToken(tokenConfig).then(result => {
+        const accessToken = oauth2.accessToken.create(result);
+        token = accessToken.token.access_token;
+        console.log(accessToken.token.access_token);
+        var ApiVerify = require("api-uaa");
+
+        // ApiVerify.ApiClient.instance.basePath =
+        //   "http://cloud.eyun.online:9080/uaa";
+        ApiVerify.ApiClient.instance.defaultHeaders = {
+          Authorization: "Bearer " + token
+        };
+        console.log(ApiVerify);
+        var api = new ApiVerify.AccountResourceApi();
+        // var phone = '13910525509'
+        var callback = function(error, data, response) {
+          if (error) {
+            console.error(error);
+          } else {
+            console.log("API called successfully. Returned data: " + data);
+          }
+        };
+        api.getAccountUsingGET(callback);
+        return accessToken;
+      });
+      // var data = {'username':this.PassName,'password':this.PassWord}
+      //     this.$axios.post('http://cloud.eyun.online:9080/auth/login',data)
+      //     .then((res)=>{
+      //         var accessToken = res.data.access_token;
+      //         setCookie('access_token',accessToken,1000*60)
+      //         // request.set({'Authorization': 'Bearer ' + auth.accessToken});
+      //         var accessToken = getCookie('access_token');
+      //         if(accessToken !== ''){
+      //             // if(this.$route.params.name =='/Shopping'){
+      //             //      this.$router.push({name:'Shopping'})
+      //             // }else{
+      //             //      this.$router.push({name:'Mine'})
+      //             // }
+
+      //             var  val={
+      //                 "func":"closeCurrent",
+      //                 "param":{'refreshAll':true},
+      //             };
+      //             var u = navigator.userAgent;
+      //             var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+      //             var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+      //             if(isiOS){
+      //                 window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+      //             }else if(isAndroid){
+      //                 window.androidObject.JSCallAndroid(JSON.stringify(val));
+      //             }
+      //         }
+
+      // })
+    }
+  },
+  mounted: function() {
+    window.messageSink = this.messageSink;
+    window.mobileSetToken = this.mobileSetToken;
+    window.setToken = this.setToken;
+    window.closeCurrent = this.closeCurrent;
+    $("input").on("keyup", function() {
+      if (
+        $("#passname").val().length >= 1 &&
+        $("#password").val().length >= 1
+      ) {
+        $(".btn").addClass("Color");
+      } else {
+        $(".btn").removeClass("Color");
+      }
+    });
+  }
+};
 </script>
 
 <style scoped>
-.Color{
-    background:red!important;
+.Color {
+  background: red !important;
 }
-.Login{
-    width: 100%;
-    height: 100%; 
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    overflow: hidden;
-    background:#fff;
+.Login {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  overflow: hidden;
+  background: #fff;
 }
-.active{
-    background:red!important    ;
+.active {
+  background: red !important;
 }
-header{
-    width:100%;
-    background:#fff;
-    color:#2f2f2f;
-    height:.94rem;
-    font-size:.32rem;
-    border-bottom:1px solid #e7e7e7;
+header {
+  width: 100%;
+  background: #fff;
+  color: #2f2f2f;
+  height: 0.94rem;
+  font-size: 0.32rem;
+  border-bottom: 1px solid #e7e7e7;
 }
-.is-right{
-    font-size:.28rem;
-    color:#676767;
+.is-right {
+  font-size: 0.28rem;
+  color: #676767;
 }
-.main{
-    background:#fff;
+.main {
+  background: #fff;
 }
-.form{
-    margin-top:1rem;
-    padding:0 .4rem;
+.form {
+  margin-top: 1rem;
+  padding: 0 0.4rem;
 }
-.form p{
-    height:1rem;
-    border-bottom:1px solid #e7e7e7;
-    line-height: 1rem;
+.form p {
+  height: 1rem;
+  border-bottom: 1px solid #e7e7e7;
+  line-height: 1rem;
 }
-.form p label{
-    font-size:.32rem;
-    color:#2f2f2f;
-    margin-right:.5rem;
-    font-weight:bold;
+.form p label {
+  font-size: 0.32rem;
+  color: #2f2f2f;
+  margin-right: 0.5rem;
+  font-weight: bold;
 }
-.form p input{
-    width:60%;
-    border:0;
-    font-size:.32rem;
-    color:#2f2f2f;
+.form p input {
+  width: 60%;
+  border: 0;
+  font-size: 0.32rem;
+  color: #2f2f2f;
 }
-.form button{
-    width:100%;
-    margin-top:.5rem;
-    height:.96rem;
-    font-size:.32rem;
-    color:#ffffff;
-    border-radius:.1rem;
-    background:#d8d8d8;
-    border:0;
+.form button {
+  width: 100%;
+  margin-top: 0.5rem;
+  height: 0.96rem;
+  font-size: 0.32rem;
+  color: #ffffff;
+  border-radius: 0.1rem;
+  background: #d8d8d8;
+  border: 0;
 }
-.ForgetPassWord{
-    text-align:right;
-    font-size:.28rem;
-    color:#676767;
-    padding-right:.55rem;
-    padding-top:.3rem;
+.ForgetPassWord {
+  text-align: right;
+  font-size: 0.28rem;
+  color: #676767;
+  padding-right: 0.55rem;
+  padding-top: 0.3rem;
 }
-.footer{
-    height:3.15rem;
-    background:#fff;
+.footer {
+  height: 3.15rem;
+  background: #fff;
 }
-.footer .LodingType{
-    display:flex;
-    height:.4rem;
-    align-items:center;
-    justify-content:center;
+.footer .LodingType {
+  display: flex;
+  height: 0.4rem;
+  align-items: center;
+  justify-content: center;
 }
-.footer .LodingType h2{
-    font-size:.24rem;
-    margin:0 .2rem;
-    color:#676767;
+.footer .LodingType h2 {
+  font-size: 0.24rem;
+  margin: 0 0.2rem;
+  color: #676767;
 }
-.footer p{
-    width:30%;
-    border-bottom:2px solid #d8d8d8;
+.footer p {
+  width: 30%;
+  border-bottom: 2px solid #d8d8d8;
 }
-.footer ul{
-    display:flex;
-    margin-top:1rem;
+.footer ul {
+  display: flex;
+  margin-top: 1rem;
 }
-.footer ul li{
-    flex:1;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+.footer ul li {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.footer ul li img{
-    width:1rem;
-    height:1rem;
+.footer ul li img {
+  width: 1rem;
+  height: 1rem;
 }
 </style>

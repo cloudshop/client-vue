@@ -23,6 +23,7 @@
   </div>
 </template>
 <script>
+import axios from "axios"
 import { setCookie,getCookie } from '../../assets/js/cookie.js'
 export default {
     data(){
@@ -46,40 +47,74 @@ export default {
                 var UaaApi = require('api-uaa');
                 UaaApi.ApiClient.instance.basePath = '/api/uaa'
                 var apiInstance = new UaaApi.AccountResourceApi();
-
                 var managedUserVM = new UaaApi.ManagedUserVM(); // ManagedUserVM | managedUserVM
                 managedUserVM.login = iphone
                 managedUserVM.password = this.setPassword
                 managedUserVM.verifyCode = authCode
-
+                
                 var callback = function(error, data, response) {
                     if (error) {
                         console.error(error);
                         alert(error)
                     } else {
                         console.log('API called successfully.');
-                        alert('注册成功')
+                        var data = {'username': iphone,'password': managedUserVM.password}
+                        $.ajax({
+                            url:'http://cloud.eyun.online:9080/auth/login',
+                            method:'post',
+                            data: JSON.stringify(data),
+                            contentType: 'application/json;charset=UTF-8',
+                            dataType: "json",
+                            success:function(res){
+                                var accessToken = res.data.access_token;
+                                console.log(accessToken)
+                                setCookie('access_token',accessToken,1000*60)
+                                var accessToken = getCookie('access_token');
+                                console.log(accessToken)
+                                if(accessToken !== ''){
+                                    this.$router.push({path:'/'})
+                                    var  val={
+                                        "func":"closeCurrent",
+                                        "param":{'finallyIndex':4},
+                                        };
+                                    var u = navigator.userAgent;
+                                    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+                                    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+                                    if(isiOS){
+                                        window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+                                    }else if(isAndroid){  
+                                        window.androidObject.JSCallAndroid(JSON.stringify(val));
+                                    }
+                                }
+                            },  
+                            error(error){
+                                console.log(error)
+                            }
+                        })
+                        // $axios.post('http://cloud.eyun.online:9080/auth/login',data)
+                        // .then((res)=>{
+                        //     var accessToken = res.data.access_token;
+                        //     setCookie('access_token',accessToken,1000*60)
+                        //     var accessToken = getCookie('access_token');
+                        //     if(accessToken !== ''){
+                        //         this.$router.push({path:'/'})
+                        //         var  val={
+                        //             "func":"closeCurrent",
+                        //             "param":{'finallyIndex':4},
+                        //             };
+                        //         var u = navigator.userAgent;
+                        //         var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+                        //         var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+                        //         if(isiOS){
+                        //             window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+                        //         }else if(isAndroid){  
+                        //             window.androidObject.JSCallAndroid(JSON.stringify(val));
+                        //         }
+                        //     }
+                        // })
                     }
                 }
                 apiInstance.registerAppAccountUsingPOST(managedUserVM, callback);
-
-            //     this.$axios.post('http://cloud.eyun.online:9080/uaa/api/register/app',val)
-            //     .then(res=>{
-            //         console.log(res) 
-            //         alert('注册成功')
-            //     })
-	           // .catch(err=>{ 
-	           //     console.log(err)
-	           //     alert(err)
-	           // })
-                // .then(function(response) {
-                //   console.log(response)
-                //   alert('注册成功')
-                // })
-                // .catch(function(error) {
-                //   console.log(error);
-                //   alert(error)
-                // });
             }else{
                 alert('两次密码输入不符')
                 document.getElementById("setPassword").value="";

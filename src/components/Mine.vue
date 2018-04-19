@@ -105,30 +105,48 @@ export default {
           
       },
        created(){
-             var that = this
-       var accessToken = getCookie('access_token');
-        this.$axios.get('http://cloud.eyun.online:9080/wallet/api/wallets/user',{
-          headers:{
-            'Authorization': 'Bearer ' + accessToken,
-          }
-        })
-        .then(function(res){
+            var accessToken = getCookie('access_token');
+            var ApiWallet = require('api-wallet');
+            ApiWallet.ApiClient.instance.basePath = '/api/wallet';
+            ApiWallet.ApiClient.instance.defaultHeaders = {
+                  'Authorization': 'Bearer ' + accessToken
+            }
+            var apiInstance = new ApiWallet.WalletResourceApi();
+            var callback = function(error, data, response) {
+            if (error) {
+            console.error(error);
+            } else {
+            console.log('API called successfully. Returned data: ' + data);
+            }
+            };
+            //ApiWallet.instance.findWalletsByUseridUsingGET(callback);
+            apiInstance.findWalletsByUseridUsingGET(callback);
+
+
+      //  var that = this
+      //  var accessToken = getCookie('access_token');
+      //   this.$axios.get('http://192.168.1.10:9080/wallet/api/wallets/user',{
+      //     headers:{
+      //       'Authorization': 'Bearer ' + accessToken,
+      //     }
+      //   })
+      //   .then(function(res){
            
-          that.arr = res.data
-      //      that.arr = res.data
-      //      console.log(arr)
-        })
-        .catch(function(error){
-          console.log(error)
-        })
+      //     that.arr = res.data
+      // //      that.arr = res.data
+      // //      console.log(arr)
+      //   })
+      //   .catch(function(error){
+      //     console.log(error)
+      //   })
 
         var accessToken = getCookie('access_token')
          if(accessToken == ''){
            this.flag = true;
          }else{
             this.flag = false;
-           }
-     },
+         }
+      },
       methods:{
       logins:function(){  
       //  this.$router.push({name:"Login",params:{name:'/Mine'}})   
