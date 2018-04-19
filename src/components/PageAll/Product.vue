@@ -1,7 +1,8 @@
 <template>
 <div class='content'>
   <mt-navbar v-model="selected">
-    <router-link :to="{ path: '/Classify' }" tag='span'  class="spans">〈</router-link>
+    <!--<router-link :to="{ path: '/Classify' }" tag='span'  class="spans">〈</router-link>-->
+    <span class="spans" @click='back'>〈</span>
     <mt-tab-item id="1">商品</mt-tab-item>
     <mt-tab-item id="2">详情</mt-tab-item>
     <mt-tab-item id="3">评论</mt-tab-item>
@@ -291,6 +292,22 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
          this.$router.push({name:"PageDetails"}) 
       }
     },
+     back(){   
+    
+         var  val={
+                "func":"closeCurrent",
+                  "param":{
+                    'refreshParent':true
+                  },
+                };
+              var u = navigator.userAgent;
+              var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+              var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+              if(isiOS){
+                window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+              }else if(isAndroid){  
+                window.androidObject.JSCallAndroid(JSON.stringify(val));
+              },
     created(){
       console.log(this.data.productContent)   
        var that = this; //商品内容
