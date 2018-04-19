@@ -1,7 +1,7 @@
 <template>
 <div class='content'>
   <mt-navbar v-model="selected">
-    <!--<router-link :to="{ path: '/Classify' }" tag='span'  class="spans">〈</router-link>-->
+  
     <span class="spans" @click='back'>〈</span>
     <mt-tab-item id="1">商品</mt-tab-item>
     <mt-tab-item id="2">详情</mt-tab-item>
