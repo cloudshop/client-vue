@@ -72,7 +72,12 @@
           </div>
         </div>
       </div>
-  </div>
+    </div>
+   <div class='mark' v-show='flag'>
+      <img src="../assets/HomePage/LOGO.png" alt="">
+      <p>此功能需先登陆</p>
+      <button @click='logins'>登陆</button>
+    </div>
   <Foot></Foot>
  </div>
    
@@ -83,6 +88,7 @@ import { setCookie,getCookie } from '../assets/js/cookie.js'
 export default {
   data() {
     return {
+      flag:false,
       productSkuId: '',
       price: 0,
       shopId:'',
@@ -170,9 +176,34 @@ export default {
   },
  
   created(){
- 
+    var accessToken = getCookie('access_token');
+    if(accessToken == ''){
+      this.flag=true;
+      console.log('shopping   ++++true')
+    }
+    else{
+      this.flag=false;
+      console.log('shopping   ++++false')
+    }
   },
   methods: {
+    logins:function(){  
+      var  val={
+        "func":"openURL",
+        "param":{
+            // "URL":'http://cloud.eyun.online:8888/#/login'
+              "URL":'http://192.168.1.109:8888/#/login'
+        },
+      };
+      var u = navigator.userAgent;
+      var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+      if(isiOS){           
+          window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+      }else if(isAndroid){  
+        window.androidObject.JSCallAndroid(JSON.stringify(val));
+      }
+    },
     // 删除操作
     removeAll:function(index,id){
       if(this.serviceList[id].sku[index].checkboxChild == true){
@@ -240,13 +271,13 @@ export default {
     // 判断 商品是否全部选中
     pageItem:function(pitchId,index,e){
       this.serviceList[pitchId].sku[index].checkboxChild = !this.serviceList[pitchId].sku[index].checkboxChild;
-      let flag = true;
+      let statusFlag = true;
       this.serviceList[pitchId].sku.forEach((item,index) => {
         if(item.checkboxChild === false) {
-          flag = false;
+          statusFlag = false;
         }
       });
-      this.serviceList[pitchId].checkbox = flag;
+      this.serviceList[pitchId].checkbox = statusFlag;
       // 金额
       if(this.serviceList[pitchId].sku[index].checkboxChild == false){
         var Money = this.serviceList[pitchId].sku[index].unitPrice*this.serviceList[pitchId].sku[index].count;
@@ -324,6 +355,51 @@ export default {
 </script>
 
 <style scoped>
+.mark{
+  position: absolute;
+  top:0;
+  width:100%;
+  height:100%;
+  background:rgba(255, 255, 255,1);
+}
+.mark img{
+  position:fixed;
+  top:-5rem;
+  left:0;
+  right:0;
+  bottom:0;
+  margin:auto;
+}
+.mark p{
+  text-align:center;
+  margin-top:40%;
+  font-size:.32rem;
+   position:fixed;
+  top:40%;
+  left:0;
+  right:0;
+  bottom:0;
+  margin:auto;
+  color:#ccc;
+}
+.mark button{
+  margin-top:.2rem;
+  margin-left:20%;
+  width:60%;
+  height:.6rem;
+  font-size:.32rem;
+  border:0;
+  border-radius:.2rem;
+  background:#fff;
+  border:1px solid red;
+  color:#ff0103;
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  margin:auto;
+}
 .content {
   width: 100%;
   display: flex;
