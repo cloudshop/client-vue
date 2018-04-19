@@ -9,54 +9,121 @@
               </a>
             </div> 
              <h1 class="mint-header-title">昵称设置</h1>
-            <div class="mint-header-button is-right">确认</div>
+            <div class="mint-header-button is-right" id="sure">确认</div>
         </header>
-       <mt-field placeholder="请输入昵称" v-model="name" @change='DataValidations'></mt-field>
+       <mt-field placeholder="请输入昵称" v-model="name" id="nickname"></mt-field>
        <p class='hint'>4-10个字符,可由中英文,数字组成。</p>
     </div>
 </template>
 
 <script>
-import { Header,Field  } from 'mint-ui';
+import axios from 'axios'
+import { Header, Field } from "mint-ui";
+import { setCookie, getCookie } from "../../assets/js/cookie.js";
 export default {
-    data(){
-        return {
-            name:"",
-            popupVisible:true,
+  data() {
+    return {
+      name: "",
+      sure: "",
+      popupVisible: true
+    };
+  },
+  mounted: function() {
+    $("#sure").click(function() {
+      var nickname = $(".mint-field-core").val();
+      var accessToken = getCookie("access_token");
+      var nickname = $('.mint-field-core').val()
+      //var data = { "avatar" :nickname,"type":2,"id":3 };
+      var data = {
+        id: 3,
+        nickname: nickname,
+        type: 2
+      };
+
+      // this.$axios
+      //   .post(
+      //     "http://192.168.1.10:9080/user/api/user-annexes-useregis/updaUserInfo/",
+      //     data,
+      //     {
+      //       headers: {
+      //         Authorization: "Bearer " + accessToken
+      //       }
+      //     }
+      //   )
+      //   .then(function(res) {
+      //     console.log(res);
+      //   })
+      //   .catch(function(error) {
+      //     console.log(error);
+      //   });
+      axios({
+        method: "post",
+        url:"http://cloud.eyun.online:9080/user/api/user-annexes-useregis/updaUserInfo/",
+        data,
+        headers: {
+          Authorization: "Bearer " + accessToken
         }
-    },
-    methods:{
-      DataValidations(){
-         if(/^[\u4e00-\u9fa5_a-zA-Z0-9_]{4,10}$/.test(this.name)){
-              alert('匹配正确');
-         }
-      }
-    }
-    
-}
+      })
+        .then(function(res) {
+          console.log(res);
+          alert('修改成功')
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+      // $.ajax({
+      //   url:
+      //     "http://192.168.1.10:9080/user/api/user-annexes-useregis/updaUserInfo/",
+      //   // method:'post',
+      //   type: "POST",
+      //   // contentType: "application/json",
+      //   data: data,
+      //   dataType: "json",
+
+      //   //data : data,
+      //   headers: {
+      //     Authorization: "Bearer " + accessToken
+      //     //   'Content-Type':"application/json"
+      //   },
+      //   success: function(res) {
+      //     console.log(res);
+      //   },
+      //   error(res) {
+      //     console.log(res);
+      //   }
+      // });
+    });
+  },
+  methods: {
+    // DataValidations() {
+    //   if (/^[\u4e00-\u9fa5_a-zA-Z0-9_]{4,10}$/.test(this.name)) {
+    //     alert("匹配正确");
+    //   }
+    // }
+  }
+};
 </script>
 
 <style scoped>
-
-header{
-    width:100%;
-    background:#fff;
-    color:#000;
-    height:.94rem;
-    border-bottom:1px solid #e7e7e7;
-    font-size:.32rem;
+header {
+  width: 100%;
+  background: #fff;
+  color: #000;
+  height: 0.94rem;
+  border-bottom: 1px solid #e7e7e7;
+  font-size: 0.32rem;
 }
-.mint-header-title{
-    font-size:.32rem;
+.mint-header-title {
+  font-size: 0.32rem;
 }
-.mint-header-button{
-    font-size:.28rem;
-    color:#676767;
+.mint-header-button {
+  font-size: 0.28rem;
+  color: #676767;
 }
-.hint{
-    font-size:.2rem;
-    color:#c4c4c4;
-    margin-top:.2rem;
-    margin-left:.3rem;
+.hint {
+  font-size: 0.2rem;
+  color: #c4c4c4;
+  margin-top: 0.2rem;
+  margin-left: 0.3rem;
 }
 </style>
