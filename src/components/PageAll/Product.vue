@@ -235,7 +235,7 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
            var  val={
               "func":"openURL",
               "param":{
-                  "URL":'http://192.168.1.102:8888/#/Login',
+                  "URL":'http://cloud.eyun.online:8888/#/Login',
               },
           };
           var u = navigator.userAgent;
