@@ -24,6 +24,7 @@
         <div class='footer'>
             <div class='LodingType'>
                 <p></p><h2 class='h2'>其他方式登录</h2><p></p>
+                <p class="aa">token</p>
             </div>
             <ul>
                 <li><img src="../../assets/Login/QQ.png" alt=""></li>
@@ -73,23 +74,6 @@ export default {
         console.log("succeess");
       }
     },
-    // requestToken(){ // 再次去请求token
-    //     console.log('requestToken')
-    //     var  val={
-    //         "func":"requestToken",
-    //         "param":{
-    //             "callBack": "setToken"
-    //         },
-    //     };
-    //     var u = navigator.userAgent;
-    //     var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-    //     var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-    //     if(isiOS){
-    //         window.webkit.messageHandlers.GongrongAppModel.postMessage(val)
-    //     }else{
-    //          window.androidObject.JSCallAndroid(val);
-    //     }
-    // },
     closeCurrent() {
       //点击返回
       var val = {
@@ -106,85 +90,28 @@ export default {
       }
     },
     btn() {
-      var credentials = {
-        client: {
-          id: "web_app",
-          secret: "w1eb_app"
-        },
-        auth: {
-          tokenHost: "http://cloud.eyun.online:9080",
-          tokenPath: "/auth/login"
-        },
-        http: {
-          headers: {
-            Accept: "application/json"
-          }
-        },
-        options: {
-          bodyFormat: "json"
-        }
-      };
-      const oauth2 = require("simple-oauth2").create(credentials);
-      const tokenConfig = {
-        username: this.PassName,
-        password: this.PassWord
-      };
-      var token;
-      oauth2.ownerPassword.getToken(tokenConfig).then(result => {
-        const accessToken = oauth2.accessToken.create(result);
-        token = accessToken.token.access_token;
-        console.log(accessToken.token.access_token);
-        var ApiVerify = require("api-uaa");
-
-        // ApiVerify.ApiClient.instance.basePath =
-        //   "http://cloud.eyun.online:9080/uaa";
-        ApiVerify.ApiClient.instance.defaultHeaders = {
-          Authorization: "Bearer " + token
-        };
-        console.log(ApiVerify);
-        var api = new ApiVerify.AccountResourceApi();
-        // var phone = '13910525509'
-        var callback = function(error, data, response) {
-          if (error) {
-            console.error(error);
-          } else {
-            console.log("API called successfully. Returned data: " + data);
-          }
-        };
-        api.getAccountUsingGET(callback);
-        return accessToken;
-      });
-      // var data = {'username':this.PassName,'password':this.PassWord}
-      //     this.$axios.post('http://cloud.eyun.online:9080/auth/login',data)
-      //     .then((res)=>{
-      //         var accessToken = res.data.access_token;
-      //         setCookie('access_token',accessToken,1000*60)
-      //         // request.set({'Authorization': 'Bearer ' + auth.accessToken});
-      //         var accessToken = getCookie('access_token');
-      //         if(accessToken !== ''){
-      //             // if(this.$route.params.name =='/Shopping'){
-      //             //      this.$router.push({name:'Shopping'})
-      //             // }else{
-      //             //      this.$router.push({name:'Mine'})
-      //             // }
-
-      //             var  val={
-      //                 "func":"closeCurrent",
-      //                 "param":{'refreshAll':true},
-      //             };
-      //             var u = navigator.userAgent;
-      //             var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-      //             var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-      //             if(isiOS){
-      //                 window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-      //             }else if(isAndroid){
-      //                 window.androidObject.JSCallAndroid(JSON.stringify(val));
-      //             }
-      //         }
-
-      // })
+      var data = {'username':this.PassName,'password':this.PassWord}
+        this.$axios.post('http://cloud.eyun.online:9080/auth/login',data)
+        .then((res)=>{
+            var accessToken = res.data.access_token;
+            setCookie('access_token',accessToken,1000*60)
+            var accessTokens = getCookie("access_token");
+            var  val={
+                "func":"closeCurrent",
+                "param":{'finallyIndex':'4','refreshAll':true},
+                };
+            var u = navigator.userAgent;
+            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+            if(isiOS){
+                window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+            }else if(isAndroid){  
+                window.androidObject.JSCallAndroid(JSON.stringify(val));
+            }
+        })
     }
   },
+
   mounted: function() {
     window.messageSink = this.messageSink;
     window.mobileSetToken = this.mobileSetToken;
