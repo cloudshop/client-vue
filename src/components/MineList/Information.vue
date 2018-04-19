@@ -112,7 +112,7 @@ export default {
           var val = {
             func: "closeCurrent",
             param: {
-              finallyIndex: 1,
+              finallyIndex: "1",
               refreshAll: true
             }
           };
