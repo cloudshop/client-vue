@@ -142,10 +142,10 @@ export default {
                   //top
 
                   var val = {
-                    func: "pay",
-                    param: {
-                        payType:"Ali",
-                        orderStr: param3,
+                    "func": "pay",
+                    "param": {
+                        "payType":"Ali",
+                        "orderStr": param3,
 
                     }
                   };
@@ -197,10 +197,10 @@ export default {
                   //top
 
                   var val = {
-                    func: "pay",
-                    param: {
-                        payType:"Ali",
-                        orderStr: param3,
+                    "func": "pay",
+                    "param": {
+                        "payType":"Ali",
+                        "orderStr": param3,
 
                     }
                   };
