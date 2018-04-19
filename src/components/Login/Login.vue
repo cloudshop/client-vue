@@ -46,32 +46,6 @@ export default {
         }
     },
     methods:{
-        mobileSetToken(token,ss){
-          $('.h2').text(token+ss);
-          setCookie('token',token,1000*60);
-        },
-        denglu(){
-            // var UaaJavascript = require('uaa-javascript');
-            // console.log(api);
-            // var apiClient = new UaaJavascript.ApiClient(); 
-            // var api = new UaaJavascript.AuthApi(apiClient);
-            // api.login('admin', 'admin');
-            var UaaJavascript = require('api-uaa');
-            var apiInstance = new UaaJavascript.AccountResourceApi();
-            var managedUserVM = new UaaJavascript.ManagedUserVM(); // ManagedUserVM | managedUserVM
-            var callback = function(error, data, response) {
-                if (error) {
-                    console.error(error);
-                } else {
-                    console.log('API called successfully.');
-                }
-            };
-            apiInstance.registerAccountUsingPOST(managedUserVM, function(error,data,response){
-                console.log(error)
-                console.log(data)
-                console.log(response)
-            });
-        },
         register(){
             this.$router.push({name:"Register"})
         },
@@ -127,13 +101,6 @@ export default {
                    }            
         },
         btn(){
-            // IOS 方法 传token
-            // var UaaJavascript = require('uaa-javascript');
-            // var apiClient = new UaaJavascript.ApiClient(); 
-            // var api = new UaaJavascript.AuthApi(apiClient);
-            // api.login(this.PassName,this.PassWord);
-
-
                 var data = {'username':this.PassName,'password':this.PassWord}
                 this.$axios.post('http://cloud.eyun.online:9080/auth/login',data)
                 .then((res)=>{
@@ -161,29 +128,6 @@ export default {
                             window.androidObject.JSCallAndroid(JSON.stringify(val));
                         }
                     }
-                    
-                    // 再次请求
-                    // this.$axios.get("/order")
-                    // .then((res)=>{
-                    //     console.log(res)
-                    // })
-                    
-                    // if(res.data == -1){
-                    // 	this.tishi = "该用户不存在"
-                    // 	this.showTishi = true
-                    // }else if(res.data == 0){
-                    // 	this.tishi = "密码输入错误"
-                    // 	this.showTishi = true
-                    // }else if(res.data == 'admin'){
-                    // 	this.$router.push('/main')
-                    // }else{
-                    // 	this.tishi = "登录成功"
-                    // 	this.showTishi = true
-                    //  setCookie('access_token',datas,1000*60)
-                    // 	setTimeout(function(){
-                    // 		this.$router.push({path:'home',query:{id:1}})
-                    // 	}.bind(this),1000)
-                    // }
             })
         }
     },
