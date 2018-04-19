@@ -110,7 +110,8 @@ export default {
           console.log(res);
           var deltoken = delCookie("access_token");
           var val = {
-            func: "closeCurrent",
+            
+            "func": "closeCurrent",
             "param": {
               "finallyIndex": "1",
               "refreshAll": true
