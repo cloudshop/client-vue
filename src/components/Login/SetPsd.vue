@@ -44,6 +44,7 @@ export default {
                     "verifyCode": authCode
                 }
             if(setPassword == affirmPassword){
+                var that = this;
                 var UaaApi = require('api-uaa');
                 UaaApi.ApiClient.instance.basePath = '/api/uaa'
                 var apiInstance = new UaaApi.AccountResourceApi();
@@ -58,61 +59,67 @@ export default {
                         alert(error)
                     } else {
                         console.log('API called successfully.');
-                        var data = {'username': iphone,'password': managedUserVM.password}
-                        $.ajax({
-                            url:'http://cloud.eyun.online:9080/auth/login',
-                            method:'post',
-                            data: JSON.stringify(data),
-                            contentType: 'application/json;charset=UTF-8',
-                            dataType: "json",
-                            success:function(res){
-                                var accessToken = res.data.access_token;
-                                console.log(accessToken)
-                                setCookie('access_token',accessToken,1000*60)
-                                var accessToken = getCookie('access_token');
-                                console.log(accessToken)
-                                if(accessToken !== ''){
-                                    this.$router.push({path:'/'})
-                                    var  val={
-                                        "func":"closeCurrent",
-                                        "param":{'finallyIndex':4},
-                                        };
-                                    var u = navigator.userAgent;
-                                    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-                                    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-                                    if(isiOS){
-                                        window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-                                    }else if(isAndroid){  
-                                        window.androidObject.JSCallAndroid(JSON.stringify(val));
-                                    }
-                                }
-                            },  
-                            error(error){
-                                console.log(error)
+                        var credentials = {
+                        client: {
+                            id: "web_app",
+                            secret: "w1eb_app"
+                        },
+                        auth: {
+                            tokenHost: "http://cloud.eyun.online:9080",
+                            tokenPath: "/auth/login"
+                        },
+                        http: {
+                            headers: {
+                                Accept: "application/json"
                             }
-                        })
-                        // $axios.post('http://cloud.eyun.online:9080/auth/login',data)
-                        // .then((res)=>{
-                        //     var accessToken = res.data.access_token;
-                        //     setCookie('access_token',accessToken,1000*60)
-                        //     var accessToken = getCookie('access_token');
-                        //     if(accessToken !== ''){
-                        //         this.$router.push({path:'/'})
-                        //         var  val={
-                        //             "func":"closeCurrent",
-                        //             "param":{'finallyIndex':4},
-                        //             };
-                        //         var u = navigator.userAgent;
-                        //         var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-                        //         var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-                        //         if(isiOS){
-                        //             window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-                        //         }else if(isAndroid){  
-                        //             window.androidObject.JSCallAndroid(JSON.stringify(val));
-                        //         }
-                        //     }
-                        // })
-                    }
+                        },
+                        options: {
+                            bodyFormat: "json"
+                        }
+                    };
+                    const oauth2 = require("simple-oauth2").create(credentials);
+                    const tokenConfig = {
+                        username: iphone,
+                        password: that.setPassword
+                    };
+                    var token;
+                    oauth2.ownerPassword.getToken(tokenConfig).then(result => {
+                    const accessToken = oauth2.accessToken.create(result);
+                    token = accessToken.token.access_token;
+                    var ApiVerify = require("api-uaa");
+                    ApiVerify.ApiClient.instance.basePath = "/api/uaa";
+                    ApiVerify.ApiClient.instance.defaultHeaders = {
+                        Authorization: "Bearer " + token
+                    };
+
+                    var api = new ApiVerify.AccountResourceApi();
+                    var callback = function(error, data, response) {
+                        if (error) {
+                            console.error(error);
+                        } else {
+                            console.log("API called successfully. Returned data: " + data);
+                            console.log('chenggogn')
+                            setCookie("access_token",token); //
+                            // this.$router.push({path:'/'})
+                            var  val={
+                                "func":"closeCurrent",
+                                "param":{'finallyIndex':'4','refreshAll':true},
+                                };
+                            var u = navigator.userAgent;
+                            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+                            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+                            if(isiOS){
+                                window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+                            }else if(isAndroid){  
+                                window.androidObject.JSCallAndroid(JSON.stringify(val));
+                            }
+                        }
+                    };
+                    api.getAccountUsingGET(callback);
+                    return accessToken;
+                });
+
+             }
                 }
                 apiInstance.registerAppAccountUsingPOST(managedUserVM, callback);
             }else{
