@@ -1,7 +1,8 @@
 <template>
 <div class='content'>
   <mt-navbar v-model="selected">
-    <router-link :to="{ path: '/Classify' }" tag='span'  class="spans">〈</router-link>
+    <!--<router-link :to="{ path: '/Classify' }" tag='span'  class="spans">〈</router-link>-->
+    <span class="spans" @click='back'>〈</span>
     <mt-tab-item id="1">商品</mt-tab-item>
     <mt-tab-item id="2">详情</mt-tab-item>
     <mt-tab-item id="3">评论</mt-tab-item>
@@ -179,6 +180,7 @@
 </template>
 
 <script>
+import { setCookie,getCookie } from '../../assets/js/cookie.js';
   export default {  
     name: 'page-navbar',  
     data() {  
@@ -199,6 +201,12 @@
       },
       SelectiveTypeOpen: function() {
          this.flag = true;
+          $('.webCont ul').each(function(){
+              $(this).find('li').eq(0).addClass('active').siblings().removeClass('active')
+            $(this).find('li').on('click',function(){
+                 $(this).addClass('active').siblings().removeClass('active')
+            })
+           })
        },
       SelectiveTypeclose:function(){
          this.flag = false; 
@@ -220,10 +228,31 @@
         this.address = false;
       },
       ConfirmAnOrder(){
-        this.$router.push(
-          {name:"ConfirmAnOrder",
-          params:{'price':this.data.productContent.price,'count':this.val}
-          }) 
+        var accessToken = getCookie('access_token');
+        if(accessToken != ''){
+           this.$router.push({name:"ConfirmAnOrder",}) 
+        }else{
+          alert('请先登陆');
+           var  val={
+              "func":"openURL",
+              "param":{
+                  "URL":'http://cloud.eyun.online:8888/#/Login',
+              },
+          };
+          var u = navigator.userAgent;
+          var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+          var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+          if(isiOS){
+             window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+          }else if(isAndroid){  
+             window.androidObject.JSCallAndroid(JSON.stringify(val));
+          }
+        }
+         sessionStorage.setItem("price",this.data.productContent.price); 
+         sessionStorage.setItem("count",this.val); 
+         sessionStorage.setItem("storeID", this.data.productContent.id);
+         sessionStorage.setItem("shopID", this.data.productContent.shopid); 
+             
       },
       addShopping(){
         var that = this;
@@ -263,11 +292,28 @@
          this.$router.push({name:"PageDetails"}) 
       }
     },
+     back(){   
+    
+         var  val={
+                "func":"closeCurrent",
+                  "param":{
+                    'refreshParent':true
+                  },
+                };
+              var u = navigator.userAgent;
+              var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+              var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+              if(isiOS){
+                window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+              }else if(isAndroid){  
+                window.androidObject.JSCallAndroid(JSON.stringify(val));
+              }
+     },
     created(){
       console.log(this.data.productContent)   
        var that = this; //商品内容
        var Goods=sessionStorage.getItem("GoodsID"); // 商品id 
-        this.$axios.get('http://cloud.eyun.online:9080/product/api/product/content?id='+Goods)
+        this.$axios.get('http://cloud.eyun.online:9080/product/api/product/content?id='+30)
          .then(function(response) {   
             that.data = response.data;
             console.log(response.data)
