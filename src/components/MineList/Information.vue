@@ -111,9 +111,9 @@ export default {
           var deltoken = delCookie("access_token");
           var val = {
             func: "closeCurrent",
-            param: {
-              finallyIndex: "1",
-              refreshAll: true
+            "param": {
+              "finallyIndex": "1",
+              "refreshAll": true
             }
           };
           var u = navigator.userAgent;
