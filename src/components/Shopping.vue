@@ -36,7 +36,7 @@
                   <div class="contents_right_matter">
                     <div class="h5">{{data.skuName}}</div>
                     <div class="contents_right_center">
-                      <div class="cargo">有货（库存{{data.skuCount}}件）</div>
+                      <div class="cargo">有货（库存{{data.count}}件）</div>
                       <div class="contents_right_center_count">
                         <span class="minus" @click="subtract(index,item.id)">-</span>
                         <input type="text" id="inpt_s" readonly v-model="data.count" value="1" class="inpus">
@@ -72,12 +72,7 @@
           </div>
         </div>
       </div>
-    </div>
-   <div class='mark' v-show='flag'>
-      <img src="../assets/HomePage/LOGO.png" alt="">
-      <p>此功能需先登陆</p>
-      <button @click='logins'>登陆</button>
-    </div>
+  </div>
   <Foot></Foot>
  </div>
    
@@ -88,7 +83,6 @@ import { setCookie,getCookie } from '../assets/js/cookie.js'
 export default {
   data() {
     return {
-      flag:false,
       productSkuId: '',
       price: 0,
       shopId:'',
@@ -109,7 +103,6 @@ export default {
               index: 0,
               skuName: "iphone8 白色 128G",
               unitPrice: 9889,
-              skuCount:10,
               count: 10,
               skuid: 1,
               checkboxChild: false,
@@ -119,8 +112,7 @@ export default {
               index: 1,
               skuName: "iphone8 白色 128G",
               unitPrice: 108.0,
-              skuCount:11,
-              count: 3,
+              count: 20,
               skuid: 5,
               checkboxChild: false,
               url: "http://img20.360buyimg.com/focus/jfs/t13759/194/897734755/2493/1305d4c4/5a1692ebN8ae73077.jpg"
@@ -137,8 +129,7 @@ export default {
               index: 0,
               skuName: "iphone8 白色 128G",
               unitPrice: 1,
-              skuCount:5,
-              count: 2, 
+              count: 5, 
               skuid: 3,
               checkboxChild: false,
               url: "http://img20.360buyimg.com/focus/jfs/t13759/194/897734755/2493/1305d4c4/5a1692ebN8ae73077.jpg"
@@ -147,8 +138,7 @@ export default {
               index: 1,
               skuName: "iphone8 白色 128G",
               unitPrice: 108.0,
-              skuCount:5,
-              count: 1,
+              count: 6,
               skuid: 4,
               checkboxChild: false,
               url: "http://img20.360buyimg.com/focus/jfs/t13759/194/897734755/2493/1305d4c4/5a1692ebN8ae73077.jpg"
@@ -157,7 +147,6 @@ export default {
               index: 2,
               skuName: "iphone8 白色 128G",
               unitPrice: 108.0,
-              skuCount:5,
               count: 1,
               skuid: 9,
               checkboxChild: false,
@@ -176,32 +165,40 @@ export default {
   },
  
   created(){
-    var accessToken = getCookie('access_token');
-    if(accessToken == ''){
-      this.flag=true;
-    }
-    else{
-      this.flag=false;
-    }
+      var  sf = null;
+      var accessToken = getCookie('access_token');
+      if(accessToken == ''){
+        var  val={
+            "func":"openURL",
+            "param":{
+                "URL":'http://192.168.1.109:8888/#/login'
+            },
+        };
+        var u = navigator.userAgent;
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+        if(isiOS){
+          this.$router.push('/login');
+          window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+        }else if(isAndroid){  
+          this.$router.push('/login');
+          window.androidObject.JSCallAndroid(val);
+        }
+        // this.$router.push('/Login')
+      }
+      // this.$axios.get('http://192.168.1.105:8095/api/shoppingcar/user/1',{
+      //   header:{
+      //     'Access-Control-Allow-Origin': '*'
+      //   }
+      // })
+      // .then(function(res){
+      //   console.log(res)
+      // })
+      // .catch(function(error){
+      //   console.log(error)
+      // })
   },
   methods: {
-    logins:function(){  
-      var  val={
-        "func":"openURL",
-        "param":{
-            "URL":'http://cloud.eyun.online:8888/#/login'
-              // "URL":'http://192.168.1.109:8888/#/login'
-        },
-      };
-      var u = navigator.userAgent;
-      var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-      if(isiOS){           
-          window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-      }else if(isAndroid){  
-        window.androidObject.JSCallAndroid(JSON.stringify(val));
-      }
-    },
     // 删除操作
     removeAll:function(index,id){
       if(this.serviceList[id].sku[index].checkboxChild == true){
@@ -231,12 +228,7 @@ export default {
         var Money = this.serviceList[id].sku[index].unitPrice;
         this.totalPrice += Money;
       }
-      if(this.serviceList[id].sku[index].count>=this.serviceList[id].sku[index].skuCount){
-        alert('没有库存了哦')
-        this.serviceList[id].sku[index].count=this.serviceList[id].sku[index].skuCount;
-      }else{
-        this.serviceList[id].sku[index].count++;
-      }
+      this.serviceList[id].sku[index].count++;
     },
     // --
     subtract:function(index,id){
@@ -269,13 +261,13 @@ export default {
     // 判断 商品是否全部选中
     pageItem:function(pitchId,index,e){
       this.serviceList[pitchId].sku[index].checkboxChild = !this.serviceList[pitchId].sku[index].checkboxChild;
-      let statusFlag = true;
+      let flag = true;
       this.serviceList[pitchId].sku.forEach((item,index) => {
         if(item.checkboxChild === false) {
-          statusFlag = false;
+          flag = false;
         }
       });
-      this.serviceList[pitchId].checkbox = statusFlag;
+      this.serviceList[pitchId].checkbox = flag;
       // 金额
       if(this.serviceList[pitchId].sku[index].checkboxChild == false){
         var Money = this.serviceList[pitchId].sku[index].unitPrice*this.serviceList[pitchId].sku[index].count;
@@ -353,51 +345,6 @@ export default {
 </script>
 
 <style scoped>
-.mark{
-  position: absolute;
-  top:0;
-  width:100%;
-  height:100%;
-  background:rgba(255, 255, 255,1);
-}
-.mark img{
-  position:fixed;
-  top:-5rem;
-  left:0;
-  right:0;
-  bottom:0;
-  margin:auto;
-}
-.mark p{
-  text-align:center;
-  margin-top:40%;
-  font-size:.32rem;
-   position:fixed;
-  top:40%;
-  left:0;
-  right:0;
-  bottom:0;
-  margin:auto;
-  color:#ccc;
-}
-.mark button{
-  margin-top:.2rem;
-  margin-left:20%;
-  width:60%;
-  height:.6rem;
-  font-size:.32rem;
-  border:0;
-  border-radius:.2rem;
-  background:#fff;
-  border:1px solid red;
-  color:#ff0103;
-  position:fixed;
-  top:0;
-  left:0;
-  right:0;
-  bottom:0;
-  margin:auto;
-}
 .content {
   width: 100%;
   display: flex;
