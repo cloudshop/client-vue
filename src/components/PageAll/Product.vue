@@ -273,6 +273,23 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
                 console.log(error);
             }) 
       },
+      back(){   
+           alert('back test')
+         var  val={
+                "func":"closeCurrent",
+                  "param":{
+                    'refreshParent':true
+                  },
+                };
+              var u = navigator.userAgent;
+              var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+              var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+              if(isiOS){
+                window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+              }else if(isAndroid){  
+                window.androidObject.JSCallAndroid(JSON.stringify(val));
+              }
+     },
       collect(){
         var ProductID=sessionStorage.getItem("ProductID");
         var Goods=sessionStorage.getItem("GoodsID"); // 商品id 
@@ -292,23 +309,7 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
          this.$router.push({name:"PageDetails"}) 
       }
     },
-     back(){   
-           alert('back test')
-         var  val={
-                "func":"closeCurrent",
-                  "param":{
-                    'refreshParent':true
-                  },
-                };
-              var u = navigator.userAgent;
-              var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-              var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-              if(isiOS){
-                window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-              }else if(isAndroid){  
-                window.androidObject.JSCallAndroid(JSON.stringify(val));
-              }
-     },
+     
     created(){
       console.log(this.data.productContent)   
        var that = this; //商品内容
