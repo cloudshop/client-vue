@@ -1,9 +1,9 @@
 <template>
 <div class='content'>
   <mt-navbar v-model="selected">
-  
-    <span class="spans" @click="back">〈</span>
-    <mt-tab-item id="1"><a href="https://www.baidu.com">商品</a></mt-tab-item>
+    <!--<router-link :to="{ path: '/Classify' }" tag='span'  class="spans">〈</router-link>-->
+    <span class="spans" @click='back'>〈</span>
+    <mt-tab-item id="1">商品</mt-tab-item>
     <mt-tab-item id="2">详情</mt-tab-item>
     <mt-tab-item id="3">评论</mt-tab-item>
   </mt-navbar>
@@ -227,7 +227,7 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
       addressClose:function(){
         this.address = false;
       },
-      ConfirmAnOrder(){ 
+      ConfirmAnOrder(){
         var accessToken = getCookie('access_token');
         if(accessToken != ''){
            this.$router.push({name:"ConfirmAnOrder",}) 
@@ -256,25 +256,30 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
       },
       addShopping(){
         var that = this;
-        var params = 
-          {"userId":1,"skuId":1,"shopid":1,"skuName":"Iphone X 白色 128G 4G","unitPrice":9889,"count":10}
-         this.$axios({
+        var shopId = this.data.productContent.shopid;
+        var skuId = this.data.productContent.id;
+        
+        var params = {"skuId":skuId,"shopid":shopId,"count": 1}
+        var accessToken = getCookie('access_token');
+        this.$axios({
                 method:'post',
-                url:'/addShopping/api/shoppingcar/add',
+                url:'http://cloud.eyun.online:9080/shoppingcart/api/shoppingcar/add',
                 data:params,
                 headers:{
-                'Content-Type': 'application/json',
+                  'Content-Type': 'application/json',
+                  Authorization: "Bearer " + accessToken
                 }
             })
             .then(function(response) {
-            console.log(response.data);
+              if(response.data.message == 'success'){
+                alert('加入购物车成功')
+              }
             })
             .catch((error)=>{
                 console.log(error);
             }) 
       },
       back(){   
-           alert('back test')
          var  val={
                 "func":"closeCurrent",
                   "param":{
@@ -309,12 +314,11 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
          this.$router.push({name:"PageDetails"}) 
       }
     },
-     
     created(){
       console.log(this.data.productContent)   
-       var that = this; //商品内容
-       var Goods=sessionStorage.getItem("GoodsID"); // 商品id 
-        this.$axios.get('http://cloud.eyun.online:9080/product/api/product/content?id='+30)
+        var that = this; //商品内容
+        var Goods = sessionStorage.getItem("GoodsID") ? sessionStorage.getItem("GoodsID") : 30; // 商品id 
+        this.$axios.get('http://cloud.eyun.online:9080/product/api/product/content?id=' + Goods)
          .then(function(response) {   
             that.data = response.data;
             console.log(response.data)
