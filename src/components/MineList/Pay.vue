@@ -252,7 +252,7 @@ export default {
           var accessToken = getCookie('access_token');
             axios({
                     method:'post',
-                    url:'http://cloud.eyun.online:9080/order/api/depproorders/1',
+                    url:'http://cloud.eyun.online:9080/order/api/depproorders',
                     data:paramss,
                     headers:{
                     // 'Content-Type': 'application/json',
@@ -293,10 +293,10 @@ export default {
                     "paymentType":2,
                     "buyerMessage": that.buyerMessage,
                     "buyerNick":that.buyerNick,
-                    "shopId":  Number(that.shopId),
+                    // "shopId":  Number(that.shopId),
                     "proOrderItems":[
                     {
-                        "productSkuId":Number(that.productSkuId),
+                        "productSkuId":Number(that.shopId),
                         "count":Number(that.count),
                         "price":Number(that.price) 
                     
