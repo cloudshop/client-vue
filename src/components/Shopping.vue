@@ -179,11 +179,9 @@ export default {
     var accessToken = getCookie('access_token');
     if(accessToken == ''){
       this.flag=true;
-      console.log('shopping   ++++true')
     }
     else{
       this.flag=false;
-      console.log('shopping   ++++false')
     }
   },
   methods: {
@@ -191,8 +189,8 @@ export default {
       var  val={
         "func":"openURL",
         "param":{
-            // "URL":'http://cloud.eyun.online:8888/#/login'
-              "URL":'http://192.168.1.109:8888/#/login'
+            "URL":'http://cloud.eyun.online:8888/#/login'
+              // "URL":'http://192.168.1.109:8888/#/login'
         },
       };
       var u = navigator.userAgent;
