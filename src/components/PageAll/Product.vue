@@ -293,7 +293,7 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
       }
     },
      back(){   
-    
+           alert('back test')
          var  val={
                 "func":"closeCurrent",
                   "param":{
