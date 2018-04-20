@@ -24,7 +24,6 @@
         <div class='footer'>
             <div class='LodingType'>
                 <p></p><h2 class='h2'>其他方式登录</h2><p></p>
-                <p class="aa">token</p>
             </div>
             <ul>
                 <li><img src="../../assets/Login/QQ.png" alt=""></li>
