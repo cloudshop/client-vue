@@ -33,7 +33,7 @@
                     <label for="zhifubao"></label>
                 </span>
             </p>
-            {{took}}
+           
             <!-- <p>
                 <img src="../../assets/top/快捷支付.png" alt=""> -->
                 <!-- <ul>
@@ -56,7 +56,7 @@
             </p> -->
          </div>
              <button class="botton">
-                 确认支付（<span></span>元）
+                 {{productSkuId}}确认支付（<span></span>元）
              </button>
             
     
@@ -88,14 +88,17 @@ export default {
             productSkuId:this.$route.params.productSkuId,
             count:this.$route.params.count,
             price:this.$route.params.price,
+            // storeID:this.$route.params.storeID,
             data:null,
             money:null,
             type:null,  // 类型   
             took:null,
-            web:null        
+            web:null,     
+             
         }
     },
     methods:{
+      
         // display(e) {
        
         // },
@@ -122,66 +125,6 @@ export default {
         $(".del").hide();
         },
         OpenindentAll:function(){
-        //       var  val={
-        //       "func":"openURL",
-        //       "param":{
-        //           "URL":'http://192.168.1.102:8888/#/indentAll',
-        //       },
-        //   };
-        //     var u = navigator.userAgent;
-        //     var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-        //     var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-        //     if(isiOS){
-        //         window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-        //     }else if(isAndroid){  
-        //         window.androidObject.JSCallAndroid(JSON.stringify(val));
-        //     }
-               
-    //              var params =     [{
-    //                 "payment":this.payment,
-    //                 "postFee": this.postFee,
-    //                 "buyerMessage": this.buyerMessage,
-    //                 "buyerNick": this.buyerNick,
-    //                 "shopId": Number(this.shopId),
-    //                 "proOrderItems":[
-    //                 {
-    //                     "productSkuId": Number(this.productSkuId),
-    //                     "count": Number(this.count),
-    //                     "price": Number(this.price)           
-    //                 },
-    //             ]
-    //             }]
-    //       console.log(params)
-    // //         var paramss = [{
-    // //         "payment": 500,
-    // //         "postFee": 0,
-    // //         "buyerMessage": null,
-    // //         "buyerNick": "sjskfs",
-    // //         "shopId": 3,
-    // //         "proOrderItems":[
-    // //         {
-    // //             "productSkuId":2,
-    // //             "count":1,
-    // //             "price":64815
-    // //         }
-    // //         ]
-    // //     }
-    // //     ]
-    // // console.log(paramss)
-    //      this.$axios({
-    //             method:'post',
-    //             url:'http://cloud.eyun.online:9080/order/api/depproorders',
-    //             data:params,
-    //             headers:{
-    //             'Content-Type': 'application/json',
-    //             }
-    //         })
-    //         .then(function(response) {
-    //         console.log(response.data);
-    //         })
-    //         .catch((error)=>{
-    //             console.log(error);
-    //         });
 
             
         },
@@ -207,6 +150,7 @@ export default {
             this.money = sessionStorage.getItem("money");
     },
     mounted:function(){
+        
         var that = this;
         window.payStatus = this.payStatus;
         window.OpenindentAll = this.OpenindentAll;
@@ -219,18 +163,16 @@ export default {
       var  a1 = Number( a );
       var  b1 = Number( b );
         if( a1 > b1){
-            console.log('没钱')
             $(".nomoney").show()
             $('.one').css("color","#c8c8c8")
             $('.one input').attr("disabled","disabled")
              $('.two input').attr('checked','checked');
         }else{
             $(".nomoney").hide()
-           console.log('有钱')
         }
           $(".botton").on('click',function(){    
               var re=$('input:radio[name="sex"]:checked').val();
-              console.log('即将使用'+re+'支付'+a+'元'); 
+ 
 
               if(re == '余额'){
                    var paramss ={
@@ -252,7 +194,7 @@ export default {
           var accessToken = getCookie('access_token');
             axios({
                     method:'post',
-                    url:'http://cloud.eyun.online:9080/order/api/depproorders',
+                    url:'http://cloud.eyun.online:9080/order/api/depproorders/1',
                     data:paramss,
                     headers:{
                     // 'Content-Type': 'application/json',
@@ -293,7 +235,7 @@ export default {
                     "paymentType":2,
                     "buyerMessage": that.buyerMessage,
                     "buyerNick":that.buyerNick,
-                    // "shopId":  Number(that.shopId),
+                    "shopId":  Number(that.productSkuId),
                     "proOrderItems":[
                     {
                         "productSkuId":Number(that.shopId),
@@ -303,11 +245,12 @@ export default {
                     }
                     ]
                 }
+                console.log(paramss);
           var accessToken = getCookie('access_token');
             axios({
                     method:'post',
                     url:'http://cloud.eyun.online:9080/order/api/depproorders/1',
-                    data:paramss,
+                    data:paramss,   
                     headers:{
                     // 'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + accessToken,
@@ -315,6 +258,7 @@ export default {
                 })
                 .then(function(response) {
                     that.took = response.data;
+         
                  var  val={
                         "func":'pay',
                         "param":{
@@ -322,14 +266,28 @@ export default {
                         "orderStr": that.took
                         }
                     }
-                var u = navigator.userAgent;
-                    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-                    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-                    if(isiOS){
-                        window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-                    }else if(isAndroid){  
-                        window.androidObject.JSCallAndroid(JSON.stringify(val));
-                    }
+                    //console.log(val)
+                  var u = navigator.userAgent;
+                  var isAndroid =
+                    u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+                  var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+                  if (isiOS) {
+                    window.webkit.messageHandlers.GongrongAppModel.postMessage(
+                      val
+                    );
+                  } else if (isAndroid) {
+                    window.androidObject.JSCallAndroid(JSON.stringify(val));
+                  }
+
+
+                // var u = navigator.userAgent;
+                //     var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+                //     var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+                //     if(isiOS){
+                //         window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+                //     }else if(isAndroid){  
+                //         window.androidObject.JSCallAndroid(JSON.stringify(val));
+                //     }
                     })
                     .catch((error)=>{
                         console.log(error);
