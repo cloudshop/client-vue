@@ -116,7 +116,6 @@ export default {
       
       methods:{
       logins:function(){ 
-            this.flag=false;
             var  val={
                   "func":"openURL",
                   "param":{

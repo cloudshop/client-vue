@@ -29,45 +29,6 @@
                         <p class='aside'><b>{{item.city}}</b><em>55km</em></p>
                     </dd>
                   </dl>
-                    <!-- <dl>
-                    <b class='fixed'><i>让利</i><em>111</em></b>
-                    <dt><img src='../assets/Classify/bg.gif'></dt>
-                    <dd>
-                        <h3><span>11</span></h3>
-                        <p class='star'>
-                          <span>11</span>
-                          <b>|</b>
-                          <em><i>11</i>人光临</em>
-                        </p>
-                        <p class='aside'><b>111</b><em>111</em></p>
-                    </dd>
-                  </dl>
-                    <dl>
-                    <b class='fixed'><i>让利</i><em>111</em></b>
-                    <dt><img src='../assets/Classify/bg.gif'></dt>
-                    <dd>
-                        <h3><span>11</span></h3>
-                        <p class='star'>
-                          <span>11</span>
-                          <b>|</b>
-                          <em><i>11</i>人光临</em>
-                        </p>
-                        <p class='aside'><b>111</b><em>111</em></p>
-                    </dd>
-                  </dl>
-                    <dl>
-                    <b class='fixed'><i>让利</i><em>111</em></b>
-                    <dt><img src='../assets/Classify/bg.gif'></dt>
-                    <dd>
-                        <h3><span>11</span></h3>
-                        <p class='star'>
-                          <span>11</span>
-                          <b>|</b>
-                          <em><i>11</i>人光临</em>
-                        </p>
-                        <p class='aside'><b>111</b><em>111</em></p>
-                    </dd>
-                  </dl> -->
               </div>                 
        </div>  
      </div>
