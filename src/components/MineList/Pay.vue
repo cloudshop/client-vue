@@ -56,7 +56,7 @@
             </p> -->
          </div>
              <button class="botton">
-                 {{productSkuId}}确认支付（<span></span>元）
+                 {{shopId}}确认支付（<span></span>元）
              </button>
             
     
@@ -258,7 +258,7 @@ export default {
                 })
                 .then(function(response) {
                     that.took = response.data;
-         
+                    console.log(response)
                  var  val={
                         "func":'pay',
                         "param":{
