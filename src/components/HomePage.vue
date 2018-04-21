@@ -1,7 +1,7 @@
 <template>
   <div>
      <header>
-          <p class="top_left"><router-link to="/city" style="color:#2f2f2f">&nbsp;{{this.$route.params.city3}}</router-link></p>
+          <p class="top_left"><router-link to="/city" style="color:#2f2f2f">&nbsp;{{city5}}</router-link></p>
           <input type="text" placeholder="内容推荐" @click='GoogleSearch'>
           <ul>
             <li><img src="../assets/HomePage/消息黑色.png" alt="" @click='news' class="news"></li>
@@ -14,6 +14,8 @@
        <HomePageNav></HomePageNav>
        <!-- <h2>{{XX}}{{YY}}</h2> -->
        <div class='Nearbyshops'>
+         <!-- {{this.$route.params.city3}} -->
+         <p class="cccty" style="display:none">{{this.$route.params.city3}}</p>
               <h1>附近商家</h1>
               <div class='list'>
                   <dl v-for='(item,index) in Locations' :key='index' @click='Nearbyshops'>
@@ -55,7 +57,8 @@ export default {
       YY: "", //纬度
       Locations: "",
       msg: "",
-      citt: this.$route.params.city3
+      city5:'',
+   //   citt: this.$route.params.city3
     };
   },
 
@@ -187,8 +190,14 @@ export default {
       });
 
 
-      
-    var citt = $('.top_left').text()
+
+     var city4 = $('.cccty').text()
+
+      var index = city4 .lastIndexOf("\-");  
+       city4 = city4 .substring(index + 1, city4 .length);
+      console.log(city4)
+      this.city5 = city4
+    var citt = $('.cccty').text()
     var val = {
       func: "setNewCity",
       param: {
