@@ -16,7 +16,7 @@
                 <dl @click='HarvestAddress'>
                     <dt> <b id='nick'>皮皮虾啊</b>&nbsp;<b>138****438</b></dt>
                     <dd>
-                        <img src="../../assets/Mine/定位.png" alt="">
+                        <img :src = productUrl alt="">
                         <p>湖北武汉市洪山区城区群光广场1707</p>
                     </dd>
                 </dl>
@@ -28,14 +28,14 @@
                 <dl>
                     <dt><img src="../../assets/Mine/headportrait.jpg" alt=""></dt>
                     <dd>
-                        <h2>双肩包双肩包双肩包双肩包双肩包双肩包双肩包双肩包</h2>
-                        <p>商品属性商品属性商品属性商品属性商品属性商品属性</p>
-                        <div class='price'><b>￥{{price}}</b><em>X{{text}}</em></div>
+                        <!-- <h2>{{productName}}</h2> -->
+                        <p>{{productName}}</p>
+                        <div class='price'><b>￥{{price}}</b><em>X{{count}}</em></div>
                     </dd>
                 </dl>
             </div>
-            <ul>
-                <li><p>购买数量</p> <h2><span @click='Reduce'>-</span><input type="text" v-model="text"><span @click='CountAdd'>+</span></h2></li>
+            <ul v-show="flag">
+                <li><p>购买数量</p> <h2><span @click='Reduce'>-</span><input type="count" v-model="count"><span @click='CountAdd'>+</span></h2></li>
             </ul>
          </div>
          <ul class='Manner'>
@@ -45,7 +45,7 @@
              </li>
              <li>
                  <p>卖家留言:</p>
-                 <input type="text" v-model="LeaveWord" placeholder="选填:填写内容已和商家协商确认">
+                 <input type="count" v-model="LeaveWord" placeholder="选填:填写内容已和商家协商确认">
              </li>
          </ul>
         <!-- <div class='MoreTwo'>
@@ -86,10 +86,10 @@
         </div>
         
         <div class='Compute'>
-            <p><span>共{{text}}件商品</span><b>小计:<em>￥{{price*text}}</em></b></p>
+            <p><span>共{{count}}件商品</span><b>小计:<em>￥{{price*count}}</em></b></p>
         </div>
         <div class='footer'>
-            <p><span></span><b>合计:￥{{price*text}}</b></p>
+            <p><span></span><b>合计:￥{{price*count}}</b></p>
             <button @click='Pay'>去结算</button>
         </div>
   </div>
@@ -101,25 +101,27 @@ export default {
     
     data(){
         return{
-            text:'',  // 购买数量
+            count:'',  // 购买数量
             price:'', //单价
             LeaveWord:'',//卖家留言
             nick:'',  //卖家昵称
-            storeID:'',//店铺ID
-            shopID:'',// 商品ID
-            money:'' // money
-            
+            productSkuId:'',//商品ID
+            shopID:'',//店铺ID
+            money:'', // money
+            productName: '',
+            productUrl: '',
+            flag:''
         }
     },
     methods:{
         CountAdd(){
-            if(this.text<10){
-                 this.text++;
+            if(this.count<10){
+                 this.count++;
             }     
         },
         Reduce(){
-            if(this.text>1){
-                this.text--;
+            if(this.count>1){
+                this.count--;
             }           
         },
         PreviousMenu(){
@@ -132,23 +134,25 @@ export default {
              this.$router.push(
                  {name:"Pay",
                     params:
-                   {'payment':this.price*this.text,
+                   {'payment':this.price*this.count,
                    'postFee':0,
                    'buyerMessage':this.LeaveWord,
                    'buyerNick':this.nick,
-                   'shopId':this.storeID,
-                   'productSkuId':this.shopID,
-                   "count":this.text,
-                   'price':this.price
+                   'productSkuId':this.productSkuId,
+                   "count":this.count,
+                   'price':this.price,
+                   'shopId':this.shopID
                    }
                  }) 
         }
     },
     created(){
-        this.price = sessionStorage.getItem("price"); 
-        this.text = sessionStorage.getItem("count");
-
-        
+        this.productName = sessionStorage.getItem("productName");  // 姓名
+        this.productUrl = sessionStorage.getItem("productUrl"); // 图片路径
+        this.price = sessionStorage.getItem("price"); // 价钱
+        this.count = sessionStorage.getItem("count");// 几个
+        this.productSkuId = sessionStorage.getItem("Productskuid"); // 
+        // console.log(this.productSkuId)
         var accessToken = getCookie('access_token')
         var that = this;
         this.$axios.get('http://cloud.eyun.online:9080/wallet/api/wallets/user',{
@@ -163,7 +167,12 @@ export default {
         .catch(function(error){
           console.log(error)
         })
-        
+        // if(){
+        //     this.flag=true;
+        // }
+        // else{
+        //     this.flag=false;
+        // }
     },
     mounted(){
         this.nick = $('#nick').text();
