@@ -33,7 +33,6 @@
                     <label for="zhifubao"></label>
                 </span>
             </p>
-           
             <!-- <p>
                 <img src="../../assets/top/快捷支付.png" alt=""> -->
                 <!-- <ul>
@@ -56,7 +55,7 @@
             </p> -->
          </div>
              <button class="botton">
-                 {{shopId}}确认支付（<span></span>元）
+                 确认支付（<span></span>元）
              </button>
             
     
@@ -88,17 +87,14 @@ export default {
             productSkuId:this.$route.params.productSkuId,
             count:this.$route.params.count,
             price:this.$route.params.price,
-            // storeID:this.$route.params.storeID,
             data:null,
             money:null,
             type:null,  // 类型   
             took:null,
-            web:null,     
-             
+            web:null        
         }
     },
     methods:{
-      
         // display(e) {
        
         // },
@@ -125,8 +121,7 @@ export default {
         $(".del").hide();
         },
         OpenindentAll:function(){
-
-            
+    
         },
         back(){
              this.$router.push({name:"ConfirmAnOrder"})
@@ -150,7 +145,6 @@ export default {
             this.money = sessionStorage.getItem("money");
     },
     mounted:function(){
-        
         var that = this;
         window.payStatus = this.payStatus;
         window.OpenindentAll = this.OpenindentAll;
@@ -172,8 +166,6 @@ export default {
         }
           $(".botton").on('click',function(){    
               var re=$('input:radio[name="sex"]:checked').val();
- 
-
               if(re == '余额'){
                    var paramss ={
                     "payment": that.payment,
@@ -187,14 +179,13 @@ export default {
                         "productSkuId":Number(that.productSkuId),
                         "count":Number(that.count),
                         "price":Number(that.price) 
-                    
                     }
                     ]
                 }
           var accessToken = getCookie('access_token');
             axios({
                     method:'post',
-                    url:'http://cloud.eyun.online:9080/order/api/depproorders/1',
+                    url:'http://cloud.eyun.online:9080/order/api/depproorders',
                     data:paramss,
                     headers:{
                     // 'Content-Type': 'application/json',
@@ -203,7 +194,6 @@ export default {
                 })
                 .then(function(response) {
                     that.web = response.data;
-                    console.log(that.web)
                         axios({
                             method:'post',
                             url:'http://cloud.eyun.online:9080/wallet/api/wallets/balance/pay',
@@ -235,22 +225,21 @@ export default {
                     "paymentType":2,
                     "buyerMessage": that.buyerMessage,
                     "buyerNick":that.buyerNick,
-                    "shopId":  Number(that.productSkuId),
+                    "shopId":  Number(that.shopId),
                     "proOrderItems":[
                     {
-                        "productSkuId":Number(that.shopId),
+                        "productSkuId":Number(that.productSkuId),
                         "count":Number(that.count),
                         "price":Number(that.price) 
                     
                     }
                     ]
                 }
-                console.log(paramss);
           var accessToken = getCookie('access_token');
             axios({
                     method:'post',
                     url:'http://cloud.eyun.online:9080/order/api/depproorders/1',
-                    data:paramss,   
+                    data:paramss,
                     headers:{
                     // 'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + accessToken,
@@ -258,7 +247,6 @@ export default {
                 })
                 .then(function(response) {
                     that.took = response.data;
-                    console.log(response)
                  var  val={
                         "func":'pay',
                         "param":{
@@ -266,49 +254,20 @@ export default {
                         "orderStr": that.took
                         }
                     }
-                    //console.log(val)
-                  var u = navigator.userAgent;
-                  var isAndroid =
-                    u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
-                  var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-                  if (isiOS) {
-                    window.webkit.messageHandlers.GongrongAppModel.postMessage(
-                      val
-                    );
-                  } else if (isAndroid) {
-                    window.androidObject.JSCallAndroid(JSON.stringify(val));
-                  }
-
-
-                // var u = navigator.userAgent;
-                //     var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-                //     var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-                //     if(isiOS){
-                //         window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-                //     }else if(isAndroid){  
-                //         window.androidObject.JSCallAndroid(JSON.stringify(val));
-                //     }
+                var u = navigator.userAgent;
+                    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+                    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+                    if(isiOS){
+                        window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+                    }else if(isAndroid){  
+                        window.androidObject.JSCallAndroid(JSON.stringify(val));
+                    }
                     })
                     .catch((error)=>{
                         console.log(error);
                     }); 
             }
-                //  var params =     [{
-                //     "payment":that.payment,
-                //     "postFee": that.postFee,
-                //     "buyerMessage": that.buyerMessage,
-                //     "buyerNick": that.buyerNick,
-                //     "paymentType":2,
-                //     "shopId": Number(that.shopId),
-                //     "proOrderItems":[
-                //     {
-                //         "productSkuId": Number(that.productSkuId),
-                //         "count": Number(that.count),
-                //         "price": Number(that.price)           
-                //     },
-                // ]
-                // }]
-            // console.log(params)
+           
        });
     }
 }
