@@ -9,14 +9,14 @@
      </header>
      <div class='main content'>
           <mt-swipe :auto="4000" class='banner'>
-           <mt-swipe-item v-for='(item,index) in data' :key='index'><img :src=item.image alt="" @click='banner(item.link)'></mt-swipe-item> 
+           <mt-swipe-item v-for='(item,index) in data' :key='index'><img :src=item.image alt="" @click='banner(item.link)'></mt-swipe-item>
       </mt-swipe>
        <HomePageNav></HomePageNav>
        <!-- <h2>{{XX}}{{YY}}</h2> -->
        <div class='Nearbyshops'>
               <h1>附近商家</h1>
               <div class='list'>
-                  <dl v-for='(item,index) in Locations' :key='index' @click='Nearbyshops'>
+                  <dl v-for='(item,index) in Locations'  :key='index' @click='Nearbyshops(item.id)'>
                     <!-- <b class='fixed'><i>让利</i><em>111</em></b> -->
                     <dt><img :src='item.img_license'></dt>
                     <dd>
@@ -29,12 +29,12 @@
                         <p class='aside'><b>{{item.city}}</b><em>55km</em></p>
                     </dd>
                   </dl>
-              </div>                 
-       </div>  
+              </div>
+       </div>
      </div>
-    <Foot></Foot> 
+    <Foot></Foot>
   </div>
-  
+
 </template>
 
 <script>
@@ -52,7 +52,7 @@ export default {
         XX:'',  //经度
         YY:'',   //纬度
         Locations:'',
-        msg:''
+        msg:'',
       }
     },
     methods:{
@@ -76,7 +76,7 @@ export default {
                 headers:{
                 'Content-Type': 'application/json',
                 }
-                
+
             })
             .then(function(response) {
               console.log(response.data)
@@ -84,7 +84,7 @@ export default {
             })
             .catch((error)=>{
                 console.log(error);
-            }) 
+            })
       },
       news(){
           var  val={
@@ -98,7 +98,7 @@ export default {
           var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
           if(isiOS){
              window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-          }else if(isAndroid){  
+          }else if(isAndroid){
              window.androidObject.JSCallAndroid(JSON.stringify(val));
           }
       },
@@ -118,16 +118,16 @@ export default {
          IOSAndroid(linkval)
        }else if(product.test(link) == true){
         //  this.$router.push({name:"Product",params:{name:'/HomePage'}})
-          var Goods=sessionStorage.setItem("GoodsID",link.split('/')[2]); // 商品id 
+          var Goods=sessionStorage.setItem("GoodsID",link.split('/')[2]); // 商品id
           var Goods=sessionStorage.getItem("GoodsID");
           this.$axios.get('http://cloud.eyun.online:9080/product/api/product/content?id='+Goods)
-              .then(function(response) {   
+              .then(function(response) {
                   that.data = response.data;
                   console.log(response.data)
               })
               .catch(function(error) {
                   console.log(error);
-            }); 
+            });
            var  val={
               "func":"openURL",
               "param":{
@@ -139,29 +139,30 @@ export default {
           var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
           if(isiOS){
              window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-          }else if(isAndroid){  
+          }else if(isAndroid){
              window.androidObject.JSCallAndroid(JSON.stringify(val));
           }
        }
       },
-      GoogleSearch(){ 
-        this.$router.push({name:"DetailsTwo",params:{name:'/FromPage'}})    
+      GoogleSearch(){
+        this.$router.push({name:"DetailsTwo",params:{name:'/FromPage'}})
       },
-      Nearbyshops(){
-           var  val={
-              "func":"openURL",
-              "param":{
-                  "URL":'http://cloud.eyun.online:8888/#/PageDetails',
-              },
-          };
-          var u = navigator.userAgent;
-          var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-          var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-          if(isiOS){
-             window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-          }else if(isAndroid){  
-             window.androidObject.JSCallAndroid(JSON.stringify(val));
-          }
+      Nearbyshops(id){
+          this.$router.push({name:'PageDetails',params:{id:id}});
+          // var  val={
+          //     "func":"openURL",
+          //     "param":{
+          //         "URL":'http://cloud.eyun.online:8888/#/PageDetails',
+          //     },
+          // };
+          // var u = navigator.userAgent;
+          // var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+          // var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+          // if(isiOS){
+          //    window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+          // }else if(isAndroid){
+          //    window.androidObject.JSCallAndroid(JSON.stringify(val));
+          // }
       }
     },
     mounted:function () {
@@ -169,19 +170,19 @@ export default {
        window.Camera = this.Camera;
 
        // 轮播图
-       var that = this; 
+       var that = this;
        this.$axios.get('http://cloud.eyun.online:9080/advertising/api/findNotDelByLoc')
-         .then(function(response) {   
+         .then(function(response) {
             that.data = response.data;
         })
         .catch(function(error) {
             console.log(error);
-       }); 
+       });
     },
     created(){
-    
-    }, 
-    components:{          
+
+    },
+    components:{
       HomePageNav,
       Foot
     }
@@ -242,7 +243,7 @@ header ul li img{
     height:.4rem;
     margin-top:.1rem;
     margin-left:.05rem;
-   
+
 }
 .main h2 .newest{
   margin:0 .22rem;

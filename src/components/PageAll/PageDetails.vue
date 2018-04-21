@@ -99,7 +99,11 @@ export default {
       sessionStorage.setItem("GoodsID",30) 
       this.$router.push({name:"Product",params:{name:'/Product'}})
     }
-  }
+  },
+    created(){
+      //路由传值接收
+      console.log(this.$route.params.id)
+    }
 }
 </script>
 
