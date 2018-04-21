@@ -3,7 +3,7 @@
   <mt-navbar v-model="selected">
     <!--<router-link :to="{ path: '/Classify' }" tag='span'  class="spans">〈</router-link>-->
     <span class="spans" @click='back'>〈</span>
-    <mt-tab-item id="1">2121商品</mt-tab-item>
+    <mt-tab-item id="1">商品</mt-tab-item>
     <mt-tab-item id="2">详情</mt-tab-item>
     <mt-tab-item id="3">评论</mt-tab-item>
   </mt-navbar>
@@ -192,7 +192,8 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
         flag:false,
         address:false,
         val:1,
-        data:"", //数据
+        data:"", //数据,
+        productname: ''
       } 
     }, 
      methods: {
@@ -249,16 +250,15 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
           }
         }
          sessionStorage.setItem("price",this.data.productContent.price); 
-         sessionStorage.setItem("count",this.val); 
-         sessionStorage.setItem("storeID", this.data.productContent.id);
+         sessionStorage.setItem("count",this.val);
+         sessionStorage.setItem("productName",this.data.productContent.productname);
+         sessionStorage.setItem("Productskuid", this.data.productContent.id); // 新改的
          sessionStorage.setItem("shopID", this.data.productContent.shopid); 
-             
       },
       addShopping(){
         var that = this;
         var shopId = this.data.productContent.shopid;
         var skuId = this.data.productContent.id;
-        
         var params = {"skuId":skuId,"shopid":shopId,"count": 1}
         var accessToken = getCookie('access_token');
         this.$axios({
