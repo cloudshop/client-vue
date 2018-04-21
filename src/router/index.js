@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Index from '@/components/index'
 import HomePage from '@/components/HomePage' //首页
+import city from '@/components/main/city' //城市筛选
 import Classify from '@/components/Classify' //分类
 import Shopping from '@/components/Shopping' // 购物车
 import Mine from '@/components/Mine' // 我的
@@ -32,7 +33,7 @@ import Redemption from '../components/redemption/Redemption.vue' //积分换购
 
 // import Change from '../components/MineList/Change.vue'
 import ShareResults from '../components/MineList/ShareResults.vue'
-import Pay from '../components/MineList/Pay.vue'  //选择支付方式
+import Pay from '../components/MineList/Pay.vue' //选择支付方式
 import News from '../components/main/News.vue'
 // import Location from "@/components/main/location.vue"
 // import Talk from '../components/main/talk'
@@ -77,6 +78,11 @@ const routes = [{
                 path: '/Classify',
                 name: 'Classify',
                 component: Classify
+            },
+            { //city
+                path: '/city',
+                name: 'city',
+                component: city
             },
             { //购物车页面
                 path: '/Shopping',
