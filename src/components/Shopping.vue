@@ -36,7 +36,7 @@
                   <div class="contents_right_matter">
                     <div class="h5">{{data.skuName}}</div>
                     <div class="contents_right_center">
-                      <div class="cargo">有货（库存{{data.count}}件）</div>
+                      <div class="cargo">有货（库存{{data.skuCount}}件）</div>
                       <div class="contents_right_center_count">
                         <span class="minus" @click="subtract(index,item.id)">-</span>
                         <input type="text" id="inpt_s" readonly v-model="data.count" value="1" class="inpus">
@@ -44,11 +44,11 @@
                       </div>
                     </div>
                     <div class="contents_right_moneyAll">
-                      <div class="contents_right_money">￥ {{(data.unitPrice).toFixed(2)}}</div>
+                      <div class="contents_right_money">￥ {{data.unitPrice}}</div>
                       <div class="contents_right_delete"> 
                         <a href="javascript:;" @click="removeAll(index,item.id)">删除</a>
                         <span class="contents_right_shu">|</span>
-                        <a href="javascript:;">加入收藏</a>
+                        <a href="javascript:;" @click="collect(item.id,index)">加入收藏</a>
                       </div>
                     </div>
                   </div>
@@ -72,7 +72,12 @@
           </div>
         </div>
       </div>
-  </div>
+    </div>
+   <div class='mark' v-show='flag'>
+      <img src="../assets/HomePage/LOGO.png" alt="">
+      <p>此功能需先登陆</p>
+      <button @click='logins'>登陆</button>
+    </div>
   <Foot></Foot>
  </div>
    
@@ -83,78 +88,17 @@ import { setCookie,getCookie } from '../assets/js/cookie.js'
 export default {
   data() {
     return {
+      flag:false,
       productSkuId: '',
       price: 0,
       shopId:'',
       count:0,
-      postFee:0,
+      payment:0,
       totalPrice: 0,
       animatenum: 0,
       totalAllPrice: 0,
       checkboxBig: false,
-      serviceList: [
-        {
-          id: 0,
-          shopId: 1,
-          shopName: "大胖的店",
-          checkbox: false,
-          sku: [
-            {
-              index: 0,
-              skuName: "iphone8 白色 128G",
-              unitPrice: 9889,
-              count: 10,
-              skuid: 1,
-              checkboxChild: false,
-              url: "http://img20.360buyimg.com/focus/jfs/t13759/194/897734755/2493/1305d4c4/5a1692ebN8ae73077.jpg"
-            },
-            {
-              index: 1,
-              skuName: "iphone8 白色 128G",
-              unitPrice: 108.0,
-              count: 20,
-              skuid: 5,
-              checkboxChild: false,
-              url: "http://img20.360buyimg.com/focus/jfs/t13759/194/897734755/2493/1305d4c4/5a1692ebN8ae73077.jpg"
-            }
-          ]
-        },
-        {
-          id: 1,
-          shopId: 3,
-          shopName: "大胖二店",
-          checkbox: false,
-          sku: [
-            {
-              index: 0,
-              skuName: "iphone8 白色 128G",
-              unitPrice: 1,
-              count: 5, 
-              skuid: 3,
-              checkboxChild: false,
-              url: "http://img20.360buyimg.com/focus/jfs/t13759/194/897734755/2493/1305d4c4/5a1692ebN8ae73077.jpg"
-            },
-            {
-              index: 1,
-              skuName: "iphone8 白色 128G",
-              unitPrice: 108.0,
-              count: 6,
-              skuid: 4,
-              checkboxChild: false,
-              url: "http://img20.360buyimg.com/focus/jfs/t13759/194/897734755/2493/1305d4c4/5a1692ebN8ae73077.jpg"
-            },
-            {
-              index: 2,
-              skuName: "iphone8 白色 128G",
-              unitPrice: 108.0,
-              count: 1,
-              skuid: 9,
-              checkboxChild: false,
-              url: "http://img20.360buyimg.com/focus/jfs/t13759/194/897734755/2493/1305d4c4/5a1692ebN8ae73077.jpg"
-            }
-          ]
-        }
-      ]
+      serviceList: '',
     };
   },
   watch:{
@@ -163,44 +107,66 @@ export default {
   computed:{
    
   },
- 
   created(){
-      var  sf = null;
-      var accessToken = getCookie('access_token');
-      if(accessToken == ''){
-        var  val={
-            "func":"openURL",
-            "param":{
-                "URL":'http://192.168.1.109:8888/#/login'
-            },
-        };
-        var u = navigator.userAgent;
-        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-        if(isiOS){
-          this.$router.push('/login');
-          window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-        }else if(isAndroid){  
-          this.$router.push('/login');
-          window.androidObject.JSCallAndroid(val);
-        }
-        // this.$router.push('/Login')
+    var accessToken = getCookie('access_token');
+    if(accessToken == ''){
+      this.flag=true;
+    }
+    else{
+      this.flag=false;
+    }
+    var that = this;
+    this.$axios.get('http://cloud.eyun.online:9080/shoppingcart/api/shoppingcar/user',{
+      headers:{
+        Authorization: "Bearer " + accessToken
       }
-      // this.$axios.get('http://192.168.1.105:8095/api/shoppingcar/user/1',{
-      //   header:{
-      //     'Access-Control-Allow-Origin': '*'
-      //   }
-      // })
-      // .then(function(res){
-      //   console.log(res)
-      // })
-      // .catch(function(error){
-      //   console.log(error)
-      // })
+    })
+    .then(function(response) {
+        that.serviceList = response.data.result;
+        console.log(response.data.result)
+    })
+    .catch(function(error) {
+        console.log(error);
+    });    
   },
   methods: {
+    logins:function(){  
+      var  val={
+        "func":"openURL",
+        "param":{
+            "URL":'http://cloud.eyun.online:8888/#/login'
+        },
+      };
+      var u = navigator.userAgent;
+      var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+      if(isiOS){           
+          window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+      }else if(isAndroid){  
+        window.androidObject.JSCallAndroid(JSON.stringify(val));
+      }
+    },
+    // 加入收藏
+    collect:function(shopId,index){
+      var accessToken = getCookie('access_token');
+      // var skuid = this.serviceList[shopId].sku[index].skuid;
+      var skuid = 28;  //
+      var type = 1;
+      this.$axios.get('http://cloud.eyun.online:9080/favorite/api/favProduct/'+skuid+'/'+type,{
+        headers:{
+          Authorization: "Bearer " + accessToken
+        }
+      })
+      .then(function(response) {
+          console.log(response)
+      })
+      .catch(function(error) {
+          console.log(error);
+      });  
+    },
     // 删除操作
     removeAll:function(index,id){
+      var accessToken = getCookie('access_token');
       if(this.serviceList[id].sku[index].checkboxChild == true){
         var Money = this.serviceList[id].sku[index].unitPrice*this.serviceList[id].sku[index].count;
         this.totalPrice = this.totalPrice - Money;
@@ -208,15 +174,20 @@ export default {
           this.serviceList[id].sku.splice(index,1);
         }, 0); 
       }
-      this.serviceList[id].sku.splice(index,1);
-      // this.$axios.get('http://localhost:8095/api/shoppingcar/del/1')
-      // .then(function(res){
-      //   that.arr = res.data;
-      //   console.log(res.data)
-      // })
-      // .catch(function(error){
-      //   console.log(error)
-      // })
+      var delSkuid = this.serviceList[shopId].sku[index].skuid;
+      this.$axios.post('http://cloud.eyun.online:9080/shoppingcart/api/shoppingcar/del',delSkuid,{
+        headers:{
+          Authorization: "Bearer " + accessToken
+        }
+      })
+      .then(function(res){
+        if(res.data == 'success'){
+          this.serviceList[id].sku.splice(index,1);
+        }
+      })
+      .catch(function(error){
+        console.log(error)
+      })
       if(this.serviceList[id].sku.length == 0){
         var str = this.serviceList.length-1;
         $('.shopping_main')[id].remove()
@@ -228,7 +199,12 @@ export default {
         var Money = this.serviceList[id].sku[index].unitPrice;
         this.totalPrice += Money;
       }
-      this.serviceList[id].sku[index].count++;
+      if(this.serviceList[id].sku[index].count>=this.serviceList[id].sku[index].skuCount){
+        alert('没有库存了哦')
+        this.serviceList[id].sku[index].count=this.serviceList[id].sku[index].skuCount;
+      }else{
+        this.serviceList[id].sku[index].count++;
+      }
     },
     // --
     subtract:function(index,id){
@@ -245,6 +221,7 @@ export default {
       if(this.serviceList[pageId].checkbox !== true){
         this.serviceList[pageId].sku.map((v,i)=>{
           if(v.checkboxChild==false){
+            this.checkboxBig = true;
             var Money = v.unitPrice;
             this.totalPrice += Money;
             v.checkboxChild = true;
@@ -254,20 +231,30 @@ export default {
         this.serviceList[pageId].sku.map((v,i)=>{
           var Money = v.unitPrice;
           this.totalPrice -= Money;
-          v.checkboxChild = false
+          v.checkboxChild = false;
+          this.checkboxBig = false;
         })
       }
     },
     // 判断 商品是否全部选中
     pageItem:function(pitchId,index,e){
       this.serviceList[pitchId].sku[index].checkboxChild = !this.serviceList[pitchId].sku[index].checkboxChild;
-      let flag = true;
+      let statusFlag = true;
       this.serviceList[pitchId].sku.forEach((item,index) => {
         if(item.checkboxChild === false) {
-          flag = false;
+          statusFlag = false;
+          this.checkboxBig = false;
         }
       });
-      this.serviceList[pitchId].checkbox = flag;
+      if(this.serviceList[pitchId].checkbox == true){
+        this.serviceList[pitchId].sku.forEach((item,index) => {
+        if(item.checkboxChild !== true) {
+          console.log('ok')
+          this.checkboxBig = true;
+        }
+      });
+      }
+      this.serviceList[pitchId].checkbox = statusFlag;
       // 金额
       if(this.serviceList[pitchId].sku[index].checkboxChild == false){
         var Money = this.serviceList[pitchId].sku[index].unitPrice*this.serviceList[pitchId].sku[index].count;
@@ -276,43 +263,63 @@ export default {
         var Money = this.serviceList[pitchId].sku[index].unitPrice*this.serviceList[pitchId].sku[index].count;
         this.totalPrice += Money;
       }
-
+      // 传参
       if(this.serviceList[pitchId].sku[index].checkboxChild == true){
-        this.price = this.serviceList[pitchId].sku[index].unitPrice;
+        this.price = this.serviceList[pitchId].sku[index].unitPrice; // 价钱
         this.shopId = this.serviceList[pitchId].shopId;
-        this.count = this.serviceList[pitchId].sku[index].count;
+        this.count = this.serviceList[pitchId].sku[index].count; // 几个
         this.productSkuId = this.serviceList[pitchId].sku[index].skuid;
-        this.postFee = this.price*this.count;
+        this.payment = this.price*this.count;
+        this.productName = this.serviceList[pitchId].sku[index].skuName; // 商品名称
+        this.productUrl = this.serviceList[pitchId].sku[index].url; // 图片
       }
     },
-    // 全选 选中计算   
-    checkboxAll:function(pageId,index){
+    // 全选 选中计算
+    checkboxAll:function(){
       for(var pageId = 0; pageId < this.serviceList.length; pageId++){
         if(this.checkboxBig !== true){
           this.serviceList[pageId].checkbox = true;
-          this.serviceList[pageId].sku.map((v,i)=>{
+          this.serviceList[pageId].sku.map((v,i)=>{ 
             v.checkboxChild = true;
-            if(v.checkboxChild == false){
-              this.serviceList[pageId].checkbox = false;
-            }
+            // if(v.checkboxChild == false){
+            //   this.checkboxBig = false;
+            // }
           })
         }else{
           this.serviceList[pageId].checkbox = false;
           this.serviceList[pageId].sku.map((v,i)=>{
-            v.checkboxChild = false
+            v.checkboxChild = false;
           })
         }
       }
+      var priceCount=0;
+      for(var pageId=0;pageId<this.serviceList.length;pageId++){
+        this.serviceList[pageId].sku.map((v,i)=>{
+          var sigal = v.unitPrice*v.count;
+          priceCount += sigal;
+        })
+       }
+        if(this.checkboxBig !== true){
+          this.totalPrice = priceCount;
+        }else{
+          this.totalPrice = 0; 
+        }
     },
     // 点击结算
     toTal:function(){
+      sessionStorage.setItem("price",this.price); // 价钱
+      sessionStorage.setItem("productName",this.productName);  // 姓名
+      sessionStorage.setItem("count",this.count); // 几个
+      sessionStorage.setItem("productUrl",this.productUrl); // 图片路径
       var accessToken = getCookie('access_token');
-      var params = [{
-        "buyerMessage": 0, // 邮费
-        "buyerNick": '',  // 付款类型
+      var that = this;
+      var params = {
+        "buyerMessage": 0, // 买家留言
+        "buyerNick": "",  // 买家昵称
         "shopId": this.shopId, // 店铺id
-        "payment":'',  // 可选
-        "postFee": this.postFee, // 商品合计
+        "payment":this.payment,  // 商品合计
+        "postFee": 0, // 运费
+        "paymentType": 1, // 1 余额支付 2 支付宝支付
         "proOrderItems":[
           {
               "productSkuId": this.productSkuId, // 商品id
@@ -320,23 +327,24 @@ export default {
               "price":  this.price   // 价钱     
           }
         ]
-      }]
-       
-       this.$axios({
-          method:'POST',
-          url:'http://cloud.eyun.online:9080/order/api/depproorders',
-          data: params,
-          headers:{
+      }
+      this.$axios({
+        method:'POST',
+        url:'http://cloud.eyun.online:9080/order/api/depproorders/0',
+        data: params,
+        headers:{
             Authorization: "Bearer " + accessToken
           }
         })
         .then(function(response) {
-          console.log(response.data);
+          console.log(response.data)
+          that.$router.push({name:"ConfirmAnOrder"}) 
         })
         .catch((error)=>{
           console.log(error);
         });
-        }
+      }
+
   },
   components: {
     Foot
@@ -345,6 +353,51 @@ export default {
 </script>
 
 <style scoped>
+.mark{
+  position: absolute;
+  top:0;
+  width:100%;
+  height:100%;
+  background:rgba(255, 255, 255,1);
+}
+.mark img{
+  position:fixed;
+  top:-5rem;
+  left:0;
+  right:0;
+  bottom:0;
+  margin:auto;
+}
+.mark p{
+  text-align:center;
+  margin-top:40%;
+  font-size:.32rem;
+  position:fixed;
+  top:40%;
+  left:0;
+  right:0;
+  bottom:0;
+  margin:auto;
+  color:#ccc;
+}
+.mark button{
+  margin-top:.2rem;
+  margin-left:20%;
+  width:60%;
+  height:.6rem;
+  font-size:.32rem;
+  border:0;
+  border-radius:.2rem;
+  background:#fff;
+  border:1px solid red;
+  color:#ff0103;
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  margin:auto;
+}
 .content {
   width: 100%;
   display: flex;
