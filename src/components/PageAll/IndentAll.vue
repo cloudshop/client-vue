@@ -8,22 +8,43 @@
             <p><img src="../../assets/Classify/消息黑色.png" alt=""><span class="shopping_red">3</span></p>
         </div>
     </div>
-     <ul class="indentAll_tab_ul">
-            <li v-for="(item,index) in tabs" :key="index" :class="{active:index == num}" @click="tab(index)">{{item}}</li>
-        </ul>
+    <ul class="indentAll_tab_ul">
+        <li v-for="(item,index) in tabs" :key="index"  @click="tab(index)">{{item}}</li>
+    </ul>
     <div class="indentAll_tab content">
        
         <div class="tabCon">
-            <div v-for='(itemCon,index) in tabContents' :key="index" v-show="index == num">
+            <div v-for='(item,index) in arr' :key="index">
                 <!-- 已完成 -->
-                <div class="tabCon_main"  v-for='(item,index) in itemCon.tabCon_main' :key="index" >
+                <div class="tabCon_main">
+                  <div class="tabCon_main_top">
+                      <p><span class="tabCom_mainImg"><img src="../../assets/PageAll/店铺.png" alt=""></span><span class="font">{{item.shopName}}</span></p>
+                      <p><span class="font2">{{tabs[num]}}</span><span class="tabCom_mainImg"><img src="../../assets/PageAll/删除.png" alt=""></span></p>
+                  </div>
+                  <div class="tabCon_main_center" v-for='(data,ind) in item.proOrderItems' :key='ind'>
+                      <div class="tabCon_main_centerImg"><img src="" alt=""></div>
+                      <div class="tabCon_main_center_div">{{data.skuName}}</div>
+                  </div>
+                  <div class="tabCon_main_money">
+                      <p>共{{item.proOrderItems.length}}件商品</p>
+                      <p>实付款：<span>￥{{item.payment}}</span></p>
+                  </div>
+                  <div class="tabCon_main_agin" v-show='flag'>
+                      <p>评价晒单</p>
+                      <p @click='agin'>再次购买</p>
+                  </div>
+                   <div class="tabCon_main_agin" v-show='flag1'>
+                      <p>去付款</p>
+                  </div>
+                </div>
+                <!-- <div class="tabCon_main"  v-for='(item,index) in itemCon.tabCon_main' :key="index" >
                   <div class="tabCon_main_top">
                       <p><span class="tabCom_mainImg"><img src="../../assets/PageAll/店铺.png" alt=""></span><span class="font">成都赵雷</span></p>
                       <p><span class="font2">已完成</span><span class="tabCom_mainImg"><img src="../../assets/PageAll/删除.png" alt=""></span></p>
-                  </div>x
+                  </div>
                   <div class="tabCon_main_center">
                       <div class="tabCon_main_centerImg"><img src="" alt=""></div>
-                      <div class="tabCon_main_center_div">时光拿走了你的美丽 岁月带走了我的脾气 对不起 我还欠你一场婚礼说着说着 我又开始不切实际 说着说着 我就醉在了你的怀里</div>
+                      <div class="tabCon_main_centerImg"><img src="" alt=""></div>
                   </div>
                   <div class="tabCon_main_money">
                       <p>共2件商品</p>
@@ -33,26 +54,7 @@
                       <p>评价晒单</p>
                       <p>再次购买</p>
                   </div>
-                </div>
-                <!-- 已取消 -->
-                <div class="tabCon_main"  v-for='(item,index) in itemCon.tabCon_main' :key="index" >
-                  <div class="tabCon_main_top">
-                      <p><span class="tabCom_mainImg"><img src="../../assets/PageAll/店铺.png" alt=""></span><span class="font">成都赵雷</span></p>
-                      <p><span class="font2">已完成</span><span class="tabCom_mainImg"><img src="../../assets/PageAll/删除.png" alt=""></span></p>
-                  </div>
-                  <div class="tabCon_main_center">
-                      <div class="tabCon_main_centerImg"><img src="" alt=""></div>
-                      <div class="tabCon_main_centerImg"><img src="" alt=""></div>
-                  </div>
-                  <div class="tabCon_main_money">
-                      <p>共2件商品</p>
-                      <p>实付款：<span>￥128.8</span></p>
-                  </div>
-                  <div class="tabCon_main_agin">
-                      <p>评价晒单</p>
-                      <p>再次购买</p>
-                  </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -64,69 +66,122 @@ export default {
     data() {
        return {
             tabs: ["全部", "待付款","待收货","已完成","已取消"],
-            tabContents: [
-                {
-                    'tabCon_main':[
-                      {
-                        name: '回力休闲韩版冬季帆布鞋回力休闲',
-                        money: '1212',
-                        liststart: 5
-                      },
-                      {
-                        name: '回力休闲韩版冬季帆布鞋回力休闲',
-                        money: '999.8',
-                        liststart: 5
-                      }
-                    ]
-                },
-                {
-                    'tabCon_main':[
-                      {
-                        name: '回力休闲韩版冬季帆布鞋回力休闲',
-                        money: '150.8',
-                        liststart: 4
-                      }
-                    ]
-                },
-                {
-                    'tabCon_main':[
-                      {
-                        name: '回力休闲韩版冬季帆布鞋回力休闲',
-                        money: '150.8',
-                        liststart:4
-                      }
-                    ]
-                },
-                {
-                    'tabCon_main':[
-                      {
-                        name: '回力休闲韩版冬季帆布鞋回力休闲',
-                        money: '150.8',
-                        liststart: 5
-                      },
-                      {
-                        name: '回力休闲韩版冬季帆布鞋回力休闲',
-                        money: '999.8',
-                        liststart: 5
-                      }
-                    ]
-                },
-                {
-                    'tabCon_main':[
-                      {
-                        name: '回力休闲韩版冬季帆布鞋回力休闲',
-                        money: '150.8',
-                        liststart: 5
-                      }
-                    ]
-                }
-            ],
-            num: 1
+            arr:null,
+            num: 0,
+            flag: true,
+            flag1: false
         }
     },
+    created(){
+        var that = this;
+        this.$axios({
+            method:'get',
+            url:'http://cloud.eyun.online:9080/order/api/findAllItemsByStatus/1/1/1',
+            headers:{
+            'Content-Type': 'application/json',
+            }
+        })
+        .then(function(response) {
+            that.arr = response.data;
+            console.log(that.arr);
+        })
+        .catch(function(error) {
+            console.log(error);
+        });
+    },
     methods: {
-        tab(index) {
-            this.num = index;
+        tab(index){
+            this.num = index; 
+            var that = this;
+            this.flag=true;
+            this.flag1=false;
+            if(this.num == 0){
+                this.$axios({
+                    method:'get',
+                    url:'http://cloud.eyun.online:9080/order/api/findAllOrder/1/1',
+                    headers:{
+                    'Content-Type': 'application/json',
+                    }
+                })
+                .then(function(response) {
+                    this.arr = response.data;
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+            }
+            if(this.num == 1){
+                var that = this;
+                this.flag=false;
+                this.flag1=true;
+                this.$axios({
+                    method:'get',
+                    url:'http://cloud.eyun.online:9080/order/api/findAllItemsByStatus/1/1/1',
+                    headers:{
+                    'Content-Type': 'application/json',
+                    }
+                })
+                .then(function(response) {
+                   that.arr = response.data;
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+            }
+              if(this.num == 2){
+                var that = this;
+                this.flag=true;
+                this.flag1=false;
+                this.$axios({
+                    method:'get',
+                    url:'http://cloud.eyun.online:9080/order/api/findDispatchItems/1/1',
+                    headers:{
+                    'Content-Type': 'application/json',
+                    }
+                })
+                .then(function(response) {
+                   that.arr = response.data;
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+            }
+              if(this.num == 3){
+                var that = this;
+                this.flag=true;
+                this.flag1=false;
+                this.$axios({
+                    method:'get',
+                    url:'http://cloud.eyun.online:9080/order/api/findAllItemsByStatus/1/1/1',
+                    headers:{
+                    'Content-Type': 'application/json',
+                    }
+                })
+                .then(function(response) {
+                   that.arr = response.data;
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+            }
+              if(this.num == 4){
+                var that = this;
+                this.flag=true;
+                this.flag1=false;
+                this.$axios({
+                    method:'get',
+                    url:'http://cloud.eyun.online:9080/order/api/findAllItemsByStatus/1/1/1',
+                    headers:{
+                    'Content-Type': 'application/json',
+                    }
+                })
+                .then(function(response) {
+                   that.arr = response.data;
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+            }
         },
         close(){
             var  val={
@@ -141,8 +196,51 @@ export default {
               }else if(isAndroid){  
                 window.androidObject.JSCallAndroid(JSON.stringify(val));
               }
+        },
+        payStatus(type){
+            this.type = type;
+            if(this.type == 'success' && this.num == 1){
+                this.type = '支付成功';
+                var that = this;
+                this.$axios({
+                    method:'get',
+                    url:'http://cloud.eyun.online:9080/order/api/findAllItemsByStatus/1/1/1',
+                    headers:{
+                    'Content-Type': 'application/json',
+                    }
+                })
+                .then(function(response) {
+                    that.arr = response.data;
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+            }else if(this.type=='cancel'){
+               this.type = '用户取消'
+            }else if(this.type=='failed'){
+               this.type = '支付失败'
+            }else if(this.type=='unknown' && this.num == 1){
+                this.type = '未知状态';
+                var that = this;
+                this.$axios({
+                    method:'get',
+                    url:'http://cloud.eyun.online:9080/order/api/findAllItemsByStatus/1/1/1',
+                    headers:{
+                    'Content-Type': 'application/json',
+                    }
+                })
+                .then(function(response) {
+                    that.arr = response.data;
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+            }
+        },
+        agin(){
+            this.$router.push({name:"Product"})
         }
-    }
+    },
 }
 </script>
 
