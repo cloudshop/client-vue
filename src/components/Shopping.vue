@@ -249,7 +249,6 @@ export default {
       if(this.serviceList[pitchId].checkbox == true){
         this.serviceList[pitchId].sku.forEach((item,index) => {
         if(item.checkboxChild !== true) {
-          console.log('ok')
           this.checkboxBig = true;
         }
       });
@@ -311,7 +310,6 @@ export default {
       sessionStorage.setItem("productName",this.productName);  // 姓名
       sessionStorage.setItem("count",this.count); // 几个
       sessionStorage.setItem("productUrl",this.productUrl); // 图片路径
-      sessionStorage.setItem("Productskuid",this.productSkuId);
       var accessToken = getCookie('access_token');
       var that = this;
       var params = {
