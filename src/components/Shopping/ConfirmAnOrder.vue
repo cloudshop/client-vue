@@ -16,7 +16,7 @@
                 <dl @click='HarvestAddress'>
                     <dt> <b id='nick'>皮皮虾啊</b>&nbsp;<b>138****438</b></dt>
                     <dd>
-                        <img :src = productUrl alt="">
+                        <!-- <img :src = productUrl alt=""> -->
                         <p>湖北武汉市洪山区城区群光广场1707</p>
                     </dd>
                 </dl>
@@ -26,7 +26,7 @@
          <div class='More'>
             <div class='Single'>
                 <dl>
-                    <dt><img src="../../assets/Mine/headportrait.jpg" alt=""></dt>
+                    <dt><img :src = productUrl alt=""></dt>
                     <dd>
                         <!-- <h2>{{productName}}</h2> -->
                         <p>{{productName}}</p>
@@ -34,7 +34,7 @@
                     </dd>
                 </dl>
             </div>
-            <ul v-show="flag">
+            <ul>
                 <li><p>购买数量</p> <h2><span @click='Reduce'>-</span><input type="count" v-model="count"><span @click='CountAdd'>+</span></h2></li>
             </ul>
          </div>
@@ -84,7 +84,6 @@
             </p>
          </div> -->
         </div>
-        
         <div class='Compute'>
             <p><span>共{{count}}件商品</span><b>小计:<em>￥{{price*count}}</em></b></p>
         </div>
@@ -110,7 +109,6 @@ export default {
             money:'', // money
             productName: '',
             productUrl: '',
-            flag:''
         }
     },
     methods:{
@@ -152,7 +150,6 @@ export default {
         this.price = sessionStorage.getItem("price"); // 价钱
         this.count = sessionStorage.getItem("count");// 几个
         this.productSkuId = sessionStorage.getItem("Productskuid"); // 
-        // console.log(this.productSkuId)
         var accessToken = getCookie('access_token')
         var that = this;
         this.$axios.get('http://cloud.eyun.online:9080/wallet/api/wallets/user',{
@@ -167,12 +164,6 @@ export default {
         .catch(function(error){
           console.log(error)
         })
-        // if(){
-        //     this.flag=true;
-        // }
-        // else{
-        //     this.flag=false;
-        // }
     },
     mounted(){
         this.nick = $('#nick').text();
