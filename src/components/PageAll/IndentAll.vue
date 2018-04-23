@@ -30,11 +30,11 @@
                       <p>实付款：<span>￥{{item.payment}}</span></p>
                   </div>
                   <div class="tabCon_main_agin" v-show='flag'>
-                      <p>评价晒单</p>
+                      <p @click="evaluate">评价晒单</p>
                       <p @click='agin'>再次购买</p>
                   </div>
                    <div class="tabCon_main_agin" v-show='flag1'>
-                      <p>去付款</p>
+                      <p @click='goPayNent'>去付款</p>
                   </div>
                 </div>
                 <!-- <div class="tabCon_main"  v-for='(item,index) in itemCon.tabCon_main' :key="index" >
@@ -186,16 +186,16 @@ export default {
         close(){
             var  val={
                 "func":"closeCurrent",
-                  "param":{'finallyIndex':4},
-                };
-              var u = navigator.userAgent;
-              var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-              var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-              if(isiOS){
+                "param":{'finallyIndex':4},
+            };
+            var u = navigator.userAgent;
+            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+            if(isiOS){
                 window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-              }else if(isAndroid){  
+            }else if(isAndroid){  
                 window.androidObject.JSCallAndroid(JSON.stringify(val));
-              }
+            }
         },
         payStatus(type){
             this.type = type;
@@ -237,8 +237,14 @@ export default {
                 });
             }
         },
-        agin(){
+        agin(){ //再次购买
             this.$router.push({name:"Product"})
+        },
+        goPayNent(){ // 去结算
+            this.$router.push({name:"ConfirmAnOrder"})
+        },
+        evaluate(){ // 评价  
+            this.$router.push({name:"sunorder"})
         }
     },
 }
