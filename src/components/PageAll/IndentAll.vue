@@ -34,7 +34,7 @@
                       <p @click='agin'>再次购买</p>
                   </div>
                    <div class="tabCon_main_agin" v-show='flag1'>
-                      <p @click='goPayNent'>去付款</p>
+                      <p @click='goPayNent(index)'>去付款</p>
                   </div>
                   <div class="tabCon_main_agin" v-show='aginFlag'>
                       <p>查看物流</p>
@@ -60,7 +60,6 @@ export default {
             flag: true, // 正常
             flag1: false, // 再次购买
             aginFlag:false // 查看物流
-
         }
     },
     created(){
@@ -83,12 +82,14 @@ export default {
         });
     },
     methods: {
+         
          loadTop:function() { //组件提供的下拉触发方法  
             //下拉加载  
             this.loadPageList();  
             this.$refs.loadmore.onTopLoaded();// 固定方法，查询完要调用一次，用于重新定位  
         },  
         tab(index){
+            var accessToken = getCookie('access_token');
             this.num = index; 
             var that = this;
             this.flag=true;
@@ -100,11 +101,11 @@ export default {
                     url:'http://cloud.eyun.online:9080/order/api/findAllOrder/1/1',
                     headers:{
                         'Content-Type': 'application/json',
+                        Authorization: "Bearer " + accessToken
                     }
                 })
                 .then(function(response) {
-                    this.arr = response.data;
-                    console.log(response)
+                    that.arr = response.data;
                 })
                 .catch(function(error) {
                     console.log(error);
@@ -120,11 +121,12 @@ export default {
                     url:'http://cloud.eyun.online:9080/order/api/findAllItemsByStatus/1/1/1',
                     headers:{
                     'Content-Type': 'application/json',
+                    Authorization: "Bearer " + accessToken
                     }
                 })
                 .then(function(response) {
                    that.arr = response.data;
-                   console.log(response)
+                   console.log(response.data.length)
                 })
                 .catch(function(error) {
                     console.log(error);
@@ -139,7 +141,8 @@ export default {
                     method:'get',
                     url:'http://cloud.eyun.online:9080/order/api/findDispatchItems/1/1',
                     headers:{
-                    'Content-Type': 'application/json',
+                        'Content-Type': 'application/json',
+                        Authorization: "Bearer " + accessToken
                     }
                 })
                 .then(function(response) {
@@ -158,7 +161,8 @@ export default {
                     method:'get',
                     url:'http://cloud.eyun.online:9080/order/api/findAllItemsByStatus/4/1/1',
                     headers:{
-                    'Content-Type': 'application/json',
+                        'Content-Type': 'application/json',
+                        Authorization: "Bearer " + accessToken
                     }
                 })
                 .then(function(response) {
@@ -177,7 +181,8 @@ export default {
                     method:'get',
                     url:'http://cloud.eyun.online:9080/order/api/findAllItemsByStatus/5/1/1',
                     headers:{
-                    'Content-Type': 'application/json',
+                        'Content-Type': 'application/json',
+                        Authorization: "Bearer " + accessToken
                     }
                 })
                 .then(function(response) {
@@ -211,7 +216,8 @@ export default {
                     method:'get',
                     url:'http://cloud.eyun.online:9080/order/api/findDispatchItems/1/1',
                     headers:{
-                    'Content-Type': 'application/json',
+                        'Content-Type': 'application/json',
+                        Authorization: "Bearer " + accessToken
                     }
                 })
                 .then(function(response) {
@@ -231,7 +237,8 @@ export default {
                     method:'get',
                     url:'http://cloud.eyun.online:9080/order/api/findAllItemsByStatus/1/1/1',
                     headers:{
-                    'Content-Type': 'application/json',
+                        'Content-Type': 'application/json',
+                        Authorization: "Bearer " + accessToken
                     }
                 })
                 .then(function(response) {
@@ -245,22 +252,26 @@ export default {
         agin(){ //再次购买
             this.$router.push({name:"Product"})
         },
-        goPayNent(){ // 去结算
-            that.took = response.data;
-            var  val={
-                "func":'pay',
-                "param":{
-                "payType":'Ali',
-                "orderStr": that.took
+        goPayNent(took){ // 去结算
+            took = this.arr[took].orderString;
+            if(took==''){
+                return;
+            }else{
+                var  val={
+                    "func":'pay',
+                    "param":{
+                    "payType":'Ali',
+                    "orderStr": took
+                    }
                 }
-            }
-            var u = navigator.userAgent;
-            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-            if(isiOS){
-                window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-            }else if(isAndroid){  
-                window.androidObject.JSCallAndroid(JSON.stringify(val));
+                var u = navigator.userAgent;
+                var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+                var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+                if(isiOS){
+                    window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+                }else if(isAndroid){  
+                    window.androidObject.JSCallAndroid(JSON.stringify(val));
+                }
             }
         },
         evaluate(){ // 评价  
