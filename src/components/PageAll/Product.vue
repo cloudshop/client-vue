@@ -317,7 +317,9 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
     created(){
       console.log(this.data.productContent)   
         var that = this; //商品内容
-        var Goods = sessionStorage.getItem("GoodsID") ? sessionStorage.getItem("GoodsID") : 30; // 商品id 
+    //    var Goods = sessionStorage.getItem("GoodsID") ? sessionStorage.getItem("GoodsID") : 32; // 商品id 
+         var Goods = sessionStorage.getItem("GoodsID")
+        console.log(Goods)
         this.$axios.get('http://cloud.eyun.online:9080/product/api/product/content?id=' + Goods)
          .then(function(response) {   
             that.data = response.data;
