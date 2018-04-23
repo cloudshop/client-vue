@@ -124,6 +124,7 @@ export default {
                 })
                 .then(function(response) {
                    that.arr = response.data;
+                   console.log(response)
                 })
                 .catch(function(error) {
                     console.log(error);
@@ -203,12 +204,12 @@ export default {
         },
         payStatus(type){
             this.type = type;
-            if(this.type == 'success' && this.num == 1){
+            if(this.type == 'success' && this.num == 2){
                 this.type = '支付成功';
                 var that = this;
                 this.$axios({
                     method:'get',
-                    url:'http://cloud.eyun.online:9080/order/api/findAllItemsByStatus/4/1/1',
+                    url:'http://cloud.eyun.online:9080/order/api/findDispatchItems/1/1',
                     headers:{
                     'Content-Type': 'application/json',
                     }
@@ -245,7 +246,22 @@ export default {
             this.$router.push({name:"Product"})
         },
         goPayNent(){ // 去结算
-            this.$router.push({name:"ConfirmAnOrder"})
+            that.took = response.data;
+            var  val={
+                "func":'pay',
+                "param":{
+                "payType":'Ali',
+                "orderStr": that.took
+                }
+            }
+            var u = navigator.userAgent;
+            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+            if(isiOS){
+                window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+            }else if(isAndroid){  
+                window.androidObject.JSCallAndroid(JSON.stringify(val));
+            }
         },
         evaluate(){ // 评价  
             this.$router.push({name:"sunorder"})
