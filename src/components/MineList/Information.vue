@@ -174,6 +174,7 @@ header {
   width: 100%;
   line-height: 100%;
   padding-left: 0.3rem;
+  font-size: 0.28rem;
   background: #fff;
   border-top: 1px solid #e7e7e7;
   position: relative;
@@ -192,7 +193,6 @@ header {
 .list li:nth-child(1) {
   height: 1.4rem;
   line-height: 1.4rem;
-  font-size: 0.28rem;
   color: #2f2f2f;
 }
 .user_img {
