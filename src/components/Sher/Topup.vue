@@ -5,7 +5,9 @@
         <router-link  :to="{ path: '/RemainingSum' }" tag='li'><span>&lt;</span></router-link>
 
             <li>充值中心</li>
-            <li></li>
+            <li>
+              
+              </li> 
         </ul>
     </header>
     <div class="main">
@@ -104,25 +106,15 @@ export default {
             if ($(this).is(".col")) {
               var re = $('input:radio[name="sex"]:checked').val();
               var mo = $(this).val();
-            //   console.log(mo);
-            //   console.log("即将使用" + re + "为您充值" + $(this).val() + "元");
+              //   console.log(mo);
+              //   console.log("即将使用" + re + "为您充值" + $(this).val() + "元");
               //var data = {"aliases":this.name,"phone":this.phone,"contact":this.contact}
               var data = { payType: re, payment: mo };
-          
-              // this.$axios.post('http://cloud.eyun.online:9080/order/api/dep-orders/deposit',data,{
-              //     headers:{
-              //          'Authorization': 'Bearer ' + accessToken,
-              //     }
-              //     })
-              // .then(function(res){
-              //     console.log(res)
-              // })
-              // .catch(function(error){
-              //     console.log(error)
-              // })
+
               $.ajax({
                 url:
-                  "http://cloud.eyun.online:9080/order/api/dep-orders/deposit",
+                  // "http://cloud.eyun.online:9080/order/api/dep-orders/deposit",
+                  "http://cloud.eyun.online:9080/order/api/depproorders/1",
                 // method:'post',
                 type: "POST",
                 contentType: "application/json",
@@ -138,19 +130,18 @@ export default {
                   var param1 = 1;
                   var param2 = "orderStr" + ":" + res.orderString;
                   var param3 = res.orderString;
-                 // var paytype = Ali;
+                  // var paytype = Ali;
                   //top
 
                   var val = {
                     "func": "pay",
                     "param": {
-                        "payType":"Ali",
-                        "orderStr": param3,
-
+                      "payType": "Ali",
+                      "orderStr": param3
                     }
                   };
-                    console.log(val)
-                     console.log(JSON.stringify(val))
+                  console.log(val);
+                  console.log(JSON.stringify(val));
                   var u = navigator.userAgent;
                   var isAndroid =
                     u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
@@ -162,9 +153,9 @@ export default {
                   } else if (isAndroid) {
                     window.androidObject.JSCallAndroid(JSON.stringify(val));
                   }
-               
+
                   //bottom
-                },
+                },  
                 error(res) {
                   console.log(res);
                 }
@@ -189,36 +180,32 @@ export default {
             //   'Content-Type':"application/json"
           },
           success: function(res) {
-               console.log(res);
-                  var param1 = 1;
-                  var param2 = "orderStr" + ":" + res.orderString;
-                  var param3 = res.orderString;
-                 // var paytype = Ali;
-                  //top
+            console.log(res);
+            var param1 = 1;
+            var param2 = "orderStr" + ":" + res.orderString;
+            var param3 = res.orderString;
+            // var paytype = Ali;
+            //top
 
-                  var val = {
-                    "func": "pay",
-                    "param": {
-                        "payType":"Ali",
-                        "orderStr": param3,
+            var val = {
+              func: "pay",
+              param: {
+                payType: "Ali",
+                orderStr: param3
+              }
+            };
+            console.log(val);
+            console.log(JSON.stringify(val));
+            var u = navigator.userAgent;
+            var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+            if (isiOS) {
+              window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+            } else if (isAndroid) {
+              window.androidObject.JSCallAndroid(JSON.stringify(val));
+            }
 
-                    }
-                  };
-                    console.log(val)
-                     console.log(JSON.stringify(val))
-                  var u = navigator.userAgent;
-                  var isAndroid =
-                    u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
-                  var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-                  if (isiOS) {
-                    window.webkit.messageHandlers.GongrongAppModel.postMessage(
-                      val
-                    );
-                  } else if (isAndroid) {
-                    window.androidObject.JSCallAndroid(JSON.stringify(val));
-                  }
-               
-                  //bottom
+            //bottom
           },
           error(res) {
             console.log(res);
@@ -263,6 +250,7 @@ export default {
   width: 100%;
   padding-bottom: 0.4rem;
   background: #fff;
+  margin: 0 auto;
 }
 .main_top input {
   width: 6.1rem;
@@ -280,6 +268,8 @@ input::-webkit-input-placeholder {
   color: #c4c4c4;
 }
 .main_top li {
+  margin: 0 auto;
+  display: block;
   width: 1.95rem;
   background: #f2f2f2;
   text-align: center;
@@ -287,7 +277,7 @@ input::-webkit-input-placeholder {
   line-height: 0.88rem;
   box-sizing: border-box;
   float: left;
-  margin-left: 6%;
+  margin-left: .3rem;
   text-align: center;
   margin-top: 0.4rem;
   border-radius: 0.2rem;
