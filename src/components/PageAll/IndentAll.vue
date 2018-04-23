@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div >
       <!-- indentAll -->
     <div class="shopping_head">
         <div class="shopping_header">
-             <p @click='close'>&lt;</p>
+            <p @click='close'>&lt;</p>
             <p>全部订单</p>
             <p><img src="../../assets/Classify/消息黑色.png" alt=""><span class="shopping_red">3</span></p>
         </div>
@@ -12,7 +12,7 @@
         <li v-for="(item,index) in tabs" :key="index"  @click="tab(index)">{{item}}</li>
     </ul>
     <div class="indentAll_tab content">
-       
+        <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom"  :max-distance="150">
         <div class="tabCon">
             <div v-for='(item,index) in arr' :key="index">
                 <!-- 已完成 -->
@@ -36,49 +36,42 @@
                    <div class="tabCon_main_agin" v-show='flag1'>
                       <p @click='goPayNent'>去付款</p>
                   </div>
+                  <div class="tabCon_main_agin" v-show='aginFlag'>
+                      <p>查看物流</p>
+                      <p>确认收货</p>
+                  </div>
                 </div>
-                <!-- <div class="tabCon_main"  v-for='(item,index) in itemCon.tabCon_main' :key="index" >
-                  <div class="tabCon_main_top">
-                      <p><span class="tabCom_mainImg"><img src="../../assets/PageAll/店铺.png" alt=""></span><span class="font">成都赵雷</span></p>
-                      <p><span class="font2">已完成</span><span class="tabCom_mainImg"><img src="../../assets/PageAll/删除.png" alt=""></span></p>
-                  </div>
-                  <div class="tabCon_main_center">
-                      <div class="tabCon_main_centerImg"><img src="" alt=""></div>
-                      <div class="tabCon_main_centerImg"><img src="" alt=""></div>
-                  </div>
-                  <div class="tabCon_main_money">
-                      <p>共2件商品</p>
-                      <p>实付款：<span>￥128.8</span></p>
-                  </div>
-                  <div class="tabCon_main_agin">
-                      <p>评价晒单</p>
-                      <p>再次购买</p>
-                  </div>
-                </div> -->
             </div>
         </div>
+        </mt-loadmore>
     </div>
   </div>
 </template>
-
+  
 <script>
+import loadmore from 'mint-ui';
+import { setCookie,getCookie } from '../../assets/js/cookie'
 export default {
     data() {
        return {
             tabs: ["全部", "待付款","待收货","已完成","已取消"],
             arr:null,
             num: 0,
-            flag: true,
-            flag1: false
+            flag: true, // 正常
+            flag1: false, // 再次购买
+            aginFlag:false // 查看物流
+
         }
     },
     created(){
         var that = this;
-        this.$axios({
+        var accessToken = getCookie('access_token');
+        this.$axios({ // 全部订单
             method:'get',
-            url:'http://cloud.eyun.online:9080/order/api/findAllItemsByStatus/1/1/1',
+            url:'http://cloud.eyun.online:9080/order/api/findAllOrder/1/1',
             headers:{
-            'Content-Type': 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: "Bearer " + accessToken
             }
         })
         .then(function(response) {
@@ -90,21 +83,28 @@ export default {
         });
     },
     methods: {
+         loadTop:function() { //组件提供的下拉触发方法  
+            //下拉加载  
+            this.loadPageList();  
+            this.$refs.loadmore.onTopLoaded();// 固定方法，查询完要调用一次，用于重新定位  
+        },  
         tab(index){
             this.num = index; 
             var that = this;
             this.flag=true;
             this.flag1=false;
+            this.aginFlag=false;
             if(this.num == 0){
                 this.$axios({
                     method:'get',
                     url:'http://cloud.eyun.online:9080/order/api/findAllOrder/1/1',
                     headers:{
-                    'Content-Type': 'application/json',
+                        'Content-Type': 'application/json',
                     }
                 })
                 .then(function(response) {
                     this.arr = response.data;
+                    console.log(response)
                 })
                 .catch(function(error) {
                     console.log(error);
@@ -114,6 +114,7 @@ export default {
                 var that = this;
                 this.flag=false;
                 this.flag1=true;
+                this.aginFlag=false;
                 this.$axios({
                     method:'get',
                     url:'http://cloud.eyun.online:9080/order/api/findAllItemsByStatus/1/1/1',
@@ -130,8 +131,9 @@ export default {
             }
               if(this.num == 2){
                 var that = this;
-                this.flag=true;
+                this.flag=false;
                 this.flag1=false;
+                this.aginFlag=true;
                 this.$axios({
                     method:'get',
                     url:'http://cloud.eyun.online:9080/order/api/findDispatchItems/1/1',
@@ -150,9 +152,10 @@ export default {
                 var that = this;
                 this.flag=true;
                 this.flag1=false;
+                this.aginFlag=false;
                 this.$axios({
                     method:'get',
-                    url:'http://cloud.eyun.online:9080/order/api/findAllItemsByStatus/1/1/1',
+                    url:'http://cloud.eyun.online:9080/order/api/findAllItemsByStatus/4/1/1',
                     headers:{
                     'Content-Type': 'application/json',
                     }
@@ -168,9 +171,10 @@ export default {
                 var that = this;
                 this.flag=true;
                 this.flag1=false;
+                this.aginFlag=false;
                 this.$axios({
                     method:'get',
-                    url:'http://cloud.eyun.online:9080/order/api/findAllItemsByStatus/1/1/1',
+                    url:'http://cloud.eyun.online:9080/order/api/findAllItemsByStatus/5/1/1',
                     headers:{
                     'Content-Type': 'application/json',
                     }
@@ -204,7 +208,7 @@ export default {
                 var that = this;
                 this.$axios({
                     method:'get',
-                    url:'http://cloud.eyun.online:9080/order/api/findAllItemsByStatus/1/1/1',
+                    url:'http://cloud.eyun.online:9080/order/api/findAllItemsByStatus/4/1/1',
                     headers:{
                     'Content-Type': 'application/json',
                     }
