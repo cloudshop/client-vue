@@ -135,7 +135,7 @@ export default {
         var  val={
               "func":"openURL",
               "param":{
-                  "URL":'http://192.168.1.110:9999/#/login'
+                  "URL":'http://cloud.eyun.online:8888/#/login'
               },
           };
           var u = navigator.userAgent;
