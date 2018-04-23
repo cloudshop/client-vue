@@ -47,10 +47,10 @@
               <div class='mainContent'>
                      <h2>线上商城</h2> 
                      <div class='onLine'>
-                     <router-link :to="{ path: '/indentAll' }" tag='dl' class='onlinelist'>
+                     <dl class='onlinelist' @click="openorder">
                            <dt><img src="../assets/Mine/订单.png" alt=""></dt>
                            <dd>全部订单</dd>
-                     </router-link>
+                     </dl>
 
                      <router-link :to="{ path: '/collection' }" tag='dl' class='onlinelist'>
                            <dt><img src="../assets/Mine/我的收藏.png" alt=""></dt>
@@ -86,7 +86,7 @@
               <p>此功能需先登陆</p>
               <button @click='logins'>登陆</button>
        </div>
-       <Foot></Foot>
+        <Foot></Foot>
 
    </div>
 </template>
@@ -105,36 +105,72 @@ export default {
           
       },
        created(){
-      var accessToken = getCookie('access_token');
-      if(accessToken == ''){
-            this.flag=true;
-      }
-      else{
-            this.flag=false;
-      }
-      },
-      
+             var that = this
+       var accessToken = getCookie('access_token');
+        this.$axios.get('http://cloud.eyun.online:9080/wallet/api/wallets/user',{
+          headers:{
+            'Authorization': 'Bearer ' + accessToken,
+          }
+        })
+        .then(function(res){
+           
+          that.arr = res.data
+      //      that.arr = res.data
+      //      console.log(arr)
+        })
+        .catch(function(error){
+          console.log(error)
+        })
+
+        var accessToken = getCookie('access_token')
+         if(accessToken == ''){
+           this.flag = true;
+         }else{
+            this.flag = false;
+           }
+     },
       methods:{
-      logins:function(){ 
-            var  val={
-                  "func":"openURL",
-                  "param":{
-                        "URL":'http://cloud.eyun.online:8888/#/login'
-                  },
-            };
-            var u = navigator.userAgent;
-            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-            if(isiOS){           
-                  window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-            }else if(isAndroid){  
-                  window.androidObject.JSCallAndroid(JSON.stringify(val));
-            }
+      logins:function(){  
+         this.$router.push({name:"Login",params:{name:'/Mine'}})   
+        var  val={
+              "func":"openURL",
+              "param":{
+                  "URL":'http://192.168.1.110:9999/#/login'
+              },
+          };
+          var u = navigator.userAgent;
+          var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+          var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+          if(isiOS){           
+             window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+          }else if(isAndroid){  
+            window.androidObject.JSCallAndroid(JSON.stringify(val));
+       }
+
        },
-      },
-      components:{
+      openorder() {
+      var val = {
+        func: "openURL",
+        param: {
+          URL: "http://cloud.eyun.online:8888/#/indentAll"
+        }
+      };
+      var u = navigator.userAgent;
+      var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+      if (isiOS) {
+        window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+      } else if (isAndroid) {
+        window.androidObject.JSCallAndroid(JSON.stringify(val));
+      }
+    }
+     },
+     components:{
         Foot,
-      },
+        
+     },
+     
+     
 }
 </script>
 <style scoped>
