@@ -58,6 +58,22 @@ export default {
             if(p1.test(recommends)==false) { 
               alert('请填写推荐人正确手机号！'); 
               document.getElementById("mytest").value="";
+            }else{
+                 $.ajax({
+                  url:'http://cloud.eyun.online:9080/verify/api/verify/smsvalidate?'+'phone='+this.phone+'&smsCode='+this.authCode+'&inviterPhone'+this.recommends,
+                  method:'get',
+                  callback:'cb',
+                  success:function(res){
+                    if(res.message == 'success'){
+                      that.$router.push({path:'/SetPsd'})
+                    }else{
+                      alert('验证码填写错误')
+                    }
+                  },  
+                  error(res){
+                    console.log(res)
+                  }
+                })
             }
           }else {
             $.ajax({
