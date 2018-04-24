@@ -651,7 +651,7 @@ span {
   background: #f5f5f5;
   border-top: 0.01rem;
   position: fixed;
-  bottom: 0.96rem;
+  bottom: 0rem;
 }
 .shopping_footer_left {
   flex: 1;
