@@ -12,7 +12,6 @@
         <li v-for="(item,index) in tabs" :key="index"  @click="tab(index)">{{item}}</li>
     </ul>
     <div class="indentAll_tab content">
-        <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom"  :max-distance="150">
         <div class="tabCon">
             <div v-for='(item,index) in arr' :key="index">
                 <!-- 已完成 -->
@@ -43,14 +42,12 @@
                 </div>
             </div>
         </div>
-        </mt-loadmore>
     </div>
   </div>
 </template>
   
 <script>
 import loadmore from 'mint-ui';
-import { setCookie,getCookie } from '../../assets/js/cookie'
 export default {
     data() {
        return {
@@ -64,14 +61,9 @@ export default {
     },
     created(){
         var that = this;
-        var accessToken = getCookie('access_token');
         this.$axios({ // 全部订单
             method:'get',
-            url:'http://cloud.eyun.online:9080/order/api/findAllOrder/1/1',
-            headers:{
-                'Content-Type': 'application/json',
-                Authorization: "Bearer " + accessToken
-            }
+            url:'http://cloud.eyun.online:9080/order/api/findAllOrder/1/1'
         })
         .then(function(response) {
             that.arr = response.data;
@@ -98,11 +90,7 @@ export default {
             if(this.num == 0){
                 this.$axios({
                     method:'get',
-                    url:'http://cloud.eyun.online:9080/order/api/findAllOrder/1/1',
-                    headers:{
-                        'Content-Type': 'application/json',
-                        Authorization: "Bearer " + accessToken
-                    }
+                    url:'http://cloud.eyun.online:9080/order/api/findAllOrder/1/5'
                 })
                 .then(function(response) {
                     that.arr = response.data;
@@ -118,15 +106,11 @@ export default {
                 this.aginFlag=false;
                 this.$axios({
                     method:'get',
-                    url:'http://cloud.eyun.online:9080/order/api/findAllItemsByStatus/1/1/1',
-                    headers:{
-                    'Content-Type': 'application/json',
-                    Authorization: "Bearer " + accessToken
-                    }
+                    url:'http://cloud.eyun.online:9080/order/api/findAllItemsByStatus/1/1/5'
                 })
                 .then(function(response) {
                    that.arr = response.data;
-                   console.log(response.data.length)
+                   console.log(response.data)
                 })
                 .catch(function(error) {
                     console.log(error);
@@ -139,11 +123,7 @@ export default {
                 this.aginFlag=true;
                 this.$axios({
                     method:'get',
-                    url:'http://cloud.eyun.online:9080/order/api/findDispatchItems/1/1',
-                    headers:{
-                        'Content-Type': 'application/json',
-                        Authorization: "Bearer " + accessToken
-                    }
+                    url:'http://cloud.eyun.online:9080/order/api/findDispatchItems/1/1'
                 })
                 .then(function(response) {
                    that.arr = response.data;
@@ -159,11 +139,7 @@ export default {
                 this.aginFlag=false;
                 this.$axios({
                     method:'get',
-                    url:'http://cloud.eyun.online:9080/order/api/findAllItemsByStatus/4/1/1',
-                    headers:{
-                        'Content-Type': 'application/json',
-                        Authorization: "Bearer " + accessToken
-                    }
+                    url:'http://cloud.eyun.online:9080/order/api/findAllItemsByStatus/4/1/1'
                 })
                 .then(function(response) {
                    that.arr = response.data;
@@ -179,11 +155,7 @@ export default {
                 this.aginFlag=false;
                 this.$axios({
                     method:'get',
-                    url:'http://cloud.eyun.online:9080/order/api/findAllItemsByStatus/5/1/1',
-                    headers:{
-                        'Content-Type': 'application/json',
-                        Authorization: "Bearer " + accessToken
-                    }
+                    url:'http://cloud.eyun.online:9080/order/api/findAllItemsByStatus/5/1/1'
                 })
                 .then(function(response) {
                    that.arr = response.data;
@@ -214,11 +186,7 @@ export default {
                 var that = this;
                 this.$axios({
                     method:'get',
-                    url:'http://cloud.eyun.online:9080/order/api/findDispatchItems/1/1',
-                    headers:{
-                        'Content-Type': 'application/json',
-                        Authorization: "Bearer " + accessToken
-                    }
+                    url:'http://cloud.eyun.online:9080/order/api/findDispatchItems/1/1'
                 })
                 .then(function(response) {
                     that.arr = response.data;
@@ -235,11 +203,7 @@ export default {
                 var that = this;
                 this.$axios({
                     method:'get',
-                    url:'http://cloud.eyun.online:9080/order/api/findAllItemsByStatus/1/1/1',
-                    headers:{
-                        'Content-Type': 'application/json',
-                        Authorization: "Bearer " + accessToken
-                    }
+                    url:'http://cloud.eyun.online:9080/order/api/findAllItemsByStatus/1/1/1'
                 })
                 .then(function(response) {
                     that.arr = response.data;
