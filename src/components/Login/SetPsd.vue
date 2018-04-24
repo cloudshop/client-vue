@@ -54,6 +54,7 @@ export default {
                 managedUserVM.login = iphone
                 managedUserVM.password = this.setPassword
                 managedUserVM.verifyCode = authCode
+                managedUserVM.inviterPhone = recommends
                 
                 var callback = function(error, data, response) {
                     if (error) {
@@ -102,7 +103,6 @@ export default {
                             console.log("API called successfully. Returned data: " + data);
                             console.log('chenggogn')
                             setCookie("access_token",token); //
-                            // this.$router.push({path:'/'})
                             var  val={
                                 "func":"closeCurrent",
                                 "param":{'finallyIndex':'4','refreshAll':true},
