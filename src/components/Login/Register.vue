@@ -61,7 +61,7 @@ export default {
               document.getElementById("mytest").value="";
             }else{
                  $.ajax({
-                  url:'http://cloud.eyun.online:9080/verify/api/verify/smsvalidate?'+'phone='+this.phone+'&smsCode='+this.authCode+'&inviterPhone'+this.recommends,
+                  url:'http://cloud.eyun.online:9080/verify/api/verify/smsvalidate?'+'phone='+this.phone+'&smsCode='+this.authCode,
                   method:'get',
                   callback:'cb',
                   success:function(res){
