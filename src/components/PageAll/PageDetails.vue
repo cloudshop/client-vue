@@ -156,7 +156,8 @@ export default {
 .PageDetails_head {
   width: 100%;
   position: relative;
-  background: url(../../assets/Mine/headportrait.jpg);
+  background: url('https://mrmoap.blob.core.chinacloudapi.cn/lorealparisadmin/20161114/eb4f1474-d7d4-4ab4-92e1-21474b718f5d.jpg');
+  background-size: 100% 130%;
   height: 2.4rem;
 }
 .PageDetails_header {
