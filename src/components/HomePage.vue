@@ -96,7 +96,7 @@ export default {
       var val = {
         func: "openURL",
         param: {
-          URL: "http://cloud.eyun.online:8888/..#/News"
+          URL: "http://cloud.eyun.online:8888/#/News"
         }
       };
       var u = navigator.userAgent;
