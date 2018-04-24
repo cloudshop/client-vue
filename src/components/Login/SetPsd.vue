@@ -38,10 +38,12 @@ export default {
             var affirmPassword=document.getElementById("affirmPassword").value; 
             var iphone = getCookie('iphone')
             var authCode = getCookie('authCode')
+            var recommends = getCookie('recommends')
             var val ={
                     "login": iphone,
                     "password": this.setPassword,
-                    "verifyCode": authCode
+                    "verifyCode": authCode,
+                    "inviterPhone":recommends
                 }
             if(setPassword == affirmPassword){
                 var that = this;
