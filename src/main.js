@@ -26,7 +26,7 @@ Vue.use(animate)
 Vue.use(ElementUI)
 
 Vue.config.productionTip = false;
-
+axios.defaults.withCredentials=true;
 Vue.prototype.$axios = axios;
 
 new Vue({
