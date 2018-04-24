@@ -97,7 +97,7 @@ export default {
             var accessTokens = getCookie("access_token");
             var  val={
                 "func":"closeCurrent",
-                "param":{'finallyIndex':'4','refreshAll':true},
+                "param":{'finallyIndex':'1','refreshAll':true},
                 };
             var u = navigator.userAgent;
             var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
