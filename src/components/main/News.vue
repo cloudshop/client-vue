@@ -1,4 +1,3 @@
-
 <template>
   <div class='news'>
       <header class="mint-header">
@@ -13,9 +12,9 @@
             <div class="mint-header-button is-right"></div>
           
         </header>
-           <router-link :to="{ path: '/HomePage' }">
-                          返回
-                     </router-link>
+           <!--<router-link :to="{ path: '/HomePage' }">-->
+           <!--               返回-->
+           <!--          </router-link>-->
         <div class='nav'>
             <dl>
                 <dt><img src="../../assets/news/物流快递.png" alt=""></dt>
@@ -67,19 +66,18 @@ export default {
     },
     methods:{
         backHome(){
-            alert(1)
-            //   var  val={
-            //     "func":"closeCurrent",
-            //       "param":{},
-            //     };
-            //   var u = navigator.userAgent;
-            //   var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-            //   var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-            //   if(isiOS){
-            //     window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-            //   }else if(isAndroid){  
-            //     window.androidObject.JSCallAndroid(JSON.stringify(val));
-            //   }
+            var  val={
+              "func":"closeCurrent",
+              "param":{},
+              };
+            var u = navigator.userAgent;
+            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+            if(isiOS){
+                window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+            }else if(isAndroid){  
+                window.androidObject.JSCallAndroid(JSON.stringify(val));
+            }
         }
     }
 }
