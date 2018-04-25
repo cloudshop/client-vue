@@ -38,6 +38,14 @@ export default {
             var iphone = getCookie('iphone')
             var authCode = getCookie('authCode')
             var recommend = getCookie('recommend')
+            var val = {
+                login : iphone,
+                password : this.setPassword,
+                verifyCode : authCode,
+                inviterPhone : recommend
+            }
+            var data = {'username':iphone,'password':this.setPassword}
+            var flag = ''
             if(setPassword == affirmPassword){
                 if(iphone !== '' &&  setPassword !== '' && authCode !== ''){
                     var that = this;
@@ -90,11 +98,9 @@ export default {
                         var api = new ApiVerify.AccountResourceApi();
                         var callback = function(error, data, response) {
                             if (error) {
-                                alert(error);
+                               alert(error);
                             } else {
-                                console.log("API called successfully. Returned data: " + data);
-                                console.log('chenggogn')
-                                setCookie("access_token",token); //
+                               alert('注册成功')
                                 var  val={
                                     "func":"closeCurrent",
                                     "param":{'finallyIndex':'4','refreshAll':true},
@@ -118,7 +124,6 @@ export default {
             }else{
                 alert('请输入密码')
             }
-           
             }else{
                 alert('两次密码输入不符')
                 document.getElementById("setPassword").value="";
