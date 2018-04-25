@@ -18,7 +18,7 @@ export default {
       return{
         //  postFee:this.$router.params.name,
 
-         mentype: this.$route.params.mentype,
+        // mentype: this.$route.params.mentype,
       }
   },
   methods:{
