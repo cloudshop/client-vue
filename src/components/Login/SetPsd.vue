@@ -13,8 +13,7 @@
         </header>
       <div class="center content">
           <p>设置密码<input type="password" id="setPassword" v-model="setPassword"></p>
-          <p class="yzm">
-            确认密码<input type="password" id="affirmPassword" v-model="affirmPassword">
+          <p class="yzm">确认密码<input type="password" id="affirmPassword" v-model="affirmPassword">
           </p>
           <p class="next">
               <button @click="accomplish" class="btn">完成</button>
@@ -38,92 +37,88 @@ export default {
             var affirmPassword=document.getElementById("affirmPassword").value; 
             var iphone = getCookie('iphone')
             var authCode = getCookie('authCode')
-            var recommends = getCookie('recommends')
-            var val ={
-                    "login": iphone,
-                    "password": this.setPassword,
-                    "verifyCode": authCode,
-                    "inviterPhone":recommends
-                }
+            var recommend = getCookie('recommend')
             if(setPassword == affirmPassword){
-                var that = this;
-                var UaaApi = require('api-uaa');
-                UaaApi.ApiClient.instance.basePath = '/api/uaa'
-                var apiInstance = new UaaApi.AccountResourceApi();
-                var managedUserVM = new UaaApi.ManagedUserVM(); // ManagedUserVM | managedUserVM
-                managedUserVM.login = iphone
-                managedUserVM.password = this.setPassword
-                managedUserVM.verifyCode = authCode
-                managedUserVM.inviterPhone = recommends
-                
-                var callback = function(error, data, response) {
-                    if (error) {
-                        console.error(error);
-                        alert(error)
-                    } else {
-                        console.log('API called successfully.');
-                        var credentials = {
-                        client: {
-                            id: "web_app",
-                            secret: "w1eb_app"
-                        },
-                        auth: {
-                            tokenHost: "http://cloud.eyun.online:9080",
-                            tokenPath: "/auth/login"
-                        },
-                        http: {
-                            headers: {
-                                Accept: "application/json"
-                            }
-                        },
-                        options: {
-                            bodyFormat: "json"
-                        }
-                    };
-                    const oauth2 = require("simple-oauth2").create(credentials);
-                    const tokenConfig = {
-                        username: iphone,
-                        password: that.setPassword
-                    };
-                    var token;
-                    oauth2.ownerPassword.getToken(tokenConfig).then(result => {
-                    const accessToken = oauth2.accessToken.create(result);
-                    token = accessToken.token.access_token;
-                    var ApiVerify = require("api-uaa");
-                    ApiVerify.ApiClient.instance.basePath = "/api/uaa";
-                    ApiVerify.ApiClient.instance.defaultHeaders = {
-                        Authorization: "Bearer " + token
-                    };
-
-                    var api = new ApiVerify.AccountResourceApi();
+                if(iphone !== '' &&  setPassword !== '' && authCode !== ''){
+                    var that = this;
+                    var UaaApi = require('api-uaa');
+                    UaaApi.ApiClient.instance.basePath = '/api/uaa'
+                    var apiInstance = new UaaApi.AccountResourceApi();
+                    var managedUserVM = new UaaApi.ManagedUserVM(); // ManagedUserVM | managedUserVM
+                    managedUserVM.login = iphone
+                    managedUserVM.password = this.setPassword
+                    managedUserVM.verifyCode = authCode
+                    managedUserVM.inviterPhone = recommend
                     var callback = function(error, data, response) {
                         if (error) {
                             console.error(error);
+                            alert(error)
                         } else {
-                            console.log("API called successfully. Returned data: " + data);
-                            console.log('chenggogn')
-                            setCookie("access_token",token); //
-                            var  val={
-                                "func":"closeCurrent",
-                                "param":{'finallyIndex':'4','refreshAll':true},
-                                };
-                            var u = navigator.userAgent;
-                            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-                            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-                            if(isiOS){
-                                window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-                            }else if(isAndroid){  
-                                window.androidObject.JSCallAndroid(JSON.stringify(val));
+                            console.log('API called successfully.');
+                            var credentials = {
+                            client: {
+                                id: "web_app",
+                                secret: "w1eb_app"
+                            },
+                            auth: {
+                                tokenHost: "http://cloud.eyun.online:9080",
+                                tokenPath: "/auth/login"
+                            },
+                            http: {
+                                headers: {
+                                    Accept: "application/json"
+                                }
+                            },
+                            options: {
+                                bodyFormat: "json"
                             }
-                        }
-                    };
-                    api.getAccountUsingGET(callback);
-                    return accessToken;
-                });
-
-             }
+                        };
+                        const oauth2 = require("simple-oauth2").create(credentials);
+                        const tokenConfig = {
+                            username: iphone,
+                            password: that.setPassword
+                        };
+                        var token;
+                        oauth2.ownerPassword.getToken(tokenConfig).then(result => {
+                        const accessToken = oauth2.accessToken.create(result);
+                        token = accessToken.token.access_token;
+                        var ApiVerify = require("api-uaa");
+                        ApiVerify.ApiClient.instance.basePath = "/api/uaa";
+                        ApiVerify.ApiClient.instance.defaultHeaders = {
+                            Authorization: "Bearer " + token
+                        };
+                        var api = new ApiVerify.AccountResourceApi();
+                        var callback = function(error, data, response) {
+                            if (error) {
+                                alert(error);
+                            } else {
+                                console.log("API called successfully. Returned data: " + data);
+                                console.log('chenggogn')
+                                setCookie("access_token",token); //
+                                var  val={
+                                    "func":"closeCurrent",
+                                    "param":{'finallyIndex':'4','refreshAll':true},
+                                    };
+                                var u = navigator.userAgent;
+                                var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+                                var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+                                if(isiOS){
+                                    window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+                                }else if(isAndroid){  
+                                    window.androidObject.JSCallAndroid(JSON.stringify(val));
+                                }
+                            }
+                        };
+                        api.getAccountUsingGET(callback);
+                        return accessToken;
+                    });
                 }
+              }
                 apiInstance.registerAppAccountUsingPOST(managedUserVM, callback);
+            }else{
+                alert('请输入密码')
+            }
+           
             }else{
                 alert('两次密码输入不符')
                 document.getElementById("setPassword").value="";
