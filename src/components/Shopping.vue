@@ -2,7 +2,7 @@
    <div>
     <div class='content'>
       <div class="register_header">
-        <p></p >
+        <p>〈</p >
         <p>购物车</p >
         <p><img src="../assets/Classify/消息黑色.png" alt=""><span class="shopping_red">3</span></p>
       </div>
@@ -84,7 +84,7 @@
 </template>
 <script>
 import Foot from "./main/Foot";
-import { setCookie,getCookie } from '../assets/js/cookie.js'
+import { setCookie, getCookie } from "../assets/js/cookie.js";
 export default {
   data() {
     return {
@@ -116,18 +116,14 @@ export default {
       this.flag=false;
     }
     var that = this;
-    this.$axios.get('http://cloud.eyun.online:9080/shoppingcart/api/shoppingcar/user',{
-      headers:{
-        Authorization: "Bearer " + accessToken
-      }
-    })
+    this.$axios.get('http://cloud.eyun.online:9080/shoppingcart/api/shoppingcar/user')
     .then(function(response) {
         that.serviceList = response.data.result;
         console.log(response.data.result)
     })
     .catch(function(error) {
         console.log(error);
-    });    
+    });   
   },
   methods: {
     logins:function(){  
@@ -148,15 +144,10 @@ export default {
     },
     // 加入收藏
     collect:function(shopId,index){
-      var accessToken = getCookie('access_token');
       // var skuid = this.serviceList[shopId].sku[index].skuid;
       var skuid = 28;  //
       var type = 1;
-      this.$axios.get('http://cloud.eyun.online:9080/favorite/api/favProduct/'+skuid+'/'+type,{
-        headers:{
-          Authorization: "Bearer " + accessToken
-        }
-      })
+      this.$axios.get('http://cloud.eyun.online:9080/favorite/api/favProduct/'+skuid+'/'+type)
       .then(function(response) {
           console.log(response)
       })
@@ -166,7 +157,6 @@ export default {
     },
     // 删除操作
     removeAll:function(index,id){
-      var accessToken = getCookie('access_token');
       if(this.serviceList[id].sku[index].checkboxChild == true){
         var Money = this.serviceList[id].sku[index].unitPrice*this.serviceList[id].sku[index].count;
         this.totalPrice = this.totalPrice - Money;
@@ -175,11 +165,7 @@ export default {
         }, 0); 
       }
       var delSkuid = this.serviceList[shopId].sku[index].skuid;
-      this.$axios.post('http://cloud.eyun.online:9080/shoppingcart/api/shoppingcar/del',delSkuid,{
-        headers:{
-          Authorization: "Bearer " + accessToken
-        }
-      })
+      this.$axios.post('http://cloud.eyun.online:9080/shoppingcart/api/shoppingcar/del',delSkuid)
       .then(function(res){
         if(res.data == 'success'){
           this.serviceList[id].sku.splice(index,1);
@@ -280,9 +266,6 @@ export default {
           this.serviceList[pageId].checkbox = true;
           this.serviceList[pageId].sku.map((v,i)=>{ 
             v.checkboxChild = true;
-            // if(v.checkboxChild == false){
-            //   this.checkboxBig = false;
-            // }
           })
         }else{
           this.serviceList[pageId].checkbox = false;
@@ -310,7 +293,6 @@ export default {
       sessionStorage.setItem("productName",this.productName);  // 姓名
       sessionStorage.setItem("count",this.count); // 几个
       sessionStorage.setItem("productUrl",this.productUrl); // 图片路径
-      var accessToken = getCookie('access_token');
       var that = this;
       var params = {
         "buyerMessage": 0, // 买家留言
@@ -330,10 +312,7 @@ export default {
       this.$axios({
         method:'POST',
         url:'http://cloud.eyun.online:9080/order/api/depproorders/0',
-        data: params,
-        headers:{
-            Authorization: "Bearer " + accessToken
-          }
+        data: params
         })
         .then(function(response) {
           console.log(response.data)
@@ -651,7 +630,7 @@ span {
   background: #f5f5f5;
   border-top: 0.01rem;
   position: fixed;
-  bottom: 0rem;
+  bottom: 0.96rem;
 }
 .shopping_footer_left {
   flex: 1;
