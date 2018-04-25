@@ -154,8 +154,13 @@ export default {
         }
       }
     },
-    GoogleSearch() {
-      this.$router.push({ name: "DetailsTwo", params: { name: "/FromPage" } });
+     GoogleSearch() {
+      this.$router.push({
+        name: "search",
+        params: {
+          mentype: "homepage",
+        }
+      });
     },
     Nearbyshops() {
       var val = {
