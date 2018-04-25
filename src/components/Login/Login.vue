@@ -18,19 +18,18 @@
                    <button class='btn' @click='btn'>登录</button>
             </div>
             <p class='ForgetPassWord'><span @click='ForgetPassWord'>忘记密码?</span></p>
-            {{msg}}
         </div>
 
-        <!--<div class='footer'>-->
-        <!--    <div class='LodingType'>-->
-        <!--        <p></p><h2 class='h2'>其他方式登录</h2><p></p>-->
-        <!--    </div>-->
-        <!--    <ul>-->
-        <!--        <li><img src="../../assets/Login/QQ.png" alt=""></li>-->
-        <!--        <li><img src="../../assets/Login/微信.png" alt=""></li>-->
-        <!--        <li><img src="../../assets/Login/支付宝.png" alt=""></li>-->
-        <!--    </ul>-->
-        <!--</div>-->
+        <!-- <div class='footer'>
+            <div class='LodingType'>
+                <p></p><h2 class='h2'>其他方式登录</h2><p></p>
+            </div>
+            <ul>
+                <li><img src="../../assets/Login/QQ.png" alt=""></li>
+                <li><img src="../../assets/Login/微信.png" alt=""></li>
+                <li><img src="../../assets/Login/支付宝.png" alt=""></li>
+            </ul>
+        </div> -->
   </div>
 </template>
 
@@ -42,16 +41,13 @@ export default {
     return {
       PassName: "",
       PassWord: "",
-      msg: ""
+      msg: "",
+      registrationID:""
     };
   },
   methods: {
     created() {
-      // var UaaJavascript = require('uaa-javascript');
-      // console.log(api);
-      // var apiClient = new UaaJavascript.ApiClient();
-      // var api = new UaaJavascript.AuthApi(apiClient);
-      // api.login('admin', 'admin');
+     
     },
     register() {
       this.$router.push({ name: "Register" });
@@ -61,7 +57,6 @@ export default {
     },
     messageSink(msg) {},
     // 传token
-
     upperCase() {
       var theinput = document.getElementsByClassName("value")[0].value;
       var p1 = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;
@@ -90,24 +85,29 @@ export default {
     },
     btn() {
       var data = {'username':this.PassName,'password':this.PassWord}
-        this.$axios.post('http://cloud.eyun.online:9080/auth/login',data)
-        .then((res)=>{
-            var accessToken = res.data.access_token;
-            setCookie('access_token',accessToken,1000*60)
-            var accessTokens = getCookie("access_token");
-            var  val={
-                "func":"closeCurrent",
-                "param":{'finallyIndex':'1','refreshAll':true},
-                };
-            var u = navigator.userAgent;
-            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-            if(isiOS){
-                window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-            }else if(isAndroid){  
-                window.androidObject.JSCallAndroid(JSON.stringify(val));
-            }
-        })
+      this.$axios.post('http://cloud.eyun.online:9080/auth/login',data)
+      .then(function(response) {
+          var  val={
+              "func":"closeCurrent",
+              "param":{'finallyIndex':'1','refreshAll':true},
+          };
+          var u = navigator.userAgent;
+          var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+          var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+          if(isiOS){
+              window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+          }else if(isAndroid){  
+              window.androidObject.JSCallAndroid(JSON.stringify(val));
+          }
+      })
+      .catch(function(error) {
+          if(error.response.status === 500){
+              alert('服务器繁忙，请耐心等待')
+          }
+      });
+    },
+    setDeviceId(registrationID){
+      this.registrationID = registrationID
     }
   },
 
@@ -116,6 +116,7 @@ export default {
     window.mobileSetToken = this.mobileSetToken;
     window.setToken = this.setToken;
     window.closeCurrent = this.closeCurrent;
+    window.registrationID = this.registrationID;
     $("input").on("keyup", function() {
       if (
         $("#passname").val().length >= 1 &&
@@ -142,6 +143,8 @@ export default {
   position: absolute;
   top: 0;
   bottom: 0;
+  left: 0;
+  right: 0;
   overflow: hidden;
   background: #fff;
 }
