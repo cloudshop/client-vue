@@ -85,7 +85,7 @@ export default {
     },
     btn() {
       var data = {'username':this.PassName,'password':this.PassWord}
-      this.$axios.post('http://cloud.eyun.online:9080/auth/login',data)
+      this.$axios.post('http://cloud.eyun.online:9080/auth/login/app',data)
       .then(function(response) {
           var  val={
               "func":"closeCurrent",
