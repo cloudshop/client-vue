@@ -70,7 +70,7 @@ export default {
                             },
                             auth: {
                                 tokenHost: "http://cloud.eyun.online:9080",
-                                tokenPath: "/auth/login"
+                                tokenPath: "/auth/login/app"
                             },
                             http: {
                                 headers: {
