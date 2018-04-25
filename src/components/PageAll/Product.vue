@@ -259,7 +259,7 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
         var that = this;
         var shopId = this.data.productContent.shopid;
         var skuId = this.data.productContent.id;
-        var params = {"skuId":skuId,"shopid":shopId,"count": 1}
+        var params = {"skuId":skuId,"shopId":shopId,"count": 1}
         var accessToken = getCookie('access_token');
         this.$axios({
                 method:'post',
