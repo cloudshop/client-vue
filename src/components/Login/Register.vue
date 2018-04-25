@@ -64,7 +64,7 @@ export default {
                     setCookie('recommend',recommend,1000*60)
                     that.$router.push({path:'/SetPsd'})
                   }else{
-                    alert('未注册成功')
+                    alert(res.content)
                   }
                 },  
                 error(res){
@@ -86,7 +86,7 @@ export default {
                   setCookie('recommend',recommend,1000*60)
                   that.$router.push({path:'/SetPsd'})
                 }else{
-                  alert('未注册成功')
+                  alert(res.content)
                 }
               },  
               error(res){
@@ -94,50 +94,6 @@ export default {
               }
             })
           }
-          // if(p1.test(recommend) == '') {
-          //   console.log(recommend)
-          //    $.ajax({
-          //     url:'http://cloud.eyun.online:9080/verify/api/verify/smsvalidate?'+'phone='+this.phone+'&smsCode='+this.authCode,
-          //     method:'get',
-          //     callback:'cb',
-          //     success:function(res){
-          //       if(res.message == 'success'){
-          //         setCookie('recommend',recommend,1000*60)
-          //         that.$router.push({path:'/SetPsd'})
-          //       }else{
-          //         alert('未注册成功没有推荐人')
-          //       }
-          //     },  
-          //     error(res){
-          //       alert(res.responseJSON.title)
-          //     }
-          //   })
-          // }else {
-           
-          //   if(p1.test(recommend) == true) {
-          //      console.log(recommend)
-          //     setCookie('recommend',recommend,1000*60)
-          //     $.ajax({
-          //       url:'http://cloud.eyun.online:9080/verify/api/verify/smsvalidate?'+'phone='+this.phone+'&smsCode='+this.authCode,
-          //       method:'get',
-          //       callback:'cb',
-          //       success:function(res){
-          //         if(res.message == 'success'){
-          //           // setCookie('recommend',recommend,1000*60)
-          //           that.$router.push({path:'/SetPsd'})
-          //         }else{
-          //           alert('未注册成功有推荐人')
-          //         }
-          //       },  
-          //       error(res){
-          //         alert(res.responseJSON.title)
-          //       }
-          //     }) 
-          //   }else{
-          //     alert('请填写推荐人正确手机号！'); 
-          //     document.getElementById("recommend").value="";
-          //   }
-          // }
       },
       gain(obj){
           var theinput=document.getElementById("mytest").value; 
