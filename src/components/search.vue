@@ -17,7 +17,7 @@ export default {
   data(){
       return{
         //  postFee:this.$router.params.name,
-         postFee: this.$route.params.postFee,
+
          mentype: this.$route.params.mentype,
       }
   },
