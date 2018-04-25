@@ -87,6 +87,8 @@ export default {
       var data = {'username':this.PassName,'password':this.PassWord,'registrationID':this.registrationID}
       this.$axios.post('http://cloud.eyun.online:9080/auth/login/app',data)
       .then(function(response) {
+          var accessToken = response.data.access_token;
+          setCookie('access_token',accessToken,1000*60);
           var  val={
               "func":"closeCurrent",
               "param":{'finallyIndex':'1','refreshAll':true},
@@ -101,9 +103,10 @@ export default {
           }
       })
       .catch(function(error) {
-          if(error.response.status === 500){
-              alert('服务器繁忙，请耐心等待')
-          }
+        alert(error)
+          // if(error.response.status === 500){
+          //     alert('服务器繁忙，请耐心等待')
+          // }
       });
     },
     setDeviceId(registrationID){
@@ -116,7 +119,7 @@ export default {
     window.mobileSetToken = this.mobileSetToken;
     window.setToken = this.setToken;
     window.closeCurrent = this.closeCurrent;
-    window.registrationID = this.registrationID;
+    window.setDeviceId = this.setDeviceId;
     $("input").on("keyup", function() {
       if (
         $("#passname").val().length >= 1 &&
