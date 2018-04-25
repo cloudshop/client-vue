@@ -84,7 +84,7 @@ export default {
       }
     },
     btn() {
-      var data = {'username':this.PassName,'password':this.PassWord}
+      var data = {'username':this.PassName,'password':this.PassWord,'registrationID':this.registrationID}
       this.$axios.post('http://cloud.eyun.online:9080/auth/login/app',data)
       .then(function(response) {
           var  val={
