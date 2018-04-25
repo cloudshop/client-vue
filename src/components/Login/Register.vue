@@ -25,7 +25,7 @@
 
       <div class="iphoneRecommend">
         <p>+86 <span>∨</span></p>  
-        <input type="text"  id="recommends" placeholder="请输入您推荐人的手机号"  v-model="recommend">
+        <input type="text"  id="recommend" placeholder="请输入您推荐人的手机号"  v-model="recommend">
       </div>
 
       <div class="next">      
@@ -48,43 +48,45 @@ export default {
     },
     methods:{
       next(){
-          var recommends=document.getElementById("recommends").value; 
+          var recommend=document.getElementById("recommend").value; 
           var authCode=document.getElementById("authCode").value; 
           var p1=/^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;
-          setCookie('authCode',authCode,1000*60)
-          //(p1.test(theinput)); 
+          setCookie('authCode',authCode,1000*60) 
           var that = this;
-          if(p1.test(recommends) != "") { 
-            if(p1.test(recommends)==false) { 
-              alert('请填写推荐人正确手机号！'); 
-              document.getElementById("mytest").value="";
-            }else{
-                 $.ajax({
-                  url:'http://cloud.eyun.online:9080/verify/api/verify/smsvalidate?'+'phone='+this.phone+'&smsCode='+this.authCode,
-                  method:'get',
-                  callback:'cb',
-                  success:function(res){
-                    if(res.message == 'success'){
-                      that.$router.push({path:'/SetPsd'})
-                    }else{
-                      alert('验证码填写错误')
-                    }
-                  },  
-                  error(res){
-                    console.log(res)
+          if(recommend != ''){
+            if(p1.test(recommend) == true) {
+              $.ajax({
+                url:'http://cloud.eyun.online:9080/verify/api/verify/smsvalidate?'+'phone='+this.phone+'&smsCode='+this.authCode,
+                method:'get',
+                callback:'cb',
+                success:function(res){
+                  if(res.message == 'success'){
+                    setCookie('recommend',recommend,1000*60)
+                    that.$router.push({path:'/SetPsd'})
+                  }else{
+                    alert('未注册成功')
                   }
-                })
+                },  
+                error(res){
+                  alert(res.responseJSON.title)
+                }
+              })
             }
-          }else {
-            $.ajax({
+            else{
+              alert('推荐人手机填写错误')
+            }
+          }
+          else{
+             $.ajax({
               url:'http://cloud.eyun.online:9080/verify/api/verify/smsvalidate?'+'phone='+this.phone+'&smsCode='+this.authCode,
               method:'get',
               callback:'cb',
               success:function(res){
                 if(res.message == 'success'){
+                  setCookie('recommend',recommend,1000*60)
                   that.$router.push({path:'/SetPsd'})
                 }else{
-                  alert('验证码填写错误')
+                  alert('未注册成功')
                 }
               },  
               error(res){
@@ -92,15 +94,56 @@ export default {
               }
             })
           }
+          // if(p1.test(recommend) == '') {
+          //   console.log(recommend)
+          //    $.ajax({
+          //     url:'http://cloud.eyun.online:9080/verify/api/verify/smsvalidate?'+'phone='+this.phone+'&smsCode='+this.authCode,
+          //     method:'get',
+          //     callback:'cb',
+          //     success:function(res){
+          //       if(res.message == 'success'){
+          //         setCookie('recommend',recommend,1000*60)
+          //         that.$router.push({path:'/SetPsd'})
+          //       }else{
+          //         alert('未注册成功没有推荐人')
+          //       }
+          //     },  
+          //     error(res){
+          //       alert(res.responseJSON.title)
+          //     }
+          //   })
+          // }else {
+           
+          //   if(p1.test(recommend) == true) {
+          //      console.log(recommend)
+          //     setCookie('recommend',recommend,1000*60)
+          //     $.ajax({
+          //       url:'http://cloud.eyun.online:9080/verify/api/verify/smsvalidate?'+'phone='+this.phone+'&smsCode='+this.authCode,
+          //       method:'get',
+          //       callback:'cb',
+          //       success:function(res){
+          //         if(res.message == 'success'){
+          //           // setCookie('recommend',recommend,1000*60)
+          //           that.$router.push({path:'/SetPsd'})
+          //         }else{
+          //           alert('未注册成功有推荐人')
+          //         }
+          //       },  
+          //       error(res){
+          //         alert(res.responseJSON.title)
+          //       }
+          //     }) 
+          //   }else{
+          //     alert('请填写推荐人正确手机号！'); 
+          //     document.getElementById("recommend").value="";
+          //   }
+          // }
       },
       gain(obj){
           var theinput=document.getElementById("mytest").value; 
           setCookie('iphone',theinput,1000*60)
           var p1=/^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/; 
-          if(p1.test(theinput)==false) { 
-            alert('请填写正确手机号！'); 
-            document.getElementById("mytest").value="";
-          }else {
+          if(p1.test(theinput) != false) { 
             $.ajax({
               url:'http://cloud.eyun.online:9080/verify/api/verify/smscode?phone='+this.phone,
               method:'get',
@@ -129,6 +172,9 @@ export default {
                 alert(res.responseJSON.title)
               }
             })
+          }else {
+            alert('请填写正确手机号！'); 
+            document.getElementById("mytest").value="";
           }
       }
     },
