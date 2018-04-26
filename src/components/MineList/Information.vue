@@ -5,8 +5,9 @@
            <div class="mint-header-button is-left">
                <a class="router-link-active">
                    <button class="mint-button mint-button--default mint-button--normal">
-                        <router-link :to="{ path: '/Mine' }" tag='mt-button'>&lt;
-                        </router-link> 
+                        <!--<router-link :to="{ path: '/Mine' }" tag='mt-button'>&lt;-->
+                        <!--</router-link> -->
+                        <mt-button @click="back">&lt;</mt-button>
                    </button>
               </a>
             </div> 
@@ -74,21 +75,7 @@ export default {
         console.log(res);
       }
     });
-    // this.$axios
-    //   .get(
-    //     "http://cloud.eyun.online:9080/user/api/user-annexes/userInfo/",
-    //     {
-    //       headers: {
-    //         Authorization: "Bearer " + accessToken
-    //       }
-    //     }
-    //   )
-    //   .then(function(res) {
-    //     console.log(res);
-    //   })
-    //   .catch(function(error) {
-    //     console.log(error);
-    //   });
+
   },
   methods: {
     actionSheet: function() {
@@ -104,7 +91,6 @@ export default {
         contentType: "application/json",
         headers: {
           Authorization: "Bearer " + accessToken
-          //   'Content-Type':"application/json"
         },
         success: function(res) {
           console.log(res);
@@ -151,6 +137,22 @@ export default {
         }
       });
     },
+    back(){   
+         var  val={
+                "func":"closeCurrent",
+                  "param":{
+                    
+                  },
+                };
+              var u = navigator.userAgent;
+              var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+              var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+              if(isiOS){
+                window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+              }else if(isAndroid){  
+                window.androidObject.JSCallAndroid(JSON.stringify(val));
+              }
+     },
     address: function() {
       this.$router.push({ name: "MyAddress" });
     }
