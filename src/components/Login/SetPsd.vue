@@ -101,6 +101,7 @@ export default {
                                alert(error);
                             } else {
                                alert('注册成功')
+                               setCookie('access_token',token,1000*60)
                                 var  val={
                                     "func":"closeCurrent",
                                     "param":{'finallyIndex':'4','refreshAll':true},
