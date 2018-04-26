@@ -60,6 +60,7 @@ import RegisterNew from '../components/Login/RegisterNew.vue'
 import sunorder from '../components/Sher/Sunorder.vue'
 import top from '../components/Sher/Topup.vue'
 import Offline from '../components/Sher/Offline.vue'
+import Agreement from '../components/Sher/Agreement.vue' // 用户协议
 Vue.use(Router)
 
 const routes = [{
@@ -325,6 +326,11 @@ const routes = [{
                 name: 'search',
                 component: search
             },
+            { // 用户协议
+                path: '/Agreement',
+                name: 'Agreement',
+                component: Agreement
+            }
         ]
     },
 ]
