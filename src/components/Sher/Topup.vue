@@ -84,17 +84,7 @@ export default {
       $(".main_top li").removeClass("col");
     });
 
-    //     $(".main_top").find("li").each(function () {
-    //         $(this).click(function () {
-    //        var monval = $(this).val();
 
-    //         })
-    //        console.log(monval)
-    // })
-
-    //     $(".main_top").find("li").each(function () {
-
-    // })
     var accessToken = getCookie("access_token");
 
     $("#btn").on("click", function() {
@@ -106,15 +96,12 @@ export default {
             if ($(this).is(".col")) {
               var re = $('input:radio[name="sex"]:checked').val();
               var mo = $(this).val();
-              //   console.log(mo);
-              //   console.log("即将使用" + re + "为您充值" + $(this).val() + "元");
-              //var data = {"aliases":this.name,"phone":this.phone,"contact":this.contact}
               var data = { payType: re, payment: mo };
 
               $.ajax({
                 url:
                   // "http://cloud.eyun.online:9080/order/api/dep-orders/deposit",
-                  "http://cloud.eyun.online:9080/order/api/depproorders/1",
+                  "http://cloud.eyun.online:9080/order/api/dep-orders/deposit",
                 // method:'post',
                 type: "POST",
                 contentType: "application/json",
