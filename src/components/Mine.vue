@@ -4,8 +4,9 @@
 
          <header class='header'>
                <div class='headRight'>
-                  <router-link :to="{ path: '/Information' }" tag='p'>
-                  </router-link> 
+                  <!--<router-link :to="{ path: '/Information' }" tag='p'>-->
+                  <!--</router-link> -->
+                  <p @click='Information'></p>
                   <p></p>
                </div>
                <dl>
@@ -137,6 +138,22 @@ export default {
         func: "openURL",
         param: {
           URL: "http://cloud.eyun.online:8888/#/indentAll"
+        }
+      };
+      var u = navigator.userAgent;
+      var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+      if (isiOS) {
+        window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+      } else if (isAndroid) {
+        window.androidObject.JSCallAndroid(JSON.stringify(val));
+      }
+    },
+    Information(){
+      var val = {
+        func: "openURL",
+        param: {
+          URL: "http://cloud.eyun.online:8888/#/Information"
         }
       };
       var u = navigator.userAgent;
