@@ -179,6 +179,7 @@ export default {
       height: 80%;
       position: absolute;
       opacity: 0;
+      top: .3rem;
   }
   .apps .yes{
       height: .40rem;
