@@ -237,6 +237,5 @@ input::-webkit-input-placeholder{
   background: #c4c4c4;
   border-radius: .08rem;
   border:0;
-  margin-top: 1rem;
 }
 </style>
