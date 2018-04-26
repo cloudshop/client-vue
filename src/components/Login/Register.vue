@@ -27,11 +27,17 @@
         <p>+86 <span>∨</span></p>  
         <input type="text"  id="recommend" placeholder="请输入您推荐人的手机号"  v-model="recommend">
       </div>
-
+        <div class="apps">
+            <div class="inputs">
+            <input type="checkbox" id="tonglian" class="checkboxs"  value="通联" name="sex"  v-model="yesIdo" @click="checkChange">
+            <label for="tonglian"></label>
+            </div>
+            <p class="yes">我已同意<router-link to="/Agreement" class="xy">《贡融积分会员注册协议》</router-link></p>
+        </div>
       <div class="next">      
         <input type='button' class="next_btn" @click="next" value='下一步' >
       </div>
-
+      
     </div>
   </div>
 </template>
@@ -44,9 +50,13 @@ export default {
         phone:'',
         authCode:'',
         recommend: '',
+        yesIdo:false
       }
     },
     methods:{
+      checkChange(){
+        this.yesIdo = !this.yesIdo;
+      },
       next(){
           var recommend=document.getElementById("recommend").value; 
           var authCode=document.getElementById("authCode").value; 
@@ -55,7 +65,34 @@ export default {
           var that = this;
           if(recommend != ''){
             if(p1.test(recommend) == true) {
-              $.ajax({
+              if(this.yesIdo == true){
+                $.ajax({
+                  url:'http://cloud.eyun.online:9080/verify/api/verify/smsvalidate?'+'phone='+this.phone+'&smsCode='+this.authCode,
+                  method:'get',
+                  callback:'cb',
+                  success:function(res){
+                    if(res.message == 'success'){
+                      setCookie('recommend',recommend,1000*60)
+                      that.$router.push({path:'/SetPsd'})
+                    }else{
+                      alert(res.content)
+                    }
+                  },  
+                  error(res){
+                    alert(res.responseJSON.title)
+                  }
+                })
+               }else{
+                  alert('您是否同意贡融积分会员注册协议')
+               }
+            }
+            else{
+              alert('推荐人手机填写错误')
+            }
+          }
+          else{
+            if(this.yesIdo == true){
+               $.ajax({
                 url:'http://cloud.eyun.online:9080/verify/api/verify/smsvalidate?'+'phone='+this.phone+'&smsCode='+this.authCode,
                 method:'get',
                 callback:'cb',
@@ -71,28 +108,9 @@ export default {
                   alert(res.responseJSON.title)
                 }
               })
+            }else{
+               alert('您是否同意贡融积分会员注册协议')
             }
-            else{
-              alert('推荐人手机填写错误')
-            }
-          }
-          else{
-             $.ajax({
-              url:'http://cloud.eyun.online:9080/verify/api/verify/smsvalidate?'+'phone='+this.phone+'&smsCode='+this.authCode,
-              method:'get',
-              callback:'cb',
-              success:function(res){
-                if(res.message == 'success'){
-                  setCookie('recommend',recommend,1000*60)
-                  that.$router.push({path:'/SetPsd'})
-                }else{
-                  alert(res.content)
-                }
-              },  
-              error(res){
-                alert(res.responseJSON.title)
-              }
-            })
           }
       },
       gain(obj){
@@ -159,6 +177,50 @@ export default {
   flex-direction: column;
   background: #ffffff !important;
 }
+  .apps{
+      width: 100%;
+      height: .40rem;
+      display: flex;
+  }
+  .inputs {
+      width: 0.32rem;
+      height: 0.32rem;
+      border-radius: 50%;
+      left: .2rem;
+      position: relative;
+  }
+  .inputs .checkboxs {
+      width: 80%;
+      height: 80%;
+      position: absolute;
+      opacity: 0;
+  }
+  .apps .yes{
+      height: .40rem;
+      text-indent: .2rem;
+      font-size: .28rem;
+      padding-top: .1rem;
+  }
+  input[type="checkbox"] + label::before {
+      box-sizing: border-box;
+      content: " "; /*不换行空格*/
+      display: inline-block;
+      vertical-align: middle;
+      width: 1.2em; 
+      height: 1.2em;
+      background: url("../../assets/manage/change_no.png");
+      background-size: 100% 100%;
+      border-radius: 50%;
+      margin-top: .11rem
+      }
+  input[type="checkbox"]:checked + label::before {
+      /* background: red; */
+      background: url("../../assets/manage/change.png");
+      background-size: 100% 100%;
+  }
+  .xy{
+      color: #ff0103
+  }
 header{
     width:100%;
     background:#fff;
