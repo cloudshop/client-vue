@@ -13,7 +13,7 @@
         </header>
         <div class='content main'>
             <div class='form'>
-                   <p><label for="" >账号</label><input type="text" class='value' v-model="PassName" placeholder="请输入账号" id='passname'></p>
+                   <p><label for="" >账号</label><input type="text" class='value' v-model.trim="PassName" placeholder="请输入账号" id='passname' @blur="upperCase"></p>
                    <p><label for="">密码</label><input type="password"   v-model="PassWord" placeholder="请输入密码" id='password'></p>
                      <div class="apps">
                         <div class="inputs">
@@ -50,10 +50,14 @@ export default {
       PassWord: "",
       msg: "",
       registrationID:"",
-      yesIdo: true
+      yesIdo: true,
+      iphoneYN:false
     };
   },
   methods: {
+    show(){
+      console.log(0)
+    },
     created() {
      
     },
@@ -71,12 +75,13 @@ export default {
     upperCase() {
       var theinput = document.getElementsByClassName("value")[0].value;
       var p1 = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;
-      //(p1.test(theinput));
+      // var p2 = /^[\^\\%@&\*~'\?\/\<\>\|\"`]+$/;
       if (p1.test(theinput) == false) {
-        console.log("请填写正确电话号码!!");
+        alert("请填写正确电话号码!!");
         document.getElementsByClassName("value")[0].value = "";
       } else {
         console.log("succeess");
+        this.iphoneYN = true;
       }
     },
     closeCurrent() {
@@ -95,34 +100,38 @@ export default {
       }
     },
     btn() {
-      if(this.yesIdo == true){
-        var data = {'username':this.PassName,'password':this.PassWord,'registrationID':this.registrationID}
-        this.$axios.post('http://cloud.eyun.online:9080/auth/login/app',data)
-        .then(function(response) {
-            var accessToken = response.data.access_token;
-            setCookie('access_token',accessToken,1000*60);
-            var  val={
-                "func":"closeCurrent",
-                "param":{'finallyIndex':'1','refreshAll':true},
-            };
-            var u = navigator.userAgent;
-            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-            if(isiOS){
-                window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-            }else if(isAndroid){  
-                window.androidObject.JSCallAndroid(JSON.stringify(val));
+      if(this.iphoneYN == true){
+        if(this.yesIdo == true){
+          var data = {'username':this.PassName,'password':this.PassWord,'registrationID':this.registrationID}
+          this.$axios.post('http://cloud.eyun.online:9080/auth/login/app',data)
+          .then(function(response) {
+              var accessToken = response.data.access_token;
+              setCookie('access_token',accessToken,1000*60);
+              var  val={
+                  "func":"closeCurrent",
+                  "param":{'finallyIndex':'1','refreshAll':true},
+              };
+              var u = navigator.userAgent;
+              var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+              var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+              if(isiOS){
+                  window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+              }else if(isAndroid){  
+                  window.androidObject.JSCallAndroid(JSON.stringify(val));
+              }
+          })
+          .catch(function(error) {
+            if(error.response.status === 500){
+                alert('服务器繁忙，请耐心等待')
             }
-        })
-        .catch(function(error) {
-          alert(error)
-            // if(error.response.status === 500){
-            //     alert('服务器繁忙，请耐心等待')
-            // }
-        });
+          });
+        }else{
+          alert('您是否同意贡融积分会员注册协议')
+        }
       }else{
-         alert('您是否同意贡融积分会员注册协议')
+        alert('手机号输入错误')
       }
+      
     },
     setDeviceId(registrationID){
       this.registrationID = registrationID
@@ -173,7 +182,7 @@ export default {
   }
   .apps .yes{
       height: .40rem;
-      text-indent: .2rem;
+      text-indent: .3rem;
       font-size: .28rem;
       /* padding-top: .05rem; */
   }
@@ -182,12 +191,12 @@ export default {
       content: " "; /*不换行空格*/
       display: inline-block;
       vertical-align: middle;
-      width: 1.2em; 
-      height: 1.2em;
+      width: 1.8em; 
+      height: 1.8em;
       background: url("../../assets/manage/change_no.png");
       background-size: 100% 100%;
       border-radius: 50%;
-      margin-top: .35rem
+      margin-top: .3rem
       }
   input[type="checkbox"]:checked + label::before {
       /* background: red; */
