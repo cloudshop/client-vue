@@ -48,11 +48,11 @@
               <div class='mainContent'>
                      <h2>线上商城</h2> 
                      <div class='onLine'>
-                     <router-link :to="{ path: '/indentAll' }" tag='dl' class='onlinelist'>
+                     <dl class='onlinelist' @click="openorder">
                            <dt><img src="../assets/Mine/订单.png" alt=""></dt>
                            <dd>全部订单</dd>
-                     </router-link>
-
+                    </dl>
+                    
                      <router-link :to="{ path: '/collection' }" tag='dl' class='onlinelist'>
                            <dt><img src="../assets/Mine/我的收藏.png" alt=""></dt>
                            <dd>我的收藏</dd>
@@ -132,6 +132,22 @@ export default {
                   window.androidObject.JSCallAndroid(JSON.stringify(val));
             }
        },
+       openorder() {
+      var val = {
+        func: "openURL",
+        param: {
+          URL: "http://cloud.eyun.online:8888/#/indentAll"
+        }
+      };
+      var u = navigator.userAgent;
+      var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+      if (isiOS) {
+        window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+      } else if (isAndroid) {
+        window.androidObject.JSCallAndroid(JSON.stringify(val));
+      }
+    },
       },
       components:{
         Foot,
