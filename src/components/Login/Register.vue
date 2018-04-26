@@ -14,7 +14,7 @@
     <div class="register_main">
       <div class="iphone">
         <p>+86 <span>∨</span></p>
-        <input type="text" placeholder="请输入手机号" id="mytest"  v-model="phone">
+        <input type="text" placeholder="请输入手机号" id="mytest"  v-model="phone"  @blur="upperCase">
         <div class="iphones"><span class="one">|</span><button class="iphone_btn"  id='iphone_btn' @click='gain(".iphone_btn")'>获取验证码</button></div>
       </div>
 
@@ -56,6 +56,20 @@ export default {
     methods:{
       checkChange(){
         this.yesIdo = !this.yesIdo;
+      },
+      upperCase() {
+        var theinput = document.getElementsByClassName("value")[0].value;
+        console.log(theinput)
+        var p1 = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;
+        var p2 = /^[\^\\%@&\*~'\?\/\<\>\|\"`]+$/;
+        //(p1.test(theinput));
+        if (p1.test(theinput) == false) {
+          alert("请填写正确电话号码!!");
+          document.getElementsByClassName("value")[0].value = "";
+        } else {
+          console.log("succeess");
+          this.iphoneYN = true;
+        }
       },
       next(){
           var recommend=document.getElementById("recommend").value; 
@@ -181,6 +195,7 @@ export default {
       width: 100%;
       height: .40rem;
       display: flex;
+      margin-top: .2rem;
   }
   .inputs {
       width: 0.32rem;
@@ -197,24 +212,21 @@ export default {
   }
   .apps .yes{
       height: .40rem;
-      text-indent: .2rem;
+      text-indent: .3rem;
       font-size: .28rem;
-      padding-top: .1rem;
   }
   input[type="checkbox"] + label::before {
       box-sizing: border-box;
       content: " "; /*不换行空格*/
       display: inline-block;
       vertical-align: middle;
-      width: 1.2em; 
-      height: 1.2em;
+      width: 1.8em; 
+      height: 1.8em;
       background: url("../../assets/manage/change_no.png");
       background-size: 100% 100%;
       border-radius: 50%;
-      margin-top: .11rem
       }
   input[type="checkbox"]:checked + label::before {
-      /* background: red; */
       background: url("../../assets/manage/change.png");
       background-size: 100% 100%;
   }
@@ -281,7 +293,6 @@ button{
   background: #fff;
 }
 .next_btn .iphone_btn{
-  /* width: 30%; */
   height: 100%;
   display: flex;
   font-size: .24rem;
@@ -289,7 +300,6 @@ button{
   border: none;
 }
 #iphone_btn{
-  /* width: 30%; */
   height: 100%;
   display: flex;
   font-size: .24rem;
@@ -349,7 +359,7 @@ input::-webkit-input-placeholder{
 .next{
   width: 100%;
   height: .96rem;
-  margin-top: .5rem;
+  margin-top: .2rem;
 }
 .next_btn{
   width: 100%;
@@ -362,6 +372,5 @@ input::-webkit-input-placeholder{
   background: #c4c4c4;
   border-radius: .08rem;
   border:0;
-  margin-top: 1rem;
 }
 </style>
