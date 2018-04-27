@@ -57,7 +57,7 @@
     </mt-tab-container-item>
     <mt-tab-container-item id="2">
         <ul class="detailsPage_ul">
-          <li class="detailsPage_ul_li" v-for="(item,index) in tabs" :key='index' :class="{active:index == num}"  @click="tab(index)">{{item}}</li>
+          <li class="detailsPage_ul_li" v-for="(item,index) in tabs" :key='index'  @click="tab(index)">{{item}}</li>
         </ul>
         <div class="detailsPage_img">
          ———————<img class="detailsPage_imgs" src="../../assets/details/图片.png" alt=""> 图文详情  ———————
@@ -334,6 +334,14 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.detailsPage_ulP .detailsPage_ul_li:hover{
+  color:#d81e06;
+}
+.active{
+  color:#d81e06!important;
+  border: none !important;
+  border: .1px solid #d81e06 !important;
+}
 .active{
   color:#d81e06!important;
 }
