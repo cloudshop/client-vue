@@ -435,7 +435,7 @@ input[type="text"] {
   width: 100%;
   font-size: 0.18rem;
   color: #676767;
-  margin-top: 0.11rem;
+  margin-top: 0.2rem;
   display: inline-block;
 }
 .back{
