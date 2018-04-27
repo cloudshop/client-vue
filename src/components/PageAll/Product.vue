@@ -260,15 +260,10 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
         var shopId = this.data.productContent.shopid;
         var skuId = this.data.productContent.id;
         var params = {"skuId":skuId,"shopId":shopId,"count": 1}
-        var accessToken = getCookie('access_token');
         this.$axios({
                 method:'post',
                 url:'http://cloud.eyun.online:9080/shoppingcart/api/shoppingcar/add',
                 data:params,
-                headers:{
-                  'Content-Type': 'application/json',
-                  Authorization: "Bearer " + accessToken
-                }
             })
             .then(function(response) {
               if(response.data.message == 'success'){
@@ -299,7 +294,7 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
         var ProductID=sessionStorage.getItem("ProductID");
         var Goods=sessionStorage.getItem("GoodsID"); // 商品id 
         this.$axios.get('http://cloud.eyun.online:9080/favorite/api/favProduct/'+Goods+'/1')
-         .then(function(response) {   
+         .then(function(response) {
             if(response.data == true){
                $('.collect').addClass("active");
             }else{
@@ -323,7 +318,7 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
         this.$axios.get('http://cloud.eyun.online:9080/product/api/product/content?id=' + Goods)
          .then(function(response) {   
             that.data = response.data;
-            console.log(response.data)
+            // console.log(response.data)
         })
         .catch(function(error) {
             console.log(error);
@@ -341,9 +336,6 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
   color:#d81e06!important;
   border: none !important;
   border: .1px solid #d81e06 !important;
-}
-.active{
-  color:#d81e06!important;
 }
 .list{ 
   margin-top:.3rem;
@@ -450,6 +442,7 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
   border:1px solid #e7e7e7;
   padding:0 .4em;
   margin:.15rem .1rem;  
+  
 }
 .Cont{
   display:flex;
@@ -461,7 +454,7 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
   width:.7rem;
   height:.4rem;
   border:0;
-  border:1px solid #707070;
+  border:1px solid #ccc;
   display:inline-block; 
   text-align:center;
 }
@@ -471,8 +464,9 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
 .Cont i{
    display:inline-block;
    width:.48rem;
-   height:.44rem;
-   border:1px solid #707070;
+   height:.42rem;
+   border:1px solid #ccc;
+   border-radius: .01rem;
    text-align:center;
    line-height: .44rem;
 }
