@@ -30,7 +30,6 @@
 
 <script>
 import { Header,Popup } from 'mint-ui';
-import { setCookie,getCookie } from '../../assets/js/cookie'
 export default {
   data(){
           return{  
@@ -40,11 +39,7 @@ export default {
       },
      created(){
              var that = this
-       var accessToken = getCookie('access_token');
         this.$axios.get('http://cloud.eyun.online:9080/wallet/api/wallets/user',{
-          headers:{
-            'Authorization': 'Bearer ' + accessToken,
-          }
         })
         .then(function(res){
       //     console.log(res.data.balance)
