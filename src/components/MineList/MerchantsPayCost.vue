@@ -71,7 +71,7 @@
                 </span>
                 我已阅读并接受<i>《贡融商户协议》</i>和<i>《商家入驻须知》</i>
             </P>
-            <h2 class="pay">还需支付(996.6元)</h2>
+            <h2 class="pay">支付</h2>
         </footer>
     </div>
 </template>
