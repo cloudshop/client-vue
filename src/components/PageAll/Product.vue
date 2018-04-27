@@ -2,22 +2,22 @@
 <div class='content'>
   <mt-navbar v-model="selected">
     <!--<router-link :to="{ path: '/Classify' }" tag='span'  class="spans">〈</router-link>-->
-    <span class="spans" @click='back'>〈</span>
+    <span class="spans" @click='back'>&lt;</span>
     <mt-tab-item id="1">商品</mt-tab-item>
     <mt-tab-item id="2">详情</mt-tab-item>
     <mt-tab-item id="3">评论</mt-tab-item>
   </mt-navbar>
   <!-- tab-container -->
   <mt-tab-container v-model="selected">
+    <!-- 内容一 -->
     <mt-tab-container-item id="1">
       <mt-cell>
         <div class="details_banner">
-          <!-- 循环 -->
           <img src="../../assets/HomePage/bg.gif" alt="">
         </div>
         <div class="details_cantent">
           <h4> {{data.productContent.productname}}</h4>
-          <p><span class="details_red">￥ {{data.productContent.price}} </span><span class='details_sc'>贡融商城</span></p>
+          <p><span class="details_red">¥  {{data.productContent.price.toFixed(2)}} </span><span class='details_sc'>贡融商城</span></p>
           <small class="small"><span><i class='imgcopy'><img src="../../assets/details/选择拷贝.png" alt=""></i>贡融券可以抵扣 10.00</span><span><i class='imgcopy'><img src="../../assets/details/选择拷贝.png" alt=""></i>送贡融券积分 10</span><span><i class='imgcopy'><img src="../../assets/details/选择拷贝.png" alt=""></i>贡融积分可抵扣5.00</span></small>
         </div>
         <div class="pitch">
@@ -55,6 +55,7 @@
         </div>
       </mt-cell>
     </mt-tab-container-item>
+    <!-- 内容二 -->
     <mt-tab-container-item id="2">
         <ul class="detailsPage_ul">
           <li class="detailsPage_ul_li" v-for="(item,index) in tabs" :key='index'  @click="tab(index)">{{item}}</li>
@@ -68,6 +69,7 @@
           </div>
         </div>
     </mt-tab-container-item>
+    <!-- 内容三 -->
     <mt-tab-container-item id="3">
       <div class="comment_pl">
         <div class="comment_pl_all">
@@ -116,7 +118,9 @@
         </div>
       </div>
     </mt-tab-container-item>
+    <!-- 底部 -->
     <div class="details_footer">
+      <!--  联系卖家   店铺   收藏 -->
       <div class="details_footer_left">
         <p class="details_footer_kf">
           <span><img src="../../assets/Comment/联系客服.png" alt=""></span>
@@ -131,10 +135,12 @@
           <span class='names collect'>收藏</span>
         </p>
       </div>
+      <!-- 加入购物车   立即购买 -->
       <span class="goShopping" @click='addShopping'>加入购物车</span>
       <span class="newBuy" @click='SelectiveTypeOpen'>立即购买</span>
     </div>
   </mt-tab-container>
+  <!-- 第一个蒙版 -->
   <transition  enter-active-class="animated fadeInUp"  leave-active-class="animated fadeOutDown">
         <div class="box" v-show='flag'>
             <div class="mainCon">
@@ -143,10 +149,10 @@
                     <img src="../../assets/Mine/headportrait.jpg" alt="">
                   </div>
                   <div class='mainConHead'>
-                     <h2>￥{{data.productContent.price}}</h2>
+                     <h2>¥   {{data.productContent.price.toFixed(2)}}</h2>
                      <p>商品编号:{{data.productContent.skucode}}</p>
                   </div> 
-                  <div class='span' @click='SelectiveTypeclose'>X</div>              
+                  <div class='span' @click='SelectiveTypeclose'>×</div>              
               </div>
                 <div class='content webCont'>
                   <div v-for='(item,index) in data.attrbute' :key='index'>
@@ -161,19 +167,19 @@
             </div>
         </div>
   </transition>
+  <!-- 第二个蒙版 -->
   <transition  enter-active-class="animated fadeInUp"  leave-active-class="animated fadeOutDown">
         <div class="box" v-show='address'>
             <div class="mainCon">
                   <h2 class='h2'>配送至</h2>
-                  <div class='span' @click='addressClose'>X</div> 
-                   <ol class='content list'>
-                      <li class='active'>收获地址</li>
-                      <li>收获地址</li>
-                      <li>收获地址</li>
-                      <li>收获地址</li>
-                </ol>            
+                  <div class='span' @click='addressClose'>×</div> 
+                  <ol class='content list'>
+                    <li class='active'>收获地址</li>
+                    <li>收获地址</li>
+                    <li>收获地址</li>
+                    <li>收获地址</li>
+                  </ol>            
             </div>
-
         </div>
   </transition>
 </div>
@@ -218,8 +224,10 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
         }
       },
       add:function(){
-        if(this.val<10){
-           this.val++;
+        if(this.val > 200){
+           this.val = 200
+        }else{
+          this.val++;
         }
       },
       Address:function(){
@@ -330,10 +338,9 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .detailsPage_ulP .detailsPage_ul_li:hover{
-  color:#d81e06;
+  color:blue;
 }
 .active{
-  color:#d81e06!important;
   border: none !important;
   border: .1px solid #d81e06 !important;
 }
@@ -398,7 +405,7 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
 .mainConHead p{
   font-size:.22rem;
   color:#2f2f2f;
-   padding-top:.3rem;
+  padding-top:.3rem;
 }
 .span{
   position: absolute;
@@ -452,7 +459,7 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
 }
 .Cont input{
   width:.7rem;
-  height:.4rem;
+  /* height:.4rem; */
   border:0;
   border:1px solid #ccc;
   display:inline-block; 
@@ -484,28 +491,30 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
     align-items: center;
     font-size: .32rem;
     position: fixed;  
+    /* border: 1px solid #000; */
 }
   a, .mint-tab-item{
     font-size: .32rem;
   }
   .mint-tab-item{
     width: .74rem;
+    line-height: 1rem;
     font-size: .32rem;
     padding: .16rem .37rem;
   }
   .mint-tab-item .mint-tab-item-label{
     font-size: .32rem;
-    color: #2f2f2f;
+    
   }
   .spans{
     position: absolute;
     left: .3rem;
     line-height: .96rem;
-    display: inline-block
+    display: inline-block;
   }
   .mint-navbar .mint-tab-item.is-selected{
     border-bottom: 2px solid #2f2f2f;
-    color: #2f2f2f;
+    margin-bottom: 0;
   }
   .mint-tab-container{
     width: 100%;
@@ -706,11 +715,14 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
     justify-content: center;
     align-items: center;
     font-size: .24rem;
-    color: #cfcfcf;
+    color: #888;
   }
-  .detailsPage_ul_li:hover{
+  /* .detailsPage_ul_li:hover{
     color: #ff0103;
-  }
+  } */
+  /* .mint-tab-container-item .active{
+    color: yellowgreen;
+  } */
   .detailsPage_img{
     width: 100%;
     height: .8rem;
@@ -809,20 +821,23 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
     margin-top: .12rem;
     margin-bottom: .26rem;
   } 
+  /* 底部 */
   .details_footer{
     width: 100%;
     height: .88rem;
     background: #fff;
     position: fixed;
     display: flex;
-    bottom: 0;   /*footer*/ /*footer*/ /*footer*/ /*footer*/
+    bottom: 0;
   }
+  /* 底部  左边字 */
   .details_footer span{
-    height: .88rem;
+    /* height: .88rem; */
     display: inline-block;
   }
+  /* 底部   左边图标 */
   .details_footer span:nth-child(1){
-    width: 44%;  
+    width: 35%;  
   }
   .details_footer span:nth-child(2){
     width: 28%;
@@ -840,6 +855,8 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
   }
   .details_footer_left{
     display: flex;
+    justify-content: space-between;
+    align-items: color;
     width: 44%;
   }
   .details_footer_left p{
@@ -849,12 +866,12 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
     align-items: center;
   }
   .details_footer_left p span{
-    margin-top:.05rem;
+    margin-top:.08rem;
     margin-left:.02rem;
   }
-   .details_footer_left .names{
-     margin-right:.1rem;
-   }
+  /*.details_footer_left .names{
+      margin-right:.1rem; 
+  }*/
   .goShopping{
     color: #fff;
     background: #ff9d1e;
@@ -866,19 +883,24 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
   .details_footer_kf{
     width: 100%;
   }
+  /* 联系卖家图片 */
   .details_footer_kf span:nth-child(1) img{
-    width: 85%;
+    width: 100%;
+    height: 100%;
     margin-top: .01rem;
   }
   .details_footer_kf span:nth-child(2){
-    font-size: .2rem;
+    font-size: .1rem;
     color: #696969;
+    margin-top: .01rem;
   }
   .details_footer_dp{
     width: 100%;
   }
+  /* 店铺图片 */
   .details_footer_dp span:nth-child(1) img{
-    width: 85%;
+    width: 100%;
+    height: 100%;
     margin-top: .01rem;
   }
   .details_footer_dp span:nth-child(2){
@@ -889,17 +911,20 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
     width: 100%;
   }
   .details_footer_sc span:nth-child(1) img{
-    width: 85%;
+    width: 100%;
+    height: 100%;
     margin-top: .01rem;
   }
-    .details_footer_sc em{
-      font-size:.4rem;
-    }
+  .details_footer_sc em{
+    font-size:.4rem;
+  }
   .details_footer_sc span:nth-child(2){
     font-size: .2rem;
     color: #696969;
+    margin-top: .01rem;
   }
   .names{
      white-space:nowrap;
   }
+
 </style>
