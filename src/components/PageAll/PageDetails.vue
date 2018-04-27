@@ -12,10 +12,11 @@
         <!-- <p class="PageDetails_main_img"><img src="" alt=""></p> -->
         <p class="PageDetails_main_main"><span>巴黎欧莱雅官方旗舰店</span><span>59.3万人</span></p>
       </div>
-      <p class="PageDetails_attention">
-        <img src="../../assets/PageDetails/矩形10.png" alt="">
-        <span><img src="../../assets/PageDetails/关注.png" alt=""></span><span>关注</span>
-      </p>
+      <!--关注店铺-->
+      <!--<p class="PageDetails_attention">-->
+      <!--  <img src="../../assets/PageDetails/矩形10.png" alt="">-->
+      <!--  <span><img src="../../assets/PageDetails/关注.png" alt=""></span><span>关注</span>-->
+      <!--</p>-->
     </div>
      <div  class='content'>
         <div class="tabCon_main"  v-for='(item,index) in arr' :key="index"  @click="pushProduct(item)">
@@ -24,9 +25,9 @@
           </div>
           <div class="tabCon_main_right">
               <h4 class="h4">{{item.name}}</h4>
-              <span class="id">{{item.id}}</span>
+              <!--{{item.id}}-->
               <div class="tabCon_main_right_all">
-                <p>￥{{item.listPrice}}</p>
+                <p>￥{{item.listprice}}</p>
                 <p class="tabCon_main_right_all_img"><img v-for="(item,index) in item.liststart" :key="index" src="../../assets/PageAll/星星选中.png" alt=""></p>
                 <p>送贡融积分 10</p>
               </div>
@@ -56,27 +57,7 @@ export default {
     };
   },
   //  created() {
-  //     var that = this;
-  //     var accessToken = getCookie("access_token");
-
-  //     $.ajax({
-  //       url: "http://cloud.eyun.online:9080/user/api/mercuries/getMercuryInfoProductList/5/",
-  //       method: "post",
-  //       callback: "cb",
-  //       contentType: "application/json",
-  //       headers: {
-  //         Authorization: "Bearer " + accessToken
-  //         //   'Content-Type':"application/json"
-  //       },
-  //       success: function(res) {
-  //         console.log(res);
-  //         that.arr = res;
-  //       },
-  //       error(res) {
-  //         console.log(res);
-  //       }
-  //     });
-
+  //  
   //   },
   created() {
     var that = this;
@@ -91,11 +72,7 @@ export default {
         }
       )
       .then(function(res) {
-        console.log(res);
-        //     console.log(res.data.balance)
         that.arr = res.data;
-        //      that.arr = res.data
-        //      console.log(arr)
       })
       .catch(function(error) {
         console.log(error);
@@ -125,9 +102,6 @@ export default {
     },
     pushProduct(item, index) {
       var id = item.id;
-      console.log(id);
-
-      // var id =$(".id").text()
       sessionStorage.setItem("GoodsID", id);
       this.$router.push({ name: "Product", params: { name: "/Product" } });
     }
@@ -443,6 +417,7 @@ input[type="text"] {
   color: #ff0103;
   margin-right: 0.24rem;
   font-weight: bold;
+  border-bottom: .2rem;
 }
 .tabCon_main_right_all p:nth-child(3) {
   font-size: 0.18rem;
