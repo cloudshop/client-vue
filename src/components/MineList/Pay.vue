@@ -75,7 +75,6 @@
 
 <script>
 import axios from 'axios'
-import { setCookie,getCookie } from '../../assets/js/cookie.js'
 export default {
     data(){
         return {
@@ -182,15 +181,10 @@ export default {
                     }
                     ]
                 }
-          var accessToken = getCookie('access_token');
             axios({
                     method:'post',
                     url:'http://cloud.eyun.online:9080/order/api/depproorders',
                     data:paramss,
-                    headers:{
-                    // 'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + accessToken,
-                    }
                 })
                 .then(function(response) {
                     that.web = response.data;
@@ -201,10 +195,6 @@ export default {
                             "orderNo":that.web,
                             "password": 123456
                             },
-                            headers:{
-                            // 'Content-Type': 'application/json',
-                            'Authorization': 'Bearer ' + accessToken,
-                            }
                         })
                         .then(function(res) {
                                 if(res.data ==''){
@@ -231,19 +221,13 @@ export default {
                         "productSkuId":Number(that.productSkuId),
                         "count":Number(that.count),
                         "price":Number(that.price) 
-                    
                     }
                     ]
                 }
-          var accessToken = getCookie('access_token');
             axios({
                     method:'post',
                     url:'http://cloud.eyun.online:9080/order/api/depproorders/1',
                     data:paramss,
-                    headers:{
-                    // 'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + accessToken,
-                    }
                 })
                 .then(function(response) {
                     that.took = response.data;
