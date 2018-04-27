@@ -70,8 +70,6 @@
 </template>
 <script>
 import $ from "jquery";
-import { setCookie, getCookie } from "../../assets/js/cookie.js";
-
 export default {
   mounted: function() {
     $(".main_top li").on("click", function() {
@@ -83,9 +81,6 @@ export default {
     $("#money").focus(function() {
       $(".main_top li").removeClass("col");
     });
-
-
-    var accessToken = getCookie("access_token");
 
     $("#btn").on("click", function() {
       if ($("#money").val() == "") {
@@ -108,10 +103,9 @@ export default {
                 dataType: "json",
                 data: JSON.stringify(data),
                 // data : datas,
-                headers: {
-                  Authorization: "Bearer " + accessToken
-                  //   'Content-Type':"application/json"
-                },
+                // headers: {
+                //   //   'Content-Type':"application/json"
+                // },
                 success: function(res) {
                   console.log(res);
                   var param1 = 1;
@@ -162,10 +156,6 @@ export default {
           dataType: "json",
           data: JSON.stringify(data),
           // data : datas,
-          headers: {
-            Authorization: "Bearer " + accessToken
-            //   'Content-Type':"application/json"
-          },
           success: function(res) {
             console.log(res);
             var param1 = 1;
