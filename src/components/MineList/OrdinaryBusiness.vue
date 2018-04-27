@@ -12,7 +12,7 @@
             <div class="mint-header-button is-right"></div>
         </header>
         <div class='content'>
-            <p>信息仅用于审核,绝不外泄</p>
+            <p>信息仅用于审核,绝不外泄!</p>
 
             <div class='main'>
                <h2>本人身份证照片</h2>
