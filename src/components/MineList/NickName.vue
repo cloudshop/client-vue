@@ -19,7 +19,6 @@
 <script>
 import axios from 'axios'
 import { Header, Field } from "mint-ui";
-import { setCookie, getCookie } from "../../assets/js/cookie.js";
 export default {
   data() {
     return {
@@ -31,7 +30,6 @@ export default {
   mounted: function() {
     $("#sure").click(function() {
       var nickname = $(".mint-field-core").val();
-      var accessToken = getCookie("access_token");
       var nickname = $('.mint-field-core').val()
       //var data = { "avatar" :nickname,"type":2,"id":3 };
       var data = {
@@ -39,30 +37,10 @@ export default {
         nickname: nickname,
         type: 2
       };
-
-      // this.$axios
-      //   .post(
-      //     "http://192.168.1.10:9080/user/api/user-annexes-useregis/updaUserInfo/",
-      //     data,
-      //     {
-      //       headers: {
-      //         Authorization: "Bearer " + accessToken
-      //       }
-      //     }
-      //   )
-      //   .then(function(res) {
-      //     console.log(res);
-      //   })
-      //   .catch(function(error) {
-      //     console.log(error);
-      //   });
       axios({
         method: "post",
         url:"http://cloud.eyun.online:9080/user/api/user-annexes-useregis/updaUserInfo/",
         data,
-        headers: {
-          Authorization: "Bearer " + accessToken
-        }
       })
         .then(function(res) {
           console.log(res);
