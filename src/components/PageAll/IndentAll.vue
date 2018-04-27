@@ -18,7 +18,7 @@
                 <div class="tabCon_main">
                   <div class="tabCon_main_top">
                       <p><span class="tabCom_mainImg"><img src="../../assets/PageAll/店铺.png" alt=""></span><span class="font">{{item.shopName}}</span></p>
-                      <p><span class="font2">{{tabs[num]}}</span><span class="tabCom_mainImg"><img src="../../assets/PageAll/删除.png" alt=""></span></p>
+                      <p><span class="font2">{{status}}</span><span class="tabCom_mainImg"><img src="../../assets/PageAll/删除.png" alt=""></span></p>
                   </div>
                   <div class="tabCon_main_center" v-for='(data,ind) in item.proOrderItems' :key='ind'>
                       <div class="tabCon_main_centerImg"><img src="" alt=""></div>
@@ -63,25 +63,34 @@ export default {
         var that = this;
         this.$axios({ // 全部订单
             method:'get',
-            url:'http://cloud.eyun.online:9080/order/api/findAllOrder/1/1'
+            url:'http://cloud.eyun.online:9080/order/api/findAllOrder/1/7'
         })
         .then(function(response) {
             that.arr = response.data;
-            console.log(that.arr);
+            response.data.map((v,i)=>{
+                if(v.status == 1){
+                   that.status='未付款'
+                }
+                if(v.status == 2){
+                   that.status='已付款'
+                }
+                if(v.status == 3){
+                   that.status='已发货'
+                }
+                if(v.status == 4){
+                   that.status='交易成功'
+                }
+                if(v.status == 5){
+                   that.status='交易关闭'
+                }
+            })
         })
         .catch(function(error) {
             console.log(error);
         });
     },
     methods: {
-         
-         loadTop:function() { //组件提供的下拉触发方法  
-            //下拉加载  
-            this.loadPageList();  
-            this.$refs.loadmore.onTopLoaded();// 固定方法，查询完要调用一次，用于重新定位  
-        },  
         tab(index){
-            var accessToken = getCookie('access_token');
             this.num = index; 
             var that = this;
             this.flag=true;
