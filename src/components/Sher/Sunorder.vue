@@ -2,7 +2,7 @@
     <div id="sunorder">
         <header class="header">
             <ul>
-                <li><span>《</span></li>
+                <li><span @click="goBack">〈</span></li>
                 <li>晒单评价</li>
                 <li><span>提交</span></li>
             </ul>
@@ -78,6 +78,11 @@
 </template>
 <script>
 export default {
+  methods:{
+      goBack(){
+        this.$router.go(-1) 
+      }
+  },
   mounted:function(){
        $("#pic li").on("click", function() {
                     //找到下标
@@ -138,9 +143,6 @@ export default {
                         }
                     })
                 }) 
- 
- 
- 
   }
 }
 </script>
