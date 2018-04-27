@@ -12,11 +12,11 @@
         <!-- <p class="PageDetails_main_img"><img src="" alt=""></p> -->
         <p class="PageDetails_main_main"><span>巴黎欧莱雅官方旗舰店</span><span>59.3万人</span></p>
       </div>
-      <!--关注店铺-->
-      <!--<p class="PageDetails_attention">-->
-      <!--  <img src="../../assets/PageDetails/矩形10.png" alt="">-->
-      <!--  <span><img src="../../assets/PageDetails/关注.png" alt=""></span><span>关注</span>-->
-      <!--</p>-->
+      <!-- 关注店铺 -->
+      <!-- <p class="PageDetails_attention"> -->
+        <!-- <img src="../../assets/PageDetails/矩形10.png" alt=""> -->
+        <!-- <span><img src="../../assets/PageDetails/关注.png" alt=""></span><span>关注</span> -->
+      <!-- </p> -->
     </div>
      <div  class='content'>
         <div class="tabCon_main"  v-for='(item,index) in arr' :key="index"  @click="pushProduct(item)">
@@ -25,7 +25,7 @@
           </div>
           <div class="tabCon_main_right">
               <h4 class="h4">{{item.name}}</h4>
-              <!--{{item.id}}-->
+              <!-- {{item.id}} -->
               <div class="tabCon_main_right_all">
                 <p>￥{{item.listprice}}</p>
                 <p class="tabCon_main_right_all_img"><img v-for="(item,index) in item.liststart" :key="index" src="../../assets/PageAll/星星选中.png" alt=""></p>
@@ -40,7 +40,6 @@
 </template>
 
 <script>
-import { setCookie, getCookie } from "../../assets/js/cookie";
 import { Swipe, SwipeItem } from "mint-ui";
 import PageAll from "./PageAll";
 import PageDetailsChild from "./PageDetailsChild";
@@ -57,22 +56,33 @@ export default {
     };
   },
   //  created() {
-  //  
+  //     var that = this;
+
+  //     $.ajax({
+  //       url: "http://cloud.eyun.online:9080/user/api/mercuries/getMercuryInfoProductList/5/",
+  //       method: "post",
+  //       callback: "cb",
+  //       contentType: "application/json",
+  //       success: function(res) {
+  //         console.log(res);
+  //         that.arr = res;
+  //       },
+  //       error(res) {
+  //         console.log(res);
+  //       }
+  //     });
   //   },
   created() {
     var that = this;
-    var accessToken = getCookie("access_token");
     this.$axios
-      .post(
-        "http://cloud.eyun.online:9080/user/api/mercuries/getMercuryInfoProductList/5/",
-        {
-          headers: {
-            Authorization: "Bearer " + accessToken
-          }
-        }
-      )
+      .post("http://cloud.eyun.online:9080/user/api/mercuries/getMercuryInfoProductList/5/",{
+      })
       .then(function(res) {
+        console.log(res);
+        //     console.log(res.data.balance)
         that.arr = res.data;
+        //      that.arr = res.data
+        //      console.log(arr)
       })
       .catch(function(error) {
         console.log(error);
@@ -102,6 +112,9 @@ export default {
     },
     pushProduct(item, index) {
       var id = item.id;
+      console.log(id);
+
+      // var id =$(".id").text()
       sessionStorage.setItem("GoodsID", id);
       this.$router.push({ name: "Product", params: { name: "/Product" } });
     }
@@ -435,7 +448,7 @@ input[type="text"] {
   width: 100%;
   font-size: 0.18rem;
   color: #676767;
-  margin-top: 0.2rem;
+  margin-top: 0.11rem;
   display: inline-block;
 }
 .back{
