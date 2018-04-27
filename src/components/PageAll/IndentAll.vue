@@ -437,6 +437,7 @@ export default {
     margin-right: .3rem;
 }
 .tabCon_main_agin p:hover{
-    color: #ff0103
+    color: #ff0103;
+    border: 1px solid #ff0103
 }
 </style>
