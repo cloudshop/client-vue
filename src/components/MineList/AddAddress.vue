@@ -26,7 +26,6 @@
   </div>
 </template>
 <script>
-import { setCookie,getCookie } from '../../assets/js/cookie.js'
    export default {
     data(){
           return {
@@ -48,7 +47,6 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js'
         this.msg = routerParams
       },
       save(){
-         
             if($('#name').val() == '' || $('#tel').val() == '' || $('#address_big').val() == ''){              
                alert("请填写收货信息")
             }else{
@@ -58,8 +56,6 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js'
                      alert("您的手机号码未输入或输入有误")
                  }else{
                     //  alert('保存成功')
-                    var accessToken = getCookie('access_token');
-                 
                     var data = {"aliases":this.name,"phone":this.phone,"contact":this.contact}
                     //   var datas =  {"aliases":"xiaoming","phone":"18","contact":"大康大厦"}
                   // var datas = {"data":{"aliases" : amount,"phone":17600045817, "contact" : channel}};
@@ -82,11 +78,7 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js'
                     //         console.log(res)
                     //     }
                     // })
-                    this.$axios.post('http://cloud.eyun.online:9080/user/api/user-annexes-createAddress/',data,{
-                        headers:{
-                             'Authorization': 'Bearer ' + accessToken,
-                        }
-                        })
+                    this.$axios.post('http://cloud.eyun.online:9080/user/api/user-annexes-createAddress/',data)
                     .then(function(res){
                         console.log(res)
                     })
