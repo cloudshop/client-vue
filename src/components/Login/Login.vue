@@ -15,13 +15,6 @@
             <div class='form'>
                    <p><label for="" >账号</label><input type="text" class='value' v-model.trim="PassName" placeholder="请输入账号" id='passname' @blur="upperCase"></p>
                    <p><label for="">密码</label><input type="password"   v-model="PassWord" placeholder="请输入密码" id='password'></p>
-                     <div class="apps">
-                        <div class="inputs">
-                        <input type="checkbox" id="tonglian" class="checkboxs"  value="通联" name="sex"  v-model="yesIdo" @click="checkChange">
-                        <label for="tonglian"></label>
-                        </div>
-                        <p class="yes">我已同意<router-link to="/Agreement" class="xy">《贡融积分会员注册协议》</router-link></p>
-                    </div>
                    <button class='btn' @click='btn'>登录</button>
             </div>
             <p class='ForgetPassWord'><span @click='ForgetPassWord'>忘记密码?</span></p>
@@ -50,7 +43,6 @@ export default {
       PassWord: "",
       msg: "",
       registrationID:"",
-      yesIdo: true,
       iphoneYN:false
     };
   },
@@ -60,9 +52,6 @@ export default {
     },
     created() {
      
-    },
-    checkChange(){
-      this.yesIdo = !this.yesIdo;
     },
     register() {
       this.$router.push({ name: "Register" });
@@ -101,7 +90,6 @@ export default {
     },
     btn() {
       if(this.iphoneYN == true){
-        if(this.yesIdo == true){
           var data = {'username':this.PassName,'password':this.PassWord,'registrationID':this.registrationID}
           this.$axios.post('http://cloud.eyun.online:9080/auth/login/app',data)
           .then(function(response) {
@@ -125,9 +113,6 @@ export default {
                 alert('服务器繁忙，请耐心等待')
             }
           });
-        }else{
-          alert('您是否同意贡融积分会员注册协议')
-        }
       }else{
         alert('手机号输入错误')
       }
@@ -162,51 +147,6 @@ export default {
 .Color {
   background: red !important;
 }
-.apps{
-      width: 100%;
-      height: .40rem;
-      display: flex;
-  }
-  .inputs {
-      width: 0.32rem;
-      height: 0.32rem;
-      border-radius: 50%;
-      left: .2rem;
-      position: relative;
-  }
-  .inputs .checkboxs {
-      width: 80%;
-      height: 80%;
-      position: absolute;
-      opacity: 0;
-      top: .3rem;
-  }
-  .apps .yes{
-      height: .40rem;
-      text-indent: .3rem;
-      font-size: .28rem;
-      /* padding-top: .05rem; */
-  }
-  input[type="checkbox"] + label::before {
-      box-sizing: border-box;
-      content: " "; /*不换行空格*/
-      display: inline-block;
-      vertical-align: middle;
-      width: 1.8em; 
-      height: 1.8em;
-      background: url("../../assets/manage/change_no.png");
-      background-size: 100% 100%;
-      border-radius: 50%;
-      margin-top: .3rem
-      }
-  input[type="checkbox"]:checked + label::before {
-      /* background: red; */
-      background: url("../../assets/manage/change.png");
-      background-size: 100% 100%;
-  }
-  .xy{
-      color: #ff0103
-  }
 .Login {
   width: 100%;
   height: 100%;
