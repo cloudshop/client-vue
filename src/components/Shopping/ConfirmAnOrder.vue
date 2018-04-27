@@ -95,9 +95,7 @@
 </template>
 
 <script>
-import { setCookie,getCookie } from '../../assets/js/cookie.js'
 export default {
-    
     data(){
         return{
             count:'',  // 购买数量
@@ -150,13 +148,8 @@ export default {
         this.price = sessionStorage.getItem("price"); // 价钱
         this.count = sessionStorage.getItem("count");// 几个
         this.productSkuId = sessionStorage.getItem("Productskuid"); // 
-        var accessToken = getCookie('access_token')
         var that = this;
-        this.$axios.get('http://cloud.eyun.online:9080/wallet/api/wallets/user',{
-          headers:{
-            'Authorization': 'Bearer ' + accessToken,
-          }
-        })
+        this.$axios.get('http://cloud.eyun.online:9080/wallet/api/wallets/user')
         .then(function(res){
             console.log(res)
            sessionStorage.setItem("money",res.data.balance);
@@ -167,7 +160,6 @@ export default {
     },
     mounted(){
         this.nick = $('#nick').text();
-            
         this.GoodsID = sessionStorage.getItem("GoodsID");
         this.shopID = sessionStorage.getItem("shopID");
     }
