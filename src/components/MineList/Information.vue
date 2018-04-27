@@ -55,18 +55,12 @@ export default {
   },
   created() {
     var that = this;
-    var accessToken = getCookie("access_token");
-
     $.ajax({
       // url: "http://cloud.eyun.online:9080/user/api/user-annexes/userInfo/3/",
       url: "http://cloud.eyun.online:9080/user/api/user-annexes/userInfo/3/",
       method: "get",
       callback: "cb",
       contentType: "application/json",
-      headers: {
-        Authorization: "Bearer " + accessToken
-        //   'Content-Type':"application/json"
-      },
       success: function(res) {
         console.log(res.nickname);
         that.arr = res;
@@ -89,14 +83,10 @@ export default {
         // method:'post',
         type: "POST",
         contentType: "application/json",
-        headers: {
-          Authorization: "Bearer " + accessToken
-        },
         success: function(res) {
           console.log(res);
           var deltoken = delCookie("access_token");
           var val = {
-            
             "func": "closeCurrent",
             "param": {
               "finallyIndex": "1",
