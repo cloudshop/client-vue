@@ -13,7 +13,7 @@
         </header>
         <div class='content main'>
             <div class='form'>
-                   <p><label for="" >账号</label><input type="text" class='value' v-model.trim="PassName" placeholder="请输入账号" id='passname' @blur="upperCase"></p>
+                   <p><label for="" >账号</label><input type="text" class='value' v-model="PassName" placeholder="请输入账号" id='passname' @blur="upperCase"></p>
                    <p><label for="">密码</label><input type="password"   v-model="PassWord" placeholder="请输入密码" id='password'></p>
                    <button class='btn' @click='btn'>登录</button>
             </div>
@@ -34,8 +34,6 @@
 </template>
 
 <script>
-import { setCookie, getCookie } from "../../assets/js/cookie.js";
-
 export default {
   data() {
     return {
@@ -47,9 +45,6 @@ export default {
     };
   },
   methods: {
-    show(){
-      console.log(0)
-    },
     created() {
      
     },
@@ -69,7 +64,6 @@ export default {
         alert("请填写正确电话号码!!");
         document.getElementsByClassName("value")[0].value = "";
       } else {
-        console.log("succeess");
         this.iphoneYN = true;
       }
     },
@@ -93,8 +87,6 @@ export default {
           var data = {'username':this.PassName,'password':this.PassWord,'registrationID':this.registrationID}
           this.$axios.post('http://cloud.eyun.online:9080/auth/login/app',data)
           .then(function(response) {
-              var accessToken = response.data.access_token;
-              setCookie('access_token',accessToken,1000*60);
               var  val={
                   "func":"closeCurrent",
                   "param":{'finallyIndex':'1','refreshAll':true},
