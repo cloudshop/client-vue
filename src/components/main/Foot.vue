@@ -9,7 +9,7 @@
         <dt><img src="../../assets/HomePage/分类未选中.png" alt=""></dt>
         <dd>分类</dd>
        </router-link>
-       <router-link :to="{ path: '/Melt' }"  tag='dl'>
+       <router-link :to="{ path: '/myQRCode' }"  tag='dl'>
         <dt class='logo'><img src="../../assets/HomePage/LOGO.png" alt="" ></dt>
       </router-link>
        <router-link :to="{ path: '/Shopping' }"  tag='dl'>
@@ -46,7 +46,7 @@ export default {
       if(isiOS){
            this.flag = false
       }else{
-           this.flag=false;
+           this.flag=true;
       }       
     },
 }
