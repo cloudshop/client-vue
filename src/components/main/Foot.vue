@@ -46,7 +46,7 @@ export default {
       if(isiOS){
            this.flag = false
       }else{
-           this.flag=true;
+           this.flag=false;
       }       
     },
 }
