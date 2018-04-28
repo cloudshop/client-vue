@@ -77,15 +77,13 @@ export default {
     },
     confirms: function() {
       alert("退出登陆");
-      var accessToken = getCookie("access_token");
       $.ajax({
-        url: "http://cloud.eyun.online:9080/auth/logout",
-        // method:'post',
+        url: "http://cloud.eyun.online:9080/auth/logout/app",
         type: "POST",
         contentType: "application/json",
         success: function(res) {
-          console.log(res);
-          var deltoken = delCookie("access_token");
+          console.log(res)
+          var deltoken = delCookie("login");
           var val = {
             "func": "closeCurrent",
             "param": {
@@ -101,29 +99,9 @@ export default {
           } else if (isAndroid) {
             window.androidObject.JSCallAndroid(JSON.stringify(val));
           }
-        
-          console.log(val);
         },
-        error(res) {
-          console.log(res);
-        var deltoken = delCookie("access_token");
-          var val = {
-            
-            "func": "closeCurrent",
-            "param": {
-              "finallyIndex": "1",
-              "refreshAll": true
-            }
-          };
-          var u = navigator.userAgent;
-          var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
-          var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-          if (isiOS) {
-            window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-          } else if (isAndroid) {
-            window.androidObject.JSCallAndroid(JSON.stringify(val));
-          }
-
+        error(error) {
+          console.log(error)
         }
       });
     },

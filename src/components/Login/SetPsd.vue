@@ -104,7 +104,8 @@ export default {
                                  alert('您已注册成功，请去登录');
                                 } else {
                                     alert('注册成功')
-                                    setCookie('access_token',token,1000*60);
+                                    setCookie('access_token',token);
+                                    setCookie('login',1)
                                     var  val={
                                         "func":"closeCurrent",
                                         "param":{'finallyIndex':'4','refreshAll':true},
@@ -126,7 +127,7 @@ export default {
                     }
                     apiInstance.registerAppAccountUsingPOST(managedUserVM, callback);
                 }else{
-                    alert('请输入密码')
+                    alert('请确定是否输入手机号、验证码、密码')
                 }
             }else{
                 alert('两次密码输入不符')
@@ -219,5 +220,4 @@ export default {
         background: #d8d8d8;
         color: #fff;
     }
- 
 </style>

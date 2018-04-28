@@ -65,7 +65,7 @@
                   </span>
                 </div>   
                 <!--{{data.price*data.num | filtermoney totalPrice}}  -->
-                <div class="money">合计: ￥ {{totalPrice}}</div>   
+                <div class="money">合计: ￥ {{totalPrice.toFixed(2)}}</div>   
               </div>
               <div class="shopping_footer_right" @click="toTal">去结算</div>
             </div>
@@ -108,7 +108,7 @@ export default {
    
   },
   created(){
-    var Cookie = document.cookie;
+    var Cookie = getCookie('login');
     if(Cookie == ''){
       this.flag=true;
     }
@@ -119,7 +119,7 @@ export default {
     this.$axios.get('http://cloud.eyun.online:9080/shoppingcart/api/shoppingcar/user')
     .then(function(response) {
         that.serviceList = response.data.result;
-        console.log(response.data.result)
+        // console.log(response.data.result)
     })
     .catch(function(error) {
         console.log(error);
@@ -149,7 +149,11 @@ export default {
       var type = 1;
       this.$axios.get('http://cloud.eyun.online:9080/favorite/api/favProduct/'+skuid+'/'+type)
       .then(function(response) {
-          console.log(response)
+          if(response.data == true){
+            alert('收藏成功！')
+          }else{
+            alert('取消收藏')
+          }
       })
       .catch(function(error) {
           console.log(error);
@@ -159,7 +163,7 @@ export default {
     removeAll:function(index,id){
       if(this.serviceList[id].sku[index].checkboxChild == true){
         var Money = this.serviceList[id].sku[index].unitPrice*this.serviceList[id].sku[index].count;
-        this.totalPrice = this.totalPrice - Money;
+        this.totalPrice -= Money;
         setTimeout(function(){
           this.serviceList[id].sku.splice(index,1);
         }, 0); 
@@ -207,7 +211,7 @@ export default {
       if(this.serviceList[pageId].checkbox !== true){
         this.serviceList[pageId].sku.map((v,i)=>{
           if(v.checkboxChild==false){
-            this.checkboxBig = true;
+            // this.checkboxBig = true;
             var Money = v.unitPrice;
             this.totalPrice += Money;
             v.checkboxChild = true;
@@ -218,7 +222,7 @@ export default {
           var Money = v.unitPrice;
           this.totalPrice -= Money;
           v.checkboxChild = false;
-          this.checkboxBig = false;
+          // this.checkboxBig = false;
         })
       }
     },
@@ -229,16 +233,16 @@ export default {
       this.serviceList[pitchId].sku.forEach((item,index) => {
         if(item.checkboxChild === false) {
           statusFlag = false;
-          this.checkboxBig = false;
+          // this.checkboxBig = false;
         }
       });
-      if(this.serviceList[pitchId].checkbox == true){
-        this.serviceList[pitchId].sku.forEach((item,index) => {
-        if(item.checkboxChild !== true) {
-          this.checkboxBig = true;
-        }
-      });
-      }
+      // if(this.serviceList[pitchId].checkbox == true){
+      //   this.serviceList[pitchId].sku.forEach((item,index) => {
+      //   if(item.checkboxChild !== true) {
+      //     this.checkboxBig = true;
+      //   }
+      // });
+      // }
       this.serviceList[pitchId].checkbox = statusFlag;
       // 金额
       if(this.serviceList[pitchId].sku[index].checkboxChild == false){
@@ -264,7 +268,7 @@ export default {
       for(var pageId = 0; pageId < this.serviceList.length; pageId++){
         if(this.checkboxBig !== true){
           this.serviceList[pageId].checkbox = true;
-          this.serviceList[pageId].sku.map((v,i)=>{ 
+          this.serviceList[pageId].sku.map((v,i)=>{
             v.checkboxChild = true;
           })
         }else{
@@ -303,9 +307,9 @@ export default {
         "paymentType": 1, // 1 余额支付 2 支付宝支付
         "proOrderItems":[
           {
-              "productSkuId": this.productSkuId, // 商品id
-              "count": this.count, // 数量
-              "price":  this.price   // 价钱     
+            "productSkuId": this.productSkuId, // 商品id
+            "count": this.count, // 数量
+            "price":  this.price   // 价钱     
           }
         ]
       }
@@ -322,7 +326,6 @@ export default {
           console.log(error);
         });
       }
-
   },
   components: {
     Foot
