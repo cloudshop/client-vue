@@ -61,7 +61,6 @@ import sunorder from '../components/Sher/Sunorder.vue'
 import top from '../components/Sher/Topup.vue'
 import Offline from '../components/Sher/Offline.vue'
 import Agreement from '../components/Sher/Agreement.vue' // 用户协议
-import myQrCode from '../components/MineList/myQrCode.vue' //
 Vue.use(Router)
 
 const routes = [{
@@ -331,11 +330,6 @@ const routes = [{
                 path: '/Agreement',
                 name: 'Agreement',
                 component: Agreement
-            },
-            { // 用户协议
-                path: '/myQrCode',
-                name: 'myQrCode',
-                component: myQrCode
             }
         ]
     },
