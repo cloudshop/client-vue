@@ -107,8 +107,8 @@ export default {
           
       },
       created(){
-      var accessToken = getCookie('access_token');
-            if(accessToken == ''){
+            var Cookie = document.cookie;
+            if(Cookie == ''){
                   this.flag=true;
             }
             else{
