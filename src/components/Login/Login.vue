@@ -101,9 +101,9 @@ export default {
               }
           })
           .catch(function(error) {
-            if(error.response.status === 500){
+            // if(error.response.status === 500){
                 alert('服务器繁忙，请耐心等待')
-            }
+            // }
           });
       }else{
         alert('手机号输入错误')
