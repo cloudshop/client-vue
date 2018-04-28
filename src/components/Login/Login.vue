@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import { setCookie, getCookie } from "../../assets/js/cookie.js";
 export default {
   data() {
     return {
@@ -85,26 +86,31 @@ export default {
     btn() {
       if(this.iphoneYN == true){
           var data = {'username':this.PassName,'password':this.PassWord,'registrationID':this.registrationID}
-          this.$axios.post('http://cloud.eyun.online:9080/auth/login/app',data)
-          .then(function(response) {
-              var  val={
-                  "func":"closeCurrent",
-                  "param":{'finallyIndex':'1','refreshAll':true},
-              };
-              var u = navigator.userAgent;
-              var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-              var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-              if(isiOS){
-                  window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-              }else if(isAndroid){  
-                  window.androidObject.JSCallAndroid(JSON.stringify(val));
-              }
-          })
-          .catch(function(error) {
-            // if(error.response.status === 500){
-                alert('服务器繁忙，请耐心等待')
-            // }
-          });
+          if(this.PassName !== '' && this.PassWord !==''){
+             this.$axios.post('http://cloud.eyun.online:9080/auth/login/app',data)
+            .then(function(response) {
+                setCookie('login',loginY)
+                var  val={
+                    "func":"closeCurrent",
+                    "param":{'finallyIndex':'1','refreshAll':true},
+                };
+                var u = navigator.userAgent;
+                var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+                var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+                if(isiOS){
+                    window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+                }else if(isAndroid){  
+                    window.androidObject.JSCallAndroid(JSON.stringify(val));
+                }
+            })
+            .catch(function(error) {
+              // if(error.response.status === 500){
+                  alert('服务器繁忙，请耐心等待')
+              // }
+            });
+          }else{
+            alert('请输入用户名或密码')
+          }
       }else{
         alert('手机号输入错误')
       }
