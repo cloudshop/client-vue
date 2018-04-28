@@ -77,7 +77,6 @@ export default {
     },
     confirms: function() {
       alert("退出登陆");
-      var accessToken = getCookie("access_token");
       $.ajax({
         url: "http://cloud.eyun.online:9080/auth/logout",
         // method:'post',
@@ -85,7 +84,7 @@ export default {
         contentType: "application/json",
         success: function(res) {
           console.log(res);
-          var deltoken = delCookie("access_token");
+          var deltoken = delCookie("login");
           var val = {
             "func": "closeCurrent",
             "param": {
