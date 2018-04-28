@@ -83,7 +83,8 @@ export default {
             var data = {'login':this.phone,'password':this.setPassword,'verifyCode':this.authCode}
             this.$axios.post('http://cloud.eyun.online:9080/uaa/api/account/update-password',data)
             .then(function(response) {
-              // setCookie('access_token',accessToken,1000*60);
+              // console.log(response)
+              alert('服务器现在报500，别点了')
             })
             .catch(function(error) {
               if(error.response.status === 500){
