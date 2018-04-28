@@ -84,7 +84,7 @@ export default {
             this.$axios.post('http://cloud.eyun.online:9080/uaa/api/account/update-password',data)
             .then(function(response) {
               // console.log(response)
-              alert('服务器现在报500，别点了')
+              alert('正在挖掘中，敬请期待')
             })
             .catch(function(error) {
               if(error.response.status === 500){
