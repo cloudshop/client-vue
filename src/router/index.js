@@ -9,7 +9,7 @@ import Mine from '@/components/Mine' // 我的
 import search from '@/components/search' //搜索
 import RemainingSum from '../components/MineList/RemainingSum.vue' //余额页面
 import Stamps from '../components/MineList/Stamps.vue' //贡融券页面
-import Melt from '@/components/Melt'
+import myQRCode from '@/components/myQRCode'
 import Information from '@/components/MineList/Information.vue' //个人信息
 import NickName from '../components/MineList/NickName.vue' //修改昵称
 import MyAddress from '../components/MineList/MyAddress.vue' //我的地址
@@ -61,6 +61,7 @@ import sunorder from '../components/Sher/Sunorder.vue'
 import top from '../components/Sher/Topup.vue'
 import Offline from '../components/Sher/Offline.vue'
 import Agreement from '../components/Sher/Agreement.vue' // 用户协议
+import myQrCode from '../components/MineList/myQrCode.vue' //
 Vue.use(Router)
 
 const routes = [{
@@ -97,9 +98,9 @@ const routes = [{
                 component: Mine,
             },
             { //中间部分
-                path: '/Melt',
-                name: 'Melt',
-                component: Melt
+                path: '/myQRCode',
+                name: 'myQRCode',
+                component: myQRCode
             },
             { //个人信息页面
                 path: '/Information',
@@ -330,6 +331,11 @@ const routes = [{
                 path: '/Agreement',
                 name: 'Agreement',
                 component: Agreement
+            },
+            { // 用户协议
+                path: '/myQrCode',
+                name: 'myQrCode',
+                component: myQrCode
             }
         ]
     },
