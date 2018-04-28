@@ -72,10 +72,11 @@
                             <dt><img src="../assets/Mine/积分赠送.png" alt=""></dt>
                             <dd>积分赠送</dd>
                          </router-link>
-                          <router-link :to="{ path: '/SellerCenter' }" tag='dl'>
+                          <!-- <router-link :to="{ path: '/SellerCenter' }" tag='dl'> -->
+                          <dl @click="SellerCenter">
                             <dt><img src="../assets/Mine/商户中心.png" alt=""></dt>
                             <dd>商户中心</dd>
-                          </router-link>
+                          </dl>  
                             <router-link :to="{ path: '/MyTeam' }" tag='dl'>
                             <dt><img src="../assets/Mine/我的团队.png" alt=""></dt>
                             <dd>我的团队</dd>
@@ -154,6 +155,22 @@ export default {
         func: "openURL",
         param: {
           URL: "http://cloud.eyun.online:8888/#/Information"
+        }
+      };
+      var u = navigator.userAgent;
+      var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+      if (isiOS) {
+        window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+      } else if (isAndroid) {
+        window.androidObject.JSCallAndroid(JSON.stringify(val));
+      }
+    },
+    SellerCenter(){
+      var val = {
+        func: "openURL",
+        param: {
+          URL: "http://cloud.eyun.online:8888/#/SellerCenter"
         }
       };
       var u = navigator.userAgent;
