@@ -108,7 +108,7 @@ export default {
    
   },
   created(){
-    var Cookie = document.cookie;
+    var Cookie = getCookie('login');
     if(Cookie == ''){
       this.flag=true;
     }
@@ -119,7 +119,7 @@ export default {
     this.$axios.get('http://cloud.eyun.online:9080/shoppingcart/api/shoppingcar/user')
     .then(function(response) {
         that.serviceList = response.data.result;
-        console.log(response.data.result)
+        // console.log(response.data.result)
     })
     .catch(function(error) {
         console.log(error);
