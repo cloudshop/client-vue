@@ -39,7 +39,7 @@ export default {
       };
       axios({
         method: "post",
-        url:"http://cloud.eyun.online:9080/user/api/user-annexes-useregis/updaUserInfo/",
+        url:"api/user/api/user-annexes-useregis/updaUserInfo/",
         data,
       })
         .then(function(res) {

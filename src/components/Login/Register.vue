@@ -1,5 +1,7 @@
 <template>
+
   <div class="registers">
+
       <header class="mint-header">
            <div class="mint-header-button is-left">
                <a class="router-link-active">
@@ -81,7 +83,7 @@ export default {
             if(p1.test(recommend) == true) {
               if(this.yesIdo == true){
                 $.ajax({
-                  url:'http://cloud.eyun.online:9080/verify/api/verify/smsvalidate?'+'phone='+this.phone+'&smsCode='+this.authCode,
+                  url:'api/verify/api/verify/smsvalidate?'+'phone='+this.phone+'&smsCode='+this.authCode,
                   method:'get',
                   callback:'cb',
                   success:function(res){
@@ -108,7 +110,7 @@ export default {
           else{
             if(this.yesIdo == true){
                $.ajax({
-                url:'http://cloud.eyun.online:9080/verify/api/verify/smsvalidate?'+'phone='+this.phone+'&smsCode='+this.authCode,
+                url:'api/verify/api/verify/smsvalidate?'+'phone='+this.phone+'&smsCode='+this.authCode,
                 method:'get',
                 callback:'cb',
                 success:function(res){
@@ -135,7 +137,7 @@ export default {
           var p1=/^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/; 
           if(p1.test(theinput) != false) { 
             $.ajax({
-              url:'http://cloud.eyun.online:9080/verify/api/verify/smscode?phone='+this.phone,
+              url:'api/verify/api/verify/smscode?phone='+this.phone,
               method:'get',
               callback:'cb',
               success:function(res){

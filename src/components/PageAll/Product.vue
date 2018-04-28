@@ -270,7 +270,7 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
         var params = {"skuId":skuId,"shopId":shopId,"count": 1}
         this.$axios({
                 method:'post',
-                url:'http://cloud.eyun.online:9080/shoppingcart/api/shoppingcar/add',
+                url:'api/shoppingcart/api/shoppingcar/add',
                 data:params,
             })
             .then(function(response) {
@@ -301,7 +301,7 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
       collect(){
         var ProductID=sessionStorage.getItem("ProductID");
         var Goods=sessionStorage.getItem("GoodsID"); // 商品id 
-        this.$axios.get('http://cloud.eyun.online:9080/favorite/api/favProduct/'+Goods+'/1')
+        this.$axios.get('api/favorite/api/favProduct/'+Goods+'/1')
          .then(function(response) {
             if(response.data == true){
                $('.collect').addClass("active");
@@ -323,7 +323,7 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
     //    var Goods = sessionStorage.getItem("GoodsID") ? sessionStorage.getItem("GoodsID") : 32; // 商品id 
          var Goods = sessionStorage.getItem("GoodsID")
         console.log(Goods)
-        this.$axios.get('http://cloud.eyun.online:9080/product/api/product/content?id=' + Goods)
+        this.$axios.get('api/product/api/product/content?id=' + Goods)
          .then(function(response) {   
             that.data = response.data;
             // console.log(response.data)

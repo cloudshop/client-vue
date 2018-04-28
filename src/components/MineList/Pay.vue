@@ -183,14 +183,14 @@ export default {
                 }
             axios({
                     method:'post',
-                    url:'http://cloud.eyun.online:9080/order/api/depproorders',
+                    url:'api/order/api/depproorders',
                     data:paramss,
                 })
                 .then(function(response) {
                     that.web = response.data;
                         axios({
                             method:'post',
-                            url:'http://cloud.eyun.online:9080/wallet/api/wallets/balance/pay',
+                            url:'api/wallet/api/wallets/balance/pay',
                             data:{
                             "orderNo":that.web,
                             "password": 123456
@@ -226,7 +226,7 @@ export default {
                 }
             axios({
                     method:'post',
-                    url:'http://cloud.eyun.online:9080/order/api/depproorders/1',
+                    url:'api/order/api/depproorders/1',
                     data:paramss,
                 })
                 .then(function(response) {

@@ -81,7 +81,7 @@ export default {
             document.getElementById("affirmPassword").value="";
           }else {
             var data = {'login':this.phone,'password':this.setPassword,'verifyCode':this.authCode}
-            this.$axios.post('http://cloud.eyun.online:9080/uaa/api/account/update-password',data)
+            this.$axios.post('api/uaa/api/account/update-password',data)
             .then(function(response) {
               // console.log(response)
               alert('正在挖掘中，敬请期待')
@@ -101,7 +101,7 @@ export default {
             alert('请填写正确手机号！'); 
             document.getElementById("mytest").value="";
           }else {
-            this.$axios.get('http://cloud.eyun.online:9080/verify/api/verify/smscode/login/'+this.phone)
+            this.$axios.get('api/verify/api/verify/smscode/login/'+this.phone)
             .then(function(response) {
               var countdown=60;
               settime(obj);

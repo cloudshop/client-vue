@@ -56,8 +56,8 @@ export default {
   created() {
     var that = this;
     $.ajax({
-      // url: "http://cloud.eyun.online:9080/user/api/user-annexes/userInfo/3/",
-      url: "http://cloud.eyun.online:9080/user/api/user-annexes/userInfo/3/",
+      // url: "api/user/api/user-annexes/userInfo/3/",
+      url: "api/user/api/user-annexes/userInfo/3/",
       method: "get",
       callback: "cb",
       contentType: "application/json",
@@ -80,7 +80,7 @@ export default {
     confirms: function() {
       alert("退出登陆");
       $.ajax({
-        url: "http://cloud.eyun.online:9080/auth/logout/app",
+        url: "api/auth/logout/app",
         type: "POST",
         contentType: "application/json",
         success: function(res) {

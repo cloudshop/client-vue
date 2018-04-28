@@ -60,7 +60,7 @@
                     //   var datas =  {"aliases":"xiaoming","phone":"18","contact":"大康大厦"}
                   // var datas = {"data":{"aliases" : amount,"phone":17600045817, "contact" : channel}};
                     //  $.ajax({
-                    //     url:'http://cloud.eyun.online:9080/user/api/user-annexes-createAddress/',
+                    //     url:'api/user/api/user-annexes-createAddress/',
                     //    // method:'post',
                     //     type : 'POST',  
                     //     contentType : 'application/json',  
@@ -78,7 +78,7 @@
                     //         console.log(res)
                     //     }
                     // })
-                    this.$axios.post('http://cloud.eyun.online:9080/user/api/user-annexes-createAddress/',data)
+                    this.$axios.post('api/user/api/user-annexes-createAddress/',data)
                     .then(function(res){
                         console.log(res)
                     })

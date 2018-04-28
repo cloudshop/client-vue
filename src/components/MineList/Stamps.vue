@@ -39,7 +39,7 @@ export default {
       },
      created(){
              var that = this
-        this.$axios.get('http://cloud.eyun.online:9080/wallet/api/wallets/user',{
+        this.$axios.get('api/wallet/api/wallets/user',{
         })
         .then(function(res){
       //     console.log(res.data.balance)

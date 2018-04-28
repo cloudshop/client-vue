@@ -71,7 +71,7 @@ export default {
       this.$axios({
         method: "post",
         url:
-          "http://cloud.eyun.online:9080/user/api/mercuries/info-list/MercuryInfo",
+          "api/user/api/mercuries/info-list/MercuryInfo",
         data: {
           langitude: 116.66847,
           lantitude: 39.88372
@@ -128,7 +128,7 @@ export default {
         var Goods = sessionStorage.getItem("GoodsID");
         this.$axios
           .get(
-            "http://cloud.eyun.online:9080/product/api/product/content?id=" +
+            "api/product/api/product/content?id=" +
               Goods
           )
           .then(function(response) {
@@ -203,7 +203,7 @@ export default {
     // 轮播图
     var that = this;
     this.$axios
-      .get("http://cloud.eyun.online:9080/advertising/api/findNotDelByLoc")
+      .get("api/advertising/api/findNotDelByLoc")
       .then(function(response) {
         that.data = response.data;
       })

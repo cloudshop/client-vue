@@ -116,7 +116,7 @@ export default {
       this.flag=false;
     }
     var that = this;
-    this.$axios.get('http://cloud.eyun.online:9080/shoppingcart/api/shoppingcar/user')
+    this.$axios.get('api/shoppingcart/api/shoppingcar/user')
     .then(function(response) {
         that.serviceList = response.data.result;
         // console.log(response.data.result)
@@ -147,7 +147,7 @@ export default {
       // var skuid = this.serviceList[shopId].sku[index].skuid;
       var skuid = 28;  //
       var type = 1;
-      this.$axios.get('http://cloud.eyun.online:9080/favorite/api/favProduct/'+skuid+'/'+type)
+      this.$axios.get('api/favorite/api/favProduct/'+skuid+'/'+type)
       .then(function(response) {
           if(response.data == true){
             alert('收藏成功！')
@@ -169,7 +169,7 @@ export default {
         }, 0); 
       }
       var delSkuid = this.serviceList[shopId].sku[index].skuid;
-      this.$axios.post('http://cloud.eyun.online:9080/shoppingcart/api/shoppingcar/del',delSkuid)
+      this.$axios.post('api/shoppingcart/api/shoppingcar/del',delSkuid)
       .then(function(res){
         if(res.data == 'success'){
           this.serviceList[id].sku.splice(index,1);
@@ -315,7 +315,7 @@ export default {
       }
       this.$axios({
         method:'POST',
-        url:'http://cloud.eyun.online:9080/order/api/depproorders/0',
+        url:'api/order/api/depproorders/0',
         data: params
         })
         .then(function(response) {

@@ -94,7 +94,7 @@ export default {
       var datas = { payType: type };
       axios({
         method: "post",
-        url: "http://cloud.eyun.online:9080/order/api/leaguer-orders",
+        url: "api/order/api/leaguer-orders",
         data: datas,
       })
         .then(function(response) {

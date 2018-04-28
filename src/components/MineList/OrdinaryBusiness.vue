@@ -19,7 +19,7 @@
                <div class='self'>                
                 <el-upload
                     class="avatar-uploader"
-                    action="http://cloud.eyun.online:9080/file/api/ossUpload"
+                    action="api/file/api/ossUpload"
                     :show-file-list="false"
                     :on-success="handleAvatarSuccess"
                     :before-upload="beforeAvatarUpload">
@@ -28,7 +28,7 @@
                 </el-upload>
                 <el-upload
                     class="avatar-uploader"
-                    action="http://cloud.eyun.online:9080/file/api/ossUpload"
+                    action="api/file/api/ossUpload"
                     :show-file-list="false"
                     :on-success="handleAvatarSuccess2"
                     :before-upload="beforeAvatarUpload2">
@@ -43,7 +43,7 @@
                <h2>本人手持身份证照片</h2>
                 <el-upload
                     class="avatar-uploader"
-                    action="http://cloud.eyun.online:9080/file/api/ossUpload"
+                    action="api/file/api/ossUpload"
                     :show-file-list="false"
                     :on-success="handleAvatarSuccess3"
                     :before-upload="beforeAvatarUpload3">
@@ -63,7 +63,7 @@
                <h2>企业营业执照照片</h2>
                  <el-upload
                     class="avatar-uploader"
-                    action="http://cloud.eyun.online:9080/file/api/ossUpload"
+                    action="api/file/api/ossUpload"
                     :show-file-list="false"
                     :on-success="handleAvatarSuccess4"
                     :before-upload="beforeAvatarUpload4">
@@ -187,7 +187,7 @@ export default {
       console.log(data);
 
     $.ajax({
-          url: "http://cloud.eyun.online:9080/user/api/mercuries/uploadMercuryImages",
+          url: "api/user/api/mercuries/uploadMercuryImages",
           // method:'post',
           type: "POST",
           contentType: "application/json",

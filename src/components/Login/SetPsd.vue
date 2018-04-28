@@ -72,7 +72,7 @@ export default {
                                     secret: "w1eb_app"
                                 },
                                 auth: {
-                                    tokenHost: "http://cloud.eyun.online:9080",
+                                    tokenHost: "api",
                                     tokenPath: "/auth/login/app"
                                 },
                                 http: {

@@ -56,7 +56,7 @@ export default {
                 var that = this;
                 this.$axios({
                         method:'post',
-                        url:'http://cloud.eyun.online:9080/product/api/product/all',
+                        url:'api/product/api/product/all',
                         data: {
                             'categoryId':this.id.DetailsTwo,
                             },
@@ -75,7 +75,7 @@ export default {
              var that = this;
                 this.$axios({
                         method:'post',
-                        url:'http://cloud.eyun.online:9080/product/api/product/all',
+                        url:'api/product/api/product/all',
                         data: {
                             'categoryId':97,
                             'sale':1,
@@ -95,7 +95,7 @@ export default {
             var that = this;
             this.$axios({
                     method:'post',
-                    url:'http://cloud.eyun.online:9080/product/api/product/all',
+                    url:'api/product/api/product/all',
                     data: {
                         'categoryId':this.id.DetailsTwo,
                          "price":1
@@ -117,7 +117,7 @@ export default {
         //     var that = this;
         //     this.$axios({
         //         method:'post',
-        //         url:'http://cloud.eyun.online:9080/product/api/product/all',
+        //         url:'api/product/api/product/all',
         //         data:params,
         //         headers:{
         //         'Content-Type': 'application/json',
@@ -141,7 +141,7 @@ export default {
            var that = this;
             this.$axios({
                 method:'post',
-                url:'http://cloud.eyun.online:9080/product/api/product/all',
+                url:'api/product/api/product/all',
                 data:{
                 "categoryId":this.name,
                 "productName":this.seekContent
@@ -182,7 +182,7 @@ export default {
           this.id = JSON.parse(id); 
           this.$axios({
                 method:'post',
-                url:'http://cloud.eyun.online:9080/product/api/product/all',
+                url:'api/product/api/product/all',
                 data: {
                        'categoryId':this.id.DetailsTwo,
                        },
