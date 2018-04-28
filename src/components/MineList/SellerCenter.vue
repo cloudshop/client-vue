@@ -3,9 +3,10 @@
        <header class="mint-header">
            <div class="mint-header-button is-left">
                <a class="router-link-active">
-                   <router-link :to="{ path: '/Mine' }" tag='button' class="mint-button mint-button--default mint-button--normal">
+                   <button @click="back" class="mint-button mint-button--default mint-button--normal">
+                       <!-- <router-link :to="{ path: '/Mine' }" tag='button' class="mint-button mint-button--default mint-button--normal"> -->
                     <mt-button icon="back"></mt-button>
-                   </router-link>
+                   </button>
               </a>
             </div> 
              <h1 class="mint-header-title">商户中心</h1>
@@ -80,96 +81,109 @@
 </template>
 
 <script>
-import { Header,Popup } from 'mint-ui';
-import OrdinaryBusiness from '../MineList/OrdinaryBusiness'
-import Appreciation from '../MineList/Appreciation'
+import { Header, Popup } from "mint-ui";
+import OrdinaryBusiness from "../MineList/OrdinaryBusiness";
+import Appreciation from "../MineList/Appreciation";
 export default {
-    data(){
-        return {
-           OrdinaryBusinessPage:false,
-           AppreciationPage:false
-        }
+  data() {
+    return {
+      OrdinaryBusinessPage: false,
+      AppreciationPage: false
+    };
+  },
+  methods: {
+    SellerCenterClose: function() {
+      this.$parent.$parent.SellerCenterPage = false;
     },
-    methods:{
-        SellerCenterClose:function(){
-            this.$parent.$parent.SellerCenterPage = false
-        },
-        OrdinaryBusinessPageOpen(){
-            this.OrdinaryBusinessPage = true
-        },
-        AppreciationPageOpen(){
-            this.AppreciationPage = true
-        }
+    OrdinaryBusinessPageOpen() {
+      this.OrdinaryBusinessPage = true;
     },
-    components:{
-      OrdinaryBusiness,
-      Appreciation
+    AppreciationPageOpen() {
+      this.AppreciationPage = true;
+    },
+    back() {
+      var val = {
+        func: "closeCurrent",
+        param: {}
+      };
+      var u = navigator.userAgent;
+      var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+      if (isiOS) {
+        window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+      } else if (isAndroid) {
+        window.androidObject.JSCallAndroid(JSON.stringify(val));
+      }
     }
-}
+  },
+  components: {
+    OrdinaryBusiness,
+    Appreciation
+  }
+};
 </script>
 
 <style scoped>
-.SellerCenter{
-    width: 100%;
-    height: 100%; 
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    overflow: hidden;
-    background:#f5f5f5;
+.SellerCenter {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  overflow: hidden;
+  background: #f5f5f5;
 }
-header{
-    width:100%;
-    background:#fff;
-    color:#2f2f2f;
-    height:.94rem;
-    font-size:.32rem;
-    border-bottom:1px solid #e7e7e7;
+header {
+  width: 100%;
+  background: #fff;
+  color: #2f2f2f;
+  height: 0.94rem;
+  font-size: 0.32rem;
+  border-bottom: 1px solid #e7e7e7;
 }
-.TopContent{
-    height:8rem;
-    background:#fff;
-    margin:.2rem .3rem 0 .3rem;
-    border-radius:.2rem;
+.TopContent {
+  height: 8rem;
+  background: #fff;
+  margin: 0.2rem 0.3rem 0 0.3rem;
+  border-radius: 0.2rem;
 }
-.BottomContent{
-   background:#fff;
-   height:9rem;
-   margin-top:.2rem;
-    margin:.2rem .3rem 0 .3rem;
-     border-radius:.2rem;
+.BottomContent {
+  background: #fff;
+  height: 9rem;
+  margin-top: 0.2rem;
+  margin: 0.2rem 0.3rem 0 0.3rem;
+  border-radius: 0.2rem;
 }
-h2{
-    font-size:.32rem;
-    color:#2f2f2f;
-    padding-top:.22rem;
-    padding-left:.22rem;
+h2 {
+  font-size: 0.32rem;
+  color: #2f2f2f;
+  padding-top: 0.22rem;
+  padding-left: 0.22rem;
 }
-h3{
-    border-left:.06rem solid #0bacff;
-    padding-left:.16rem;
-    margin-top:.2rem;
-    font-size:.24rem;
-    color:#2f2f2f;
+h3 {
+  border-left: 0.06rem solid #0bacff;
+  padding-left: 0.16rem;
+  margin-top: 0.2rem;
+  font-size: 0.24rem;
+  color: #2f2f2f;
 }
-ul li{
-    font-size:.24rem;
-    color:#2f2f2f;
-    margin-left:.24rem;
-    line-height:.55rem;
+ul li {
+  font-size: 0.24rem;
+  color: #2f2f2f;
+  margin-left: 0.24rem;
+  line-height: 0.55rem;
 }
-.MyBtn{
-    width:70%;
-    background:#0bacff;
-    margin-left:15%;
-    height:.8rem;
-    border-radius:.12rem;
-    font-size:.32rem;
-    color:#fff;
-    border:0;
-    margin-top:.2rem;
+.MyBtn {
+  width: 70%;
+  background: #0bacff;
+  margin-left: 15%;
+  height: 0.8rem;
+  border-radius: 0.12rem;
+  font-size: 0.32rem;
+  color: #fff;
+  border: 0;
+  margin-top: 0.2rem;
 }
-
 </style>
