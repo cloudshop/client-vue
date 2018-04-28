@@ -108,7 +108,7 @@ export default {
           
       },
       created(){
-            var Cookie = document.cookie;
+            var Cookie = document.Cookie;
             if(Cookie == ''){
                   this.flag=true;
             }
