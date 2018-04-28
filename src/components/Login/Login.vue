@@ -104,8 +104,9 @@ export default {
                 }
             })
             .catch(function(error) {
+              console.log(error)
               // if(error.response.status === 500){
-                  alert('服务器繁忙，请耐心等待')
+              //     alert('服务器繁忙，请耐心等待')
               // }
             });
           }else{
