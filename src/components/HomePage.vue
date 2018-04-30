@@ -96,7 +96,7 @@ export default {
       var val = {
         func: "openURL",
         param: {
-          URL: "http://cloud.eyun.online:8888/#/News"
+          URL: "/#/News"
         }
       };
       var u = navigator.userAgent;
@@ -141,7 +141,7 @@ export default {
         var val = {
           func: "openURL",
           param: {
-            URL: "http://cloud.eyun.online:8888/#/Product?ProductId=" + Goods
+            URL: "/#/Product?ProductId=" + Goods
           }
         };
         var u = navigator.userAgent;
@@ -166,7 +166,7 @@ export default {
            var  val={
               "func":"openURL",
               "param":{
-                  "URL":'http://cloud.eyun.online:8888/#/search',
+                  "URL":'/#/search',
               },
           };
           var u = navigator.userAgent;
@@ -183,7 +183,7 @@ export default {
       var val = {
         func: "openURL",
         param: {
-          URL: "http://cloud.eyun.online:8888/#/PageDetails"
+          URL: "/#/PageDetails"
         }
       };
       var u = navigator.userAgent;

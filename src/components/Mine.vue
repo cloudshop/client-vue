@@ -121,7 +121,7 @@ export default {
             var  val={
                   "func":"openURL",
                   "param":{
-                        "URL":'http://cloud.eyun.online:8888/#/login'
+                        "URL":'/#/login'
                   },
             };
             var u = navigator.userAgent;
@@ -137,7 +137,7 @@ export default {
       var val = {
         func: "openURL",
         param: {
-          URL: "http://cloud.eyun.online:8888/#/indentAll"
+          URL: "/#/indentAll"
         }
       };
       var u = navigator.userAgent;
@@ -153,7 +153,7 @@ export default {
       var val = {
         func: "openURL",
         param: {
-          URL: "http://cloud.eyun.online:8888/#/Information"
+          URL: "/#/Information"
         }
       };
       var u = navigator.userAgent;

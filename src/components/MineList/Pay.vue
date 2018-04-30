@@ -106,7 +106,7 @@ export default {
          var  val={
               "func":"openURL",
               "param":{
-                  "URL":'http://cloud.eyun.online:8888/#/indentAll',
+                  "URL":'/#/indentAll',
               },
           };
           var u = navigator.userAgent;

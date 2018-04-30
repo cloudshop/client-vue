@@ -140,7 +140,7 @@ export default {
          var  val={
               "func":"openURL",
               "param":{
-                  "URL":'http://cloud.eyun.online:8888/#/DetailsTwo?DetailsTwo='+value,
+                  "URL":'/#/DetailsTwo?DetailsTwo='+value,
               },
           };
           var u = navigator.userAgent;
