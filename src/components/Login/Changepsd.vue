@@ -2,7 +2,7 @@
   <div class="change_psd">
       <header class="header">
           <ul>
-              <li><span>《</span></li>
+              <li><span>&lt;</span></li>
               <li>修改密码</li>
               <li></li>
           </ul>

@@ -2,7 +2,7 @@
     <div class="xianxia" style="overflow:auto;overflow-x: hidden;">
         <header class="header">
          <ul>
-             <li><span>《</span></li>
+             <li><span>&lt;</span></li>
              <li>线下现金交易</li>
              <li><span>收款记录</span></li>
          </ul>

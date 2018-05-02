@@ -2,7 +2,7 @@
   <div class="change_psd">
       <header class="header">
           <ul>
-              <li><span>《</span></li>
+              <li><span>&lt;</span></li>
               <li>修改密码</li>
               <li></li>
           </ul>
@@ -10,9 +10,7 @@
       
       <div class="center content">
           <p>设置密码<input type="password"></p>
-          <p class="yzm">
-             确认密码<input type="password">
-          </p>
+          <p class="yzm"> 确认密码<input type="password"></p>
           <p class="next">
               <button>完成</button>
           </p>
@@ -23,11 +21,11 @@
     
 </script>
 <style scoped>
-.change_psd{
-    width: 100%;
-    height: 100%;
-    background: #fff;
-}
+    .change_psd{
+        width: 100%;
+        height: 100%;
+        background: #fff;
+    }
    .header{
         width: 100%;
         height: .96rem;
@@ -35,19 +33,13 @@
         line-height: .96rem;
         border-bottom: 1px solid #e7e7e7;
     }
-    .header ul{
-        display: flex;
-    }
+    .header ul{display: flex;}
     .header li{
         flex: 1;
         text-align: center;
     }
-    .header li:nth-child(1){
-        text-align: left;
-    }
-    .header li:nth-child(1) span{
-        padding-left: .3rem;
-    }
+    .header li:nth-child(1){text-align: left;}
+    .header li:nth-child(1) span{padding-left: .3rem;}
     .center{
         width: 100%;
         background: #fff;
@@ -74,12 +66,9 @@
         padding-bottom: .3rem;
         border-bottom: 1px solid #ccc;
     }
-    
-    
     .yzm button{
        height: .95rem; 
        flex: 1;
-       /* border-radius: .2rem; */
        border: none;
        border: 1px solid #e7e7e7;
        background: #fff;

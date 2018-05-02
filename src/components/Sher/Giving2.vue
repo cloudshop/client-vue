@@ -3,7 +3,7 @@
       <header class="header">
             <ul>
                   <router-link :to="{ path: '/giving' }" tag='li'>
-                 <span>〈</span>
+                 <span>&lt;</span>
                   </router-link> 
                 <li>积分赠送</li>
                 <li></li>
@@ -30,11 +30,11 @@
 </template>
 <style scoped>
     .giving{
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-}
-     .header{
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+    .header{
         width: 100%;
         height: .96rem;
         border-bottom: 1px solid #e7e7e7;
@@ -59,7 +59,6 @@
     .center{
         width: 100%;
         margin-top: .12rem;
-        
     }
     .center li:first-child{
         border-bottom: 1px solid #e7e7e7;
@@ -71,17 +70,15 @@
         padding-left: .3rem;
         font-size: .28rem;
     }
-     .center li span{
+    .center li span{
          float: right;
          padding-right: .3rem;
-     }
-
-     .center2{
+    }
+    .center2{
         width: 100%;
         height: 100rem;
         background: #fff;
         margin-top: .12rem;
-        
     }
     .center2 li{
         border-bottom: 1px solid #e7e7e7;
@@ -93,11 +90,11 @@
         padding-left: .3rem;
         font-size: .28rem;
     }
-     .center2 li span{
-         float: right;
-         padding-right: .3rem;
+    .center2 li span{
+        float: right;
+        padding-right: .3rem;
      }
-     button{
+    button{
         width: 50%;
         height: .8rem;
         margin-left: 25%;

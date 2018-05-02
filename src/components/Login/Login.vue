@@ -13,9 +13,15 @@
         </header>
         <div class='content main'>
             <div class='form'>
-                   <p><label for="" >账号</label><input type="text" class='value' v-model="PassName" placeholder="请输入账号" id='passname' @blur="upperCase"></p>
-                   <p><label for="">密码</label><input type="password"   v-model="PassWord" placeholder="请输入密码" id='password'></p>
-                   <button class='btn' @click='btn'>登录</button>
+                <p>
+                  <label for="" >账号</label>
+                  <input type="text" class='value' v-model="PassName" placeholder="请输入账号" id='passname' @blur="upperCase">
+                </p>
+                <p>
+                  <label for="">密码</label>
+                  <input type="password"   v-model="PassWord" placeholder="请输入密码" id='password'>
+                </p>
+                <button class='btn' @click='btn' :disabled="!PassName || !password">登录</button>
             </div>
             <p class='ForgetPassWord'><span @click='ForgetPassWord'>忘记密码?</span></p>
         </div>
@@ -46,9 +52,7 @@ export default {
     };
   },
   methods: {
-    created() {
-     
-    },
+    created() {},
     register() {
       this.$router.push({ name: "Register" });
     },
@@ -83,9 +87,11 @@ export default {
         window.androidObject.JSCallAndroid(JSON.stringify(val));
       }
     },
+    // 判断当用户名或密码输入不正确时    不能点击登录
     btn() {
       if(this.iphoneYN == true){
           var data = {'username':this.PassName,'password':this.PassWord,'registrationID':this.registrationID}
+
           if(this.PassName !== '' && this.PassWord !==''){
              this.$axios.post('api/auth/login/app',data)
             .then(function(response) {
@@ -113,7 +119,7 @@ export default {
             alert('请输入用户名或密码')
           }
       }else{
-        alert('手机号输入错误')
+        // alert('手机号输入错误')
       }
       
     },
@@ -140,6 +146,12 @@ export default {
     });
   }
 };
+
+// computed: {
+//     isLogin(){
+//         return !!this.user && !!this.password
+//     }
+// }
 </script>
 
 <style scoped>

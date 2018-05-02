@@ -3,7 +3,7 @@
         <header class="header">
             <ul>
                  <router-link :to="{ path: '/Mine' }" tag='li'>
-                 <span>〈</span>
+                 <span>&lt;</span>
                   </router-link> 
                 <li>积分赠送</li>
                 <li></li>

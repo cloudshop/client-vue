@@ -2,7 +2,7 @@
   <div class="Agreement">
       <div class="AgreementAll">
         <div class="Agreement_header">
-            <p @click="news">〈</p >
+            <p @click="news">&lt;</p >
             <p>贡融积分会员注册协议</p >
             <p></p>
         </div>
