@@ -8,7 +8,7 @@
                    </button>
               </a>
             </div> 
-             <h1 class="mint-header-title">登陆</h1>
+             <h1 class="mint-header-title">登录</h1>
            <div class="mint-header-button is-right" @click='register' >注册</div>
         </header>
         <div class='content main'>
