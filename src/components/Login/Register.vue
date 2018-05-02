@@ -34,7 +34,7 @@
             <input type="button" id="tonglian" class="checkboxs"  value="通联" name="sex"  v-model="yesIdo" @click="checkChange">
             <!-- <label for="tonglian"></label> -->
             </div>
-            <p class="yes">我已同意<router-link to="/Agreement" class="xy">《贡融积分会员注册协议》</router-link></p>
+            <p class="yes">我已经同意<router-link to="/Agreement" class="xy">《贡融积分会员注册协议》</router-link></p>
         </div>
       <div class="next">      
         <input type='button' class="next_btn" @click="next" value='下一步' :disabled="!phone || !authCode">
