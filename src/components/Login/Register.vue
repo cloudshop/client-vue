@@ -17,20 +17,17 @@
       <div class="iphone">
         <p>+86 <span>∨</span></p>
         <input type="text" placeholder="请输入手机号" id="mytest"  v-model="phone"  @blur="upperCase">
-        <div class="iphones">
-            <span class="one">|</span>
-            <button class="iphone_btn"  id='iphone_btn' @click='gain(".iphone_btn")'>获取验证码</button>
-        </div>
+        <div class="iphones"><span class="one">|</span><button class="iphone_btn"  id='iphone_btn' @click='gain(".iphone_btn")'>获取验证码</button></div>
       </div>
 
       <div class="iphone">
-          <p class="authCodes"><img src="../../assets/Login/验证码-(1).png" alt=""></p>
-          <input type="text" placeholder="请输入验证码"  id='authCode' v-model="authCode">
+        <p class="authCodes"><img src="../../assets/Login/验证码-(1).png" alt=""></p>
+        <input type="text" placeholder="请输入验证码"  id='authCode' v-model="authCode">
       </div>
 
       <div class="iphoneRecommend">
-          <p>+86 <span>∨</span></p>  
-          <input type="text"  id="recommend" placeholder="请输入您推荐人的手机号"  v-model="recommend">
+        <p>+86 <span>∨</span></p>  
+        <input type="text"  id="recommend" placeholder="请输入您推荐人的手机号"  v-model="recommend">
       </div>
         <div class="apps">
             <div class="inputs">
@@ -55,10 +52,7 @@ export default {
         phone:'',
         authCode:'',
         recommend: '',
-        yesIdo:false,
-        phone:'',
-        authCode:'',
-        recommend:''
+        yesIdo:false
       }
     },
     methods:{
@@ -79,9 +73,7 @@ export default {
           this.iphoneYN = true;
         }
       },
-      // 判断当手机号、验证码、推荐人手机号输入不正确时    不能点击下一步
       next(){
-          // var phone = document.getElementById("mytest").value;
           var recommend=document.getElementById("recommend").value; 
           var authCode=document.getElementById("authCode").value; 
           var p1=/^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;
@@ -99,7 +91,6 @@ export default {
                       setCookie('recommend',recommend)
                       setCookie('login',1)
                       that.$router.push({path:'/SetPsd'})
-                      alert("请填写正确电话号码")
                     }else{
                       alert(res.content)
                     }
