@@ -105,7 +105,7 @@ export default {
                   method:'get',
                   callback:'cb',
                   success:function(res){
-                    if(res.message == 'success'){
+                    if(res.data.message == 'success'){
                       setCookie('recommend',recommend)
                       setCookie('login',1)
                       that.$router.push({path:'/SetPsd'})
@@ -132,7 +132,7 @@ export default {
                 method:'get',
                 callback:'cb',
                 success:function(res){
-                  if(res.message == 'success'){
+                  if(res.data.message == 'success'){
                     setCookie('recommend',recommend)
                     setCookie('login',1)
                     that.$router.push({path:'/SetPsd'})
