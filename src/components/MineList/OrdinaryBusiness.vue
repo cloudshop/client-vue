@@ -101,7 +101,7 @@ export default {
   },
   methods: {
      back() {
-      var msg = "您真的确定要返回吗，返回后图片将重新选择。";
+      var msg = "请确定是否返回，返回后图片将需要重新上传";
       if (confirm(msg) == true) {
         this.$router.push({ path: "/SellerCenter" });
         // $this.$router.push({name:'SellerCenter'});
