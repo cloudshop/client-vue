@@ -37,7 +37,7 @@
             <p class="yes">我已同意<router-link to="/Agreement" class="xy">《贡融积分会员注册协议》</router-link></p>
         </div>
       <div class="next">      
-        <input type='button' class="next_btn" @click="next" value='下一步' :disabled="!phone || !authCode || !recommend">
+        <input type='button' class="next_btn" @click="next" value='下一步' :disabled="!phone || !authCode">
       </div>
       
     </div>
@@ -59,7 +59,6 @@ export default {
       checkChange(){
         this.yesIdo = !this.yesIdo;
         if(this.yesIdo == true){
-          // $('#tonglian').css({'background':'red'})
           $('#tonglian').addClass('Color')
         }else{
           $('#tonglian').removeClass('Color')
