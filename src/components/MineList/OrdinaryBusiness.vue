@@ -3,23 +3,24 @@
         <header class="mint-header">
            <div class="mint-header-button is-left">
                <a class="router-link-active">
-                   <router-link :to="{ path: '/SellerCenter' }" tag='button' class="mint-button mint-button--default mint-button--normal">
-                    <mt-button icon="back"></mt-button>
-                   </router-link>
+                   <!-- <router-link :to="{ path: '/SellerCenter' }" tag='button' class="mint-button mint-button--default mint-button--normal">
+                    
+                   </router-link> -->
+                   <mt-button icon="back" @click='back'></mt-button>
               </a>
             </div> 
              <h1 class="mint-header-title">申请商家</h1>
             <div class="mint-header-button is-right"></div>
         </header>
         <div class='content'>
-            <p>信息仅用于审核,绝不外泄!</p>
+            <p>信息仅用于审核,绝不外泄</p>
 
             <div class='main'>
                <h2>本人身份证照片</h2>
                <div class='self'>                
                 <el-upload
                     class="avatar-uploader"
-                    action="api/file/api/ossUpload"
+                    action="http://cloud.eyun.online:9080/file/api/ossUpload"
                     :show-file-list="false"
                     :on-success="handleAvatarSuccess"
                     :before-upload="beforeAvatarUpload">
@@ -28,7 +29,7 @@
                 </el-upload>
                 <el-upload
                     class="avatar-uploader"
-                    action="api/file/api/ossUpload"
+                    action="http://cloud.eyun.online:9080/file/api/ossUpload"
                     :show-file-list="false"
                     :on-success="handleAvatarSuccess2"
                     :before-upload="beforeAvatarUpload2">
@@ -43,7 +44,7 @@
                <h2>本人手持身份证照片</h2>
                 <el-upload
                     class="avatar-uploader"
-                    action="api/file/api/ossUpload"
+                    action="http://cloud.eyun.online:9080/file/api/ossUpload"
                     :show-file-list="false"
                     :on-success="handleAvatarSuccess3"
                     :before-upload="beforeAvatarUpload3">
@@ -63,7 +64,7 @@
                <h2>企业营业执照照片</h2>
                  <el-upload
                     class="avatar-uploader"
-                    action="api/file/api/ossUpload"
+                    action="http://cloud.eyun.online:9080/file/api/ossUpload"
                     :show-file-list="false"
                     :on-success="handleAvatarSuccess4"
                     :before-upload="beforeAvatarUpload4">
@@ -81,9 +82,9 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 import { Header } from "mint-ui";
-import { setCookie,getCookie } from '../../assets/js/cookie.js';
+import { setCookie, getCookie } from "../../assets/js/cookie.js";
 export default {
   data() {
     return {
@@ -99,6 +100,15 @@ export default {
     };
   },
   methods: {
+    back() {
+      var msg = "您真的确定要返回吗，返回后图片将重新选择。";
+      if (confirm(msg) == true) {
+        this.$router.push({ path: "/SellerCenter" });
+        // $this.$router.push({name:'SellerCenter'});
+      } else {
+        return false;
+      }
+    },
     handleAvatarSuccess(res, file) {
       this.imageUrl = URL.createObjectURL(file.raw);
       console.log(res[0]);
@@ -169,8 +179,7 @@ export default {
     }
   },
   mounted: function() {
-
-  var accessToken = getCookie('access_token');
+    var accessToken = getCookie("access_token");
     $(".act").click(function() {
       var front = $(".front").text();
       var back = $(".back").text();
@@ -186,30 +195,28 @@ export default {
       };
       console.log(data);
 
-    $.ajax({
-          url: "api/user/api/mercuries/uploadMercuryImages",
-          // method:'post',
-          type: "POST",
-          contentType: "application/json",
-          dataType: "json",
-          data: JSON.stringify(data),
-           headers:{
-                  'Content-Type': 'application/json',
-                  Authorization: "Bearer " + accessToken
-                },
-          success: function(res) {
-            console.log(res);
-            alert("上传成功，等待审核")
-            //top
-          },
-          error(res) {
-            console.log(res);
-          }
-        });
-
+      $.ajax({
+        url:
+          "http://cloud.eyun.online:9080/user/api/mercuries/uploadMercuryImages",
+        // method:'post',
+        type: "POST",
+        contentType: "application/json",
+        dataType: "json",
+        data: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + accessToken
+        },
+        success: function(res) {
+          console.log(res);
+          alert("上传成功，等待审核");
+          //top
+        },
+        error(res) {
+          console.log(res);
+        }
+      });
     });
-
-   
   }
 };
 </script>
