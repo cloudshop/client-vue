@@ -85,8 +85,8 @@
         </div>
         <div class='mark' v-show='flag'>
               <img src="../assets/HomePage/LOGO.png" alt="">
-              <p>此功能需先登陆</p>
-              <button @click='logins'>登陆</button>
+              <p>此功能需先登录</p>
+              <button @click='logins'>登录</button>
        </div>
        <Foot></Foot>
 
