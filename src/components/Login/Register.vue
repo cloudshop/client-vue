@@ -236,13 +236,13 @@ export default {
       position: relative;
   }
   .inputs .checkboxs {
-      width: 80%;
-      height: 80%;
+      width: 65%;
+      height: 65%;
       position: absolute;
   }
   .apps .yes{
       height: .40rem;
-      text-indent: .3rem;
+      text-indent: .21rem;
       font-size: .28rem;
   }
   /* input[type="checkbox"] + label::before {
@@ -259,10 +259,11 @@ export default {
   input[type="checkbox"]:checked + label::before {
       background: url("../../assets/manage/change.png");
       background-size: 100% 100%;
-  }
+  }*/
+  
   .xy{
       color: #ff0103
-  } */
+  } 
 header{
     width:100%;
     background:#fff;
