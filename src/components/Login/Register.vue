@@ -31,8 +31,8 @@
       </div>
         <div class="apps">
             <div class="inputs">
-            <input type="checkbox" id="tonglian" class="checkboxs"  value="通联" name="sex"  v-model="yesIdo" @click="checkChange">
-            <label for="tonglian"></label>
+            <input type="button" id="tonglian" class="checkboxs"  value="通联" name="sex"  v-model="yesIdo" @click="checkChange">
+            <!-- <label for="tonglian"></label> -->
             </div>
             <p class="yes">我已同意<router-link to="/Agreement" class="xy">《贡融积分会员注册协议》</router-link></p>
         </div>
@@ -58,6 +58,12 @@ export default {
     methods:{
       checkChange(){
         this.yesIdo = !this.yesIdo;
+        if(this.yesIdo == true){
+          // $('#tonglian').css({'background':'red'})
+          $('#tonglian').addClass('Color')
+        }else{
+          $('#tonglian').removeClass('Color')
+        }
       },
       upperCase() {
         var theinput = document.getElementsByClassName("value")[0].value;
@@ -82,23 +88,36 @@ export default {
           if(recommend != ''){
             if(p1.test(recommend) == true) {
               if(this.yesIdo == true){
-                $.ajax({
-                  url:'api/verify/api/verify/smsvalidate?'+'phone='+this.phone+'&smsCode='+this.authCode,
-                  method:'get',
-                  callback:'cb',
-                  success:function(res){
-                    if(res.message == 'success'){
-                      setCookie('recommend',recommend)
-                      setCookie('login',1)
-                      that.$router.push({path:'/SetPsd'})
-                    }else{
-                      alert(res.content)
-                    }
-                  },  
-                  error(res){
-                    alert(res.responseJSON.title)
+                this.$axios.get('api/verify/api/verify/smsvalidate?'+'phone='+this.phone+'&smsCode='+this.authCode)
+                .then(function(res) {
+                  if(res.message == 'success'){
+                    setCookie('recommend',recommend)
+                    setCookie('login',1)
+                    that.$router.push({path:'/SetPsd'})
+                  }else{
+                    alert(res.content)
                   }
                 })
+                .catch(function(error) {
+                  alert(error)
+                });
+                // $.ajax({
+                //   url:'api/verify/api/verify/smsvalidate?'+'phone='+this.phone+'&smsCode='+this.authCode,
+                //   method:'get',
+                //   callback:'cb',
+                //   success:function(res){
+                //     if(res.message == 'success'){
+                //       setCookie('recommend',recommend)
+                //       setCookie('login',1)
+                //       that.$router.push({path:'/SetPsd'})
+                //     }else{
+                //       alert(res.content)
+                //     }
+                //   },  
+                //   error(res){
+                //     alert(res.responseJSON.title)
+                //   }
+                // })
                }else{
                   alert('您是否同意贡融积分会员注册协议')
                }
@@ -186,6 +205,14 @@ export default {
 </script>
 
 <style scoped>
+.checkboxs{
+  border-radius: 60%;
+  height: 50%;
+  border:none;
+  margin-top: .05rem;
+  font-size: 0;
+  background: #ccc
+}
 .Color{
     background:red!important;
 }
@@ -212,16 +239,15 @@ export default {
       width: 80%;
       height: 80%;
       position: absolute;
-      opacity: 0;
   }
   .apps .yes{
       height: .40rem;
       text-indent: .3rem;
       font-size: .28rem;
   }
-  input[type="checkbox"] + label::before {
+  /* input[type="checkbox"] + label::before {
       box-sizing: border-box;
-      content: " "; /*不换行空格*/
+      content: " ";
       display: inline-block;
       vertical-align: middle;
       width: 1.8em; 
@@ -236,7 +262,7 @@ export default {
   }
   .xy{
       color: #ff0103
-  }
+  } */
 header{
     width:100%;
     background:#fff;
