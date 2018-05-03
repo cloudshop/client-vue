@@ -8,17 +8,24 @@
                    </button>
               </a>
             </div> 
-             <h1 class="mint-header-title">登录</h1>
+             <h1 class="mint-header-title">登陆</h1>
            <div class="mint-header-button is-right" @click='register' >注册</div>
         </header>
         <div class='content main'>
             <div class='form'>
-                   <p><label for="" >账号</label><input type="text" class='value' v-model="PassName" placeholder="请输入账号" id='passname' @blur="upperCase"></p>
-                   <p><label for="">密码</label><input type="password"   v-model="PassWord" placeholder="请输入密码" id='password'></p>
-                   <button class='btn' @click='btn' :disabled="!PassName || !PassWord">登录</button>
+                <p>
+                  <label for="" >账号</label>
+                  <input type="text" class='value' v-model="PassName" placeholder="请输入账号" id='passname' @blur="upperCase">
+                </p>
+                <p>
+                  <label for="">密码</label>
+                  <input type="password"   v-model="PassWord" placeholder="请输入密码" id='password'>
+                </p>
+                <button class='btn' @click='btn' :disabled="!PassName || !password">登录</button>
             </div>
             <p class='ForgetPassWord'><span @click='ForgetPassWord'>忘记密码?</span></p>
         </div>
+
         <!-- <div class='footer'>
             <div class='LodingType'>
                 <p></p><h2 class='h2'>其他方式登录</h2><p></p>
@@ -41,13 +48,11 @@ export default {
       PassWord: "",
       msg: "",
       registrationID:"",
-      iphoneYN:false,
+      iphoneYN:false
     };
   },
   methods: {
-    created() {
-     
-    },
+    created() {},
     register() {
       this.$router.push({ name: "Register" });
     },
@@ -82,45 +87,47 @@ export default {
         window.androidObject.JSCallAndroid(JSON.stringify(val));
       }
     },
+    // 判断当用户名或密码输入不正确时    不能点击登录
     btn() {
       if(this.iphoneYN == true){
           var data = {'username':this.PassName,'password':this.PassWord,'registrationID':this.registrationID}
+
           if(this.PassName !== '' && this.PassWord !==''){
              this.$axios.post('api/auth/login/app',data)
             .then(function(response) {
-                  setCookie('login',1)
-                  var  val={
-                      "func":"closeCurrent",
-                      "param":{'finallyIndex':'1','refreshAll':true},
-                  };
-                  var u = navigator.userAgent;
-                  var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-                  var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-                  if(isiOS){
-                      window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-                  }else if(isAndroid){  
-                      window.androidObject.JSCallAndroid(JSON.stringify(val));
-                  }
+                setCookie('login',1)
+                var  val={
+                    "func":"closeCurrent",
+                    "param":{'finallyIndex':'1','refreshAll':true},
+                };
+                var u = navigator.userAgent;
+                var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+                var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+                if(isiOS){
+                    window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+                }else if(isAndroid){  
+                    window.androidObject.JSCallAndroid(JSON.stringify(val));
+                }
             })
             .catch(function(error) {
-               alert(error)
-               if(error.response.status === 500){
-                   alert('服务器繁忙，请耐心等待')
-               }
+              console.log(error)
+              // if(error.response.status === 500){
+              //     alert('服务器繁忙，请耐心等待')
+              // }
             });
           }else{
             alert('请输入用户名或密码')
           }
       }else{
-        alert('手机号输入错误')
+        // alert('手机号输入错误')
       }
       
     },
-   
     setDeviceId(registrationID){
       this.registrationID = registrationID
     }
   },
+
   mounted: function() {
     window.messageSink = this.messageSink;
     window.mobileSetToken = this.mobileSetToken;
@@ -139,6 +146,12 @@ export default {
     });
   }
 };
+
+// computed: {
+//     isLogin(){
+//         return !!this.user && !!this.password
+//     }
+// }
 </script>
 
 <style scoped>
