@@ -133,7 +133,7 @@ export default {
     $("input").on("keyup", function() {
       if (
         $("#passname").val().length >= 1 &&
-        $("#password").val().length >= 1
+        $("#password").val().length != 0
       ) {
         $(".btn").addClass("Color");
       } else {
