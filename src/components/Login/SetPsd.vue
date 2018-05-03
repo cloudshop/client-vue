@@ -85,7 +85,7 @@ export default {
     }, 
     mounted:function () {
         $('input').on('keyup',function(){
-            if($('#setPassword').val().length>=1 && $('#affirmPassword').val().length>=1){
+            if($('#setPassword').val().length>=1 && $('#affirmPassword').val().length!=0){
                 $('.btn').addClass('Color')         
             }else{
                 $('.btn').removeClass('Color')  
