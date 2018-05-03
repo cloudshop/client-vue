@@ -1,21 +1,21 @@
 <template>
     <nav class='nav'>
-            <router-link to="IntegralDiscount" tag="dl">
+            <router-link to="Redemption" tag="dl">
               <dt><img src="../../assets/HomePageNav/积分商城.png" alt=""></dt>
               <dd>积分商城</dd>
             </router-link>
 
-            <router-link to="IntegralDiscount" tag="dl">
+            <router-link to="Redemption" tag="dl">
               <dt><img src="../../assets/HomePageNav/积分换购.png" alt=""></dt>
               <dd>积分换购</dd>
             </router-link>
 
-            <router-link to="Redemption" tag="dl">
+            <router-link to="IntegralDiscount" tag="dl">
               <dt><img src="../../assets/HomePageNav/积分商城.png" alt=""></dt>
               <dd>积分兑换</dd>
             </router-link>
 
-            <router-link to="Redemption" tag="dl">
+            <router-link to="IntegralDiscount" tag="dl">
               <dt><img src="../../assets/HomePageNav/积分竞购.png" alt=""></dt>
               <dd>积分竞购</dd>
             </router-link>
