@@ -57,7 +57,7 @@ export default {
     var that = this;
     $.ajax({
       // url: "api/user/api/user-annexes/userInfo/3/",
-      url: "api/user/api/user-annexes/userInfo/3/",
+      url: "api/user/api/user-annexes/userInfo",
       method: "get",
       callback: "cb",
       contentType: "application/json",
