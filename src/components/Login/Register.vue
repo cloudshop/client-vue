@@ -1,7 +1,6 @@
 <template>
 
   <div class="registers">
-
       <header class="mint-header">
            <div class="mint-header-button is-left">
                <a class="router-link-active">
@@ -17,30 +16,27 @@
       <div class="iphone">
         <p>+86 <span>∨</span></p>
         <input type="text" placeholder="请输入手机号" id="mytest"  v-model="phone"  @blur="upperCase">
-        <div class="iphones">
-            <span class="one">|</span>
-            <button class="iphone_btn"  id='iphone_btn' @click='gain(".iphone_btn")'>获取验证码</button>
-        </div>
+        <div class="iphones"><span class="one">|</span><button class="iphone_btn"  id='iphone_btn' @click='gain(".iphone_btn")'>获取验证码</button></div>
       </div>
 
       <div class="iphone">
-          <p class="authCodes"><img src="../../assets/Login/验证码-(1).png" alt=""></p>
-          <input type="text" placeholder="请输入验证码"  id='authCode' v-model="authCode">
+        <p class="authCodes"><img src="../../assets/Login/验证码-(1).png" alt=""></p>
+        <input type="text" placeholder="请输入验证码"  id='authCode' v-model="authCode">
       </div>
 
       <div class="iphoneRecommend">
-          <p>+86 <span>∨</span></p>  
-          <input type="text"  id="recommend" placeholder="请输入您推荐人的手机号"  v-model="recommend">
+        <p>+86 <span>∨</span></p>  
+        <input type="text"  id="recommend" placeholder="请输入您推荐人的手机号"  v-model="recommend">
       </div>
         <div class="apps">
             <div class="inputs">
-            <input type="checkbox" id="tonglian" class="checkboxs"  value="通联" name="sex"  v-model="yesIdo" @click="checkChange">
-            <label for="tonglian"></label>
+            <input type="button" id="tonglian" class="checkboxs"  value="通联" name="sex"  v-model="yesIdo" @click="checkChange">
+            <!-- <label for="tonglian"></label> -->
             </div>
-            <p class="yes">我已同意<router-link to="/Agreement" class="xy">《贡融积分会员注册协议》</router-link></p>
+            <p class="yes">我已经同意<router-link to="/Agreement" class="xy">《贡融积分会员注册协议》</router-link></p>
         </div>
       <div class="next">      
-        <input type='button' class="next_btn" @click="next" value='下一步' :disabled="!phone || !authCode || !recommend">
+        <input type='button' class="next_btn" @click="next" value='下一步' :disabled="!phone || !authCode">
       </div>
       
     </div>
@@ -61,24 +57,27 @@ export default {
     methods:{
       checkChange(){
         this.yesIdo = !this.yesIdo;
+        if(this.yesIdo == true){
+          $('#tonglian').addClass('Color')
+        }else{
+          $('#tonglian').removeClass('Color')
+        }
       },
       upperCase() {
-        var theinput = document.getElementsByClassName("value")[0].value;
+        var theinput = document.getElementById("mytest").value;
         console.log(theinput)
         var p1 = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;
         var p2 = /^[\^\\%@&\*~'\?\/\<\>\|\"`]+$/;
         //(p1.test(theinput));
         if (p1.test(theinput) == false) {
           alert("请填写正确电话号码!!");
-          document.getElementsByClassName("value")[0].value = "";
+          document.getElementById("mytest").value = "";
         } else {
           console.log("succeess");
           this.iphoneYN = true;
         }
       },
-      // 判断当手机号、验证码、推荐人手机号输入不正确时    不能点击下一步
       next(){
-          // var phone = document.getElementById("mytest").value;
           var recommend=document.getElementById("recommend").value; 
           var authCode=document.getElementById("authCode").value; 
           var p1=/^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;
@@ -92,11 +91,10 @@ export default {
                   method:'get',
                   callback:'cb',
                   success:function(res){
-                    if(res.message == 'success'){
+                    if(res.message == 'success' || res.data.message == 'success'){
                       setCookie('recommend',recommend)
                       setCookie('login',1)
                       that.$router.push({path:'/SetPsd'})
-                      alert("请填写正确电话号码")
                     }else{
                       alert(res.content)
                     }
@@ -120,7 +118,7 @@ export default {
                 method:'get',
                 callback:'cb',
                 success:function(res){
-                  if(res.message == 'success'){
+                  if(res.message == 'success' || res.data.message == 'success'){
                     setCookie('recommend',recommend)
                     setCookie('login',1)
                     that.$router.push({path:'/SetPsd'})
@@ -192,6 +190,14 @@ export default {
 </script>
 
 <style scoped>
+.checkboxs{
+  border-radius: 60%;
+  height: 50%;
+  border:none;
+  margin-top: .05rem;
+  font-size: 0;
+  background: #ccc
+}
 .Color{
     background:red!important;
 }
@@ -215,19 +221,18 @@ export default {
       position: relative;
   }
   .inputs .checkboxs {
-      width: 80%;
-      height: 80%;
+      width: 65%;
+      height: 65%;
       position: absolute;
-      opacity: 0;
   }
   .apps .yes{
       height: .40rem;
-      text-indent: .3rem;
+      text-indent: .21rem;
       font-size: .28rem;
   }
-  input[type="checkbox"] + label::before {
+  /* input[type="checkbox"] + label::before {
       box-sizing: border-box;
-      content: " "; /*不换行空格*/
+      content: " ";
       display: inline-block;
       vertical-align: middle;
       width: 1.8em; 
@@ -239,10 +244,11 @@ export default {
   input[type="checkbox"]:checked + label::before {
       background: url("../../assets/manage/change.png");
       background-size: 100% 100%;
-  }
+  }*/
+  
   .xy{
       color: #ff0103
-  }
+  } 
 header{
     width:100%;
     background:#fff;
