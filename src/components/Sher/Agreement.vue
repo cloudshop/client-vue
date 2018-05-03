@@ -160,4 +160,7 @@ export default {
     margin-left: 3%;
     overflow-y: scroll;
 }
+.Agreement_body p:last-child{
+    margin-bottom: 2rem;
+}
 </style>
