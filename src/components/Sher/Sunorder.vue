@@ -2,7 +2,7 @@
     <div id="sunorder">
         <header class="header">
             <ul>
-                <li><span @click="goBack">〈</span></li>
+                <li><span @click="goBack">&lt;</span></li>
                 <li>晒单评价</li>
                 <li><span>提交</span></li>
             </ul>
