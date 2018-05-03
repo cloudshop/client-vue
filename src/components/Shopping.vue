@@ -2,8 +2,8 @@
    <div>
     <div class='content'>
       <div class="register_header">
-        <p>〈</p >
-        <p>购物车</p >
+        <p>&lt;</p>
+        <p>购物车</p>
         <p><img src="../assets/Classify/消息黑色.png" alt=""><span class="shopping_red">3</span></p>
       </div>
       <div class="shopping_main_all">
@@ -75,8 +75,8 @@
     </div>
    <div class='mark' v-show='flag'>
       <img src="../assets/HomePage/LOGO.png" alt="">
-      <p>此功能需先登录</p>
-      <button @click='logins'>登录</button>
+      <p>此功能需先登陆</p>
+      <button @click='logins'>登陆</button>
     </div>
   <Foot></Foot>
  </div>
@@ -101,11 +101,9 @@ export default {
       serviceList: '',
     };
   },
-  watch:{
-   
-  },
+  watch:{},
   computed:{
-   
+
   },
   created(){
     var Cookie = getCookie('login');
