@@ -18,8 +18,8 @@
                     </div>
                     <div class="tabCon_main_right">
                         <h4 class="h4">{{item.name}}</h4>
-                        <p class="change">福利价 <span class="changered">￥{{item.integral}}</span><span>+积分 {{item.jifen}}</span></p>
-                        <h3 class="h3">原价：<span class="prices">￥{{item.price}}</span></h3>
+                        <p class="change">福利价 <span class="changered">¥{{item.integral}}</span><span>+积分 {{item.jifen}}</span></p>
+                        <h3 class="h3">原价：<span class="prices">¥{{item.price}}</span></h3>
                         <p class="limit">限量{{item.limit}}件</p>
                     </div>
                 </div>
@@ -31,8 +31,8 @@
                     </div>
                     <div class="tabCon_main_right">
                         <h4 class="h4">{{item.name}}</h4>
-                        <p class="change">福利价 <span class="changered">￥{{item.integral}}</span><span>+积分 {{item.jifen}}</span></p>
-                        <h3 class="h3">原价：<span class="prices">￥{{item.price}}</span></h3>
+                        <p class="change">福利价 <span class="changered">¥{{item.integral}}</span><span>+积分 {{item.jifen}}</span></p>
+                        <h3 class="h3">原价：<span class="prices">¥{{item.price}}</span></h3>
                         <p class="limit">限量{{item.limit}}件</p>
                     </div>
                 </div>
@@ -44,8 +44,8 @@
                     </div>
                     <div class="tabCon_main_right">
                         <h4 class="h4">{{item.name}}</h4>
-                        <p class="change">福利价 <span class="changered">￥{{item.integral}}</span><span>+积分 {{item.jifen}}</span></p>
-                        <h3 class="h3">原价：<span class="prices">￥{{item.price}}</span></h3>
+                        <p class="change">福利价 <span class="changered">¥{{item.integral}}</span><span>+积分 {{item.jifen}}</span></p>
+                        <h3 class="h3">原价：<span class="prices">¥{{item.price}}</span></h3>
                         <p class="limit">限量{{item.limit}}件</p>
                     </div>
                 </div>
@@ -57,8 +57,8 @@
                     </div>
                     <div class="tabCon_main_right">
                         <h4 class="h4">{{item.name}}</h4>
-                        <p class="change">福利价 <span class="changered">￥{{item.integral}}</span><span>+积分 {{item.jifen}}</span></p>
-                        <h3 class="h3">原价：<span class="prices">￥{{item.price}}</span></h3>
+                        <p class="change">福利价 <span class="changered">¥{{item.integral}}</span><span>+积分 {{item.jifen}}</span></p>
+                        <h3 class="h3">原价：<span class="prices">¥{{item.price}}</span></h3>
                         <p class="limit">限量{{item.limit}}件</p>
                     </div>
                 </div>
