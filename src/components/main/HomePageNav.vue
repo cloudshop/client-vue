@@ -1,21 +1,24 @@
 <template>
     <nav class='nav'>
-            <dl>
+            <router-link to="IntegralDiscount" tag="dl">
               <dt><img src="../../assets/HomePageNav/积分商城.png" alt=""></dt>
               <dd>积分商城</dd>
-            </dl>
-             <dl>
+            </router-link>
+
+            <router-link to="IntegralDiscount" tag="dl">
               <dt><img src="../../assets/HomePageNav/积分换购.png" alt=""></dt>
               <dd>积分换购</dd>
-            </dl>
-             <dl>
+            </router-link>
+
+            <router-link to="Redemption" tag="dl">
               <dt><img src="../../assets/HomePageNav/积分商城.png" alt=""></dt>
               <dd>积分兑换</dd>
-            </dl>
-             <dl>
+            </router-link>
+
+            <router-link to="Redemption" tag="dl">
               <dt><img src="../../assets/HomePageNav/积分竞购.png" alt=""></dt>
               <dd>积分竞购</dd>
-            </dl>
+            </router-link>
              <!-- <dl>
               <dt><img src="../../assets/HomePageNav/会员中心.png" alt=""></dt>
               <dd>会员中心</dd>
