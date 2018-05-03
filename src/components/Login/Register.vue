@@ -65,14 +65,14 @@ export default {
         }
       },
       upperCase() {
-        var theinput = document.getElementsByClassName("value")[0].value;
+        var theinput = document.getElementById("mytest").value;
         console.log(theinput)
         var p1 = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;
         var p2 = /^[\^\\%@&\*~'\?\/\<\>\|\"`]+$/;
         //(p1.test(theinput));
         if (p1.test(theinput) == false) {
           alert("请填写正确电话号码!!");
-          document.getElementsByClassName("value")[0].value = "";
+          document.getElementById("mytest").value = "";
         } else {
           console.log("succeess");
           this.iphoneYN = true;
@@ -87,25 +87,12 @@ export default {
           if(recommend != ''){
             if(p1.test(recommend) == true) {
               if(this.yesIdo == true){
-                // this.$axios.get('api/verify/api/verify/smsvalidate?'+'phone='+this.phone+'&smsCode='+this.authCode)
-                // .then(function(res) {
-                //   if(res.message == 'success'){
-                //     setCookie('recommend',recommend)
-                //     setCookie('login',1)
-                //     that.$router.push({path:'/SetPsd'})
-                //   }else{
-                //     alert(res.content)
-                //   }
-                // })
-                // .catch(function(error) {
-                //   alert(error)
-                // });
                 $.ajax({
                   url:'api/verify/api/verify/smsvalidate?'+'phone='+this.phone+'&smsCode='+this.authCode,
                   method:'get',
                   callback:'cb',
                   success:function(res){
-                    if(res.data.message == 'success'){
+                    if(res.message == 'success'){
                       setCookie('recommend',recommend)
                       setCookie('login',1)
                       that.$router.push({path:'/SetPsd'})
@@ -132,7 +119,7 @@ export default {
                 method:'get',
                 callback:'cb',
                 success:function(res){
-                  if(res.data.message == 'success'){
+                  if(res.message == 'success'){
                     setCookie('recommend',recommend)
                     setCookie('login',1)
                     that.$router.push({path:'/SetPsd'})
