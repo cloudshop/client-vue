@@ -93,7 +93,6 @@ export default {
                   success:function(res){
                     if(res.message == 'success' || res.data.message == 'success'){
                       setCookie('recommend',recommend)
-                      setCookie('login',1)
                       that.$router.push({path:'/SetPsd'})
                     }else{
                       alert(res.content)
@@ -120,7 +119,6 @@ export default {
                 success:function(res){
                   if(res.message == 'success' || res.data.message == 'success'){
                     setCookie('recommend',recommend)
-                    setCookie('login',1)
                     that.$router.push({path:'/SetPsd'})
                   }else{
                     alert(res.content)
