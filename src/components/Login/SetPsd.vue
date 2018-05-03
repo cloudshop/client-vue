@@ -52,7 +52,7 @@ export default {
                         alert('注册成功，请去登录')
                         var  val={
                             "func":"closeCurrent",
-                            "param":{'finallyIndex':'1','refreshAll':true},
+                            "param":{'finallyIndex':'4','refreshAll':true},
                         };
                         var u = navigator.userAgent;
                         var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
@@ -68,41 +68,6 @@ export default {
                             alert('您已经注册成功，请登录')
                         }
                     }); 
-                    // var that = this;
-                    // const data = {
-                    //     username: iphone,
-                    //     password: that.setPassword
-                    // };
-                    // console.log(data)
-                    // var ApiVerify = require("api-uaa");
-                    // ApiVerify.ApiClient.instance.basePath = "/api/uaa";
-                    // var api = new ApiVerify.AccountResourceApi();
-                    // console.log(api)
-                    // var callback = function(error, data, response) {
-                    //     console.log(error)
-                    //     console.log(data)
-                    //     console.log(response)
-                    //     if (error) {
-                    //         alert('您已注册成功登录error');
-                    //     } else {
-                    //         alert('注册成功')
-                    //         setCookie('login',1)
-                    //         console.log('注册成功')
-                    //         var  val={
-                    //             "func":"closeCurrent",
-                    //             "param":{'finallyIndex':'4','refreshAll':true},
-                    //             };
-                    //         var u = navigator.userAgent;
-                    //         var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-                    //         var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-                    //         if(isiOS){
-                    //             window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-                    //         }else if(isAndroid){  
-                    //             window.androidObject.JSCallAndroid(JSON.stringify(val));
-                    //         }
-                    //     }
-                    // };
-                    // api.getAccountUsingGET(callback);
                 }else{
                     alert('请确定是否输入手机号、验证码、密码')
                 }
