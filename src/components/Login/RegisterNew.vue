@@ -135,14 +135,14 @@ export default {
     },
     mounted:function () {
         $('input').on('keyup',function(){
-            if($('#mytest').val().length>=1 && $('#yzms').val().length>=1){
+            if($('#mytest').val().length>=1 && $('#yzms').val().length != 0){
                 $('.next_btn').addClass('Color')         
             }else{
                 $('.next_btn').removeClass('Color')  
             }
         })
         $('input').on('keyup',function(){
-            if($('#setPassword').val().length>=1 && $('#affirmPassword').val().length>=1){
+            if($('#setPassword').val().length>=1 && $('#affirmPassword').val().length != 0){
                 $('.nexts_btn').addClass('Color')         
             }else{
                 $('.nexts_btn').removeClass('Color')  
