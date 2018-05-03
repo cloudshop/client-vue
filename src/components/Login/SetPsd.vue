@@ -23,7 +23,7 @@
 </template>
 <script>
 import axios from "axios"
-import { setCookie,getCookie } from '../../assets/js/cookie.js'
+import { setCookie,getCookie,delCookie } from '../../assets/js/cookie.js'
 export default {
     data(){
         return{
@@ -49,7 +49,8 @@ export default {
                 if(iphone !== '' &&  setPassword !== '' && authCode !== ''){
                     this.$axios.post('api/uaa/api/register/app',val)
                     .then(function(response) {
-                        alert('注册成功，请去登录')
+                        alert('注册成功，请去登录');
+                        delCookie("login");
                         var  val={
                             "func":"closeCurrent",
                             "param":{'finallyIndex':'4','refreshAll':true},
