@@ -2,7 +2,7 @@
   <div>
       <header class="header">
          <ul>
-             <li><span>《</span></li>
+             <li><span>&lt;</span></li>
              <li>修改让利结构</li>
              <li><span></span></li>
          </ul>
