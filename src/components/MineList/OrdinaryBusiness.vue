@@ -208,8 +208,10 @@ export default {
                   Authorization: "Bearer " + accessToken
                 },
           success: function(res) {
+            //   alert("上传成功，等待审核")
+            alert('上传成功,请等待审核')
             console.log(res);
-            alert("上传成功，等待审核")
+            
             //top
           },
           error(res) {
