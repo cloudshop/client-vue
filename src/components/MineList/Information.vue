@@ -78,7 +78,6 @@ export default {
       this.sheetVisible = true;
     },
     confirms: function() {
-      alert("退出登陆");
       $.ajax({
         url: "api/auth/logout/app",
         type: "POST",
