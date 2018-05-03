@@ -83,8 +83,9 @@ export default {
             var data = {'login':this.phone,'password':this.setPassword,'verifyCode':this.authCode}
             this.$axios.post('api/uaa/api/account/update-password',data)
             .then(function(response) {
-              // console.log(response)
-              alert('正在挖掘中，敬请期待')
+              if(response.status == 200){
+                alert('修改成功')
+              }
             })
             .catch(function(error) {
               if(error.response.status === 500){
@@ -135,14 +136,14 @@ export default {
     },
     mounted:function () {
         $('input').on('keyup',function(){
-            if($('#mytest').val().length>=1 && $('#yzms').val().length != 0){
+            if($('#mytest').val().length>=1 && $('#yzms').val().length>=1){
                 $('.next_btn').addClass('Color')         
             }else{
                 $('.next_btn').removeClass('Color')  
             }
         })
         $('input').on('keyup',function(){
-            if($('#setPassword').val().length>=1 && $('#affirmPassword').val().length != 0){
+            if($('#setPassword').val().length>=1 && $('#affirmPassword').val().length>=1){
                 $('.nexts_btn').addClass('Color')         
             }else{
                 $('.nexts_btn').removeClass('Color')  
