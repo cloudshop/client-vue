@@ -4,7 +4,7 @@
             <div class="classify_search_ss">
                 <a><img src="../../assets/HomePage/搜索.png" alt=""></a>
                 <p><input type="text" placeholder="  请输入搜索关键词"></p>
-                <span >搜索</span>
+                <span>搜索</span>
             </div>
         </div>
         <ul class="PageAll_tab_ul">
@@ -18,7 +18,7 @@
                     </div>
                     <div class="tabCon_main_right">
                         <h4 class="h4">{{item.name}}</h4>
-                        <h3 class="h3">原价：￥{{item.price}}</h3>
+                        <h3 class="h3">原价：¥{{item.price}}</h3>
                         <p class="change">兑换积分： <span class="changered">{{item.integral}}</span></p>
                         <p class="limit">限量{{item.limit}}件</p>
                     </div>
@@ -31,7 +31,7 @@
                     </div>
                     <div class="tabCon_main_right">
                         <h4 class="h4">{{item.name}}</h4>
-                        <h3 class="h3">原价：￥{{item.price}}</h3>
+                        <h3 class="h3">原价：¥{{item.price}}</h3>
                         <p class="change">兑换积分： <span class="changered">{{item.integral}}</span></p>
                         <p class="limit">限量{{item.limit}}件</p>
                     </div>
@@ -44,7 +44,7 @@
                     </div>
                     <div class="tabCon_main_right">
                         <h4 class="h4">{{item.name}}</h4>
-                        <h3 class="h3">原价：￥{{item.price}}</h3>
+                        <h3 class="h3">原价：¥{{item.price}}</h3>
                         <p class="change">兑换积分： <span class="changered">{{item.integral}}</span></p>
                         <p class="limit">限量{{item.limit}}件</p>
                     </div>
@@ -57,7 +57,7 @@
                     </div>
                     <div class="tabCon_main_right">
                         <h4 class="h4">{{item.name}}</h4>
-                        <h3 class="h3">原价：￥{{item.price}}</h3>
+                        <h3 class="h3">原价：¥{{item.price}}</h3>
                         <p class="change">兑换积分： <span class="changered">{{item.integral}}</span></p>
                         <p class="limit">限量{{item.limit}}件</p>
                     </div>
