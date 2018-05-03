@@ -33,7 +33,6 @@ export default {
       var nickname = $('.mint-field-core').val()
       //var data = { "avatar" :nickname,"type":2,"id":3 };
       var data = {
-        id: 3,
         nickname: nickname,
         type: 2
       };
