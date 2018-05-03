@@ -49,12 +49,24 @@ export default {
                 if(iphone !== '' &&  setPassword !== '' && authCode !== ''){
                     this.$axios.post('api/uaa/api/register/app',val)
                     .then(function(response) {
-                        console.log(response)
-                        console.log(response.data)
-                        alert('注册成功')
+                        alert('注册成功，请去登录')
+                        var  val={
+                            "func":"closeCurrent",
+                            "param":{'finallyIndex':'1','refreshAll':true},
+                        };
+                        var u = navigator.userAgent;
+                        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+                        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+                        if(isiOS){
+                            window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+                        }else if(isAndroid){  
+                            window.androidObject.JSCallAndroid(JSON.stringify(val));
+                        }
                     })
                     .catch(function(error) {
-                        console.log(error);
+                        if(error.response.status === 400){
+                            alert('您已经注册成功，请登录')
+                        }
                     }); 
                     // var that = this;
                     // const data = {
