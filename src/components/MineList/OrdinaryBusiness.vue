@@ -187,6 +187,16 @@ export default {
       var hold = $(".hold").text();
       var license = $(".license").text();
       var shopname = $(".shpname").val();
+      if (
+        front == "" ||
+        back == "" ||
+        hold == "" ||
+        license == "" ||
+        shopname == ""
+      ) {
+        alert("请上传4张照片和店铺名称");
+      }else{
+      alert('上传成功,请等待审核')
       var data = {
         imgIdcardFront: front,
         imgIdcardBack: back,
@@ -209,7 +219,7 @@ export default {
                 },
           success: function(res) {
             //   alert("上传成功，等待审核")
-            alert('上传成功,请等待审核')
+            
             console.log(res);
             
             //top
@@ -218,7 +228,7 @@ export default {
             console.log(res);
           }
         });
-
+}
     });
 
    
