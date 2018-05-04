@@ -2,6 +2,7 @@
   <div class='detailsTwo'>
         <div class="classify_search_header">
             <div class="classify_search_ss">
+                <small class="goOut" @click="goOuts">&lt;</small>
                 <a><img src="../../assets/HomePage/搜索.png" alt=""></a>
                 <p><input type="text" placeholder="  请输入搜索关键词"></p>
                 <span >搜索</span>
@@ -115,8 +116,24 @@ export default {
     methods: {
         tab(index) {
             this.num = index;
+        },
+        goOuts:function(){
+          var  val={
+            "func":"closeCurrent",
+              "param":{
+                'refreshParent':true
+              },
+            };
+          var u = navigator.userAgent;
+          var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+          var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+          if(isiOS){
+            window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+          }else if(isAndroid){  
+            window.androidObject.JSCallAndroid(JSON.stringify(val));
+          }
         }
-    },
+    }
 }   
 </script>
 
@@ -138,10 +155,16 @@ export default {
     margin-left: 3%;
     display: flex;
 }
+.classify_search_ss .goOut{
+    width: .3rem;
+    font-size: .32rem;
+    margin-top: .28rem;
+    display: inline-block;
+}
 .classify_search_ss a{
     position: absolute;
     top: .34rem;
-    left: .35rem;
+    left: .65rem;
 }
 .classify_search_ss a img{
     width: 40%;
