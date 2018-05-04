@@ -8,7 +8,7 @@ $('.get').click(function() {
         $(".tel").val() = "";
     } else {
         $.ajax({
-            url: 'http://bird.ioliu.cn/v1/?url=http://cloud.eyun.online:9080/verify/api/verify/smscode?phone=' + tel,
+            url: 'api/verify/api/verify/smscode?phone=' + tel,
             method: 'get',
             callback: 'cb',
             success: function(res) {
@@ -45,7 +45,7 @@ $('.sure').click(function() {
     var p1 = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;
     var datas = { 'login': tel, 'password': psd, 'verifyCode': yzm }
     $.ajax({
-        url: 'http://bird.ioliu.cn/v1/?url=http://cloud.eyun.online:9080/uaa/api/register/app',
+        url: 'api/uaa/api/register/app',
         method: 'post',
         //callback: 'cb',
         data: JSON.stringify(datas),
