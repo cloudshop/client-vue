@@ -10,6 +10,7 @@
             <img src="../assets/Classify/消息黑色.png" alt="">  
         </header>
       <div class='content'>
+        <!-- 列表 -->
         <div class='main'>
             <ul>
                 <li v-for='(item,index) in arr.firstCategory'
@@ -26,6 +27,7 @@
                 <li>家用电器</li>
                 <li>家用电器</li> -->
             </ul>      
+            <!-- 列表内容 -->
             <div class='maincontent'>
                     <div v-for='(item,index) in arr.secondCategory' :key="index" >
                         <h1>{{item.secondName}}</h1>
@@ -127,10 +129,10 @@ export default {
       var that = this;
       this.$axios.get('api/product/api/categoryTree/subnode/'+that.id)
              .then(function(response) {
-               that.arr = response.data;
+                that.arr = response.data;
            })
             .catch(function(error) {
-                 console.log(error);
+                console.log(error);
            });    
         },
       ItemDescription(value){
@@ -156,9 +158,7 @@ export default {
            this.$router.push({name:"DetailsTwo",params:{name:'/FromClass'}})
       }
     },
-    components:{
-        Foot
-    },
+    components:{Foot},
 
 }
 </script>
