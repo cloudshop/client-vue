@@ -305,9 +305,9 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
         this.$axios.get('api/favorite/api/favProduct/'+Goods+'/1')
          .then(function(response) {
             if(response.data == true){
-               $('.collect').addClass("active");
+               $('.collect').addClass("actives");
             }else{
-               $('.collect').removeClass("active");
+               $('.collect').removeClass("actives");
             }
         })
         .catch(function(error) {
@@ -344,6 +344,9 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
 .active{
   border: none !important;
   border: .1px solid #d81e06 !important;
+}
+.actives{
+  color: red;
 }
 .list{ 
   margin-top:.3rem;
