@@ -39,11 +39,13 @@ $('.get').click(function() {
 })
 
 $('.sure').click(function() {
-    var tel = $(".tel").val()
-    var yzm = $(".yzm").val()
-    var psd = $('.psd').val()
+    var tel = $(".tel").val();
+    var yzm = $(".yzm").val();
+    var psd = $('.psd').val();
+    var urltel =window.location.search;  
+    var tel = urltel.substring(13,24));
     var p1 = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;
-    var datas = { 'login': tel, 'password': psd, 'verifyCode': yzm }
+    var datas = { 'login': tel, 'password': psd, 'verifyCode': yzm, 'recommend':tel}
     $.ajax({
         url: 'api/uaa/api/register/app',
         method: 'post',
@@ -51,6 +53,7 @@ $('.sure').click(function() {
         data: JSON.stringify(datas),
         success: function(res) {
             console.log(res)
+            alert('注册成功,更多精彩请下载app体验')
         },
         error(error) {
             if (error.response.status === 500) {
