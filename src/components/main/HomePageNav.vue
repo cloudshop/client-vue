@@ -1,24 +1,25 @@
 <template>
     <nav class='nav'>
-            <router-link to="Redemption" tag="dl">
+            <dl  @click="integralShop">
               <dt><img src="../../assets/HomePageNav/积分商城.png" alt=""></dt>
               <dd>积分商城</dd>
-            </router-link>
+            </dl>
 
-            <router-link to="Redemption" tag="dl">
+            <dl @click="redemption">
               <dt><img src="../../assets/HomePageNav/积分换购.png" alt=""></dt>
               <dd>积分换购</dd>
-            </router-link>
+            </dl>
 
-            <router-link to="IntegralDiscount" tag="dl">
+            <dl @click='conversion'>
               <dt><img src="../../assets/HomePageNav/积分商城.png" alt=""></dt>
               <dd>积分兑换</dd>
-            </router-link>
+            </dl>
 
-            <router-link to="IntegralDiscount" tag="dl">
+            <dl @click='bid'>
               <dt><img src="../../assets/HomePageNav/积分竞购.png" alt=""></dt>
               <dd>积分竞购</dd>
-            </router-link>
+            </dl>
+
              <!-- <dl>
               <dt><img src="../../assets/HomePageNav/会员中心.png" alt=""></dt>
               <dd>会员中心</dd>
@@ -57,9 +58,73 @@ export default {
       }
     },
   methods:{
-     MerchantCAOpen: function() {
+      MerchantCAOpen: function() {
         this.Merchant = true
-       },
+      },
+      integralShop:function(){
+        var  val={
+            "func":"openURL",
+            "param":{
+                "URL":'/#/Redemption',
+            },
+        };
+        var u = navigator.userAgent;
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+        if(isiOS){
+            window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+        }else if(isAndroid){  
+            window.androidObject.JSCallAndroid(JSON.stringify(val));
+        }
+      },
+      redemption:function(){
+        var  val={
+            "func":"openURL",
+            "param":{
+                "URL":'/#/Redemption',
+            },
+        };
+        var u = navigator.userAgent;
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+        if(isiOS){
+            window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+        }else if(isAndroid){  
+            window.androidObject.JSCallAndroid(JSON.stringify(val));
+        }
+      },
+      conversion:function(){
+        var  val={
+            "func":"openURL",
+            "param":{
+                "URL":'/#/IntegralDiscount',
+            },
+        };
+        var u = navigator.userAgent;
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+        if(isiOS){
+            window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+        }else if(isAndroid){  
+            window.androidObject.JSCallAndroid(JSON.stringify(val));
+        }
+      },
+      bid:function(){
+        var  val={
+            "func":"openURL",
+            "param":{
+                "URL":'/#/IntegralDiscount',
+            },
+        };
+        var u = navigator.userAgent;
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+        if(isiOS){
+            window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+        }else if(isAndroid){  
+            window.androidObject.JSCallAndroid(JSON.stringify(val));
+        }
+      }
    },
    components:{
      MerchantCA 
