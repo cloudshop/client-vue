@@ -4,8 +4,9 @@
           <p class="top_left"><router-link to="/city" style="color:#2f2f2f">&nbsp;{{city5}}</router-link></p>
           <input type="text" placeholder="内容推荐" @click='GoogleSearch'>
           <ul>
-            <li><img src="../assets/HomePage/消息黑色.png" alt="" @click='news' class="news"></li>
+            <li></li>
           </ul>
+          <!-- <img src="../assets/HomePage/消息黑色.png" alt="" @click='news' class="news"> -->
      </header>
      <div class='main content'>
           <mt-swipe :auto="4000" class='banner'>
