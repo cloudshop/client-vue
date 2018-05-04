@@ -369,8 +369,8 @@ export default {
   align-items: center;
 }
 .vacancyImg{
-  width: 70%;
-  height: 3.4rem;
+  width: 58%;
+  height: 3rem;
 }
 .vacancyImg img{
   width: 100%;
