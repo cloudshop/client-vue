@@ -237,12 +237,10 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
         this.address = false;
       },
       ConfirmAnOrder(){
-        var accessToken = getCookie('access_token');
-        if(accessToken != ''){
-           this.$router.push({name:"ConfirmAnOrder",}) 
-        }else{
+        var Cookie = getCookie('login');
+        if(Cookie == ''){
           alert('请先登陆');
-           var  val={
+          var  val={
               "func":"openURL",
               "param":{
                   "URL":'/#/Login',
@@ -256,6 +254,9 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
           }else if(isAndroid){  
              window.androidObject.JSCallAndroid(JSON.stringify(val));
           }
+        }
+        else{
+          this.$router.push({name:"ConfirmAnOrder",}) 
         }
          sessionStorage.setItem("price",this.data.productContent.price); 
          sessionStorage.setItem("count",this.val);
