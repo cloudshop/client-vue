@@ -16,12 +16,12 @@
                   <p>余额</p>
                   <h2>{{arr.balance}}</h2>
           </div>
-          <ul class='list'>
-            <li>
-              <p><span>2018-03-06</span><span>周二</span></p>
-              <p><b>提现</b><b>-1000</b></p>
-            </li>
-          </ul>
+          <!--<ul class='list'>-->
+          <!--  <li>-->
+          <!--    <p><span>2018-03-06</span><span>周二</span></p>-->
+          <!--    <p><b>提现</b><b>-1000</b></p>-->
+          <!--  </li>-->
+          <!--</ul>-->
         </div>
 
         <footer class='footer'>
