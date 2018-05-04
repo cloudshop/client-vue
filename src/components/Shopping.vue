@@ -2,12 +2,13 @@
    <div>
     <div class='content'>
       <div class="register_header">
-        <p>&lt;</p>
-        <p>购物车</p>
-        <p><img src="../assets/Classify/消息黑色.png" alt=""><span class="shopping_red">3</span></p>
+        <p>〈</p >
+        <p>购物车</p >
+        <p></p>
+        <!-- <p><img src="../assets/Classify/消息黑色.png" alt=""><span class="shopping_red">3</span></p> -->
       </div>
       <div class="shopping_main_all">
-        <div class="shopping_main" v-for="(item,index) in serviceList" :key='index'>
+        <div class="shopping_main" v-for="(item,index) in serviceList" :key='index' v-show="empty">
           <!--购物车标题头开始 店铺  -->
           <div class="shopping_main_nav">
             <div class="nav_newmain">
@@ -71,6 +72,11 @@
             </div>
           </div>
         </div>
+        <div class="vacancy" v-show='emptys'>
+          <div class="vacancyImg"><img src="../assets/Classify/shopping.png" alt=""></div>
+          <div class="kong">购物车是空的</div>
+          <button class="going" @click="goings">去逛逛</button>
+        </div>
       </div>
     </div>
    <div class='mark' v-show='flag'>
@@ -99,11 +105,15 @@ export default {
       totalAllPrice: 0,
       checkboxBig: false,
       serviceList: '',
+      empty:true,
+      emptys:false
     };
   },
-  watch:{},
+  watch:{
+   
+  },
   computed:{
-
+   
   },
   created(){
     var Cookie = getCookie('login');
@@ -113,15 +123,18 @@ export default {
     else{
       this.flag=false;
     }
+    if(this.serviceList==''){
+      this.empty = false;
+      this.emptys = true;
+    }
     var that = this;
     this.$axios.get('api/shoppingcart/api/shoppingcar/user')
     .then(function(response) {
         that.serviceList = response.data.result;
-        // console.log(response.data.result)
     })
     .catch(function(error) {
         console.log(error);
-    });   
+    }); 
   },
   methods: {
     logins:function(){  
@@ -323,6 +336,20 @@ export default {
         .catch((error)=>{
           console.log(error);
         });
+      },
+      goings:function(){
+        var  val={
+            "func":"closeCurrent",
+            "param":{'finallyIndex':'2','refreshAll':true},
+        };
+        var u = navigator.userAgent;
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+        if(isiOS){
+            window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+        }else if(isAndroid){  
+            window.androidObject.JSCallAndroid(JSON.stringify(val));
+        }
       }
   },
   components: {
@@ -332,6 +359,38 @@ export default {
 </script>
 
 <style scoped>
+.vacancy{
+  width: 70%;
+  margin-left: 15%;
+  height: 6rem;
+  margin-top: 35%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.vacancyImg{
+  width: 70%;
+  height: 3.4rem;
+}
+.vacancyImg img{
+  width: 100%;
+}
+.vacancy .kong{
+  width: 100%;
+  text-align: center;
+  font-size: .32rem;
+  color: #909194;
+}
+.vacancy .going{
+  font-size: .32rem;
+  background: #428bca;
+  color: #FFF;
+  width: 2.28rem;
+  height: .74rem;
+  border: none;
+  border-radius: .1rem;
+  margin-top: .2rem;
+}
 .mark{
   position: absolute;
   top:0;
