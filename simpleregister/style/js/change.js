@@ -2,34 +2,33 @@
 $('.get').click(function() {
     var tel = $(".tel").val();
     var p1 = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;
-    var obj = $('.get');
     if (p1.test(tel) == false) {
         alert("请输入正确的手机号")
         $(".tel").val() = "";
     } else {
+        var countdown = 60;
+        settime('.gets');
+        function settime(obj) {
+            if (countdown == 0) {
+                $(obj).attr("disabled", false);
+                $(obj).text("获取验证码");
+                countdown = 60;
+                return;
+            } else {
+                $(obj).attr("disabled", true);
+                $(obj).text(countdown + " s 重新发送");
+                countdown--;
+            }
+            setTimeout(function() {
+                settime(obj)
+            }, 1000)
+        }
         $.ajax({
             url: 'api/verify/api/verify/smscode?phone=' + tel,
             method: 'get',
             callback: 'cb',
             success: function(res) {
-                var countdown = 60;
-                settime(obj);
-
-                function settime(obj) {
-                    if (countdown == 0) {
-                        $(obj).attr("disabled", false);
-                        $(obj).text("获取验证码");
-                        countdown = 60;
-                        return;
-                    } else {
-                        $(obj).attr("disabled", true);
-                        $(obj).text(countdown + " s 重新发送");
-                        countdown--;
-                    }
-                    setTimeout(function() {
-                        settime(obj)
-                    }, 1000)
-                }
+              
             },
             error(res) {
                 alert(res.responseJSON.title)
