@@ -14,7 +14,7 @@
         <div class='content'>
           <div class='banner'>
                   <p>贡融券</p>
-                  <h2>{{arr.integral}}</h2>
+                  <h2>{{arr.ticket}}</h2>
                   <!--<h2>{{$route.params.num}}</h2>-->
           </div>
           <!--<ul class='list'>-->
