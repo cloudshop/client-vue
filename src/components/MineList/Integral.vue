@@ -49,8 +49,35 @@
 <script>
 import { Header,Popup } from 'mint-ui';
 export default {
-    methods:{
-    }
+      data(){
+          return{  
+              arr:'null'
+          }
+          
+      },
+   
+      created:{
+            
+      },
+      created(){
+             var that = this
+        this.$axios.get('api/wallet/api/wallets/user',{
+        })
+        .then(function(res){
+      //     console.log(res.data.balance)
+          that.arr = res.data
+      //      that.arr = res.data
+      //      console.log(arr)
+        })
+        .catch(function(error){
+          console.log(error)
+        })
+     },
+      methods:{
+            one:function(){
+                  
+            }
+      },
 }
 </script>
 
