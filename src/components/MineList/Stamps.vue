@@ -14,14 +14,15 @@
         <div class='content'>
           <div class='banner'>
                   <p>贡融券</p>
-                  <h2>{{$route.params.num}}</h2>
+                  <h2>{{arr.integral}}</h2>
+                  <!--<h2>{{$route.params.num}}</h2>-->
           </div>
-          <ul class='list'>
-            <li>
-              <p><span>2018-03-06</span><span>2018-03-06</span></p>
-              <p><b>积分转换</b><b>+0.08</b></p>
-            </li>
-          </ul>
+          <!--<ul class='list'>-->
+          <!--  <li>-->
+          <!--    <p><span>2018-03-06</span><span>2018-03-06</span></p>-->
+          <!--    <p><b>积分转换</b><b>+0.08</b></p>-->
+          <!--  </li>-->
+          <!--</ul>-->
         </div>
 
   </div>
