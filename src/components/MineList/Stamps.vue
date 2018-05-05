@@ -34,12 +34,13 @@ import { Header,Popup } from 'mint-ui';
 export default {
   data(){
           return{  
-              arr:'null'
+              arr:'null',
+              brr:'null'
           }
           
       },
      created(){
-             var that = this
+        var that = this
         this.$axios.get('api/wallet/api/wallets/user',{
         })
         .then(function(res){
@@ -51,6 +52,23 @@ export default {
         .catch(function(error){
           console.log(error)
         })
+        
+        
+        this.$axios.get('api/wallet/api/wallet/details/balance?size=5&sort=desc',{
+        })
+        .then(function(res){
+      //     console.log(res.data.balance)
+        //   that.brr = res.data
+      //      that.arr = res.data
+            console.log('↓↓↓↓↓↓')
+             console.log(res)
+             console.log(res.data)
+      //      console.log(arr)
+        })
+        .catch(function(error){
+          console.log(error)
+        })
+        
      },
     methods:{
     }
