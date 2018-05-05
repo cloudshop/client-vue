@@ -15,41 +15,31 @@
           <div class='banner'>
                   <p>贡融积分</p>
                   <!-- <h2>91.0</h2> -->
-                  <h2>{{$route.params.num}}</h2>
+                  <!--<h2>{{$route.params.num}}</h2>-->
+                  <h2>{{arr.integral}}</h2>
           </div>
-          <ul class='list'>
-               <li>
-                    <dl class='left'>
-                        <dt>2018-03-06</dt>
-                        <dd>提现</dd>
-                    </dl>
-                    <dl class='right'>
-                        <dt>&nbsp;</dt>
-                        <dd>1205.75</dd>
-                    </dl>
-               </li>
-               <li>
-                    <dl class='left'>
-                        <dt>2018-03-06</dt>
-                        <dd>提现</dd>
-                    </dl>
-                    <dl class='right'>
-                        <dt>&nbsp;</dt>
-                        <dd>1205.75</dd>
-                    </dl>
-               </li>
-               <li>
-                    <dl class='left'>
-                        <dt>2018-03-06</dt>
-                        <dd>提现</dd>
-                    </dl>
-                    <dl class='right'>
-                        <dt>商店:贡融</dt>
-                        <dd>1205.75</dd>
-                    </dl>
-               </li>
-               
-           </ul>
+          <!--<ul class='list'>-->
+          <!--     <li>-->
+          <!--          <dl class='left'>-->
+          <!--              <dt>2018-03-06</dt>-->
+          <!--              <dd>提现</dd>-->
+          <!--          </dl>-->
+          <!--          <dl class='right'>-->
+          <!--              <dt>&nbsp;</dt>-->
+          <!--              <dd>1205.75</dd>-->
+          <!--          </dl>-->
+          <!--     </li>-->
+          <!--     <li>-->
+          <!--          <dl class='left'>-->
+          <!--              <dt>2018-03-06</dt>-->
+          <!--              <dd>提现</dd>-->
+          <!--          </dl>-->
+          <!--          <dl class='right'>-->
+          <!--              <dt>&nbsp;</dt>-->
+          <!--              <dd>1205.75</dd>-->
+          <!--          </dl>-->
+          <!--     </li>-->
+          <!-- </ul>-->
         </div>
 
   </div>
