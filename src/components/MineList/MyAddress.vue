@@ -4,7 +4,7 @@
           <ul>
               <li @click='PreviousMenu'>&lt;</li>
               <li>管理收货地址</li>
-              <li>&nbsp;<input type="button" value="1" class="sub"></li>
+              <li>&nbsp;</li>
           </ul>
       </div>
       <div class="main">
