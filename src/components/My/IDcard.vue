@@ -13,12 +13,12 @@
               <input type="text" placeholder="请输入您的手机号" maxlength="11" id="tel">
           </p> -->
           <p class="p2">
-              <input type="text">
-              <span class="send">点击发送验证码</span>               
+              <input type="text" maxlength='6' class="yzm">
+              <span @click='send'>点击发送验证码</span>               
           </p>
-          
+           <button @click="next">下一步</button>
           <router-link to="setpaypsd">
-              <button class="1">下一步{{type}}</button>
+             
           </router-link>
             <!-- <router-link to="setpaypsd" ,params:{num:hide()}> <button class="1">下一步</button></router-link> -->
          <!-- <router-link :to="{ name: 'setpaypsd',params:{num:'hide'} }"><button class="1">下一步</button></router-link> -->
@@ -36,7 +36,7 @@ export default {
   },
   created() {
     this.$axios
-      .get("http://app.grjf365.com:9080/user/api/user-annexes/userInfo")
+      .get("api/user/api/user-annexes/userInfo")
       //  .get("http://app.grjf365.com:9080/wallet/api/user-annexes/userInfo")
       .then(function(res) {
         //    console.log(res.data.phone);
@@ -47,6 +47,39 @@ export default {
         console.log(error);
       });
   },
+  methods:{
+    send(){
+        this.$axios
+          .get("api/verify/api/verify/smscode/wallet")
+          .then(function(res) {
+            console.log(res);
+          })
+          .catch(function(error){
+            console.log(error);
+          });
+    },
+    next(){
+      if($('.yzm').val()== '' || $('.yzm').val().length<6){
+          alert('请输入6位验证码')
+      }else{
+        this.$router.push({path:'/setpaypsd'});
+        var num = $('.yzm').val()
+        sessionStorage.setItem("yzm",num);
+        // this.$router.push({
+        //     // path: 'yourPath', 
+        //     name: 'setpaypsd',
+        //     params: { 
+        //         name: 'name', 
+        //         dataObj: num
+        //     }
+        //     /*query: {
+        //         name: 'name', 
+        //         dataObj: this.msg
+        //     }*/
+        // })
+      }
+    }
+  },
   mounted: function() {
     // var telnum = $('#tel').val();
     var accessToken = getCookie("access_token");
@@ -54,13 +87,8 @@ export default {
     $(".send").click(function() {
       //top
       $.ajax({
-        url: "http://cloud.eyun.online:9080/verify/api/verify/smscode/wallet",
+        url: "api/verify/api/verify/smscode/wallet",
         method: "get",
-        callback: "cb",
-        headers: {
-          Authorization: "Bearer " + accessToken
-          //   'Content-Type':"application/json"
-        },
         success: function(res) {
           console.log(res);
         },
@@ -69,16 +97,7 @@ export default {
         }
       });
       //bottom
-      $(".send").click(function() {
-        this.$axios
-          .get("http://app.grjf365.com:9080/verify/api/verify/smscode/wallet")
-          .then(function(res) {
-            console.log(res);
-          })
-          .catch(function(error) {
-            console.log(error);
-          });
-      });
+
     });
   }
 };

@@ -38,6 +38,9 @@ import Pay from '../components/MineList/Pay.vue' //选择支付方式
 import News from '../components/main/News.vue'
 // import Location from "@/components/main/location.vue"
 // import Talk from '../components/main/talk'
+import setpaypsd from '../components/My/paypsd.vue' //设置支付密码
+import IDcard from '../components/My/IDcard.vue' //身份验证
+
 
 import ConfirmAnOrder from '../components/Shopping/ConfirmAnOrder.vue'
 
@@ -330,7 +333,17 @@ const routes = [{
                 path: '/Agreement',
                 name: 'Agreement',
                 component: Agreement
-            }
+            },
+            { // 设置支付密码
+                path: '/setpaypsd',
+                name: 'setpaypsd',
+                component: setpaypsd
+            },
+            { // 用户验证
+                path: '/IDcard',
+                name: 'IDcard',
+                component: IDcard
+            },
         ]
     },
 ]
