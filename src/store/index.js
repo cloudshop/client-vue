@@ -27,8 +27,15 @@ export default new Vuex.Store({
 	    	token: (state) => {
 	            console.log(state.user);
 	    		if (state.user.accessToken !== {}) {
-	    		   return 'Bearer '.concat(state.user.accessToken.token.access_token);
+	    		   return state.user.accessToken.token.access_token;
 	    	    }
+	    	},
+	    	bearToken: (state) => {
+	            console.log(state.user);
+	    		if (state.user.accessToken !== {}) {
+	    		   return 'Bearer '.concat(state.user.accessToken.token.access_token);
+            }
+            return ''
 	    	},
 	    	tokenHeader: (state) => {
 	            console.log(state.user);
