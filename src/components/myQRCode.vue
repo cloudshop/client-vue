@@ -35,6 +35,7 @@ export default {
         if(Cookie == ''){
             this.userInfoTwo= 'http://m.anzhi.com/app_b222_com.grjf365.gongrongpoints.html';
         }else{
+            alert('您当前登录的号码是:'+phone)
             this.userInfoTwo= 'http://app.grjf365.com/simpleregister/index.html?phoneNumber'+'='+phone;
             console.log(phone)
         }
