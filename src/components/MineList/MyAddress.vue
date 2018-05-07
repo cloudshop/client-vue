@@ -7,24 +7,25 @@
               <li>&nbsp;</li>
           </ul>
       </div>
-
       <div class="main">
-         <ul v-for="(item,index) in items" :key='index' class="list">
+         <ul v-for="(item,index) in arr" :key='index' class="list">
              <li>
-                  <span class="name">{{item.name}}</span>
-                  <span class="tel">{{item.tel}}</span>
+                  <!-- <span class="name">{{item.name}}</span>
+                  <span class="tel">{{item.tel}}</span> -->
+                  <span class="name">{{item.contact}}</span>
+                  <span class="tel">{{item.phone}}</span>
               </li>
               <li class="address">
-                  {{item.address}}
+                  {{item.city}}
               </li>
               <li>
                   <span>       
-                       <input type="radio" id="adress-03" name="sex"/>
-                       <label for="adress-03"></label>
+                       <input type="radio" :id="'adress-0'+item.id" name="sex"/>
+                       <label :for="'adress-0'+item.id"></label>
                         默认地址
                         <p>
                             <b @click="sendParams"><img src="../../assets/manage/编辑.png" alt="">编辑</b>
-                            <b @click="display(item)"><img src="../../assets/manage/删除.png" alt="">删除</b>
+                            <b class="deltest"><img src="../../assets/manage/删除.png">删除</b>
                         </p>
                   </span>   
               </li>
@@ -61,18 +62,43 @@ import { Header, Cell, Actionsheet, Popup } from "mint-ui";
 export default {
   data() {
     return {
-        msg: 'test message',
+      arr: "",
+      msg: "test message",
       EditAddress: false,
       items: [
-        { name: "刘一", tel: "1234566789",address:"河北省" },
-        { name: "陈二", tel: "1234566789",address:"山东省" },
-        { name: "张三", tel: "1234566789",address:"河南省" },
-        { name: "李四", tel: "1234566789",address:"台湾省" },
-        { name: "王五", tel: "1234566789",address:"福建省" }
+        { name: "刘一", tel: "1234566789", address: "河北省" },
+        { name: "陈二", tel: "1234566789", address: "山东省" },
+        { name: "张三", tel: "1234566789", address: "河南省" },
+        { name: "李四", tel: "1234566789", address: "台湾省" },
+        { name: "王五", tel: "1234566789", address: "福建省" }
       ],
       init: null
     };
   },
+  created() {
+    var that = this;
+    this.$axios
+      .get("http://app.grjf365.com:9080/user/api/delivery-addresses-list")
+      .then(function(res) {
+        that.arr = [];
+        var le = res.data.length;
+        for (var i = 0; i < le; i++) {
+          that.arr.push(res.data[i]);
+          console.log(that.arr);
+        }
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  },
+ mounted: function() {
+      $(".sub").click(function() {
+        alert(1111)
+      });
+       $(".deltest").click(function() {
+        alert(2222)
+      });
+    },
   methods: {
     closeAddress: function() {
       this.$parent.$parent.address = false;
@@ -83,7 +109,8 @@ export default {
     //删除地址事件
     display(e) {
       this.init = e;
-      $(".del").show();
+      +$(".del").show();
+      // console.log($(this).text())
     },
     //取消事件
     cancel() {
@@ -96,33 +123,34 @@ export default {
       $(".del").hide();
     },
     //编辑地址
-     sendParams() {
-        this.$router.push({
-            path: '/AddAddress', 
-            name: 'AddAddress',
-            params: { 
-                name: 'name', 
-                dataObj: this.msg
-            }
-            /*query: {
+    sendParams() {
+      this.$router.push({
+        path: "/AddAddress",
+        name: "AddAddress",
+        params: {
+          name: "name",
+          dataObj: this.msg
+        }
+        /*query: {
                 name: 'name', 
                 dataObj: this.msg
             }*/
-        })
-      },
-      PreviousMenu(){
-        if(this.$route.params.address == '/ConfirmAnOrder'){
-             this.$router.push({name:"ConfirmAnOrder"}) 
-        }else{
-             this.$router.push({name:"Information"}) 
-        }
+      });
+    },
+    PreviousMenu() {
+      if (this.$route.params.address == "/ConfirmAnOrder") {
+        this.$router.push({ name: "ConfirmAnOrder" });
+      } else {
+        this.$router.push({ name: "Information" });
       }
+    },
+    del() {
+      console.log(123);
+    },
+   
   },
   components: {
     AddAddress
-  },
-  mounted: function() {
-
   }
 };
 </script>
@@ -233,8 +261,8 @@ body {
 .main li:nth-child(3) p img:nth-child(2) {
   margin-left: 0.5rem;
 }
-.main li:nth-child(3) p b{
-    font-weight: normal;
+.main li:nth-child(3) p b {
+  font-weight: normal;
 }
 input[type="radio"] + label::before {
   box-sizing: border-box;

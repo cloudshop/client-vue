@@ -16,188 +16,180 @@
           <p><img src="../../assets/manage/添加联系人.png"></p>
       </div>
       <ul class="bottom">
-          <li>详细地址：<input type="text" v-model="contact" id="address_big"></li>
-        
-      </ul>
-      
+          <li>详细地址：<input type="text" v-model="address" id="address_big"></li>    
+      </ul>  
       <div class="button">
           <button @click="save">保存</button>
       </div>
   </div>
 </template>
 <script>
-   export default {
-    data(){
-          return {
-              msg:'',
-              name:"",
-              phone:"17600044444",
-              contact:""
-         }
-          var p1=/^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/; 
+export default {
+  data() {
+    return {
+      msg: "",
+      name: "",
+      phone: "",
+      address: "",
+    };
+    var p1 = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;
+  },
+  methods: {
+    closeEditAddress: function() {
+      this.$parent.$parent.EditAddress = false;
     },
-    methods:{
-        closeEditAddress:function(){
-            this.$parent.$parent.EditAddress = false
-        },
-        getParams () {
-        // 取到路由带过来的参数 
-        let routerParams = this.$route.params.dataobj
-        // 将数据放在当前组件的数据内
-        this.msg = routerParams
-      },
-      save(){
-            if($('#name').val() == '' || $('#tel').val() == '' || $('#address_big').val() == ''){              
-               alert("请填写收货信息")
-            }else{
-                var a=/^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/; 
-                var b = $('#tel').val();
-                 if(a.test(b)==false){
-                     alert("您的手机号码未输入或输入有误")
-                 }else{
-                    //  alert('保存成功')
-                    var data = {"aliases":this.name,"phone":this.phone,"contact":this.contact}
-                    //   var datas =  {"aliases":"xiaoming","phone":"18","contact":"大康大厦"}
-                  // var datas = {"data":{"aliases" : amount,"phone":17600045817, "contact" : channel}};
-                    //  $.ajax({
-                    //     url:'api/user/api/user-annexes-createAddress/',
-                    //    // method:'post',
-                    //     type : 'POST',  
-                    //     contentType : 'application/json',  
-                    //     dataType : 'json',  
-                    //     data : JSON.stringify(datas),  
-                    //     // data : datas,  
-                    //     headers:{
-                    //          'Authorization': 'Bearer ' + accessToken,
-                    //         //   'Content-Type':"application/json"
-                    //     },
-                    //     success:function(res){
-                    //        console.log(res)
-                    //     },  
-                    //     error(res){
-                    //         console.log(res)
-                    //     }
-                    // })
-                    this.$axios.post('api/user/api/user-annexes-createAddress/',data)
-                    .then(function(res){
-                        console.log(res)
-                    })
-                    .catch(function(error){
-                        console.log(error)
-                    })
-                    console.log(data)
-                    $('#name').val(''),$('#tel').val(''),$('#address_big').val('')
-                 }
+    getParams() {
+      // 取到路由带过来的参数
+      let routerParams = this.$route.params.dataobj;
+      // 将数据放在当前组件的数据内
+      this.msg = routerParams;
+    },
+    save() {
+      if (
+        $("#name").val() == "" ||
+        $("#tel").val() == "" ||
+        $("#address_big").val() == ""
+      ) {
+        alert("请填写收货信息");
+      } else {
+        var a = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;
+        var b = $("#tel").val();
+        if (a.test(b) == false) {
+          alert("您的手机号码未输入或输入有误");
+        } else {
+          // var data = {"contact":this.name,"phone":this.phone,}
+          var datas = {
+            "contact": this.name,
+            "city": this.address,
+            "phone": this.phone,
+            userAnnex: {
+              avatar: "string"
             }
-        },
+          };
+          console.log(datas)
+          this.$axios
+            .post(
+              "api/user/api/user-annexes-createAddress",
+              datas
+            )
+            .then(function(res) {
+              console.log(res);
+            })
+            .catch(function(error) {
+              console.log(error);
+            });
+          $("#name").val(""), $("#tel").val(""), $("#address_big").val("");
+        }
+      }
     }
-   } 
+  }
+};
 </script>
 <style scoped>
-    .header{
-        width: 100%;
-        height: .96rem;
-        background: #fff;
-        border-bottom: 1px solid #e7e7e7;
-         font-size:.32rem;
-    }
-    .header ul{
-        display: flex;
-    }
-    .header li{
-        flex: 1;
-        line-height: .96rem;
-        text-align: center
-    }
-    .header li:nth-child(1){
-        text-align: left;
-        margin-left: .3rem;
-    }
-    .header li:nth-child(3){
-        text-align: right;
-        margin-right: .3rem;
-        color: #676767;
-        font-size: .28rem;
-    }
-    .center{
-        display: flex
-    }
-    .center ul{
-        flex: 2;
-        float: left;
-    }
-    .center li{
-        height: .96rem;
-        line-height: .96rem;
-        padding-left: .3rem;
-        font-size: .28rem;
-        color: #676767;
-        background: #fff;
-        box-sizing: border-box;
-        border-bottom: 1px solid #e7e7e7;
-    }
-    .center p{
-        flex: 1;
-        width: 1.68rem;
-        height: 1.92rem;
-        background: #fff;
-        overflow: hidden;
-        box-sizing: border-box;
-        text-align: center;
-        border-left: 1px solid #e7e7e7;
-        border-bottom: 1px solid #e7e7e7;
-    }
-    .center img{
-        width: 70%;
-        height: 70%;
-        margin-top: .3rem;
-    }
-    .center input{
-        width: 3rem;
-        margin-top: .15rem;
-        height: .5rem;
-        font-size: .28rem;
-        color:#2f2f2f;
-        border: none;
-        outline: none;
-    }
-    .bottom{
-        width: 100%;
-    }
-    .bottom li{
-        height: .96rem;
-        line-height: .96rem;
-        padding-left: .3rem;
-        font-size: .28rem;
-        color: #676767;
-        background: #fff;
-        box-sizing: border-box;
-        border-bottom: 1px solid #e7e7e7;
-    }
-    .bottom input{
-        width: 3rem;
-        margin-top: .15rem;
-        height: .5rem;
-        font-size: .28rem;
-        color:#2f2f2f;
-        border: none;
-        outline: none;
-    }
-    .button{
-        width: 100%;
-        text-align: center;
-        position: absolute;
-        bottom:1rem;
-    }
-    button{
-        width: 3.26rem;
-        height: .8rem;
-        color:#fff;
-        border: none;
-        background: #ff0103;
-        border-radius: .15rem;
-       }
-      #address_big{
-           width:70%
-       }
+.header {
+  width: 100%;
+  height: 0.96rem;
+  background: #fff;
+  border-bottom: 1px solid #e7e7e7;
+  font-size: 0.32rem;
+}
+.header ul {
+  display: flex;
+}
+.header li {
+  flex: 1;
+  line-height: 0.96rem;
+  text-align: center;
+}
+.header li:nth-child(1) {
+  text-align: left;
+  margin-left: 0.3rem;
+}
+.header li:nth-child(3) {
+  text-align: right;
+  margin-right: 0.3rem;
+  color: #676767;
+  font-size: 0.28rem;
+}
+.center {
+  display: flex;
+}
+.center ul {
+  flex: 2;
+  float: left;
+}
+.center li {
+  height: 0.96rem;
+  line-height: 0.96rem;
+  padding-left: 0.3rem;
+  font-size: 0.28rem;
+  color: #676767;
+  background: #fff;
+  box-sizing: border-box;
+  border-bottom: 1px solid #e7e7e7;
+}
+.center p {
+  flex: 1;
+  width: 1.68rem;
+  height: 1.92rem;
+  background: #fff;
+  overflow: hidden;
+  box-sizing: border-box;
+  text-align: center;
+  border-left: 1px solid #e7e7e7;
+  border-bottom: 1px solid #e7e7e7;
+}
+.center img {
+  width: 70%;
+  height: 70%;
+  margin-top: 0.3rem;
+}
+.center input {
+  width: 3rem;
+  margin-top: 0.15rem;
+  height: 0.5rem;
+  font-size: 0.28rem;
+  color: #2f2f2f;
+  border: none;
+  outline: none;
+}
+.bottom {
+  width: 100%;
+}
+.bottom li {
+  height: 0.96rem;
+  line-height: 0.96rem;
+  padding-left: 0.3rem;
+  font-size: 0.28rem;
+  color: #676767;
+  background: #fff;
+  box-sizing: border-box;
+  border-bottom: 1px solid #e7e7e7;
+}
+.bottom input {
+  width: 3rem;
+  margin-top: 0.15rem;
+  height: 0.5rem;
+  font-size: 0.28rem;
+  color: #2f2f2f;
+  border: none;
+  outline: none;
+}
+.button {
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  bottom: 1rem;
+}
+button {
+  width: 3.26rem;
+  height: 0.8rem;
+  color: #fff;
+  border: none;
+  background: #ff0103;
+  border-radius: 0.15rem;
+}
+#address_big {
+  width: 70%;
+}
 </style>

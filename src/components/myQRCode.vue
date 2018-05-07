@@ -31,9 +31,9 @@ export default {
                 this.phones = res.data.phone
                 // var phone = $(".phones").text()
                 if(Cookie == ''){
+                    this.flag1 = true;
                     this.userInfoTwo= 'http://m.anzhi.com/app_b222_com.grjf365.gongrongpoints.html';
                 }else{
-                    this.flag1 = true;
                     this.userInfoTwo= 'http://app.grjf365.com/simpleregister/index.html?phoneNumber=' + res.data.phone;
                 }
                 if(this.i==false){
