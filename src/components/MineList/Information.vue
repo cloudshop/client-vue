@@ -78,13 +78,8 @@ export default {
       this.sheetVisible = true;
     },
     confirms: function() {
-      $.ajax({
-        url: "api/auth/logout/app",
-        type: "POST",
-        contentType: "application/json",
-        success: function(res) {
+      this.$store.dispatch('logout').then(() => {
           console.log(res)
-          var deltoken = delCookie("login");
           var val = {
             "func": "closeCurrent",
             "param": {
@@ -100,10 +95,9 @@ export default {
           } else if (isAndroid) {
             window.androidObject.JSCallAndroid(JSON.stringify(val));
           }
-        },
-        error(error) {
+        })
+		.catch((error) => {
           console.log(error)
-          var deltoken = delCookie("login");
           var val = {
             "func": "closeCurrent",
             "param": {
@@ -119,9 +113,9 @@ export default {
           } else if (isAndroid) {
             window.androidObject.JSCallAndroid(JSON.stringify(val));
           }
-        }
-      });
+        })
     },
+ 
     back(){   
          var  val={
                 "func":"closeCurrent",

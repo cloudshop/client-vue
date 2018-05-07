@@ -3,10 +3,6 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex);
 
-import mutations from './mutations'
-import actions from './actions'
-
-
 export default new Vuex.Store({
     state: { 
         user: {
@@ -31,8 +27,8 @@ export default new Vuex.Store({
                       secret: 'w1eb_app'
                     },
                     auth: {
-                      tokenHost: 'https://localhost/api',
-                      tokenPath: 'auth/login/app'
+                        tokenHost: location.host,
+                        tokenPath: '/auth/login/app'
                     },
                     http: {
                       headers: {
@@ -48,8 +44,8 @@ export default new Vuex.Store({
 
 	      // Get the access token object.
 	      const tokenConfig = {
-	        username: userInput.PassName,
-	        password: userInput.PassWord,
+	        username: userInput.username,
+	        password: userInput.password,
 	        registrationID: userInput.registrationID
 	      }
 
@@ -59,10 +55,8 @@ export default new Vuex.Store({
         .then((result) => {
           const accessToken = oauth2.accessToken.create(result)
                 // store the token in global variable ??
-                  setCookie('login',1)
-                context.commit('addWebToken', accessToken); 
-          console.log('accessToken:' + accessToken)
-          alert('accessToken:');
+          context.commit('addWebToken', accessToken); 
+          setCookie('login',1)
           
           var val={
             "func":"closeCurrent",
@@ -89,6 +83,7 @@ export default new Vuex.Store({
           alert(error.message);
         })
         },
+       
         refresh: function(context) {
         		const EXPIRATION_WINDOW_IN_SECONDS = 300;
         	 
@@ -113,6 +108,9 @@ export default new Vuex.Store({
         	}
         },
         logout: function(context){
+          var deltoken = delCookie("login");
+          // your logout functionality
+          context.commit('removeWebToken');
          // Callbacks
          // Revoke only the access token
          accessToken.revoke('access_token', (error) => {
@@ -137,9 +135,6 @@ export default new Vuex.Store({
            .catch((error) => {
              console.log('Error revoking token.', error.message);
            });
-         // your logout functionality
-         context.commit('removeWebToken');
-
         }
     }
 });
