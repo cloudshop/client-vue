@@ -121,7 +121,6 @@ export default {
         }
       };
       if (http.test(link) == true) {
-         window.location.href=link
         IOSAndroid(linkval);
       } else if (product.test(link) == true) {
         //  this.$router.push({name:"Product",params:{name:'/HomePage'}})
