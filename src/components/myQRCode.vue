@@ -34,9 +34,9 @@ export default {
         var phone = $(".phones").text()
         if(Cookie == ''){
             this.userInfoTwo= 'http://m.anzhi.com/app_b222_com.grjf365.gongrongpoints.html';
-        }
-        else{
-            this.userInfoTwo= 'http://app.grjf365.com/simpleregister/index.html?phoneNumber'+'='+phone
+        }else{
+            this.userInfoTwo= 'http://app.grjf365.com/simpleregister/index.html?phoneNumber'+'='+phone;
+            console.log(phone)
         }
     },
     mounted() {
