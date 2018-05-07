@@ -83,29 +83,41 @@ export default {
       }
     },
     btn() {
-      if(this.iphoneYN !== true) {
-        alert('手机号输入错误')
-        return
-      }
-      if(this.PassName == '' || this.PassWord =='') {
-        alert('请输入用户名或密码')
-        return
-      }
-      //passing the username and password in an object as payload to the login action
-      this.$store.dispatch('login', {username: this.PassName, password: this.PassWord, registrationID: this.registrationID}).then(() => {
-        var  val={
-        		"func":"closeCurrent",
-            "param":{'finallyIndex':'1','refreshAll':true},
-        };
-        var u = navigator.userAgent;
-        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-        if(isiOS){
+      if(this.iphoneYN == true){
+          var data = {'username':this.PassName,'password':this.PassWord,'registrationID':this.registrationID}
+          if(this.PassName !== '' && this.PassWord !==''){
+             this.$axios.post('api/auth/login/app',data)
+            .then(function(response) {
+                  setCookie('login',1)
+                  var  val={
+                      "func":"closeCurrent",
+                      "param":{'finallyIndex':'1','refreshAll':true},
+                  };
+                  var u = navigator.userAgent;
+                  var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+                  var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+                  if(isiOS){
                       window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
                   }else if(isAndroid){  
                       window.androidObject.JSCallAndroid(JSON.stringify(val));
                   }
-        })
+            })
+            .catch(function(error) {
+              //  alert(error)
+               if(error.response.status === 500){
+                   alert('服务器繁忙，请耐心等待')
+               }
+               if(error.response.status === 400){
+                   alert('用户名密码错误')
+               }
+            });
+          }else{
+            alert('请输入用户名或密码')
+          }
+      }else{
+        alert('手机号输入错误')
+      }
+      
     },
    
     setDeviceId(registrationID){
