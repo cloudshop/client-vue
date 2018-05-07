@@ -13,11 +13,13 @@ export default new Vuex.Store({
     }, 
     getters: {
 	    	token: (state) => {
+	            console.log(state.user);
 	    		if (state.user.accessToken !== {}) {
 	    		   return 'Bearer '.concat(state.user.accessToken.token.access_token);
 	    	    }
 	    	},
 	    	tokenHeader: (state) => {
+	            console.log(state.user);
 	    		if (state.user.accessToken !== {}) {
 	    		   return { headers: { Authorization: 'Bearer '.concat(state.user.accessToken.token.access_token) } }
 	    	    }
