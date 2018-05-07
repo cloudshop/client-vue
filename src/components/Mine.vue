@@ -97,7 +97,6 @@
 </template>
 
 <script>
-import { setCookie,getCookie } from '../assets/js/cookie.js'
 import Foot from './main/Foot'
 import { Header,Popup } from 'mint-ui';
 
@@ -111,8 +110,7 @@ export default {
       },
       created(){
             var that =this
-    var Cookie = getCookie("login");
-    Cookie == '' ? this.flag=true : this.flag=false;
+    this.$store.getters.isAuthed() !== true ? this.flag=true : this.flag=false;
     this.$axios
       .get("api/user/api/user-annexes/userInfo")
       .then(function(res) {

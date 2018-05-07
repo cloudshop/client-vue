@@ -84,7 +84,6 @@
 <script>
 import axios from 'axios'
 import { Header } from "mint-ui";
-import { setCookie,getCookie } from '../../assets/js/cookie.js';
 export default {
   data() {
     return {
@@ -180,7 +179,6 @@ export default {
   },
   mounted: function() {
 
-  var accessToken = getCookie('access_token');
     $(".act").click(function() {
       var front = $(".front").text();
       var back = $(".back").text();
@@ -215,7 +213,7 @@ export default {
           data: JSON.stringify(data),
            headers:{
                   'Content-Type': 'application/json',
-                  Authorization: "Bearer " + accessToken
+                  Authorization: this.$store.getters.token
                 },
           success: function(res) {
             //   alert("上传成功，等待审核")

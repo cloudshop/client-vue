@@ -33,7 +33,6 @@
 </template>
 
 <script>
-import { setCookie, getCookie } from "../../assets/js/cookie.js";
 export default {
   data() {
     return {

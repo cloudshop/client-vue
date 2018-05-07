@@ -39,7 +39,6 @@ import ID from "../MineList/ID";
 import Myaddress from "../MineList/MyAddress";
 import MyTeam from "../MineList/MyTeam";
 import { Header, Cell, Actionsheet, Popup } from "mint-ui";
-import { setCookie, getCookie, delCookie } from "../../assets/js/cookie";
 export default {
   data() {
     return {
@@ -87,7 +86,7 @@ export default {
         contentType: "application/json",
         success: function(res) {
           console.log(res)
-          var deltoken = delCookie("login");
+          this.$store.commit('removeWebToken');
           var val = {
             "func": "closeCurrent",
             "param": {
@@ -106,7 +105,7 @@ export default {
         },
         error(error) {
           console.log(error)
-          var deltoken = delCookie("login");
+          this.$store.commit('removeWebToken');
           var val = {
             "func": "closeCurrent",
             "param": {

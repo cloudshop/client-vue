@@ -34,7 +34,6 @@
 </template>
 
 <script>
-import { setCookie,getCookie } from '../../assets/js/cookie.js'
 export default {
     data(){
       return{
@@ -96,7 +95,7 @@ export default {
       },
       gain(obj){
           var theinput=document.getElementById("mytest").value; 
-          setCookie('iphone',this.theinput,1000*60)
+          this.$store.commit('iphone',this.theinput)
           var p1=/^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/; 
           if(p1.test(theinput)==false) { 
             alert('请填写正确手机号！'); 

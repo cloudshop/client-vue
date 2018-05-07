@@ -3,15 +3,27 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex);
 
+const debug = process.env.NODE_ENV !== 'production'
+
 export default new Vuex.Store({
     state: { 
         user: {
             userName:'',
-            loggedInStatus: true,
+            loggedInStatus: false,
+            recommend:'',
+            iphone:'',
+            authCode:'',
             	accessToken: {}
         }
     }, 
     getters: {
+    		isAuthed: (state) => {
+	            console.log(state.user);
+	    		if (state.user.accessToken !== {}) {
+		    		return true;
+		    }
+	    		return false;
+	    	},
 	    	token: (state) => {
 	            console.log(state.user);
 	    		if (state.user.accessToken !== {}) {
@@ -24,15 +36,36 @@ export default new Vuex.Store({
 	    		   return { headers: { Authorization: 'Bearer '.concat(state.user.accessToken.token.access_token) } }
 	    	    }
 	    	},
+	    	recommend: (state) => {
+	            console.log(state.user);
+          return state.user.recommend
+        },
+        authCode: (state) => {
+          return state.user.authCode
+        },
+        iphone: (state) => {
+          return state.user.iphone
+	    	},
     },
 
     mutations: { 
         addWebToken: function(state, accessToken){
             state.user.accessToken = accessToken;
+            loggedInStatus = true;
         },
         removeWebToken: function(state){
             state.user.accessToken = {};
-        }
+            loggedInStatus = false;
+        },
+        recommend: function(state, recommend){
+           state.user.recommend = recommend;
+        },
+        iphone: function(state, iphone){
+           state.user.iphone = iphone;
+        },
+        authCode: function(state, authCode){
+           state.user.authCode = authCode;
+        },
     },
     actions: {
         login: function(context, userInput){
@@ -71,7 +104,6 @@ export default new Vuex.Store({
           const accessToken = oauth2.accessToken.create(result)
                 // store the token in global variable ??
           context.commit('addWebToken', accessToken); 
-          setCookie('login',1)
           
           var val={
             "func":"closeCurrent",
@@ -123,7 +155,6 @@ export default new Vuex.Store({
         	}
         },
         logout: function(context){
-          var deltoken = delCookie("login");
           // your logout functionality
           context.commit('removeWebToken');
          // Callbacks

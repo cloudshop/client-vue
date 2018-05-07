@@ -1,13 +1,12 @@
 <template>
 	<div class="myQrCode">
         <div id="qrcode" v-show='flag' ref="qrcode"></div>
-        <div class="logins" v-show="flag1">您还未登录，请先去登录,否则无法分享哦~</div>
+        <div class="logins" v-show="logined">您还未登录，请先去登录,否则无法分享哦~</div>
         <Foot></Foot>
 	</div>
 </template>
 
 <script> 
-import { setCookie, getCookie } from "../assets/js/cookie.js";
 import qrcode from "../../static/js/qrcode.js";
 import Foot from './main/Foot';
 
@@ -15,7 +14,7 @@ export default {
     data(){
         return{
             flag: true,
-            flag1: false,
+            logined: false,
             i:false,
             userInfoTwo: '',
         }
@@ -25,16 +24,15 @@ export default {
     },
     methods: {
         _phone: function(){
-            var Cookie = getCookie('login');
             this.$axios.get("api/user/api/user-annexes/userInfo")
             .then((res) => {
                 this.phones = res.data.phone
                 // var phone = $(".phones").text()
-                if(Cookie == ''){
-                    this.flag1 = true;
-                    this.userInfoTwo= 'http://m.anzhi.com/app_b222_com.grjf365.gongrongpoints.html';
-                }else{
+                if(this.$store.getters.isAuthed() === true){
                     this.userInfoTwo= 'http://app.grjf365.com/simpleregister/index.html?phoneNumber=' + res.data.phone;
+                }else{
+                    this.logined = true;
+                    this.userInfoTwo= 'http://m.anzhi.com/app_b222_com.grjf365.gongrongpoints.html';
                 }
                 if(this.i==false){
                     var qrcode = new QRCode(document.getElementById("qrcode"), {  

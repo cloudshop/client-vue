@@ -23,7 +23,6 @@
 </template>
 <script>
 import axios from "axios"
-import { setCookie,getCookie,delCookie } from '../../assets/js/cookie.js'
 export default {
     data(){
         return{
@@ -35,9 +34,9 @@ export default {
         accomplish(){
             var setPassword=document.getElementById("setPassword").value; 
             var affirmPassword=document.getElementById("affirmPassword").value; 
-            var iphone = getCookie('iphone')
-            var authCode = getCookie('authCode')
-            var recommend = getCookie('recommend')
+            var iphone = this.$store.getters.iphone()
+            var authCode = this.$store.getters.authCode()
+            var recommend = this.$store.getters.recommend()
             var val = {
                 login : iphone,
                 password : this.setPassword,
@@ -50,7 +49,7 @@ export default {
                     this.$axios.post('api/uaa/api/register/app',val)
                     .then(function(response) {
                         alert('注册成功，请去登录');
-                        delCookie("login");
+                        this.$store.commit('removeWebToken');
                         var  val={
                             "func":"closeCurrent",
                             "param":{'finallyIndex':'4','refreshAll':true},

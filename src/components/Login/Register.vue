@@ -44,7 +44,6 @@
 </template>
 
 <script>
-import { setCookie,getCookie } from '../../assets/js/cookie.js'
 export default {
     data(){
       return{
@@ -81,7 +80,7 @@ export default {
           var recommend=document.getElementById("recommend").value; 
           var authCode=document.getElementById("authCode").value; 
           var p1=/^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;
-          setCookie('authCode',authCode) 
+          this.$store.commit('authCode',authCode) 
           var that = this;
           if(recommend != ''){
             if(p1.test(recommend) == true) {
@@ -92,7 +91,7 @@ export default {
                   callback:'cb',
                   success:function(res){
                     if(res.message == 'success' || res.data.message == 'success'){
-                      setCookie('recommend',recommend)
+			          this.$store.commit('recommend',recommend)
                       that.$router.push({path:'/SetPsd'})
                     }else{
                       alert(res.content)
@@ -118,7 +117,7 @@ export default {
                 callback:'cb',
                 success:function(res){
                   if(res.message == 'success' || res.data.message == 'success'){
-                    setCookie('recommend',recommend)
+                    this.$store.commit('recommend',recommend)
                     that.$router.push({path:'/SetPsd'})
                   }else{
                     alert(res.content)
@@ -135,7 +134,7 @@ export default {
       },
       gain(obj){
           var theinput=document.getElementById("mytest").value; 
-          setCookie('iphone',theinput)
+          this.$store.commit('iphone',theinput)
           var p1=/^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/; 
           if(p1.test(theinput) != false) { 
             $.ajax({

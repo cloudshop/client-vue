@@ -26,7 +26,6 @@
   </div>
 </template>
 <script>
-import { setCookie, getCookie } from "../../assets/js/cookie.js";
 export default {
   data() {
     return {
@@ -37,7 +36,6 @@ export default {
   created() {
     this.$axios
       .get("api/user/api/user-annexes/userInfo", this.$store.getters.tokenHeader())
-      //  .get("http://app.grjf365.com:9080/wallet/api/user-annexes/userInfo")
       .then(function(res) {
         //    console.log(res.data.phone);
         var tel = res.data.phone;
@@ -82,7 +80,6 @@ export default {
   },
   mounted: function() {
     // var telnum = $('#tel').val();
-    var accessToken = getCookie("access_token");
     var p1 = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;
     $(".send").click(function() {
       //top

@@ -90,7 +90,6 @@
 </template>
 <script>
 import Foot from "./main/Foot";
-import { setCookie, getCookie } from "../assets/js/cookie.js";
 export default {
   data() {
     return {
@@ -116,8 +115,7 @@ export default {
    
   },
   created(){
-    var Cookie = getCookie('login');
-    Cookie == '' ? this.flag=true : this.flag=false;
+    (this.$store.getters.isAuthed() === false) ? this.flag=true : this.flag=false;
     if(this.serviceList==''){
       this.empty = false;
       this.emptys = true;

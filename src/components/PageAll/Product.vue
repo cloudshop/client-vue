@@ -193,7 +193,6 @@
 </template>
 
 <script>
-import { setCookie,getCookie } from '../../assets/js/cookie.js';
   export default {  
     name: 'page-navbar',  
     data() {  
@@ -244,8 +243,7 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
         this.address = false;
       },
       ConfirmAnOrder(){
-        var Cookie = getCookie('login');
-        if(Cookie == ''){
+        if(this.$store.getters.isAuthed() === false){
           alert('请先登陆');
           var  val={
               "func":"openURL",

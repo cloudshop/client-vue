@@ -46,7 +46,6 @@ import HomePageNav from "./main/HomePageNav";
 import Foot from "./main/Foot";
 import { Swipe, SwipeItem } from "mint-ui";
 import { IOSAndroid } from "../assets/js/IOSAndroid.js";
-import { setCookie, getCookie } from "../assets/js/cookie.js";
 
 import qs from "qs";
 export default {

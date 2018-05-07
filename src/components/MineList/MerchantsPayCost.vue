@@ -79,7 +79,6 @@
 <script>
 import { Switch } from "mint-ui";
 import axios from "axios";
-import { setCookie, getCookie } from "../../assets/js/cookie.js";
 export default {
   data() {
     return {
@@ -87,8 +86,6 @@ export default {
     };
   },
   mounted: function() {
-    var accessToken = getCookie("access_token");
-
     $(".pay").click(function() {
       var type = $('input:radio[name="sex"]:checked').val();
       var datas = { payType: type };

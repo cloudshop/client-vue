@@ -41,7 +41,6 @@
 </template>
 
 <script>
-import { setCookie, getCookie } from "../../assets/js/cookie";
 export default {
   data() {
     return {
@@ -50,7 +49,6 @@ export default {
   },
   created() {
     var that = this;
-    var accessToken = getCookie("access_token");
     this.$axios
       .get(
         "api/user/api/user-annexes-shareUserList"
@@ -67,8 +65,7 @@ export default {
         console.log(error);
       });
 
-    var accessToken = getCookie("access_token");
-    if (accessToken == "") {
+    if (this.$store.getters.isAuthed !== true) {
       this.flag = true;
     } else {
       this.flag = false;
