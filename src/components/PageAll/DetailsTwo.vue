@@ -1,19 +1,18 @@
 <template>
   <div class='detailsTwo'>
-       
+       <!-- 搜索   返回按钮 -->
         <div class="classify_search_header">
-           
             <div class="classify_search_ss">
                 <em @click='back'>&lt;</em>
-                
                 <p><a><img src="../../assets/HomePage/搜索.png" alt=""></a><input type="text" placeholder="  请输入搜索关键词" v-model="seekContent"></p>
                 <span @click='seekAll'>搜索</span>
             </div>
         </div>
-   
+        <!-- "综合", "销量","价格","筛选" -->
         <ul class="PageAll_tab_ul" v-show='flag'>
             <li v-for="(item,index) in tabs" :key="index" :class="{active:index == num}" @click="tab(index)">{{item}}</li>
         </ul>
+        <!-- 内容 -->
         <div class="tabCon">
             <div class='content' >             
                 <div class="tabCon_main"  v-for='(item,index) in arr.mainContent' :key="index"  :data='item.id' @click='details(item.id)'>
@@ -40,9 +39,9 @@
 export default {
     data() {
        return {
-            tabs: ["综合", "销量","价格","筛选"],
-            arr:null,
             num: 0,
+            tabs: ["综合","销量","价格","筛选"],
+            arr:null,
             id:null,
             seekContent:'',
             name:null,
@@ -60,9 +59,7 @@ export default {
                         data: {
                             'categoryId':this.id.DetailsTwo,
                             },
-                        headers:{
-                        'Content-Type': 'application/json',
-                        }
+                        headers:{'Content-Type': 'application/json',}
                 })
                 .then(function(response) {
                     console.log(response.data)   
@@ -72,7 +69,7 @@ export default {
                     console.log(error);
                 });
             }else if(this.num == 1){
-             var that = this;
+                var that = this;
                 this.$axios({
                         method:'post',
                         url:'api/product/api/product/all',
@@ -80,9 +77,7 @@ export default {
                             'categoryId':97,
                             'sale':1,
                             },
-                        headers:{
-                        'Content-Type': 'application/json',
-                        }
+                        headers:{'Content-Type': 'application/json',}
                 })
                 .then(function(response) {
                     console.log(response.data)   
@@ -137,8 +132,8 @@ export default {
         },
         seekAll(){
             console.log(this.seekContent)
-             this.name = sessionStorage.getItem("name")       
-           var that = this;
+            this.name = sessionStorage.getItem("name")       
+            var that = this;
             this.$axios({
                 method:'post',
                 url:'api/product/api/product/all',
@@ -146,13 +141,10 @@ export default {
                 "categoryId":this.name,
                 "productName":this.seekContent
                 },
-                headers:{
-                'Content-Type': 'application/json',
-                }
+                headers:{'Content-Type': 'application/json',}
             })
             .then(function(response) {
-                
-            that.arr = response.data.mainContent;
+                that.arr = response.data.mainContent;
             })
             .catch((error)=>{
                 console.log(error);
@@ -183,12 +175,8 @@ export default {
           this.$axios({
                 method:'post',
                 url:'api/product/api/product/all',
-                data: {
-                       'categoryId':this.id.DetailsTwo,
-                       },
-                headers:{
-                'Content-Type': 'application/json',
-                }
+                data: {'categoryId':this.id.DetailsTwo},
+                headers:{'Content-Type': 'application/json',}
           })
           .then(function(response) {
               console.log(response.data)   
@@ -199,9 +187,7 @@ export default {
         });
         }
     },
-    created(){
-      
-    },
+    created(){},
     mounted(){
         window.GetParams = this.GetParams;
     }
