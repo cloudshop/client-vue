@@ -13,6 +13,7 @@
                    <dt><img src="../assets/Mine/headportrait.jpg" alt=""></dt>
                    <dd>
                          <h2>{{arr.nickname}}</h2>
+                         
                          <p>普通会员</p>
                    </dd>
                </dl>
@@ -109,14 +110,14 @@ export default {
           
       },
       created(){
-            var Cookie = getCookie('login');
-            if(Cookie == ''){
-                  this.flag=true;
-            }
-            else{
-                  this.flag=false;
-            }
-            this.$axios
+            var that =this
+    var Cookie = getCookie("login");
+    if (Cookie == "") {
+      this.flag = true;
+    } else {
+      this.flag = false;
+    }
+    this.$axios
       .get("api/user/api/user-annexes/userInfo")
       .then(function(res) {
          that.arr = res.data;
