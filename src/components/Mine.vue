@@ -112,11 +112,7 @@ export default {
       created(){
             var that =this
     var Cookie = getCookie("login");
-    if (Cookie == "") {
-      this.flag = true;
-    } else {
-      this.flag = false;
-    }
+    Cookie == '' ? this.flag=true : this.flag=false;
     this.$axios
       .get("api/user/api/user-annexes/userInfo")
       .then(function(res) {
