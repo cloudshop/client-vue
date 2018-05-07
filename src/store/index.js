@@ -61,7 +61,7 @@ export default new Vuex.Store({
                 // store the token in global variable ??
                 context.commit('addWebToken', accessToken); 
           console.log('accessToken:' + accessToken)
-          alert('accessToken:' + accessToken);
+          alert('accessToken:');
           
           var val={
             "func":"closeCurrent",
