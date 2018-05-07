@@ -116,6 +116,15 @@ export default {
             else{
                   this.flag=false;
             }
+            this.$axios
+      .get("api/user/api/user-annexes/userInfo")
+      .then(function(res) {
+         that.arr = res.data;
+        console.log(res.data)
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
       },
       
       methods:{
