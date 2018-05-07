@@ -40,7 +40,7 @@ export default new Vuex.Store({
                       secret: 'w1eb_app'
                     },
                     auth: {
-                        tokenHost: location.host,
+                        tokenHost: 'http://app.grjf365.com/api',
                         tokenPath: '/auth/login/app'
                     },
                     http: {
