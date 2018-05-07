@@ -1,8 +1,10 @@
 <template>
     <div class="PageAll_tab">
+        <!-- 头部 -->
         <ul class="PageAll_tab_ul">
             <li v-for="(item,index) in tabs" :key="index" :class="{active:index == num}" @click="tab(index)">{{item}}</li>
         </ul>
+        <!-- 切换内容 -->
         <div class="tabCon">
             <div v-for='(itemCon,index) in tabContents' :key="index" v-show="index == num" class='content' >
                 <div class="tabCon_main"  v-for='(item,index) in itemCon.tabCon_main' :key="index" >
@@ -13,7 +15,9 @@
                         <h4 class="h4">{{item.name}}</h4>
                         <div class="tabCon_main_right_all">
                             <p>￥{{item.money}}</p>
-                            <p class="tabCon_main_right_all_img"><img v-for="(item,index) in item.liststart" :key="index" src="../../assets/PageAll/星星选中.png" alt=""></p>
+                            <p class="tabCon_main_right_all_img">
+                                <img v-for="(item,index) in item.liststart" :key="index" src="../../assets/PageAll/星星选中.png" alt="">
+                            </p>
                             <p>送贡融积分 10</p>
                         </div>
                         <span class="tabCon_main_right_span">贡融券可抵扣 ￥10.00</span>
@@ -29,6 +33,7 @@
 export default {
     data() {
        return {
+            num: 0,
             tabs: ["综合", "销量","价格","筛选"],
             tabContents: [
                 {
@@ -99,7 +104,7 @@ export default {
                 },
                 
             ],
-            num: 1
+            
         }
     },
     methods: {
@@ -133,6 +138,9 @@ export default {
 }
 .PageAll_tab_ul li:hover{
     color: #ff0103
+}
+.active{
+    color:red;
 }
 .tabCon{
     flex:1;
