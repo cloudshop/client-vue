@@ -1,10 +1,7 @@
 <template>
 	<div class="myQrCode">
-        <div v-show='false' class="phones">{{phones}}</div>
         <div id="qrcode" v-show='flag' ref="qrcode"></div>
-        <div class="logins" v-show="flag1">
-            <p class="goLogin">您还未登陆，请先去登录</p>
-        </div>
+        <div class="logins" v-show="flag1">您还未登录，请先去登录,否则无法分享哦~</div>
         <Foot></Foot>
 	</div>
 </template>
@@ -21,7 +18,6 @@ export default {
             flag1: false,
             i:false,
             userInfoTwo: '',
-            phones:''
         }
     },
     mounted() {
@@ -37,6 +33,7 @@ export default {
                 if(Cookie == ''){
                     this.userInfoTwo= 'http://m.anzhi.com/app_b222_com.grjf365.gongrongpoints.html';
                 }else{
+                    this.flag1 = true;
                     this.userInfoTwo= 'http://app.grjf365.com/simpleregister/index.html?phoneNumber=' + res.data.phone;
                 }
                 if(this.i==false){
@@ -58,8 +55,15 @@ export default {
 
 <style>
 	#qrcode{
-		height: 200px;
+		height: 230px;
 		width: 200px;
 		margin: auto;
+        position: relative;
 	}
+    .logins{
+        width: 100%;
+        text-align: center;
+        position: absolute;
+        top: 70%;
+    }
 </style>
