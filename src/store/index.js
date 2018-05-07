@@ -31,7 +31,7 @@ export default new Vuex.Store({
                       secret: 'w1eb_app'
                     },
                     auth: {
-                      tokenHost: '',
+                      tokenHost: 'localhost',
                       tokenPath: 'api/auth/login/app'
                     },
                     http: {
