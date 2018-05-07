@@ -194,7 +194,7 @@ export default {
         license == "" ||
         shopname == ""
       ) {
-        alert("请上传4张照片和店铺名称");
+        alert("请上传照片和店铺名称");
       }else{
       alert('上传成功,请等待审核')
       var data = {
