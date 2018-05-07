@@ -31,8 +31,8 @@ export default new Vuex.Store({
                       secret: 'w1eb_app'
                     },
                     auth: {
-                      tokenHost: 'localhost',
-                      tokenPath: 'api/auth/login/app'
+                      tokenHost: 'https://localhost/api',
+                      tokenPath: 'auth/login/app'
                     },
                     http: {
                       headers: {
@@ -59,6 +59,7 @@ export default new Vuex.Store({
         .then((result) => {
           const accessToken = oauth2.accessToken.create(result)
                 // store the token in global variable ??
+                  setCookie('login',1)
                 context.commit('addWebToken', accessToken); 
           console.log('accessToken:' + accessToken)
           alert('accessToken:');
