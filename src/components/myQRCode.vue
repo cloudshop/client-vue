@@ -41,7 +41,6 @@ export default {
     },
     mounted() {
         this._getQart()
-        this._phones()
     },
     methods: {
         _getQart: function() {
