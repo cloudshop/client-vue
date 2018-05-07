@@ -24,36 +24,31 @@ export default {
             phones:''
         }
     },
-    created(){
-        var Cookie = getCookie('login');
-        var phoness = getCookie('PSTM');
-        this.$axios.get("api/user/api/user-annexes/userInfo")
-        .then((res) => {
-            this.phones = res.data.phone
-        })
-        var phone = $(".phones").text()
-        if(Cookie == ''){
-            this.userInfoTwo= 'http://m.anzhi.com/app_b222_com.grjf365.gongrongpoints.html';
-        }else{
-            alert('您当前登录的号码是:'+phone)
-            this.userInfoTwo= 'http://app.grjf365.com/simpleregister/index.html?phoneNumber'+'='+phone;
-            console.log(phone)
-        }
-    },
     mounted() {
-        this._getQart()
+        this._phone();
     },
     methods: {
-        _getQart: function() {
-            if(this.i==false){
-                var qrcode = new QRCode(document.getElementById("qrcode"), {  
-                    width : 200,//设置宽高  
-                    height : 200  
-                });  
-                qrcode.makeCode(this.userInfoTwo);  
-            }
-            this.i = true;
-        },
+        _phone: function(){
+            var Cookie = getCookie('login');
+            this.$axios.get("api/user/api/user-annexes/userInfo")
+            .then((res) => {
+                this.phones = res.data.phone
+                // var phone = $(".phones").text()
+                if(Cookie == ''){
+                    this.userInfoTwo= 'http://m.anzhi.com/app_b222_com.grjf365.gongrongpoints.html';
+                }else{
+                    this.userInfoTwo= 'http://app.grjf365.com/simpleregister/index.html?phoneNumber=' + res.data.phone;
+                }
+                if(this.i==false){
+                    var qrcode = new QRCode(document.getElementById("qrcode"), {  
+                        width : 200,//设置宽高  
+                        height : 200  
+                    });  
+                    qrcode.makeCode(this.userInfoTwo);  
+                }
+                this.i = true;
+            })
+        }
     },
     components:{
         Foot
