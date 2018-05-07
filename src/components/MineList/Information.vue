@@ -80,9 +80,6 @@ export default {
       $.ajax({
         url: "api/auth/logout/app",
         type: "POST",
-	    headers: {
-            'Authorization': 'Bearer ' + this.$store.state.accessToken
-	    },
         contentType: "application/json",
         success: function(res) {
           console.log(res)
