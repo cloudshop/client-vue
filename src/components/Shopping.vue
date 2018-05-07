@@ -117,12 +117,7 @@ export default {
   },
   created(){
     var Cookie = getCookie('login');
-    if(Cookie == ''){
-      this.flag=true;
-    }
-    else{
-      this.flag=false;
-    }
+    Cookie == '' ? this.flag=true : this.flag=false;
     if(this.serviceList==''){
       this.empty = false;
       this.emptys = true;
