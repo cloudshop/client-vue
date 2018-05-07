@@ -20,14 +20,14 @@
         <input type="text" id="yzms" placeholder="请输入验证码"  v-model="authCode">
       </div>
       <div class="next">      
-        <input type='button' class="next_btn" @click="nextPwd" value='下一步' >
+        <input type='button' class="next_btn" disabled @click="nextPwd" value='下一步' >
       </div>
     </div>
     <div class="center content" v-show="flag1">
         <p>设置密码<input type="password" class="input" id="setPassword" v-model="setPassword" ></p>
         <p class="yzm">确认密码<input type="password" class="input" id="affirmPassword" v-model="affirmPassword"></p>
           <div class="nexts">      
-            <input type='button' class="nexts_btn" @click="next" value='下一步' >
+            <input type='button' class="nexts_btn" disabled @click="next" value='下一步' >
           </div>
       </div>
   </div>
@@ -137,9 +137,12 @@ export default {
     mounted:function () {
         $('input').on('keyup',function(){
             if($('#mytest').val().length>=1 && $('#yzms').val().length>=1){
-                $('.next_btn').addClass('Color')         
+                $('.next_btn').addClass('Color')  
+                $('.next_btn').removeAttr("disabled");       
             }else{
                 $('.next_btn').removeClass('Color')  
+                $('.next_btn').attr('disabled',"true");
+                
             }
         })
         $('input').on('keyup',function(){
