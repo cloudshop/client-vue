@@ -11,6 +11,19 @@ export default new Vuex.Store({
             	accessToken: {}
         }
     }, 
+    getters: {
+	    	token: (state) => {
+	    		if (state.user.accessToken !== {}) {
+	    		   return 'Bearer '.concat(state.user.accessToken.token.access_token);
+	    	    }
+	    	},
+	    	tokenHeader: (state) => {
+	    		if (state.user.accessToken !== {}) {
+	    		   return { headers: { Authorization: 'Bearer '.concat(state.user.accessToken.token.access_token) } }
+	    	    }
+	    	},
+    },
+
     mutations: { 
         addWebToken: function(state, accessToken){
             state.user.accessToken = accessToken;

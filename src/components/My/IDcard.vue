@@ -36,7 +36,7 @@ export default {
   },
   created() {
     this.$axios
-      .get("api/user/api/user-annexes/userInfo")
+      .get("api/user/api/user-annexes/userInfo", this.$store.getters.tokenHeader())
       //  .get("http://app.grjf365.com:9080/wallet/api/user-annexes/userInfo")
       .then(function(res) {
         //    console.log(res.data.phone);
@@ -50,7 +50,7 @@ export default {
   methods:{
     send(){
         this.$axios
-          .get("api/verify/api/verify/smscode/wallet")
+          .get("api/verify/api/verify/smscode/wallet", this.$store.getters.tokenHeader())
           .then(function(res) {
             console.log(res);
           })
