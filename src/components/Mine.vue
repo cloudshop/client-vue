@@ -12,7 +12,7 @@
                <dl>
                    <dt><img src="../assets/Mine/headportrait.jpg" alt=""></dt>
                    <dd>
-                         <h2>暂无昵称</h2>
+                         <h2>{{arr.nickname}}</h2>
                          <p>普通会员</p>
                    </dd>
                </dl>
