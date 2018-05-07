@@ -158,10 +158,17 @@
                   <div v-for='(item,index) in data.attrbute' :key='index'>
                     <p>{{item.attname}}</p>
                         <ul>
-                          <li  v-for='(i,index) in item.attvalue' :key='index'>{{i}}</li>
+                          <li  v-for='(i,index) in item.attvalue' :key='index'>{{i.value}}</li>
                         </ul>
                   </div>                                        
-                  <p class='Cont'><span>数量</span> <em> <i @click='subtract'>-</i> <input type="text" v-model="val"><i @click='add'>+</i></em></p>
+                  <p class='Cont'>
+                    <span>数量</span> 
+                    <em>
+                      <i @click='subtract'>-</i> 
+                      <input type="text" v-model="val">
+                      <i @click='add'>+</i>
+                    </em>
+                  </p>
                 </div>
                 <button @click='ConfirmAnOrder'>确定</button>  
             </div>
@@ -194,7 +201,7 @@ import { setCookie,getCookie } from '../../assets/js/cookie.js';
         selected: '1',
         tabs: ["商品介绍", "规格参数","包装售后"],
         tabContents: ["内容一", "内容二","内容三"],
-        num: 1 ,
+        num: 1,
         flag:false,
         address:false,
         val:1,
