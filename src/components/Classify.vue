@@ -17,85 +17,18 @@
                  :key='index'  @click='click(item.firstid)'
                    :class='item.firstid == (id) ? "active":"normal"'>
                    {{item.firstidname}} </li>
-                <!-- <li>家用电器</li>  
-                <li>家用电器</li>
-                <li>家用电器</li>
-                <li>家用电器</li>
-                <li>家用电器</li>
-                <li>家用电器</li>
-                <li>家用电器</li>
-                <li>家用电器</li>
-                <li>家用电器</li> -->
             </ul>      
             <!-- 列表内容 -->
             <div class='maincontent'>
-                    <div v-for='(item,index) in arr.secondCategory' :key="index" >
-                        <h1>{{item.secondName}}</h1>
-                        <div class='renderContent'>
-                            <dl v-for='(i,v) in item.thirdCategory' :key='v' :data='i.thirdid' @click='ItemDescription(i.thirdid)'>
-                                <dt><img :src="i.logo" alt=""></dt>
-                                <dd>{{i.thirdName}}</dd>
-                            </dl>
-                        </div>
-                     </div> 
-                      <!-- <div>
-                        <h1>电视</h1>
-                        <div class='renderContent'>
-                            <dl>
-                                <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
-                                <dd>111</dd>
-                            </dl>
-                             <dl>
-                                <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
-                                <dd>111</dd>
-                            </dl>
-                             <dl>
-                                <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
-                                <dd>111</dd>
-                            </dl>
-                             <dl>
-                                <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
-                                <dd>111</dd>
-                            </dl>
-                             <dl>
-                                <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
-                                <dd>111</dd>
-                            </dl>
-                             <dl>
-                                <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
-                                <dd>111</dd>
-                            </dl>
-                        </div>
-                     </div>  
-                    <div>
-                        <h1>电视</h1>
-                        <div class='renderContent'>
-                            <dl>
-                                <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
-                                <dd>111</dd>
-                            </dl>
-                             <dl>
-                                <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
-                                <dd>111</dd>
-                            </dl>
-                             <dl>
-                                <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
-                                <dd>111</dd>
-                            </dl>
-                             <dl>
-                                <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
-                                <dd>111</dd>
-                            </dl>
-                             <dl>
-                                <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
-                                <dd>111</dd>
-                            </dl>
-                             <dl>
-                                <dt><img src="../assets/Classify/bg.gif" alt=""></dt>
-                                <dd>111</dd>
-                            </dl>
-                        </div>
-                     </div>                   -->
+                <div v-for='(item,index) in arr.secondCategory' :key="index" >
+                    <h1>{{item.secondName}}</h1>
+                    <div class='renderContent'>
+                        <dl v-for='(i,v) in item.thirdCategory' :key='v' :data='i.thirdid' @click='ItemDescription(i.thirdid)'>
+                            <dt><img :src="i.logo" alt=""></dt>
+                            <dd>{{i.thirdName}}</dd>
+                        </dl>
+                    </div>
+                    </div> 
             </div>
         </div>       
      </div>
@@ -110,12 +43,12 @@ export default {
       return {
         num:0,
         arr:'',
-        id:'1',   //列表ID
+        id:'35',   //列表ID
      }
     },
     created(){
       var that = this;
-      this.$axios.get('api/product/api/categoryTree/subnode/1')
+      this.$axios.get('api/product/api/categoryTree/subnode/35')
              .then(function(response) {
                that.arr = response.data;
            })
