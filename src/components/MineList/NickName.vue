@@ -17,7 +17,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import { Header, Field } from "mint-ui";
 export default {
   data() {
