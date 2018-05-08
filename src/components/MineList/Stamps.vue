@@ -41,7 +41,7 @@ export default {
       },
      created(){
         var that = this
-        this.$axios.get('api/wallet/api/wallets/user',{
+        this.$axios.get('wallet/api/wallets/user',{
         })
         .then(function(res){
       //     console.log(res.data.balance)
@@ -54,7 +54,7 @@ export default {
         })
         
         
-        this.$axios.get('api/wallet/api/wallet/details/balance?size=5&sort=desc',{
+        this.$axios.get('wallet/api/wallet/details/balance?size=5&sort=desc',{
         })
         .then(function(res){
       //     console.log(res.data.balance)

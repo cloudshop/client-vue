@@ -112,7 +112,7 @@ export default {
             var that =this
     this.$store.getters.isAuthed() !== true ? this.flag=true : this.flag=false;
     this.$axios
-      .get("api/user/api/user-annexes/userInfo")
+      .get("user/api/user-annexes/userInfo")
       .then(function(res) {
          that.arr = res.data;
         console.log(res.data)

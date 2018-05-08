@@ -51,7 +51,7 @@ export default {
     var that = this;
     this.$axios
       .get(
-        "api/user/api/user-annexes-shareUserList"
+        "user/api/user-annexes-shareUserList"
       )
       .then(function(res) {
           that.arr=[]

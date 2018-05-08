@@ -121,7 +121,7 @@ export default {
       this.emptys = true;
     }
     var that = this;
-    this.$axios.get('api/shoppingcart/api/shoppingcar/user')
+    this.$axios.get('shoppingcart/api/shoppingcar/user')
     .then(function(response) {
         that.serviceList = response.data.result;
     })
@@ -151,7 +151,7 @@ export default {
       // var skuid = this.serviceList[shopId].sku[index].skuid;
       var skuid = 28;  //
       var type = 1;
-      this.$axios.get('api/favorite/api/favProduct/'+skuid+'/'+type)
+      this.$axios.get('favorite/api/favProduct/'+skuid+'/'+type)
       .then(function(response) {
           if(response.data == true){
             alert('收藏成功！')
@@ -173,7 +173,7 @@ export default {
         }, 0); 
       }
       var delSkuid = this.serviceList[shopId].sku[index].skuid;
-      this.$axios.post('api/shoppingcart/api/shoppingcar/del',delSkuid)
+      this.$axios.post('shoppingcart/api/shoppingcar/del',delSkuid)
       .then(function(res){
         if(res.data == 'success'){
           this.serviceList[id].sku.splice(index,1);
@@ -319,7 +319,7 @@ export default {
       }
       this.$axios({
         method:'POST',
-        url:'api/order/api/depproorders/0',
+        url:'order/api/depproorders/0',
         data: params
         })
         .then(function(response) {

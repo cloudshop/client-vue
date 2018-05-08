@@ -59,7 +59,7 @@ export default {
   //     var that = this;
 
   //     $.ajax({
-  //       url: "api/user/api/mercuries/getMercuryInfoProductList/5/",
+  //       url: "user/api/mercuries/getMercuryInfoProductList/5/",
   //       method: "post",
   //       callback: "cb",
   //       contentType: "application/json",
@@ -75,7 +75,7 @@ export default {
   created() {
     var that = this;
     this.$axios
-      .post("api/user/api/mercuries/getMercuryInfoProductList/5/",{
+      .post("user/api/mercuries/getMercuryInfoProductList/5/",{
       })
       .then(function(res) {
         console.log(res);

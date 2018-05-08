@@ -91,7 +91,7 @@ export default {
       var datas = { payType: type };
       axios({
         method: "post",
-        url: "api/order/api/leaguer-orders",
+        url: "order/api/leaguer-orders",
         data: datas,
       })
         .then(function(response) {

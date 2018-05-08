@@ -46,7 +46,7 @@ export default {
             var flag = ''
             if(setPassword == affirmPassword){
                 if(iphone !== '' &&  setPassword !== '' && authCode !== ''){
-                    this.$axios.post('api/uaa/api/register/app',val)
+                    this.$axios.post('uaa/api/register/app',val)
                     .then(function(response) {
                         alert('注册成功，请去登录');
                         this.$store.commit(types.LOGOUT);

@@ -63,7 +63,7 @@ export default {
         var that = this;
         this.$axios({ // 全部订单
             method:'get',
-            url:'api/order/api/findAllOrder/1/7'
+            url:'order/api/findAllOrder/1/7'
         })
         .then(function(response) {
             that.arr = response.data;
@@ -99,7 +99,7 @@ export default {
             if(this.num == 0){
                 this.$axios({
                     method:'get',
-                    url:'api/order/api/findAllOrder/1/5'
+                    url:'order/api/findAllOrder/1/5'
                 })
                 .then(function(response) {
                     that.arr = response.data;
@@ -115,7 +115,7 @@ export default {
                 this.aginFlag=false;
                 this.$axios({
                     method:'get',
-                    url:'api/order/api/findAllItemsByStatus/1/1/5'
+                    url:'order/api/findAllItemsByStatus/1/1/5'
                 })
                 .then(function(response) {
                    that.arr = response.data;
@@ -132,7 +132,7 @@ export default {
                 this.aginFlag=true;
                 this.$axios({
                     method:'get',
-                    url:'api/order/api/findDispatchItems/1/1'
+                    url:'order/api/findDispatchItems/1/1'
                 })
                 .then(function(response) {
                    that.arr = response.data;
@@ -148,7 +148,7 @@ export default {
                 this.aginFlag=false;
                 this.$axios({
                     method:'get',
-                    url:'api/order/api/findAllItemsByStatus/4/1/1'
+                    url:'order/api/findAllItemsByStatus/4/1/1'
                 })
                 .then(function(response) {
                    that.arr = response.data;
@@ -164,7 +164,7 @@ export default {
                 this.aginFlag=false;
                 this.$axios({
                     method:'get',
-                    url:'api/order/api/findAllItemsByStatus/5/1/1'
+                    url:'order/api/findAllItemsByStatus/5/1/1'
                 })
                 .then(function(response) {
                    that.arr = response.data;
@@ -195,7 +195,7 @@ export default {
                 var that = this;
                 this.$axios({
                     method:'get',
-                    url:'api/order/api/findDispatchItems/1/1'
+                    url:'order/api/findDispatchItems/1/1'
                 })
                 .then(function(response) {
                     that.arr = response.data;
@@ -212,7 +212,7 @@ export default {
                 var that = this;
                 this.$axios({
                     method:'get',
-                    url:'api/order/api/findAllItemsByStatus/1/1/1'
+                    url:'order/api/findAllItemsByStatus/1/1/1'
                 })
                 .then(function(response) {
                     that.arr = response.data;

@@ -276,7 +276,7 @@
         var params = {"skuId":skuId,"shopId":shopId,"count": 1}
         this.$axios({
                 method:'post',
-                url:'api/shoppingcart/api/shoppingcar/add',
+                url:'shoppingcart/api/shoppingcar/add',
                 data:params,
             })
             .then(function(response) {
@@ -307,7 +307,7 @@
       collect(){
         var ProductID=sessionStorage.getItem("ProductID");
         var Goods=sessionStorage.getItem("GoodsID"); // 商品id 
-        this.$axios.get('api/favorite/api/favProduct/'+Goods+'/1')
+        this.$axios.get('favorite/api/favProduct/'+Goods+'/1')
          .then(function(response) {
             if(response.data == true){
                $('.collect').addClass("actives");
@@ -329,7 +329,7 @@
     //    var Goods = sessionStorage.getItem("GoodsID") ? sessionStorage.getItem("GoodsID") : 32; // 商品id 
          var Goods = sessionStorage.getItem("GoodsID")
         console.log(Goods)
-        this.$axios.get('api/product/api/product/content?id=' + Goods)
+        this.$axios.get('product/api/product/content?id=' + Goods)
          .then(function(response) {   
             that.data = response.data;
             // console.log(response.data)

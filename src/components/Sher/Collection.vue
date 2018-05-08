@@ -55,7 +55,7 @@ export default {
     created(){
         var Goods=sessionStorage.getItem("GoodsID"); // 商品id 
         var that = this;
-        this.$axios.get('api/favorite/api/delFavorite/'+ Goods)
+        this.$axios.get('favorite/api/delFavorite/'+ Goods)
         .then(function(response) {
         // that.data = response.data; 
         console.log(response);

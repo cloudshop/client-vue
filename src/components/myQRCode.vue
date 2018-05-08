@@ -24,7 +24,7 @@ export default {
     },
     methods: {
         _phone: function(){
-            this.$axios.get("api/user/api/user-annexes/userInfo")
+            this.$axios.get("user/api/user-annexes/userInfo")
             .then((res) => {
                 this.phones = res.data.phone
                 // var phone = $(".phones").text()

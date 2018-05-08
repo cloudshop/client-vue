@@ -38,7 +38,7 @@ export default {
       };
       axios({
         method: "post",
-        url:"api/user/api/user-annexes-useregis/updaUserInfo/",
+        url:"user/api/user-annexes-useregis/updaUserInfo/",
         data,
       })
         .then(function(res) {

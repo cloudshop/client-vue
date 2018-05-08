@@ -55,8 +55,8 @@ export default {
   created() {
     var that = this;
     $.ajax({
-      // url: "api/user/api/user-annexes/userInfo/3/",
-      url: "api/user/api/user-annexes/userInfo",
+      // url: "user/api/user-annexes/userInfo/3/",
+      url: "user/api/user-annexes/userInfo",
       method: "get",
       callback: "cb",
       contentType: "application/json",
@@ -78,7 +78,7 @@ export default {
     },
     confirms: function() {
       $.ajax({
-        url: "api/auth/logout/app",
+        url: "auth/logout/app",
         type: "POST",
         contentType: "application/json",
         success: function(res) {

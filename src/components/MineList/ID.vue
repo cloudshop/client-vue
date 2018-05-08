@@ -29,7 +29,7 @@ export default {
     created(){
         var that = this;
        this.$axios
-      .get("api/user/api/user-annexes/userInfo", {
+      .get("user/api/user-annexes/userInfo", {
       })
       .then(function(res) {
         var a = res.data.phone;
