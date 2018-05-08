@@ -16,8 +16,6 @@ import bus from './plugin/bus';
 import $ from 'jquery'
 import './init/font/iconfont.css'
 import animate from './init/css/animate.css'
-import './plugin/VerifyApi.js'
-
 
 Vue.use(bus)
 Vue.use(MintUI)
