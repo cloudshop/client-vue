@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import * as types from '../../store/types'
 export default {
     data(){
       return{
@@ -80,7 +81,7 @@ export default {
             document.getElementById("affirmPassword").value="";
           }else {
             var data = {'login':this.phone,'password':this.setPassword,'verifyCode':this.authCode}
-            this.$axios.post('api/uaa/api/account/update-password',data)
+            this.$axios.post('uaa/api/account/update-password',data)
             .then(function(response) {
               if(response.status == 200){
                 alert('修改成功')
@@ -101,7 +102,7 @@ export default {
             alert('请填写正确手机号！'); 
             document.getElementById("mytest").value="";
           }else {
-            this.$axios.get('api/verify/api/verify/smscode/login/'+this.phone)
+            this.$axios.get('verify/api/verify/smscode/login/'+this.phone)
             .then(function(response) {
               var countdown=60;
               settime(obj);

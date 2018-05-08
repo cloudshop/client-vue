@@ -24,7 +24,7 @@ $('.get').click(function() {
             }, 1000)
         }
         $.ajax({
-            url: 'api/verify/api/verify/smscode?phone=' + tel,
+            url: 'verify/api/verify/smscode?phone=' + tel,
             method: 'get',
             callback: 'cb',
             success: function(res) {
@@ -46,7 +46,7 @@ $('.sure').click(function() {
     var p1 = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;
     var datas = { 'login': tel, 'password': psd, 'verifyCode': yzm, 'recommend':tel}
     $.ajax({
-        url: 'api/uaa/api/register/app',
+        url: 'uaa/api/register/app',
         method: 'post',
         //callback: 'cb',
         data: JSON.stringify(datas),

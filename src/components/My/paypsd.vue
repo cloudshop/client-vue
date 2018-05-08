@@ -54,7 +54,7 @@ export default {
         };
         this.$axios
           .post(
-            "api/wallet/api/wallets/update-password",
+            "wallet/api/wallets/update-password",
             datas 
           )
           .then(function(res) {

@@ -48,7 +48,7 @@ export default {
     },
     created(){
       var that = this;
-      this.$axios.get('api/product/api/categoryTree/subnode/35')
+      this.$axios.get('product/api/categoryTree/subnode/35')
              .then(function(response) {
                that.arr = response.data;
            })
@@ -60,7 +60,7 @@ export default {
      click(value){
       this.id = value;
       var that = this;
-      this.$axios.get('api/product/api/categoryTree/subnode/'+that.id)
+      this.$axios.get('product/api/categoryTree/subnode/'+that.id)
              .then(function(response) {
                 that.arr = response.data;
            })
