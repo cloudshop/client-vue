@@ -31,7 +31,7 @@ export default new Vuex.Store({
     },
 
     getters: {
-        isLogined: (state) => {
+        isAuthed: (state) => {
             return loggedInStatus;
         },
         token: (state) => {
@@ -40,14 +40,14 @@ export default new Vuex.Store({
             }
         },
         bearToken: (state) => {
+            console.log(state.token)
             if (typeof state.token.token.access_token !== "undefined") {
                 return 'Bearer '.concat(state.token.token.access_token);
             }
-            return ''
+            return null
         },
         recommend: (state) => {
-            console.log(state.user);
-            return state.user.recommend
+            return state.recommend
         },
         authCode: (state) => {
             return state.authCode
@@ -92,7 +92,7 @@ export default new Vuex.Store({
                 .then((result) => {
                     const accessToken = oauth2.accessToken.create(result)
                     // store the token in global variable ??
-                    context.commit('addWebToken', accessToken);
+                    context.commit(types.LOGIN, accessToken);
 
                     var val = {
                         "func": "closeCurrent",

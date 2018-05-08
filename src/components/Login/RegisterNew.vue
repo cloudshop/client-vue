@@ -95,7 +95,7 @@ export default {
       },
       gain(obj){
           var theinput=document.getElementById("mytest").value; 
-          this.$store.commit(types.USER, this.theinput)
+          this.$store.commit(types.USERPHONE, this.theinput)
           var p1=/^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/; 
           if(p1.test(theinput)==false) { 
             alert('请填写正确手机号！'); 
