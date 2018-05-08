@@ -5,6 +5,7 @@
 
 import axios from 'axios'
 import * as types from '../store/types'
+import store from '../store/store'
 import router from '../router'
 
 // axios 配置
@@ -14,9 +15,9 @@ axios.defaults.baseURL = 'http://app.grjf365.com:9080/';
 // http request 拦截器
 axios.interceptors.request.use(
     config => {
-        if (this.$store.getters.bearToken !== null) {
+        if (store.getters.bearToken !== null) {
             console.log("add token")
-           config.headers.Authorization = this.$store.getters.bearToken
+           config.headers.Authorization = store.getters.bearToken
         }
         return config;
     },
@@ -41,8 +42,8 @@ axios.interceptors.response.use(
                     })
             }
         }
-        // console.log(JSON.stringify(error));//console : Error: Request failed with status code 402
-        return Promise.reject(error.response.data)
+        console.log(JSON.stringify(error));//console : Error: Request failed with status code 402
+        return Promise.reject(err);
     });
 
 export default axios;
