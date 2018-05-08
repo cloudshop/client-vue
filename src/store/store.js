@@ -17,12 +17,14 @@ export default new Vuex.Store({
     },
     mutations: {
         [types.LOGIN]: (state, data) => {
-            localStorage.token = data;
             state.token = data;
-        },
+            console.log(state);
+            localStorage.setItem('token', JSON.stringify(data));
+            console.log("11");
+       },
         [types.LOGOUT]: (state) => {
-            localStorage.removeItem('token');
             state.token = null
+            localStorage.removeItem('token');
         },
         [types.VERIFY_CODE]: (state, data) => {
             state.authCode = data;
@@ -37,7 +39,12 @@ export default new Vuex.Store({
 
     getters: {
         isAuthed: (state) => {
-            console.log(state.token)
+            let token = JSON.parse(localStorage.getItem('token'));
+            console.log("token", token)
+            console.log("state", state.token)
+            if (token !== null && state.token === null) {
+                state.token = token;
+            }
             if (state.token !== null && typeof state.token.token.access_token !== "undefined") {
                 return true;
             }
@@ -99,7 +106,9 @@ export default new Vuex.Store({
             // Save the access token
             oauth2.ownerPassword.getToken(tokenConfig)
                 .then((result) => {
+                    console.log('Access Token 1', result);
                     const accessToken = oauth2.accessToken.create(result)
+                    console.log('Access Token 2', accessToken);
                     // store the token in global variable ??
                     context.commit(types.LOGIN, accessToken);
 
@@ -121,6 +130,8 @@ export default new Vuex.Store({
                     return true;
                 })
                 .catch((error) => {
+                    console.log('Access Token Error', error.message);
+
                     if (error.response.status === 500) {
                         alert('服务器繁忙，请耐心等待')
                     }
