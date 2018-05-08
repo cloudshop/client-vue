@@ -23,13 +23,14 @@ Vue.use(animate)
 Vue.use(ElementUI)
 
 Vue.config.productionTip = false;
-axios.defaults.withCredentials=true;
+axios.defaults.withCredentials=false;
 
 // 将axios挂载到prototype上，在组件中可以直接使用this.axios访问
 Vue.prototype.$axios = axios;
 
 new Vue({
   el: '#app',
+  axios,
   router,
   store,
   template: '<App/>',

@@ -51,12 +51,16 @@ export default new Vuex.Store({
             return false;
         },
         token: (state) => {
+           let token = JSON.parse(localStorage.getItem('token'));
+           state.token = token;
             if (state.token !== null && typeof state.token.token.access_token !== "undefined") {
                 return state.token.token.access_token;
             }
         },
         bearToken: (state) => {
-            console.log(state.token)
+           let token = JSON.parse(localStorage.getItem('token'));
+           state.token = token;
+           console.log(state.token)
             if (state.token !== null && typeof state.token.token.access_token !== "undefined") {
                 return 'Bearer '.concat(state.token.token.access_token);
             }

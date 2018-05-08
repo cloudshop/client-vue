@@ -55,7 +55,7 @@ export default {
   created() {
 
     var that = this;
-    this.$axios
+    this.axios
       .get("user/api/user-annexes/userInfo")
       .then(function(res) {
           that.arr = res.data;
@@ -71,7 +71,7 @@ export default {
     confirms: function() {
 
       var that = this;
-      this.$axios.post("auth/logout/app")
+      this.axios.post("auth/logout/app")
       .then(function(res) {
           console.log(res)
            this.$store.commit(types.LOGOUT)

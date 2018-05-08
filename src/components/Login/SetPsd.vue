@@ -33,9 +33,9 @@ export default {
         accomplish(){
             var setPassword=document.getElementById("setPassword").value; 
             var affirmPassword=document.getElementById("affirmPassword").value; 
-            var iphone = this.$store.getters.iphone()
-            var authCode = this.$store.getters.authCode()
-            var recommend = this.$store.getters.recommend()
+            var iphone = this.$store.getters.iphone
+            var authCode = this.$store.getters.authCode
+            var recommend = this.$store.getters.recommend
             var val = {
                 login : iphone,
                 password : this.setPassword,

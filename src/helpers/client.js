@@ -4,7 +4,6 @@
  */
 
 import axios from 'axios'
-import store from '../store/store'
 import * as types from '../store/types'
 import router from '../router'
 
@@ -15,8 +14,10 @@ axios.defaults.baseURL = 'http://app.grjf365.com:9080/';
 // http request 拦截器
 axios.interceptors.request.use(
     config => {
-        if (store.state.token) {
-            config.headers.Authorization = store.getters.bearToken() }
+        if (this.$store.getters.bearToken !== null) {
+            console.log("add token")
+           config.headers.Authorization = this.$store.getters.bearToken
+        }
         return config;
     },
     err => {
