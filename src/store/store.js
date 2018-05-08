@@ -175,6 +175,8 @@ export default new Vuex.Store({
         logout: function (context) {
             // your logout functionality
             context.commit(types.LOGOUT);
+            this.axios.post("auth/logout/app")
+
             // Callbacks
             // Revoke only the access token
             accessToken.revoke('access_token', (error) => {

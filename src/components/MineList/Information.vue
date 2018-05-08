@@ -39,6 +39,9 @@ import ID from "../MineList/ID";
 import Myaddress from "../MineList/MyAddress";
 import MyTeam from "../MineList/MyTeam";
 import { Header, Cell, Actionsheet, Popup } from "mint-ui";
+import * as types from '../../store/types'
+
+
 export default {
   data() {
     return {
@@ -69,47 +72,7 @@ export default {
       this.sheetVisible = true;
     },
     confirms: function() {
-
-      var that = this;
-      this.axios.post("auth/logout/app")
-      .then(function(res) {
-          console.log(res)
-           this.$store.commit(types.LOGOUT)
-          var val = {
-            "func": "closeCurrent",
-            "param": {
-              "finallyIndex": "1",
-              "refreshAll": true
-            }
-          };
-          var u = navigator.userAgent;
-          var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
-          var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-          if (isiOS) {
-            window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-          } else if (isAndroid) {
-            window.androidObject.JSCallAndroid(JSON.stringify(val));
-          }
-      })
-      .catch(function(error) {
-        console.log(error);
-        // this.$store.commit(types.LOGOUT)
-        //   var val = {
-        //     "func": "closeCurrent",
-        //     "param": {
-        //       "finallyIndex": "1",
-        //       "refreshAll": true
-        //     }
-        //   };
-        //   var u = navigator.userAgent;
-        //   var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
-        //   var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-        //   if (isiOS) {
-        //     window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-        //   } else if (isAndroid) {
-        //     window.androidObject.JSCallAndroid(JSON.stringify(val));
-        //   }
-      });
+      this.$store.commit(types.LOGOUT)
     },
     back(){   
          var  val={
