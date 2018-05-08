@@ -35,7 +35,7 @@ export default {
   },
   created() {
     this.$axios
-      .get("api/user/api/user-annexes/userInfo", this.$store.getters.tokenHeader())
+      .get("api/user/api/user-annexes/userInfo")
       .then(function(res) {
         //    console.log(res.data.phone);
         var tel = res.data.phone;
@@ -48,7 +48,7 @@ export default {
   methods:{
     send(){
         this.$axios
-          .get("api/verify/api/verify/smscode/wallet", this.$store.getters.tokenHeader())
+          .get("api/verify/api/verify/smscode/wallet")
           .then(function(res) {
             console.log(res);
           })
