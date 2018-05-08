@@ -3,7 +3,7 @@
        <header class="mint-header">
            <div class="mint-header-button is-left">
                <a class="router-link-active">
-                   <button class="mint-button mint-button--default mint-button--normal" @click ='PreviousMenu'>
+                    <button class="mint-button mint-button--default mint-button--normal" @click ='PreviousMenu'>
                     <mt-button icon="back"></mt-button>
                    </button>
               </a>
