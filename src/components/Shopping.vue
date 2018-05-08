@@ -120,7 +120,7 @@ export default {
       this.empty = false;
       this.emptys = true;
     }
-    (this.$store.getters.isAuthed() === false) ? this.flag=true : this.flag=false;
+    (this.$store.getters.isAuthed === false) ? this.flag=true : this.flag=false;
     var that = this;
     this.$axios.get('shoppingcart/api/shoppingcar/user')
     .then(function(response) {
