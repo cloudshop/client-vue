@@ -64,6 +64,9 @@ import sunorder from '../components/Sher/Sunorder.vue'
 import top from '../components/Sher/Topup.vue'
 import Offline from '../components/Sher/Offline.vue'
 import Agreement from '../components/Sher/Agreement.vue' // 用户协议
+import store from '../store/'
+
+
 Vue.use(Router)
 
 const routes = [{
@@ -350,6 +353,23 @@ const routes = [{
 
 const router = new Router({
     routes
+})
+
+router.beforeEach((to, from, next) => {
+    if (to.matched.some(r => r.meta.requireAuth)) {
+        if (store.state.token) {
+            next();
+        }
+        else {
+            next({
+                path: '/login',
+                query: {redirect: to.fullPath}
+            })
+        }
+    }
+    else {
+        next();
+    }
 })
 
 // router.afterEach((to,from,next)=>{

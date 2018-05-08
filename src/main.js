@@ -25,6 +25,8 @@ Vue.use(ElementUI)
 
 Vue.config.productionTip = false;
 axios.defaults.withCredentials=true;
+
+// 将axios挂载到prototype上，在组件中可以直接使用this.axios访问
 Vue.prototype.$axios = axios;
 
 interceptorsSetup()
