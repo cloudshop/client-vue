@@ -18,21 +18,18 @@ export default new Vuex.Store({
     }, 
     getters: {
     		isAuthed: (state) => {
-	            console.log(state.user);
-	    		if (state.user.accessToken !== {}) {
-		    		return true;
-		    }
-	    		return false;
+              console.log(state.user);
+            return loggedInStatus;
 	    	},
 	    	token: (state) => {
 	            console.log(state.user);
-	    		if (state.user.accessToken !== {}) {
+	    		if (loggedInStatus === true && (typeof state.user.accessToken.token.access_token !== "undefined")) {
 	    		   return state.user.accessToken.token.access_token;
 	    	    }
 	    	},
 	    	bearToken: (state) => {
 	            console.log(state.user);
-	    		if (state.user.accessToken !== {}) {
+	    		if (loggedInStatus === true && (typeof state.user.accessToken.token.access_token !== "undefined")) {
 	    		   return 'Bearer '.concat(state.user.accessToken.token.access_token);
             }
             return ''
