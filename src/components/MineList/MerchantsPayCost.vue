@@ -78,7 +78,6 @@
 
 <script>
 import { Switch } from "mint-ui";
-import axios from "axios";
 export default {
   data() {
     return {
