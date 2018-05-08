@@ -98,7 +98,7 @@
 
 <script>
 import Foot from './main/Foot'
-import { Header,Popup } from 'mint-ui';
+import { Header, Popup } from 'mint-ui';
 
 export default {
       data(){
@@ -110,6 +110,7 @@ export default {
       },
       created(){
             var that =this
+            
     this.$store.getters.isAuthed() !== true ? this.flag=true : this.flag=false;
     this.$axios
       .get("api/user/api/user-annexes/userInfo")

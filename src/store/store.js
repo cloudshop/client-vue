@@ -9,7 +9,6 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        loggedInStatus: false,
         recommend: '',
         authCode: '',
         user: {},
@@ -25,6 +24,12 @@ export default new Vuex.Store({
             localStorage.removeItem('token');
             state.token = null
         },
+        [types.VERIFY_CODE]: (state, data) => {
+            state.authCode = data;
+        },
+        [types.INVITOR]: (state, data) => {
+            state.recommend = data;
+        },
         [types.USERPHONE]: (state, data) => {
             state.userphone = data;
         }
@@ -32,7 +37,10 @@ export default new Vuex.Store({
 
     getters: {
         isAuthed: (state) => {
-            return loggedInStatus;
+            if (typeof state.token.token.access_token !== "undefined") {
+                return true;
+            }
+            return false;
         },
         token: (state) => {
             if (typeof state.token.token.access_token !== "undefined") {
@@ -150,7 +158,7 @@ export default new Vuex.Store({
 
         logout: function (context) {
             // your logout functionality
-            context.commit('removeWebToken');
+            context.commit(types.LOGOUT);
             // Callbacks
             // Revoke only the access token
             accessToken.revoke('access_token', (error) => {
