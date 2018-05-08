@@ -202,7 +202,7 @@ export default {
     // 轮播图
     var that = this;
     this.$axios
-      .get("api/advertising/api/findNotDelByLoc")
+      .get("advertising/api/findNotDelByLoc")
       .then(function(response) {
         that.data = response.data;
       })

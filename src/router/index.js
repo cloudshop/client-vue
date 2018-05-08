@@ -361,6 +361,7 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
     if (to.matched.some(r => r.meta.requireAuth)) {
+        console.log(store.state.token)
         if (store.state.token) {
             next();
         }
