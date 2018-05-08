@@ -23,20 +23,12 @@ Vue.use(bus)
 Vue.use(MintUI)
 Vue.use(animate)
 Vue.use(ElementUI)
-Vue.use(VueResource)
 
 Vue.config.productionTip = false;
 axios.defaults.withCredentials=true;
 Vue.prototype.$axios = axios;
 
-Vue.http.interceptors.push((request, next) => {
-  var bearToken = this.$store.getters.bearToken;
-  if (bearToken !== '') {
-    request.headers.set('Authorization', bearToken)
-  }
-  request.headers.set('Accept', 'application/json')
-  next()
-})
+axios.defaults.headers.common['Authorization'] = 'value' // for all requests
 
 new Vue({
   el: '#app',
