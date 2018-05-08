@@ -43,7 +43,6 @@
 import { Swipe, SwipeItem } from "mint-ui";
 import PageAll from "./PageAll";
 import PageDetailsChild from "./PageDetailsChild";
-import axios from "axios";
 export default {
   name: "page-navbar",
   data() {
