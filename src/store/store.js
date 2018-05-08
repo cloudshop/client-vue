@@ -37,20 +37,20 @@ export default new Vuex.Store({
 
     getters: {
         isAuthed: (state) => {
-            console.log(state.token.token.access_token)
-            if (typeof state.token.token.access_token !== "undefined") {
+            console.log(state.token)
+            if (state.token !== null && typeof state.token.token.access_token !== "undefined") {
                 return true;
             }
             return false;
         },
         token: (state) => {
-            if (typeof state.token.token.access_token !== "undefined") {
+            if (state.token !== null && typeof state.token.token.access_token !== "undefined") {
                 return state.token.token.access_token;
             }
         },
         bearToken: (state) => {
             console.log(state.token)
-            if (typeof state.token.token.access_token !== "undefined") {
+            if (state.token !== null && typeof state.token.token.access_token !== "undefined") {
                 return 'Bearer '.concat(state.token.token.access_token);
             }
             return null

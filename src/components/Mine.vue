@@ -110,7 +110,8 @@ export default {
       },
       created(){
             var that =this
-            
+        
+        console.log( this.$store.getters.isAuthed())
     this.$store.getters.isAuthed() !== true ? this.flag=true : this.flag=false;
     this.$axios
       .get("user/api/user-annexes/userInfo")
