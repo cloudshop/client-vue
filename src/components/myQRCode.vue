@@ -28,7 +28,7 @@ export default {
             .then((res) => {
                 this.phones = res.data.phone
                 // var phone = $(".phones").text()
-                if(this.$store.getters.isAuthed() === true){
+                if(this.$store.getters.isAuthed === true){
                     this.userInfoTwo= 'http://app.grjf365.com/simpleregister/index.html?phoneNumber=' + res.data.phone;
                 }else{
                     this.logined = true;

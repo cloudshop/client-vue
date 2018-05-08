@@ -243,7 +243,7 @@
         this.address = false;
       },
       ConfirmAnOrder(){
-        if(this.$store.getters.isAuthed() === false){
+        if(this.$store.getters.isAuthed === false){
           alert('请先登陆');
           var  val={
               "func":"openURL",
