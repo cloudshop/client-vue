@@ -16,6 +16,7 @@ import bus from './plugin/bus';
 import $ from 'jquery'
 import './init/font/iconfont.css'
 import animate from './init/css/animate.css'
+import interceptorsSetup from './helpers/interceptors'
 
 Vue.use(bus)
 Vue.use(MintUI)
@@ -25,6 +26,8 @@ Vue.use(ElementUI)
 Vue.config.productionTip = false;
 axios.defaults.withCredentials=true;
 Vue.prototype.$axios = axios;
+
+interceptorsSetup()
 
 new Vue({
   el: '#app',
