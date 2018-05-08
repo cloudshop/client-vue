@@ -59,10 +59,13 @@ export default new Vuex.Store({
         addWebToken: function(state, accessToken){
             state.user.accessToken = accessToken;
             loggedInStatus = true;
+            this.$axios.defaults.headers.common['Authorization'] = 'Bearer '.concat(state.user.accessToken.token.access_token);
         },
         removeWebToken: function(state){
             state.user.accessToken = {};
             loggedInStatus = false;
+            this.$axios.defaults.headers.common['Authorization'] = '';
+            delete axios.defaults.headers.common["Authorization"];
         },
         recommend: function(state, recommend){
            state.user.recommend = recommend;

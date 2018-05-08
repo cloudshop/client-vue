@@ -26,8 +26,6 @@ Vue.config.productionTip = false;
 axios.defaults.withCredentials=true;
 Vue.prototype.$axios = axios;
 
-axios.defaults.headers.common['Authorization'] = 'value' // for all requests
-
 new Vue({
   el: '#app',
   router,
