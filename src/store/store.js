@@ -37,6 +37,7 @@ export default new Vuex.Store({
 
     getters: {
         isAuthed: (state) => {
+            console.log(state.token.token.access_token)
             if (typeof state.token.token.access_token !== "undefined") {
                 return true;
             }
