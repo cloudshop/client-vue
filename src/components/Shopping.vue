@@ -89,6 +89,7 @@
    
 </template>
 <script>
+import * as loggedInStatus from '../store/store'
 import Foot from "./main/Foot";
 export default {
   data() {
@@ -115,11 +116,11 @@ export default {
    
   },
   created(){
-    (this.$store.getters.isAuthed() === false) ? this.flag=true : this.flag=false;
     if(this.serviceList==''){
       this.empty = false;
       this.emptys = true;
     }
+    (this.$store.getters.isAuthed() === false) ? this.flag=true : this.flag=false;
     var that = this;
     this.$axios.get('shoppingcart/api/shoppingcar/user')
     .then(function(response) {
