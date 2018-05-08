@@ -71,7 +71,7 @@ export default {
       this.$axios({
         method: "post",
         url:
-          "api/user/api/mercuries/info-list/MercuryInfo",
+          "user/api/mercuries/info-list/MercuryInfo",
         data: {
           langitude: 116.66847,
           lantitude: 39.88372
@@ -127,7 +127,7 @@ export default {
         var Goods = sessionStorage.getItem("GoodsID");
         this.$axios
           .get(
-            "api/product/api/product/content?id=" +
+            "product/api/product/content?id=" +
               Goods
           )
           .then(function(response) {
@@ -202,7 +202,7 @@ export default {
     // 轮播图
     var that = this;
     this.$axios
-      .get("api/advertising/api/findNotDelByLoc")
+      .get("advertising/api/findNotDelByLoc")
       .then(function(response) {
         that.data = response.data;
       })

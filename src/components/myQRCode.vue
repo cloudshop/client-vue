@@ -24,11 +24,11 @@ export default {
     },
     methods: {
         _phone: function(){
-            this.$axios.get("api/user/api/user-annexes/userInfo")
+            this.$axios.get("user/api/user-annexes/userInfo")
             .then((res) => {
                 this.phones = res.data.phone
                 // var phone = $(".phones").text()
-                if(this.$store.getters.isAuthed() === true){
+                if(this.$store.getters.isAuthed === true){
                     this.userInfoTwo= 'http://app.grjf365.com/simpleregister/index.html?phoneNumber=' + res.data.phone;
                 }else{
                     this.logined = true;

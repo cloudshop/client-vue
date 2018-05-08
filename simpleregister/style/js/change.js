@@ -1,4 +1,7 @@
 // http: //cloud.eyun.online:9080/verify/api/verify/smscode?phone=1
+$(document).ready(function(){ 
+    console.log(localStorage.getItem('token'))
+});
 $('.get').click(function() {
     var tel = $(".tel").val();
     var p1 = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;
@@ -24,7 +27,7 @@ $('.get').click(function() {
             }, 1000)
         }
         $.ajax({
-            url: 'api/verify/api/verify/smscode?phone=' + tel,
+            url: 'verify/api/verify/smscode?phone=' + tel,
             method: 'get',
             callback: 'cb',
             success: function(res) {
@@ -42,11 +45,11 @@ $('.sure').click(function() {
     var yzm = $(".yzm").val();
     var psd = $('.psd').val();
     var urltel =window.location.search;  
-    var tel = urltel.substring(13,24));
+    var tel = urltel.substring(13,24);
     var p1 = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;
     var datas = { 'login': tel, 'password': psd, 'verifyCode': yzm, 'recommend':tel}
     $.ajax({
-        url: 'api/uaa/api/register/app',
+        url: 'uaa/api/register/app',
         method: 'post',
         //callback: 'cb',
         data: JSON.stringify(datas),

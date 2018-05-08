@@ -17,7 +17,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import { Header, Field } from "mint-ui";
 export default {
   data() {
@@ -38,7 +37,7 @@ export default {
       };
       axios({
         method: "post",
-        url:"api/user/api/user-annexes-useregis/updaUserInfo/",
+        url:"user/api/user-annexes-useregis/updaUserInfo/",
         data,
       })
         .then(function(res) {

@@ -10,7 +10,7 @@ import router from '../router'
 
 // axios 配置
 axios.defaults.timeout = 5000;
-axios.defaults.baseURL = 'http://app.grjf365.com:9080/api';
+axios.defaults.baseURL = 'http://app.grjf365.com:9080/';
 
 // http request 拦截器
 axios.interceptors.request.use(

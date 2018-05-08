@@ -69,7 +69,7 @@ export default {
           console.log(datas)
           this.$axios
             .post(
-              "api/user/api/user-annexes-createAddress",
+              "user/api/user-annexes-createAddress",
               datas
             )
             .then(function(res) {

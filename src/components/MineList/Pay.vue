@@ -74,7 +74,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
     data(){
         return {
@@ -183,14 +182,14 @@ export default {
                 }
             axios({
                     method:'post',
-                    url:'api/order/api/depproorders',
+                    url:'order/api/depproorders',
                     data:paramss,
                 })
                 .then(function(response) {
                     that.web = response.data;
                         axios({
                             method:'post',
-                            url:'api/wallet/api/wallets/balance/pay',
+                            url:'wallet/api/wallets/balance/pay',
                             data:{
                             "orderNo":that.web,
                             "password": 123456
@@ -226,7 +225,7 @@ export default {
                 }
             axios({
                     method:'post',
-                    url:'api/order/api/depproorders/1',
+                    url:'order/api/depproorders/1',
                     data:paramss,
                 })
                 .then(function(response) {

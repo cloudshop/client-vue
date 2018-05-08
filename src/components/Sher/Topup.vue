@@ -95,8 +95,8 @@ export default {
 
               $.ajax({
                 url:
-                  // "api/order/api/dep-orders/deposit",
-                  "api/order/api/dep-orders/deposit",
+                  // "order/api/dep-orders/deposit",
+                  "order/api/dep-orders/deposit",
                 // method:'post',
                 type: "POST",
                 contentType: "application/json",
@@ -149,7 +149,7 @@ export default {
         var mm = $("#money").val();
         var data = { payType: re, payment: mm };
         $.ajax({
-          url: "api/order/api/dep-orders/deposit",
+          url: "order/api/dep-orders/deposit",
           // method:'post',
           type: "POST",
           contentType: "application/json",

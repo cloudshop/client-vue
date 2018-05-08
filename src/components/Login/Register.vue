@@ -79,98 +79,86 @@ export default {
         }
       },
       next(){
-          var recommend=document.getElementById("recommend").value; 
-          var authCode=document.getElementById("authCode").value; 
-          var p1=/^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;
-          this.$store.commit(types.VERIFY_CODE,authCode) 
-          var that = this;
-          if(recommend != ''){
-            if(p1.test(recommend) == true) {
-              if(this.yesIdo == true){
-                $.ajax({
-                  url:'api/verify/api/verify/smsvalidate?'+'phone='+this.phone+'&smsCode='+this.authCode,
-                  method:'get',
-                  callback:'cb',
-                  success:function(res){
-                    if(res.message == 'success' || res.data.message == 'success'){
-			          this.$store.commit(types.INVITOR,recommend)
-                      that.$router.push({path:'/SetPsd'})
-                    }else{
-                      alert(res.content)
-                    }
-                  },  
-                  error(res){
-                    alert(res.responseJSON.title)
-                  }
-                })
-               }else{
-                  alert('您是否同意贡融积分会员注册协议')
-               }
-            }
-            else{
-              alert('推荐人手机填写错误')
-            }
-          }
-          else{
+        var recommend=document.getElementById("recommend").value; 
+        var authCode=document.getElementById("authCode").value; 
+        var p1=/^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;
+        this.$store.commit(types.VERIFY_CODE,authCode) 
+        var that = this;
+        if(recommend != ''){
+          if(p1.test(recommend) == true) {
             if(this.yesIdo == true){
-               $.ajax({
-                url:'api/verify/api/verify/smsvalidate?'+'phone='+this.phone+'&smsCode='+this.authCode,
-                method:'get',
-                callback:'cb',
-                success:function(res){
+              this.$axios.get('verify/api/verify/smsvalidate?'+'phone='+this.phone+'&smsCode='+this.authCode)
+              .then(function(res) {
                   if(res.message == 'success' || res.data.message == 'success'){
                     this.$store.commit(types.INVITOR,recommend)
                     that.$router.push({path:'/SetPsd'})
                   }else{
                     alert(res.content)
                   }
-                },  
-                error(res){
-                  alert(res.responseJSON.title)
-                }
               })
-            }else{
-               alert('您是否同意贡融积分会员注册协议')
-            }
+              .catch(function(res) {
+                  alert(res.responseJSON.title)
+              })
+              }else{
+                alert('您是否同意贡融积分会员注册协议')
+              }
           }
+          else{
+            alert('推荐人手机填写错误')
+          }
+        }
+        else{
+          if(this.yesIdo == true){
+            this.$axios.get('verify/api/verify/smsvalidate?'+'phone='+this.phone+'&smsCode='+this.authCode)
+            .then(function(res) {
+                if(res.message == 'success' || res.data.message == 'success'){
+                  this.$store.commit(types.INVITOR,recommend)
+                  that.$router.push({path:'/SetPsd'})
+                }else{
+                  alert(res.content)
+                }
+            })
+            .catch(function(res) {
+                alert(res.responseJSON.title)
+            })
+          }else{
+              alert('您是否同意贡融积分会员注册协议')
+          }
+        }
       },
       gain(obj){
-          var theinput=document.getElementById("mytest").value; 
-          this.$store.commit(types.USERPHONE,theinput)
-          var p1=/^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/; 
-          if(p1.test(theinput) != false) { 
-            $.ajax({
-              url:'api/verify/api/verify/smscode?phone='+this.phone,
-              method:'get',
-              callback:'cb',
-              success:function(res){
-                var countdown=60;
-                settime(obj);
-                function settime(obj) {
-                    if (countdown == 0) {
-                        $(obj).attr("disabled",false);
-                        $(obj).text("获取验证码");
-                        countdown = 60;
-                        return;
-                    } else {
-                        $(obj).attr("disabled",true);
-                        $(obj).text(countdown + " s 重新发送");
-                        countdown--;
-                    }
-                      setTimeout(function() {
-                        settime(obj) 
-                      }
-                    ,1000)
-                  }
-              },  
-              error(res){
-                alert(res.responseJSON.title)
+        var theinput=document.getElementById("mytest").value; 
+        this.$store.commit(types.USERPHONE,theinput)
+        var p1=/^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/; 
+        if(p1.test(theinput) != false) { 
+          this.$axios.get('verify/api/verify/smscode?phone='+this.phone)
+          .then(function(res) {
+            var countdown=60;
+            settime(obj);
+            function settime(obj) {
+            if (countdown == 0) {
+                $(obj).attr("disabled",false);
+                $(obj).text("获取验证码");
+                countdown = 60;
+                return;
+            } else {
+                $(obj).attr("disabled",true);
+                $(obj).text(countdown + " s 重新发送");
+                countdown--;
+            }
+              setTimeout(function() {
+                settime(obj) 
               }
-            })
-          }else {
-            alert('请填写正确手机号！'); 
-            document.getElementById("mytest").value="";
-          }
+            ,1000)
+            }
+          })
+          .catch(function(res) {
+              alert(res.responseJSON.title)
+          })
+        }else {
+          alert('请填写正确手机号！'); 
+          document.getElementById("mytest").value="";
+        }
       }
     },
     mounted:function () {

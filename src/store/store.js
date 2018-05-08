@@ -9,7 +9,6 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        loggedInStatus: false,
         recommend: '',
         authCode: '',
         user: {},
@@ -18,12 +17,20 @@ export default new Vuex.Store({
     },
     mutations: {
         [types.LOGIN]: (state, data) => {
-            localStorage.token = data;
             state.token = data;
-        },
+            console.log(state);
+            localStorage.setItem('token', JSON.stringify(data));
+            console.log("11");
+       },
         [types.LOGOUT]: (state) => {
-            localStorage.removeItem('token');
             state.token = null
+            localStorage.removeItem('token');
+        },
+        [types.VERIFY_CODE]: (state, data) => {
+            state.authCode = data;
+        },
+        [types.INVITOR]: (state, data) => {
+            state.recommend = data;
         },
         [types.USERPHONE]: (state, data) => {
             state.userphone = data;
@@ -31,23 +38,32 @@ export default new Vuex.Store({
     },
 
     getters: {
-        isLogined: (state) => {
-            return loggedInStatus;
+        isAuthed: (state) => {
+            let token = JSON.parse(localStorage.getItem('token'));
+            console.log("token", token)
+            console.log("state", state.token)
+            if (token !== null && state.token === null) {
+                state.token = token;
+            }
+            if (state.token !== null && typeof state.token.token.access_token !== "undefined") {
+                return true;
+            }
+            return false;
         },
         token: (state) => {
-            if (typeof state.token.token.access_token !== "undefined") {
+            if (state.token !== null && typeof state.token.token.access_token !== "undefined") {
                 return state.token.token.access_token;
             }
         },
         bearToken: (state) => {
-            if (typeof state.token.token.access_token !== "undefined") {
+            console.log(state.token)
+            if (state.token !== null && typeof state.token.token.access_token !== "undefined") {
                 return 'Bearer '.concat(state.token.token.access_token);
             }
-            return ''
+            return null
         },
         recommend: (state) => {
-            console.log(state.user);
-            return state.user.recommend
+            return state.recommend
         },
         authCode: (state) => {
             return state.authCode
@@ -90,9 +106,11 @@ export default new Vuex.Store({
             // Save the access token
             oauth2.ownerPassword.getToken(tokenConfig)
                 .then((result) => {
+                    console.log('Access Token 1', result);
                     const accessToken = oauth2.accessToken.create(result)
+                    console.log('Access Token 2', accessToken);
                     // store the token in global variable ??
-                    context.commit('addWebToken', accessToken);
+                    context.commit(types.LOGIN, accessToken);
 
                     var val = {
                         "func": "closeCurrent",
@@ -112,6 +130,8 @@ export default new Vuex.Store({
                     return true;
                 })
                 .catch((error) => {
+                    console.log('Access Token Error', error.message);
+
                     if (error.response.status === 500) {
                         alert('服务器繁忙，请耐心等待')
                     }
@@ -150,7 +170,7 @@ export default new Vuex.Store({
 
         logout: function (context) {
             // your logout functionality
-            context.commit('removeWebToken');
+            context.commit(types.LOGOUT);
             // Callbacks
             // Revoke only the access token
             accessToken.revoke('access_token', (error) => {
