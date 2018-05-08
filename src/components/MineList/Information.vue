@@ -53,37 +53,28 @@ export default {
     };
   },
   created() {
+
     var that = this;
-    $.ajax({
-      // url: "user/api/user-annexes/userInfo/3/",
-      url: "user/api/user-annexes/userInfo",
-      method: "get",
-      callback: "cb",
-      contentType: "application/json",
-      success: function(res) {
-        console.log(res.nickname);
-        that.arr = res;
-      },
-      error(res) {
-        console.log(res);
-         
-
-      }
-    });
-
+    this.$axios
+      .get("user/api/user-annexes/userInfo")
+      .then(function(res) {
+          that.arr = res.data;
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   },
   methods: {
     actionSheet: function() {
       this.sheetVisible = true;
     },
     confirms: function() {
-      $.ajax({
-        url: "auth/logout/app",
-        type: "POST",
-        contentType: "application/json",
-        success: function(res) {
+
+      var that = this;
+      this.$axios.post("auth/logout/app")
+      .then(function(res) {
           console.log(res)
-          this.$store.commit(types.LOGOUT)
+           this.$store.commit(types.LOGOUT)
           var val = {
             "func": "closeCurrent",
             "param": {
@@ -99,26 +90,25 @@ export default {
           } else if (isAndroid) {
             window.androidObject.JSCallAndroid(JSON.stringify(val));
           }
-        },
-        error(error) {
-          console.log(error)
-          this.$store.commit(types.LOGOUT)
-          var val = {
-            "func": "closeCurrent",
-            "param": {
-              "finallyIndex": "1",
-              "refreshAll": true
-            }
-          };
-          var u = navigator.userAgent;
-          var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
-          var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-          if (isiOS) {
-            window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-          } else if (isAndroid) {
-            window.androidObject.JSCallAndroid(JSON.stringify(val));
-          }
-        }
+      })
+      .catch(function(error) {
+        console.log(error);
+        // this.$store.commit(types.LOGOUT)
+        //   var val = {
+        //     "func": "closeCurrent",
+        //     "param": {
+        //       "finallyIndex": "1",
+        //       "refreshAll": true
+        //     }
+        //   };
+        //   var u = navigator.userAgent;
+        //   var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+        //   var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+        //   if (isiOS) {
+        //     window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+        //   } else if (isAndroid) {
+        //     window.androidObject.JSCallAndroid(JSON.stringify(val));
+        //   }
       });
     },
     back(){   
