@@ -2,8 +2,8 @@ import axios from 'axios';
 import store from '../store/'
 
 export default function setup() {
-    this.$axios.interceptors.request.use(function(config) {
-        const token = this.$store.getters.bearToken;
+    axios.interceptors.request.use(function(config) {
+        const token = store.getters.bearToken;
         if(token) {
             config.headers.Authorization = token;
         }
