@@ -64,8 +64,7 @@ import sunorder from '../components/Sher/Sunorder.vue'
 import top from '../components/Sher/Topup.vue'
 import Offline from '../components/Sher/Offline.vue'
 import Agreement from '../components/Sher/Agreement.vue' // 用户协议
-import store from '../store/'
-
+import store from '../store/store'
 
 Vue.use(Router)
 
@@ -350,6 +349,11 @@ const routes = [{
         ]
     },
 ]
+
+// 页面刷新时，重新赋值token
+if (window.localStorage.getItem('token')) {
+    store.commit(types.LOGIN, window.localStorage.getItem('token'))
+}
 
 const router = new Router({
     routes

@@ -44,6 +44,8 @@
 </template>
 
 <script>
+import * as types from '../../store/types'
+
 export default {
     data(){
       return{
@@ -80,7 +82,7 @@ export default {
           var recommend=document.getElementById("recommend").value; 
           var authCode=document.getElementById("authCode").value; 
           var p1=/^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;
-          this.$store.commit('authCode',authCode) 
+          this.$store.commit(types.VERIFY_CODE,authCode) 
           var that = this;
           if(recommend != ''){
             if(p1.test(recommend) == true) {
@@ -91,7 +93,7 @@ export default {
                   callback:'cb',
                   success:function(res){
                     if(res.message == 'success' || res.data.message == 'success'){
-			          this.$store.commit('recommend',recommend)
+			          this.$store.commit(types.INVITOR,recommend)
                       that.$router.push({path:'/SetPsd'})
                     }else{
                       alert(res.content)
@@ -117,7 +119,7 @@ export default {
                 callback:'cb',
                 success:function(res){
                   if(res.message == 'success' || res.data.message == 'success'){
-                    this.$store.commit('recommend',recommend)
+                    this.$store.commit(types.INVITOR,recommend)
                     that.$router.push({path:'/SetPsd'})
                   }else{
                     alert(res.content)
@@ -134,7 +136,7 @@ export default {
       },
       gain(obj){
           var theinput=document.getElementById("mytest").value; 
-          this.$store.commit('iphone',theinput)
+          this.$store.commit(types.USERPHONE,theinput)
           var p1=/^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/; 
           if(p1.test(theinput) != false) { 
             $.ajax({

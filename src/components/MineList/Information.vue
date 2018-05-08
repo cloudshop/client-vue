@@ -83,7 +83,7 @@ export default {
         contentType: "application/json",
         success: function(res) {
           console.log(res)
-          this.$store.commit('removeWebToken');
+          this.$store.commit(types.LOGOUT)
           var val = {
             "func": "closeCurrent",
             "param": {
@@ -102,7 +102,7 @@ export default {
         },
         error(error) {
           console.log(error)
-          this.$store.commit('removeWebToken');
+          this.$store.commit(types.LOGOUT)
           var val = {
             "func": "closeCurrent",
             "param": {

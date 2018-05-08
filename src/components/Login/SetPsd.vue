@@ -49,7 +49,7 @@ export default {
                     this.$axios.post('api/uaa/api/register/app',val)
                     .then(function(response) {
                         alert('注册成功，请去登录');
-                        this.$store.commit('removeWebToken');
+                        this.$store.commit(types.LOGOUT);
                         var  val={
                             "func":"closeCurrent",
                             "param":{'finallyIndex':'4','refreshAll':true},

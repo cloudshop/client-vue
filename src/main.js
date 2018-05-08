@@ -4,19 +4,18 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import './init/css/reset.css'
-import axios  from  'axios' 
+import axios  from  './helpers/client' 
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import './init/css/font-awesome.min.css'
 // import './mock/index.js'
-import store from './store/'
+import store from './store/store'
 import bus from './plugin/bus';
 import $ from 'jquery'
 import './init/font/iconfont.css'
 import animate from './init/css/animate.css'
-import interceptorsSetup from './helpers/interceptors'
 
 Vue.use(bus)
 Vue.use(MintUI)
@@ -28,8 +27,6 @@ axios.defaults.withCredentials=true;
 
 // 将axios挂载到prototype上，在组件中可以直接使用this.axios访问
 Vue.prototype.$axios = axios;
-
-interceptorsSetup()
 
 new Vue({
   el: '#app',
