@@ -7,6 +7,7 @@ export const LOGIN = 'login';
 export const LOGOUT = 'logout';
 
 export const USERPHONE = 'iphone';
+export const PASSWORD = 'password';
 
 export const VERIFY_CODE = 'authCode';
 

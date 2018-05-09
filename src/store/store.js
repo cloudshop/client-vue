@@ -13,7 +13,8 @@ export default new Vuex.Store({
     authCode: '',
     user: {},
     token: null,
-    userphone: ''
+    userphone: '',
+    password: ''
   },
   mutations: {
     [types.LOGIN]: (state, data) => {
@@ -34,6 +35,9 @@ export default new Vuex.Store({
     },
     [types.USERPHONE]: (state, data) => {
       state.userphone = data;
+    },
+    [types.PASSWORD]: (state, data) => {
+      state.password = data;
     }
   },
 
@@ -45,7 +49,7 @@ export default new Vuex.Store({
       if (token !== null && state.token === null) {
         state.token = token;
       }
-      if (state.token !== null && typeof state.token.token.access_token !== "undefined") {
+      if (state.token !== null && typeof state.token.access_token !== "undefined") {
         return true;
       }
       return false;
@@ -53,16 +57,16 @@ export default new Vuex.Store({
     token: (state) => {
       let token = JSON.parse(localStorage.getItem('token'));
       state.token = token;
-      if (state.token !== null && typeof state.token.token.access_token !== "undefined") {
-        return state.token.token.access_token;
+      if (state.token !== null && typeof state.token.access_token !== "undefined") {
+        return state.token.access_token;
       }
     },
     bearToken: (state) => {
       let token = JSON.parse(localStorage.getItem('token'));
       state.token = token;
       console.log(state.token)
-      if (state.token !== null && typeof state.token.token.access_token !== "undefined") {
-        return 'Bearer '.concat(state.token.token.access_token);
+      if (state.token !== null && typeof state.token.access_token !== "undefined") {
+        return 'Bearer '.concat(state.token.access_token);
       }
       return null
     },
@@ -75,6 +79,9 @@ export default new Vuex.Store({
     iphone: (state) => {
       return state.userphone
     },
+    password: (state) => {
+      return state.password
+    },
   },
   actions: {
     login: function (context, userInput) {
@@ -85,7 +92,8 @@ export default new Vuex.Store({
         },
         auth: {
           tokenHost: 'http://app.grjf365.com:9080/api',
-          tokenPath: '/auth/login/app'
+          tokenPath: '/auth/login/app',
+          revokePath: '/auth/logout/app'
         },
         http: {
           headers: {
@@ -123,7 +131,10 @@ export default new Vuex.Store({
         const accessToken = oauth2.accessToken.create(result)
         console.log('Access Token 2', accessToken);
         // store the token in global variable ??
-        context.commit(types.LOGIN, accessToken);
+        context.commit(types.LOGIN, result);
+        context.commit(types.USERPHONE, userInput.username);
+        context.commit(types.PASSWORD, userInput.password);
+        
         var val = {
           "func": "closeCurrent",
           "param": {
