@@ -88,7 +88,7 @@ export default {
     $(".pay").click(function() {
       var type = $('input:radio[name="sex"]:checked').val();
       var datas = { payType: type };
-      axios({
+      $axios({
         method: "post",
         url: "order/api/leaguer-orders",
         data: datas,

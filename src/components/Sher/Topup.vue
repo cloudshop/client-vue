@@ -70,7 +70,6 @@
 </template>
 <script>
 import $ from "jquery";
-import axios from "axios";
 export default {
   mounted: function() {
     $(".main_top li").on("click", function() {
@@ -93,7 +92,7 @@ export default {
               var re = $('input:radio[name="sex"]:checked').val();
               var mo = $(this).val();
               var data = { payType: re, payment: mo };
-              axios
+              $axios
                 .post("order/api/dep-orders/deposit", data)
                 .then(function(res) {
                   console.log(res);
@@ -132,7 +131,7 @@ export default {
         console.log("即将使用" + re + "为您充值" + $("#money").val() + "元");
         var mm = $("#money").val();
         var data = { payType: re, payment: mm };
-        axios
+        $axios
           .post("order/api/dep-orders/deposit", data)
           .then(function(res) {
             console.log(res);

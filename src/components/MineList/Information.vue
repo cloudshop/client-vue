@@ -58,7 +58,7 @@ export default {
   created() {
 
     var that = this;
-    this.axios
+    this.$axios
       .get("user/api/user-annexes/userInfo")
       .then(function(res) {
           that.arr = res.data;

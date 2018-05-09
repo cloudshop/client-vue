@@ -180,14 +180,14 @@ export default {
                     }
                     ]
                 }
-            axios({
+            $axios({
                     method:'post',
                     url:'order/api/depproorders',
                     data:paramss,
                 })
                 .then(function(response) {
                     that.web = response.data;
-                        axios({
+                        $axios({
                             method:'post',
                             url:'wallet/api/wallets/balance/pay',
                             data:{
@@ -223,7 +223,7 @@ export default {
                     }
                     ]
                 }
-            axios({
+            $axios({
                     method:'post',
                     url:'order/api/depproorders/1',
                     data:paramss,

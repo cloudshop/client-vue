@@ -35,7 +35,7 @@ export default {
         nickname: nickname,
         type: 2
       };
-      this.axios({
+      this.$axios({
         method: "post",
         url:"user/api/user-annexes-useregis/updaUserInfo/",
         data,
