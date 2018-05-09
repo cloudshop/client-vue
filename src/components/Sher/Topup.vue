@@ -12,7 +12,7 @@
     </header>
     <div class="main">
         <ul class="main_top">
-            <li value="500" class="col">500元</li>
+            <li value="500">500元</li>
             <li value="1000">1000元</li>
             <li value="2000">2000元</li>
             <li value="5000">5000元</li>
@@ -61,8 +61,8 @@
         </div> 
     </div>
     <div class="buttom">
-        <button id="btn">
-            确认充值
+        <button id="btn" @click="chong">
+            确认充值{{money}}
         </button>
     </div>
 </div>
@@ -70,30 +70,40 @@
 </template>
 <script>
 import $ from "jquery";
+import axios from "axios";
 export default {
+  data(){
+    return{
+      money:''
+    }
+  },
   mounted: function() {
+    var that = this
     $(".main_top li").on("click", function() {
       $(this)
         .addClass("col")
         .siblings()
         .removeClass("col");
+      var aa = $(this).val()
+        that.money = aa
     });
     $("#money").focus(function() {
       $(".main_top li").removeClass("col");
+      that.money = ''
     });
 
-    $("#btn").on("click", function() {
+   
+  },
+  methods: {
+    //  $("#btn").on("click", function() {
+    chong() {
+      var that = this
       if ($("#money").val() == "") {
-        $(".main_top")
-          .find("li")
-          .each(function() {
-            //  console.log($(this).val())
-            if ($(this).is(".col")) {
               var re = $('input:radio[name="sex"]:checked').val();
-              var mo = $(this).val();
+              var mo = that.money;
               var data = { payType: re, payment: mo };
-              $axios
-                .post("order/api/dep-orders/deposit", data)
+              console.log(this)
+              this.$axios.post("api/order/api/dep-orders/deposit", data)
                 .then(function(res) {
                   console.log(res);
                   var param1 = 1;
@@ -124,15 +134,14 @@ export default {
                 .catch(function(error) {
                   console.log(error);
                 });
-            }
-          });
+ 
       } else {
         var re = $('input:radio[name="sex"]:checked').val();
         console.log("即将使用" + re + "为您充值" + $("#money").val() + "元");
         var mm = $("#money").val();
         var data = { payType: re, payment: mm };
-        $axios
-          .post("order/api/dep-orders/deposit", data)
+        console.log(this)
+        this.$axios.post("api/order/api/dep-orders/deposit", data)
           .then(function(res) {
             console.log(res);
             var param1 = 1;
@@ -160,12 +169,9 @@ export default {
           .catch(function(error) {
             console.log(error);
           });
-
         $("#money").val("");
       }
-    });
-    // var re=$('input:radio[name="sex"]:checked').val();
-    // console.log(re)
+    }
   }
 };
 </script>
