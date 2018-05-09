@@ -25,6 +25,8 @@ export default new Vuex.Store({
     },
     [types.LOGOUT]: (state) => {
       state.token = null
+      state.userphone = null
+      state.password = null
       localStorage.removeItem('token');
     },
     [types.VERIFY_CODE]: (state, data) => {
@@ -43,33 +45,53 @@ export default new Vuex.Store({
 
   getters: {
     isAuthed: (state) => {
-      let token = JSON.parse(localStorage.getItem('token'));
-      console.log("token", token)
-      console.log("state", state.token)
-      if (token !== null && state.token === null) {
-        state.token = token;
+      let tokenPersist = localStorage.getItem('token');
+      if (tokenPersist !== null) {
+        let token = JSON.parse(tokenPersist);
+        console.log("token", token)
+        console.log("state", state.token)
+        if (token !== null && state.token === null) {
+          state.token = token;
+        }
       }
+
       if (state.token !== null && typeof state.token.access_token !== "undefined") {
         return true;
       }
       return false;
     },
+
     token: (state) => {
-      let token = JSON.parse(localStorage.getItem('token'));
-      state.token = token;
-      if (state.token !== null && typeof state.token.access_token !== "undefined") {
-        return state.token.access_token;
+      let tokenPersist = localStorage.getItem('token');
+      if (tokenPersist !== null) {
+        let token = JSON.parse(tokenPersist);
+        console.log("token", token)
+        console.log("state", state.token)
+        if (token !== null && state.token === null) {
+          state.token = token;
+        }
       }
+
+      return state.token;
     },
+
     bearToken: (state) => {
-      let token = JSON.parse(localStorage.getItem('token'));
-      state.token = token;
-      console.log(state.token)
+      let tokenPersist = localStorage.getItem('token');
+      if (tokenPersist !== null) {
+        let token = JSON.parse(tokenPersist);
+        console.log("token", token)
+        console.log("state", state.token)
+        if (token !== null && state.token === null) {
+          state.token = token;
+        }
+      }
+
       if (state.token !== null && typeof state.token.access_token !== "undefined") {
         return 'Bearer '.concat(state.token.access_token);
       }
       return null
     },
+
     recommend: (state) => {
       return state.recommend
     },
@@ -127,14 +149,13 @@ export default new Vuex.Store({
           return console.log('Access Token Error', error.message);
         }
 
-        console.log('Access Token 1', result);
         const accessToken = oauth2.accessToken.create(result)
         console.log('Access Token 2', accessToken);
         // store the token in global variable ??
         context.commit(types.LOGIN, result);
         context.commit(types.USERPHONE, userInput.username);
         context.commit(types.PASSWORD, userInput.password);
-        
+
         var val = {
           "func": "closeCurrent",
           "param": {
@@ -153,57 +174,35 @@ export default new Vuex.Store({
       });
     },
 
-    refresh: function (context) {
-      const EXPIRATION_WINDOW_IN_SECONDS = 300;
-
-      const {
-        token
-      } = accessToken;
-      const expirationTimeInSeconds = token.expires_at.getTime() / 1000;
-      const expirationWindowStart = expirationTimeInSeconds - EXPIRATION_WINDOW_IN_SECONDS;
-
-      // If the start of the window has passed, refresh the token
-      const nowInSeconds = (new Date()).getTime() / 1000;
-      const shouldRefresh = nowInSeconds >= expirationWindowStart;
-      if (shouldRefresh) {
-        // Callbacks
-        accessToken.refresh((error, result) => {
-          accessToken = result;
-        })
-
-        // Promises
-        accessToken.refresh()
-          .then((result) => {
-            accessToken = result;
-          });
-      }
-    },
-
     logout: function (context) {
-      // this.$axios.post("auth/logout/app")
-      // .then(function(res){
-      //     delCookie('login',1)
-      // })
-      // .catch(function(error){
-      //     alert(error)
-      // })
+      const credentials = {
+        client: {
+          id: 'web_app',
+          secret: 'w1eb_app'
+        },
+        auth: {
+          tokenHost: 'http://app.grjf365.com:9080/api',
+          tokenPath: '/auth/login/app',
+          revokePath: '/auth/logout/app'
+        },
+        http: {
+          headers: {
+            Accept: 'application/json'
+          }
+        },
+        options: {
+          bodyFormat: 'json'
+        }
+      }
 
-      // Callbacks
-      // Revoke only the access token
-      token.revoke('access_token', (error) => {
-        // Session ended. But the refresh_token is still valid.
-        // Revoke the refresh_token
-        token.revoke('refresh_token', (error) => {
-          console.log('token revoked.');
-        });
-      });
-
+      const oauth2 = require('simple-oauth2').create(credentials)
+      const accessToken = oauth2.accessToken.create(context.getters.token)
       // Promises
       // Revoke only the access token
-      token.revoke('access_token')
+      accessToken.revoke('access_token')
         .then(() => {
           // Revoke the refresh token
-          return token.revoke('refresh_token');
+          return accessToken.revoke('refresh_token');
         })
         .then(() => {
           console.log('Token revoked');
@@ -213,7 +212,6 @@ export default new Vuex.Store({
         });
 
       context.commit(types.LOGOUT);
-
     }
   }
 })
