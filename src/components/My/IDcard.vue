@@ -78,25 +78,7 @@ export default {
       }
     }
   },
-  mounted: function() {
-    // var telnum = $('#tel').val();
-    var p1 = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;
-    $(".send").click(function() {
-      //top
-      $.ajax({
-        url: "verify/api/verify/smscode/wallet",
-        method: "get",
-        success: function(res) {
-          console.log(res);
-        },
-        error(res) {
-          console.log(res);
-        }
-      });
-      //bottom
-
-    });
-  }
+ 
 };
 </script>
 
