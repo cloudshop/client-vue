@@ -75,7 +75,7 @@
             <div class='store'>               
                 <h2>店铺名称</h2>            
                 <input type="text" placeholder="请输入店铺的名称" class="shpname">
-                <button class="act">提交申请</button>
+                <button @click='sub'>提交申请</button>
             </div>
         </div>
    </div>
@@ -174,6 +174,41 @@ export default {
         this.$message.error("上传头像图片大小不能超过 2MB!");
       }
       return isJPG && isLt2M;
+    },
+    sub(){
+      var front = $(".front").text();
+      var back = $(".back").text();
+      var hold = $(".hold").text();
+      var license = $(".license").text();
+      var shopname = $(".shpname").val();
+       if (
+        front == "" ||
+        back == "" ||
+        hold == "" ||
+        license == "" ||
+        shopname == ""
+      ) {
+        alert("请上传照片和店铺名称");
+      }else{
+      alert('上传成功,请等待审核')
+      var data = {
+        imgIdcardFront: front,
+        imgIdcardBack: back,
+        imgIdcardHold: hold,
+        imgLicense: license,
+        name: shopname
+      };
+      console.log(data);
+      this.$axios
+          .get("user/api/mercuries/uploadMercuryImages",data)
+          .then(function(res) {
+            console.log(res);
+            alert('上传成功,请等待审核')
+          })
+          .catch(function(error){
+            console.log(error);
+          });
+      }
     }
   },
   mounted: function() {
