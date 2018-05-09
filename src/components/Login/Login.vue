@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import * as types from '../../store/types'^M
 export default {
   data() {
     return {
@@ -91,7 +92,7 @@ export default {
         return
       }
       //passing the username and password in an object as payload to the login action
-      this.$store.dispatch('login', {username: this.PassName, password: this.PassWord, registrationID: this.registrationID}).then(() => {
+      this.$store.dispatch((types.LOGIN, {username: this.PassName, password: this.PassWord, registrationID: this.registrationID}).then(() => {
         var  val={
         		"func":"closeCurrent",
             "param":{'finallyIndex':'1','refreshAll':true},
