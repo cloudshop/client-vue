@@ -5,7 +5,8 @@ import Vuex from 'vuex'
 import Vue from 'vue'
 import * as types from './types'
 import { setCookie, getCookie, delCookie } from "../assets/js/cookie.js";
-Vue.use(Vuex);
+
+Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {

@@ -64,7 +64,6 @@ import sunorder from '../components/Sher/Sunorder.vue'
 import top from '../components/Sher/Topup.vue'
 import Offline from '../components/Sher/Offline.vue'
 import Agreement from '../components/Sher/Agreement.vue' // 用户协议
-import store from '../store/store'
 
 Vue.use(Router)
 
@@ -361,8 +360,8 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
     if (to.matched.some(r => r.meta.requireAuth)) {
-        console.log(store.state.token)
-        if (store.state.token) {
+        console.log(this.$store.state.token)
+        if (this.$store.state.token) {
             next();
         }
         else {

@@ -10,8 +10,6 @@ import 'mint-ui/lib/style.css'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import './init/css/font-awesome.min.css'
-// import './mock/index.js'
-import store from './store/store'
 import bus from './plugin/bus';
 import $ from 'jquery'
 import './init/font/iconfont.css'
@@ -22,18 +20,22 @@ Vue.use(MintUI)
 Vue.use(animate)
 Vue.use(ElementUI)
 
+import Vuex from 'vuex'
+Vue.use(Vuex)
+
+import storePlugin from './storePlugin'  
+Vue.use(storePlugin)  
+
 Vue.config.productionTip = false;
 axios.defaults.withCredentials=false;
 
 // 将axios挂载到prototype上，在组件中可以直接使用this.axios访问
 Vue.prototype.$axios = axios;
-Vue.prototype.$store = store;
 
 new Vue({
   el: '#app',
-  axios,
   router,
-  store,
+  axios,
   template: '<App/>',
-  components: { App },
+  components: { App }
 })
