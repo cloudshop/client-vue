@@ -70,6 +70,7 @@
 </template>
 <script>
 import $ from "jquery";
+import axios from "axios";
 export default {
   mounted: function() {
     $(".main_top li").on("click", function() {
@@ -92,33 +93,18 @@ export default {
               var re = $('input:radio[name="sex"]:checked').val();
               var mo = $(this).val();
               var data = { payType: re, payment: mo };
-
-              $.ajax({
-                url:
-                  // "order/api/dep-orders/deposit",
-                  "order/api/dep-orders/deposit",
-                // method:'post',
-                type: "POST",
-                contentType: "application/json",
-                dataType: "json",
-                data: JSON.stringify(data),
-                // data : datas,
-                // headers: {
-                //   //   'Content-Type':"application/json"
-                // },
-                success: function(res) {
+              axios
+                .post("api/order/api/dep-orders/deposit", data)
+                .then(function(res) {
                   console.log(res);
                   var param1 = 1;
                   var param2 = "orderStr" + ":" + res.orderString;
-                  var param3 = res.orderString;
-                  // var paytype = Ali;
-                  //top
-
+                  var param3 = res.data.orderString;
                   var val = {
-                    "func": "pay",
-                    "param": {
-                      "payType": "Ali",
-                      "orderStr": param3
+                    func: "pay",
+                    param: {
+                      payType: "Ali",
+                      orderStr: param3
                     }
                   };
                   console.log(val);
@@ -134,13 +120,11 @@ export default {
                   } else if (isAndroid) {
                     window.androidObject.JSCallAndroid(JSON.stringify(val));
                   }
-
-                  //bottom
-                },  
-                error(res) {
-                  console.log(res);
-                }
-              });
+                })
+                //bottom
+                .catch(function(error) {
+                  console.log(error);
+                });
             }
           });
       } else {
@@ -148,22 +132,13 @@ export default {
         console.log("即将使用" + re + "为您充值" + $("#money").val() + "元");
         var mm = $("#money").val();
         var data = { payType: re, payment: mm };
-        $.ajax({
-          url: "order/api/dep-orders/deposit",
-          // method:'post',
-          type: "POST",
-          contentType: "application/json",
-          dataType: "json",
-          data: JSON.stringify(data),
-          // data : datas,
-          success: function(res) {
+        axios
+          .post("api/order/api/dep-orders/deposit", data)
+          .then(function(res) {
             console.log(res);
             var param1 = 1;
             var param2 = "orderStr" + ":" + res.orderString;
-            var param3 = res.orderString;
-            // var paytype = Ali;
-            //top
-
+            var param3 = res.data.orderString;
             var val = {
               func: "pay",
               param: {
@@ -181,13 +156,12 @@ export default {
             } else if (isAndroid) {
               window.androidObject.JSCallAndroid(JSON.stringify(val));
             }
+          })
+          //bottom
+          .catch(function(error) {
+            console.log(error);
+          });
 
-            //bottom
-          },
-          error(res) {
-            console.log(res);
-          }
-        });
         $("#money").val("");
       }
     });
@@ -254,7 +228,7 @@ input::-webkit-input-placeholder {
   line-height: 0.88rem;
   box-sizing: border-box;
   float: left;
-  margin-left: .3rem;
+  margin-left: 0.3rem;
   text-align: center;
   margin-top: 0.4rem;
   border-radius: 0.2rem;
