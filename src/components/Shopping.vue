@@ -91,7 +91,6 @@
 <script>
 import * as loggedInStatus from '../store/store'
 import Foot from "./main/Foot";
-import {getCookie} from "../assets/js/cookie.js";
 export default {
   data() {
     return {
@@ -121,8 +120,6 @@ export default {
       this.empty = false;
       this.emptys = true;
     }  
-    var Cookie = getCookie('login');
-    Cookie == '' ? this.flag=true : this.flag=false 
     (this.$store.getters.isAuthed === false) ? this.flag=true : this.flag=false;
     var that = this;
     this.$axios.get('shoppingcart/api/shoppingcar/user')
