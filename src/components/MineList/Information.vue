@@ -72,7 +72,26 @@ export default {
       this.sheetVisible = true;
     },
     confirms: function() {
-      this.$store.commit(types.LOGOUT)
+        this.$axios({
+            method: 'post',
+            url: 'auth/logout/app'
+        });
+         this.$store.commit(types.LOGOUT);
+         var val = {
+            "func": "closeCurrent",
+            "param": {
+              "finallyIndex": "1",
+              "refreshAll": true
+            }
+          };
+          var u = navigator.userAgent;
+          var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+          var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+          if (isiOS) {
+            window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+          } else if (isAndroid) {
+            window.androidObject.JSCallAndroid(JSON.stringify(val));
+          }
     },
     back(){   
          var  val={
