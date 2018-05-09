@@ -4,7 +4,7 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
 import * as types from './types'
-
+import { setCookie, getCookie, delCookie } from "../assets/js/cookie.js";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -105,7 +105,6 @@ export default new Vuex.Store({
                 password: userInput.password,
                 registrationID: userInput.registrationID
             }
-
             // Promises
             // Save the access token
             oauth2.ownerPassword.getToken(tokenConfig)
@@ -115,7 +114,7 @@ export default new Vuex.Store({
                     console.log('Access Token 2', accessToken);
                     // store the token in global variable ??
                     context.commit(types.LOGIN, accessToken);
-
+                    setCookie('login',1)
                     var val = {
                         "func": "closeCurrent",
                         "param": {
@@ -176,12 +175,17 @@ export default new Vuex.Store({
             // your logout functionality
             context.commit(types.LOGOUT);
             this.axios.post("auth/logout/app")
+            .then(function(res){
+                delCookie('login',1)
+            })
+            .catch(function(error){
+                alert(error)
+            })
 
             // Callbacks
             // Revoke only the access token
             accessToken.revoke('access_token', (error) => {
                 // Session ended. But the refresh_token is still valid.
-
                 // Revoke the refresh_token
                 accessToken.revoke('refresh_token', (error) => {
                     console.log('token revoked.');
