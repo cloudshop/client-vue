@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Index from '@/components/index'
 import HomePage from '@/components/HomePage' //首页
 import city from '@/components/main/city' //城市筛选
-import Classify from '@/components/Classify' //分类
+const Classify = () => import('@/components/Classify') //分类
 import Shopping from '@/components/Shopping' // 购物车
 import Mine from '@/components/Mine' // 我的
 import search from '@/components/search' //搜索
