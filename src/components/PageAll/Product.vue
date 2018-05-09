@@ -17,7 +17,7 @@
         </div>
         <div class="details_cantent">
           <h4> {{data.productContent.productname}}</h4>
-          <p><span class="details_red">¥  {{data.productContent.price.toFixed(2)}} </span><span class='details_sc'>贡融商城</span></p>
+          <p><span class="details_red">¥  {{data.productContent.price}} </span><span class='details_sc'>贡融商城</span></p>
           <small class="small"><span><i class='imgcopy'><img src="../../assets/details/选择拷贝.png" alt=""></i>贡融券可以抵扣 10.00</span><span><i class='imgcopy'><img src="../../assets/details/选择拷贝.png" alt=""></i>送贡融券积分 10</span><span><i class='imgcopy'><img src="../../assets/details/选择拷贝.png" alt=""></i>贡融积分可抵扣5.00</span></small>
         </div>
         <div class="pitch">
@@ -149,7 +149,7 @@
                     <img src="../../assets/Mine/headportrait.jpg" alt="">
                   </div>
                   <div class='mainConHead'>
-                     <h2>¥   {{data.productContent.price.toFixed(2)}}</h2>
+                     <h2>¥   {{data.productContent.price}}</h2>
                      <p>商品编号:{{data.productContent.skucode}}</p>
                   </div> 
                   <div class='span' @click='SelectiveTypeclose'>×</div>              
