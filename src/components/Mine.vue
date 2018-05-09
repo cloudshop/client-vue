@@ -99,7 +99,7 @@
 <script>
 import Foot from './main/Foot'
 import { Header, Popup } from 'mint-ui';
-
+import {getCookie} from "../assets/js/cookie.js";
 export default {
       data(){
           return{  
@@ -109,12 +109,12 @@ export default {
           
       },
       created(){
-            var that =this
-        
-        console.log( this.$store.getters.isAuthed)
-    this.$store.getters.isAuthed !== true ? this.flag=true : this.flag=false;
-    this.$axios
-      .get("user/api/user-annexes/userInfo")
+      var that =this;
+      var Cookie = getCookie('login');
+      Cookie == '' ? this.flag=true : this.flag=false ;
+      console.log( this.$store.getters.isAuthed)
+      this.$store.getters.isAuthed !== true ? this.flag=true : this.flag=false;
+      this.$axios.get("user/api/user-annexes/userInfo")
       .then(function(res) {
          that.arr = res.data;
         console.log(res.data)
