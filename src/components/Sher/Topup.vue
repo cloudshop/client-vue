@@ -103,7 +103,7 @@ export default {
               var mo = that.money;
               var data = { payType: re, payment: mo };
               console.log(this)
-              this.$axios.post("api/order/api/dep-orders/deposit", data)
+              this.$axios.post("order/api/dep-orders/deposit", data)
                 .then(function(res) {
                   console.log(res);
                   var param1 = 1;
@@ -141,7 +141,7 @@ export default {
         var mm = $("#money").val();
         var data = { payType: re, payment: mm };
         console.log(this)
-        this.$axios.post("api/order/api/dep-orders/deposit", data)
+        this.$axios.post("order/api/dep-orders/deposit", data)
           .then(function(res) {
             console.log(res);
             var param1 = 1;
