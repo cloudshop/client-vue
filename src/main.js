@@ -27,6 +27,7 @@ axios.defaults.withCredentials=false;
 
 // 将axios挂载到prototype上，在组件中可以直接使用this.axios访问
 Vue.prototype.$axios = axios;
+Vue.prototype.$store = store;
 
 new Vue({
   el: '#app',
