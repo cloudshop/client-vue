@@ -29,7 +29,7 @@
                       <p>实付款：<span>￥{{item.payment}}</span></p>
                   </div>
                   <div class="tabCon_main_agin" v-show='flag'>
-                      <p @click="evaluate">评价晒单</p>
+                      <p @click="evaluate">晒单评价</p>
                       <p @click='agin'>再次购买</p>
                   </div>
                    <div class="tabCon_main_agin" v-show='flag1'>
@@ -38,6 +38,9 @@
                   <div class="tabCon_main_agin" v-show='aginFlag'>
                       <p>查看物流</p>
                       <p>确认收货</p>
+                  </div>
+                   <div class="tabCon_main_agin" v-show='success'>
+                      <p>再次购买</p>
                   </div>
                 </div>
             </div>
@@ -54,9 +57,10 @@ export default {
             tabs: ["全部", "待付款","待收货","已完成","已取消"],
             arr:null,
             num: 0,
-            flag: true, // 正常
-            flag1: false, // 再次购买
-            aginFlag:false // 查看物流
+            flag: false, // 正常
+            flag1: false, // 再次购买+晒单评价
+            aginFlag:false, // 查看物流
+            success:false // 已取消
         }
     },
     created(){
@@ -69,19 +73,24 @@ export default {
             that.arr = response.data;
             response.data.map((v,i)=>{
                 if(v.status == 1){
-                   that.status='未付款'
+                    that.status='未付款'
+                    that.aginFlag=false; that.flag=false; that.success=false; that.flag1=true; // 去付款
                 }
                 if(v.status == 2){
-                   that.status='已付款'
+                   that.status='已付款';
+                   that.flag1=false; that.flag=false; that.success=false; that.aginFlag=true; // 查看物流+确认收货
                 }
                 if(v.status == 3){
-                   that.status='已发货'
+                    that.status='已发货';
+                    that.flag1=false; that.flag=false; that.success=false; that.aginFlag=true;  // 查看物流+确认收货
                 }
                 if(v.status == 4){
-                   that.status='交易成功'
+                   that.status='交易成功';
+                   that.flag1=false;  that.aginFlag=false;  that.success=false; that.flag=true; // 晒单评价+再次购买
                 }
                 if(v.status == 5){
-                   that.status='交易关闭'
+                   that.status='交易关闭';
+                   that.aginFlag=false; that.flag1=false;  that.flag=false; that.success=true; // 再次购买
                 }
             })
         })
@@ -93,9 +102,6 @@ export default {
         tab(index){
             this.num = index; 
             var that = this;
-            this.flag=true;
-            this.flag1=false;
-            this.aginFlag=false;
             if(this.num == 0){
                 this.$axios({
                     method:'get',
@@ -110,9 +116,7 @@ export default {
             }
             if(this.num == 1){
                 var that = this;
-                this.flag=false;
-                this.flag1=true;
-                this.aginFlag=false;
+                this.aginFlag=false; this.flag=false; this.success=false; this.flag1=true;
                 this.$axios({
                     method:'get',
                     url:'order/api/findAllItemsByStatus/1/1/5'
@@ -127,9 +131,7 @@ export default {
             }
               if(this.num == 2){
                 var that = this;
-                this.flag=false;
-                this.flag1=false;
-                this.aginFlag=true;
+                that.flag1=false; that.flag=false; that.success=false; that.aginFlag=true;
                 this.$axios({
                     method:'get',
                     url:'order/api/findDispatchItems/1/1'
@@ -143,9 +145,7 @@ export default {
             }
               if(this.num == 3){
                 var that = this;
-                this.flag=true;
-                this.flag1=false;
-                this.aginFlag=false;
+                that.flag1=false;  that.aginFlag=false;  that.success=false; that.flag=true;
                 this.$axios({
                     method:'get',
                     url:'order/api/findAllItemsByStatus/4/1/1'
@@ -159,12 +159,10 @@ export default {
             }
               if(this.num == 4){
                 var that = this;
-                this.flag=true;
-                this.flag1=false;
-                this.aginFlag=false;
+                that.aginFlag=false; that.flag1=false;  that.flag=false; that.success=true;
                 this.$axios({
                     method:'get',
-                    url:'order/api/findAllItemsByStatus/5/1/1'
+                    url:'order/api/findAllItemsByStatus/5/1/1'       
                 })
                 .then(function(response) {
                    that.arr = response.data;
