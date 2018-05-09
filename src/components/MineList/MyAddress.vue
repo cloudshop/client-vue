@@ -12,20 +12,21 @@
              <li>
                   <!-- <span class="name">{{item.name}}</span>
                   <span class="tel">{{item.tel}}</span> -->
-                  <span class="name">{{item.contact}}</span>
-                  <span class="tel">{{item.phone}}</span>
+                  <span class="name"><em>{{item.contact}}</em></span>
+                  <span class="tel"><rp>{{item.phone}}</rp></span>
               </li>
               <li class="address">
                   {{item.city}}
               </li>
               <li>
-                  <span>       
+                  <span class="addlist">       
                        <input type="radio" :id="'adress-0'+item.id" name="sex"/>
-                       <label :for="'adress-0'+item.id"></label>
+                       <label :for="'adress-0'+item.id" @click="re($event)"></label>
                         默认地址
                         <p>
-                            <b @click="sendParams"><img src="../../assets/manage/编辑.png" alt="">编辑</b>
-                            <b class="deltest"><img src="../../assets/manage/删除.png">删除</b>
+                            <i>{{item.id}}</i>
+                           <b @click="sendParams($event)" style="color:#667766"><img src="../../assets/manage/编辑.png" alt="">编辑</b>
+                            <b @click="display($event)"><img src="../../assets/manage/删除.png">删除</b>
                         </p>
                   </span>   
               </li>
@@ -35,7 +36,6 @@
       <div class="bottom">
            <router-link :to="{ path: '/AddAddress' }" tag='button'>＋新建地址</router-link>
       </div>
-
 
       <!-- 编辑收货地址 -->
             <mt-popup
@@ -65,40 +65,33 @@ export default {
       arr: "",
       msg: "test message",
       EditAddress: false,
-      items: [
-        { name: "刘一", tel: "1234566789", address: "河北省" },
-        { name: "陈二", tel: "1234566789", address: "山东省" },
-        { name: "张三", tel: "1234566789", address: "河南省" },
-        { name: "李四", tel: "1234566789", address: "台湾省" },
-        { name: "王五", tel: "1234566789", address: "福建省" }
-      ],
-      init: null
+      init: null,
+      name: "",
+      type: ""
     };
   },
   created() {
     var that = this;
     this.$axios
-      .get("http://app.grjf365.com:9080/user/api/delivery-addresses-list")
+      .get("user/api/delivery-addresses-list")
       .then(function(res) {
         that.arr = [];
         var le = res.data.length;
         for (var i = 0; i < le; i++) {
           that.arr.push(res.data[i]);
-          console.log(that.arr);
         }
       })
       .catch(function(error) {
         console.log(error);
       });
+    // var chks=$("input:radio")
+    // // console.log(chks)
+    // for(var j=0;j<chks.length;j++){
+    //   console.log(chks[j])
+    //   console.log(chks[j].is(":checked"))
+    // }
   },
- mounted: function() {
-      $(".sub").click(function() {
-        alert(1111)
-      });
-       $(".deltest").click(function() {
-        alert(2222)
-      });
-    },
+  mounted: function() {},
   methods: {
     closeAddress: function() {
       this.$parent.$parent.address = false;
@@ -106,12 +99,71 @@ export default {
     EditAddressOpen: function() {
       this.EditAddress = true;
     },
-    //删除地址事件
-    display(e) {
-      this.init = e;
-      +$(".del").show();
-      // console.log($(this).text())
+    //更改默认地址
+    re(a) {
+      var b = $(a.target);
+
+      var c = b
+        .parent()
+        .find("i")
+        .text();
+      console.log(c);
+      var datas = {
+        "defaultAddress": 0,
+        "id": c,
+        "userAnnex": {
+          "avatar": "string"
+        }
+      };
+      this.$axios
+        .post(
+          "user/api/user-annexes-updateAddress",
+          datas
+        )
+        .then(function(res) {
+          console.log(res);
+          alert("修改默认地址成功");
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
     },
+    //删除地址事件
+    display(a) {
+      var that = this;
+      that.type = b;
+      var b = $(a.target)
+        .parent()
+        .find("i")
+        .text();
+      // +$(".del").show();
+      console.log(b);
+      var r = confirm("确定删除地址吗？");
+      if (r == false) {
+      } else {
+        // alert(b)
+        var datas = {
+          id: b,
+          userAnnex: {
+            avatar: "string"
+          }
+        };
+        var that = this;
+        this.$axios
+          .post(
+            "user/api/user-annexes-deleteAddress",
+            datas
+          )
+          .then(function(res) {
+            that.arr = res.data;
+            window.location.reload();
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      }
+    },
+
     //取消事件
     cancel() {
       $(".del").hide();
@@ -123,18 +175,49 @@ export default {
       $(".del").hide();
     },
     //编辑地址
-    sendParams() {
+    sendParams(a) {
+      var that = this;
+      var id = $(a.target)
+        .parent()
+        // .children()
+        .find("i")
+        .text();
+      var name = $(a.target)
+        .parent()
+        .parent()
+        .parent()
+        .parent()
+        // .children()
+        .find(".name")
+        .text();
+      var phone = $(a.target)
+        .parent()
+        .parent()
+        .parent()
+        .parent()
+        // .children()
+        .find(".tel")
+        .text();
+      var address = $(a.target)
+        .parent()
+        .parent()
+        .parent()
+        .parent()
+        // .children()
+        .find(".address")
+        .text();
+      console.log(id);
+      sessionStorage.setItem("addid", id);
+      sessionStorage.setItem("addname", name);
+      sessionStorage.setItem("addphone", phone);
+      sessionStorage.setItem("addaddress", address);
       this.$router.push({
-        path: "/AddAddress",
-        name: "AddAddress",
+        path: "/AddAddress2",
+        name: "AddAddress2",
         params: {
           name: "name",
           dataObj: this.msg
         }
-        /*query: {
-                name: 'name', 
-                dataObj: this.msg
-            }*/
       });
     },
     PreviousMenu() {
@@ -143,11 +226,7 @@ export default {
       } else {
         this.$router.push({ name: "Information" });
       }
-    },
-    del() {
-      console.log(123);
-    },
-   
+    }
   },
   components: {
     AddAddress
@@ -157,6 +236,9 @@ export default {
 
 
 <style scoped>
+.addlist i {
+  display: none;
+}
 html,
 body {
   width: 100%;
