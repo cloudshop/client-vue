@@ -33,28 +33,8 @@
                     <label for="zhifubao"></label>
                 </span>
             </p>
-            <!-- <p>
-                <img src="../../assets/top/快捷支付.png" alt=""> -->
-                <!-- <ul>
-                    <li>贡融卷(可抵扣<b>1</b>元)</li>
-                    <li>1.00</li>
-                </ul> -->
-                <!-- 快捷支付
-                <span>
-                    <input type="radio" id="kuaijiezhifu" name="sex" value="快捷支付"/>
-                    <label for="kuaijiezhifu"></label>
-                </span>
-            </p>
-            <p>
-                <img src="../../assets/top/银联.png" alt="">
-                联通
-                <span>
-                    <input type="radio" id="yinlian" name="sex" value="银联"/>
-                    <label for="yinlian"></label>
-                </span>
-            </p> -->
          </div>
-             <button class="botton">
+             <button class="botton" @click="pay">
                  确认支付（<span></span>元）
              </button>
             
@@ -74,186 +54,188 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
-    data(){
-        return {
-            payment:this.$route.params.payment,
-            postFee: this.$route.params.postFee,
-            buyerMessage: this.$route.params.buyerMessage,
-            buyerNick: this.$route.params.buyerNick,
-            shopId:this.$route.params.shopId,
-            productSkuId:this.$route.params.productSkuId,
-            count:this.$route.params.count,
-            price:this.$route.params.price,
-            data:null,
-            money:null,
-            type:null,  // 类型   
-            took:null,
-            web:null        
-        }
+  data() {
+    return {
+      payment: this.$route.params.payment,
+      postFee: this.$route.params.postFee,
+      buyerMessage: this.$route.params.buyerMessage,
+      buyerNick: this.$route.params.buyerNick,
+      shopId: this.$route.params.shopId,
+      productSkuId: this.$route.params.productSkuId,
+      count: this.$route.params.count,
+      price: this.$route.params.price,
+      data: null,
+      money: null,
+      type: null, // 类型
+      took: null,
+      web: null
+    };
+  },
+  methods: {
+    // display(e) {
+
+    // },
+    //取消事件
+    cancel() {
+      $(".del").hide();
     },
-    methods:{
-        // display(e) {
-       
-        // },
-        //取消事件
-        cancel() {
-        $(".del").hide();
-        },
-        //确定事件
-        q() {
-         var  val={
-              "func":"openURL",
-              "param":{
-                  "URL":'/#/indentAll',
-              },
+    //确定事件
+    q() {
+      var val = {
+        func: "openURL",
+        param: {
+          URL: "/#/indentAll"
+        }
+      };
+      var u = navigator.userAgent;
+      var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+      if (isiOS) {
+        window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+      } else if (isAndroid) {
+        window.androidObject.JSCallAndroid(JSON.stringify(val));
+      }
+      $(".del").hide();
+    },
+    OpenindentAll: function() {},
+    back() {
+      this.$router.push({ name: "ConfirmAnOrder" });
+    },
+    payStatus(type, item) {
+      this.init = item;
+      $(".del").show();
+      this.type = type;
+      if (this.type == "success") {
+        this.type = "支付成功";
+      } else if (this.type == "cancel") {
+        this.type = "用户取消";
+      } else if (this.type == "failed") {
+        this.type = "支付失败";
+      } else if (this.type == "unknown") {
+        this.type = "未知状态";
+      }
+    },
+    pay() {
+        var that = this
+        var re = $('input:radio[name="sex"]:checked').val();
+        if (re == "余额") {
+          var paramss = {
+            payment: that.payment,
+            postFee: that.postFee,
+            paymentType: 1,
+            buyerMessage: that.buyerMessage,
+            buyerNick: that.buyerNick,
+            shopId: Number(that.shopId),
+            proOrderItems: [
+              {
+                productSkuId: Number(that.productSkuId),
+                count: Number(that.count),
+                price: Number(that.price)
+              }
+            ]
           };
-          var u = navigator.userAgent;
-          var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-          var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-          if(isiOS){
-             window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-          }else if(isAndroid){  
-             window.androidObject.JSCallAndroid(JSON.stringify(val));
-          }
-        $(".del").hide();
-        },
-        OpenindentAll:function(){
-    
-        },
-        back(){
-             this.$router.push({name:"ConfirmAnOrder"})
-        },
-        payStatus(type,item){
-            this.init = item;
-            $(".del").show();
-            this.type = type;
-            if(this.type == 'success'){
-                this.type = '支付成功'
-            }else if(this.type=='cancel'){
-               this.type = '用户取消'
-            }else if(this.type=='failed'){
-                this.type = '支付失败'
-            }else if(this.type=='unknown'){
-                this.type = '未知状态'
-            }
-        }
-    },
-    created(){
-            this.money = sessionStorage.getItem("money");
-    },
-    mounted:function(){
-        var that = this;
-        window.payStatus = this.payStatus;
-        window.OpenindentAll = this.OpenindentAll;
-        $(".nomoney").hide()
-        var a = $('.center_top i').text()
-        $('.need').text(a)
-        $('.botton span').text(a);
-        var b = $('.now').text() 
-    
-      var  a1 = Number( a );
-      var  b1 = Number( b );
-        if( a1 > b1){
-            $(".nomoney").show()
-            $('.one').css("color","#c8c8c8")
-            $('.one input').attr("disabled","disabled")
-             $('.two input').attr('checked','checked');
-        }else{
-            $(".nomoney").hide()
-        }
-          $(".botton").on('click',function(){    
-              var re=$('input:radio[name="sex"]:checked').val();
-              if(re == '余额'){
-                   var paramss ={
-                    "payment": that.payment,
-                    "postFee": that.postFee,
-                    "paymentType":1,
-                    "buyerMessage": that.buyerMessage,
-                    "buyerNick":that.buyerNick,
-                    "shopId":  Number(that.shopId),
-                    "proOrderItems":[
-                    {
-                        "productSkuId":Number(that.productSkuId),
-                        "count":Number(that.count),
-                        "price":Number(that.price) 
-                    }
-                    ]
+          this.$axios({
+            method: "post",
+            url: "order/api/depproorders",
+            data: paramss
+          })
+            .then(function(response) {
+              that.web = response.data;
+            this.$axios({
+                method: "post",
+                url: "wallet/api/wallets/balance/pay",
+                data: {
+                  orderNo: that.web,
+                  password: 123456
                 }
-            $axios({
-                    method:'post',
-                    url:'order/api/depproorders',
-                    data:paramss,
+              })
+                .then(function(res) {
+                  if (res.data == "") {
+                    that.payStatus("success");
+                  }
                 })
-                .then(function(response) {
-                    that.web = response.data;
-                        $axios({
-                            method:'post',
-                            url:'wallet/api/wallets/balance/pay',
-                            data:{
-                            "orderNo":that.web,
-                            "password": 123456
-                            },
-                        })
-                        .then(function(res) {
-                                if(res.data ==''){
-                                    that.payStatus('success');
-                                };
-                        })
-                        .catch((error)=>{
-                            console.log(error);
-                        }); 
-                })
-                .catch((error)=>{
-                    console.log(error);
-                }); 
-            }else if(re == '支付宝'){                          
-                 var paramss ={
-                    "payment": that.payment,
-                    "postFee": that.postFee,
-                    "paymentType":2,
-                    "buyerMessage": that.buyerMessage,
-                    "buyerNick":that.buyerNick,
-                    "shopId":  Number(that.shopId),
-                    "proOrderItems":[
-                    {
-                        "productSkuId":Number(that.productSkuId),
-                        "count":Number(that.count),
-                        "price":Number(that.price) 
-                    }
-                    ]
+                .catch(error => {
+                  console.log(error);
+                });
+            })
+            .catch(error => {
+              console.log(error);
+            });
+        } else if (re == "支付宝") {
+          var paramss = {
+            payment: that.payment,
+            postFee: that.postFee,
+            paymentType: 2,
+            buyerMessage: that.buyerMessage,
+            buyerNick: that.buyerNick,
+            shopId: Number(that.shopId),
+            proOrderItems: [
+              {
+                productSkuId: Number(that.productSkuId),
+                count: Number(that.count),
+                price: Number(that.price)
+              }
+            ]
+          };
+          this.$axios({
+            method: "post",
+            url: "order/api/depproorders/1",
+            data: paramss
+          })
+            .then(function(response) {
+              that.took = response.data;
+              var val = {
+                func: "pay",
+                param: {
+                  payType: "Ali",
+                  orderStr: that.took
                 }
-            $axios({
-                    method:'post',
-                    url:'order/api/depproorders/1',
-                    data:paramss,
-                })
-                .then(function(response) {
-                    that.took = response.data;
-                 var  val={
-                        "func":'pay',
-                        "param":{
-                        "payType":'Ali',
-                        "orderStr": that.took
-                        }
-                    }
-                var u = navigator.userAgent;
-                    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-                    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-                    if(isiOS){
-                        window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-                    }else if(isAndroid){  
-                        window.androidObject.JSCallAndroid(JSON.stringify(val));
-                    }
-                    })
-                    .catch((error)=>{
-                        console.log(error);
-                    }); 
-            }
-           
-       });
+              };
+              var u = navigator.userAgent;
+              var isAndroid =
+                u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+              var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+              if (isiOS) {
+                window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+              } else if (isAndroid) {
+                window.androidObject.JSCallAndroid(JSON.stringify(val));
+              }
+            })
+            .catch(error => {
+              console.log(error);
+            });
+        }
     }
-}
+  },
+  created() {
+    this.money = sessionStorage.getItem("money");
+  },
+  mounted: function() {
+    var that = this;
+    window.payStatus = this.payStatus;
+    window.OpenindentAll = this.OpenindentAll;
+    $(".nomoney").hide();
+    var a = $(".center_top i").text();
+    $(".need").text(a);
+    $(".botton span").text(a);
+    var b = $(".now").text();
+
+    var a1 = Number(a);
+    var b1 = Number(b);
+    if (a1 > b1) {
+      $(".nomoney").show();
+      $(".one").css("color", "#c8c8c8");
+      $(".one input").attr("disabled", "disabled");
+      $(".two input").attr("checked", "checked");
+    } else {
+      $(".nomoney").hide();
+    }
+
+    //top
+  }
+};
 </script>
 
 <style scoped>
@@ -297,115 +279,115 @@ export default {
   background: #ff0103;
   color: #fff;
 }
-    .header{
-        width: 100%;
-        height: .96rem;
-        border-bottom: 1px solid #e7e7e7;
-        box-sizing: border-box;
-        background: #fff;
-        font-size:.32rem;
-    }
-    .header ul{
-        display: flex;
-    }
-    .header li{
-        flex: 1;
-        text-align: center;
-        line-height: .96rem;
-    }
-    .header li:first-child{
-        text-align: left;
-    }
-    .header li span{
-    padding-left: .3rem;
-    }
-    .center_top{
-        width: 100%;
-        height: .8rem;
-        line-height: .8rem;
-        background: #fde9e8;
-        padding-left: .3rem;
-        color: #2f2f2f;
-        font-size: .24rem;
-        position: relative;
-    }
-    .center_top span{
-        float: right;
-        font-size: .28rem;
-        color: #ff0103;
-        position: absolute;
-        right: .6rem;
-    }
+.header {
+  width: 100%;
+  height: 0.96rem;
+  border-bottom: 1px solid #e7e7e7;
+  box-sizing: border-box;
+  background: #fff;
+  font-size: 0.32rem;
+}
+.header ul {
+  display: flex;
+}
+.header li {
+  flex: 1;
+  text-align: center;
+  line-height: 0.96rem;
+}
+.header li:first-child {
+  text-align: left;
+}
+.header li span {
+  padding-left: 0.3rem;
+}
+.center_top {
+  width: 100%;
+  height: 0.8rem;
+  line-height: 0.8rem;
+  background: #fde9e8;
+  padding-left: 0.3rem;
+  color: #2f2f2f;
+  font-size: 0.24rem;
+  position: relative;
+}
+.center_top span {
+  float: right;
+  font-size: 0.28rem;
+  color: #ff0103;
+  position: absolute;
+  right: 0.6rem;
+}
 
-    .change{
-    width: 100%;
-    height: 4.1rem;
-    background: #fff;
-    margin-top: .2rem;
-    font-size: .28rem;
+.change {
+  width: 100%;
+  height: 4.1rem;
+  background: #fff;
+  margin-top: 0.2rem;
+  font-size: 0.28rem;
 }
-.change p{
-    height: 1rem;
-    line-height: 1rem;
-    padding-left: .3rem;
-    box-sizing: border-box;
+.change p {
+  height: 1rem;
+  line-height: 1rem;
+  padding-left: 0.3rem;
+  box-sizing: border-box;
 }
-.change p{
-    border-bottom: 1px solid #e7e7e7;
+.change p {
+  border-bottom: 1px solid #e7e7e7;
 }
-.change p:last-child{
-    border:none;
+.change p:last-child {
+  border: none;
 }
-.change p span{
-    float: right;
-    padding-right: .3rem;
+.change p span {
+  float: right;
+  padding-right: 0.3rem;
 }
-.change p input{
-    display: none;
+.change p input {
+  display: none;
 }
-.change p ul{
-    float: left;
-    margin-left: .15rem;
-    margin-top: .15rem;
+.change p ul {
+  float: left;
+  margin-left: 0.15rem;
+  margin-top: 0.15rem;
 }
-.change p li{
-    line-height: .4rem;
+.change p li {
+  line-height: 0.4rem;
 }
-.change img{
-    width: .5rem;
-    margin-right: .2rem;
-    float: left;
-    vertical-align: middle;
-    margin-top: .25rem
+.change img {
+  width: 0.5rem;
+  margin-right: 0.2rem;
+  float: left;
+  vertical-align: middle;
+  margin-top: 0.25rem;
 }
-button{
-    width: 100%;
-    height: .8rem;
-    background: #ff0103;
-    font-size: .32rem;
-    color: #fff;
-    position: absolute;
-    bottom: 0;
-    border: none;
+button {
+  width: 100%;
+  height: 0.8rem;
+  background: #ff0103;
+  font-size: 0.32rem;
+  color: #fff;
+  position: absolute;
+  bottom: 0;
+  border: none;
 }
 
 input[type="radio"] + label::before {
-        box-sizing: border-box;
-        content: " "; /*不换行空格*/
-        display: inline-block;
-        vertical-align: middle;
-        width: 2em;
-        height: 2em;
-        background: url("../../assets/manage/change_no.png");
-        background-size: 100% 100%;
-        /* margin-right: .4em; */
-        border-radius: 50%;
-        margin-top: -.1rem
-    }
-    input[type="radio"]:checked + label::before {
-        background: red;
-        background: url("../../assets/manage/change.png");
-        
-        background-size: 100% 100%;
-    }
+  box-sizing: border-box;
+  content: " "; /*不换行空格*/
+  display: inline-block;
+  vertical-align: middle;
+  width: 2em;
+  height: 2em;
+  background: url("../../assets/manage/change_no.png");
+  background-size: 100% 100%;
+  /* margin-right: .4em; */
+  border-radius: 50%;
+  margin-top: -0.1rem;
+}
+input[type="radio"]:checked + label::before {
+  background: red;
+  background: url("../../assets/manage/change.png");
+
+  background-size: 100% 100%;
+}
 </style>
