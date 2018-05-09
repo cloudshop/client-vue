@@ -50,6 +50,7 @@ export default {
         this.$axios
           .get("verify/api/verify/smscode/wallet")
           .then(function(res) {
+             alert('验证码发送成功') 
             console.log(res);
           })
           .catch(function(error){
