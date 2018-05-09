@@ -94,7 +94,7 @@ export default {
               var mo = $(this).val();
               var data = { payType: re, payment: mo };
               axios
-                .post("api/order/api/dep-orders/deposit", data)
+                .post("order/api/dep-orders/deposit", data)
                 .then(function(res) {
                   console.log(res);
                   var param1 = 1;
@@ -133,7 +133,7 @@ export default {
         var mm = $("#money").val();
         var data = { payType: re, payment: mm };
         axios
-          .post("api/order/api/dep-orders/deposit", data)
+          .post("order/api/dep-orders/deposit", data)
           .then(function(res) {
             console.log(res);
             var param1 = 1;
