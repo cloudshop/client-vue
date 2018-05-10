@@ -93,7 +93,7 @@ export default {
         return
       }
       //passing the username and password in an object as payload to the login action
-      this.$store.dispatch((types.LOGIN, {username: this.PassName, password: this.PassWord, registrationID: this.registrationID}).then(() => {
+      this.$store.dispatch(types.LOGIN, {username: this.PassName, password: this.PassWord, registrationID: this.registrationID}).then(() => {
         var  val={
         		"func":"closeCurrent",
             "param":{'finallyIndex':'1','refreshAll':true},
@@ -106,7 +106,7 @@ export default {
                   }else if(isAndroid){  
                       window.androidObject.JSCallAndroid(JSON.stringify(val));
                   }
-        }))
+        })
     },
    
     setDeviceId(registrationID){
