@@ -209,7 +209,7 @@ export default {
       };
       console.log(data);
       this.$axios
-          .get("user/api/mercuries/uploadMercuryImages",data)
+          .post("user/api/mercuries/uploadMercuryImages",data)
           .then(function(res) {
             console.log(res);
 //          alert('上传成功,请等待审核')
@@ -223,56 +223,56 @@ export default {
   },
   mounted: function() {
 
-    $(".act").click(function() {
-      var front = $(".front").text();
-      var back = $(".back").text();
-      var hold = $(".hold").text();
-      var license = $(".license").text();
-      var shopname = $(".shpname").val();
-      if (
-        front == "" ||
-        back == "" ||
-        hold == "" ||
-        license == "" ||
-        shopname == ""
-      ) {
-        alert("请上传照片和店铺名称");
-      }else{
-//    alert('上传成功,请等待审核')
-		 this.bol = true;
-      var data = {
-        imgIdcardFront: front,
-        imgIdcardBack: back,
-        imgIdcardHold: hold,
-        imgLicense: license,
-        name: shopname
-      };
-      console.log(data);
+//     $(".act").click(function() {
+//       var front = $(".front").text();
+//       var back = $(".back").text();
+//       var hold = $(".hold").text();
+//       var license = $(".license").text();
+//       var shopname = $(".shpname").val();
+//       if (
+//         front == "" ||
+//         back == "" ||
+//         hold == "" ||
+//         license == "" ||
+//         shopname == ""
+//       ) {
+//         alert("请上传照片和店铺名称");
+//       }else{
+// //    alert('上传成功,请等待审核')
+// 		 this.bol = true;
+//       var data = {
+//         imgIdcardFront: front,
+//         imgIdcardBack: back,
+//         imgIdcardHold: hold,
+//         imgLicense: license,
+//         name: shopname
+//       };
+//       console.log(data);
 
-    $.ajax({
-          url: "user/api/mercuries/uploadMercuryImages",
-          // method:'post',
-          type: "POST",
-          contentType: "application/json",
-          dataType: "json",
-          data: JSON.stringify(data),
-           headers:{
-                  'Content-Type': 'application/json',
-                  Authorization: this.$store.getters.token
-                },
-          success: function(res) {
-            //   alert("上传成功，等待审核")
+//     // $.ajax({
+//     //       url: "user/api/mercuries/uploadMercuryImages",
+//     //       // method:'post',
+//     //       type: "POST",
+//     //       contentType: "application/json",
+//     //       dataType: "json",
+//     //       data: JSON.stringify(data),
+//     //       headers:{
+//     //               'Content-Type': 'application/json',
+//     //               Authorization: this.$store.getters.token
+//     //             },
+//     //       success: function(res) {
+//     //         //   alert("上传成功，等待审核")
             
-            console.log(res);
+//     //         console.log(res);
             
-            //top
-          },
-          error(res) {
-            console.log(res);
-          }
-        });
-}
-    });
+//     //         //top
+//     //       },
+//     //       error(res) {
+//     //         console.log(res);
+//     //       }
+//     //     });
+// }
+//     });
 
    
   }
