@@ -14,7 +14,7 @@
                    <dd>
                          <h2>{{arr.nickname}}</h2>
                          
-                         <p>普通会员</p>
+                         <p>{{arr.typeString}}</p>
                    </dd>
                </dl>
               <span></span>
