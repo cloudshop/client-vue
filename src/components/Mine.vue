@@ -104,6 +104,7 @@ export default {
           return{  
               arr:'null',
               flag:false,
+              type:""
           }
           
       },
@@ -115,6 +116,8 @@ export default {
       .then(function(res) {
          that.arr = res.data;
         console.log(res.data)
+         that.type = res.data.type;
+        console.log(that.type);
       })
       .catch(function(error) {
         console.log(error);
@@ -171,6 +174,12 @@ export default {
       }
     },
     SellerCenter(){
+    	this.$router.push({
+          name: 'SellerCenter',
+          params: {
+            type: this.type
+          }
+        })
       var val = {
         func: "openURL",
         param: {
