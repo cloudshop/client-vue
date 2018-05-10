@@ -3,7 +3,8 @@ import Router from 'vue-router'
 import Index from '@/components/index'
 import HomePage from '@/components/HomePage' //首页
 import city from '@/components/main/city' //城市筛选
-const Classify = () => import('@/components/Classify') //分类
+const Classify = () =>
+    import ('@/components/Classify') //分类
 import Shopping from '@/components/Shopping' // 购物车
 import Mine from '@/components/Mine' // 我的
 import search from '@/components/search' //搜索
@@ -64,6 +65,8 @@ import sunorder from '../components/Sher/Sunorder.vue'
 import top from '../components/Sher/Topup.vue'
 import Offline from '../components/Sher/Offline.vue'
 import Agreement from '../components/Sher/Agreement.vue' // 用户协议
+import Servershop from '../components/MineList/Servershop.vue' //服务商首页
+import Servershop2 from '../components/MineList/Servershop2.vue' //支付服务商两万元
 
 Vue.use(Router)
 
@@ -345,6 +348,16 @@ const routes = [{
                 name: 'IDcard',
                 component: IDcard
             },
+            { // 服务商
+                path: '/Servershop',
+                name: 'Servershop',
+                component: Servershop
+            },
+            { // 服务商缴费
+                path: '/Servershop2',
+                name: 'Servershop2',
+                component: Servershop2
+            },
         ]
     },
 ]
@@ -363,15 +376,13 @@ router.beforeEach((to, from, next) => {
         console.log(this.$store.state.token)
         if (this.$store.state.token) {
             next();
-        }
-        else {
+        } else {
             next({
                 path: '/login',
-                query: {redirect: to.fullPath}
+                query: { redirect: to.fullPath }
             })
         }
-    }
-    else {
+    } else {
         next();
     }
 })
