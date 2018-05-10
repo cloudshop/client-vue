@@ -1,72 +1,58 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Index from '@/components/index'
-import HomePage from '@/components/HomePage' //首页
-import city from '@/components/main/city' //城市筛选
-const Classify = () =>
-    import ('@/components/Classify') //分类
-import Shopping from '@/components/Shopping' // 购物车
-import Mine from '@/components/Mine' // 我的
-import search from '@/components/search' //搜索
-import RemainingSum from '../components/MineList/RemainingSum.vue' //余额页面
-import Stamps from '../components/MineList/Stamps.vue' //贡融券页面
-import myQRCode from '@/components/myQRCode'
-import Information from '@/components/MineList/Information.vue' //个人信息
-import NickName from '../components/MineList/NickName.vue' //修改昵称
-import MyAddress from '../components/MineList/MyAddress.vue' //我的地址
-import AddAddress from '../components/MineList/AddAddress.vue' //编辑我的地址
-import MyTeam from '../components/MineList/MyTeam.vue' //我的分享人页面
-import ID from '../components/MineList/ID.vue' //账号与安全页面
-import Integral from '../components/MineList/Integral.vue' //贡融积分页面
-import SellerCenter from '../components/MineList/SellerCenter' //商户中心
-import OrdinaryBusiness from '../components/MineList/OrdinaryBusiness.vue' //申请成为商家
-import Appreciation from '../components/MineList/Appreciation.vue' //支付增值商户年费
-import MerchantsPayCost from '../components/MineList/MerchantsPayCost.vue' //商家平台使用缴纳
-import CreditCard from '../components/MineList/CreditCard.vue' //消费支付
-import CreditCardOK from '../components/MineList/CreditCardOK.vue' //消费支付确认订单
-import Collection from '../components/Sher/Collection.vue' //我的收藏
-import IndentAll from '../components/PageAll/IndentAll.vue' //全部订单
-import DetailsTwo from '../components/PageAll/DetailsTwo.vue' //商品清单
-import giving from '../components/Sher/Giving.vue' //积分赠送
-import giving2 from '../components/Sher/Giving2.vue' //积分赠送——确认订单
-import IntegralDiscount from '../components/IntegralDiscount/IntegralDiscount.vue' //积分兑换
-// import zhekou from '../components/sher/ChangeDiscount.vue' //积分折扣 
-import Redemption from '../components/redemption/Redemption.vue' //积分换购
 
-// import Change from '../components/MineList/Change.vue'
-import ShareResults from '../components/MineList/ShareResults.vue'
-import Pay from '../components/MineList/Pay.vue' //选择支付方式
-import News from '../components/main/News.vue'
-// import Location from "@/components/main/location.vue"
-// import Talk from '../components/main/talk'
-import setpaypsd from '../components/My/paypsd.vue' //设置支付密码
-import IDcard from '../components/My/IDcard.vue' //身份验证
-
-
-import ConfirmAnOrder from '../components/Shopping/ConfirmAnOrder.vue'
-
-
-import ConfirmAnOrderChild from '../components/Shopping/ConfirmAnOrderChild.vue'
-
-import Login from '../components/Login/Login.vue'
-import Register from '../components/Login/Register.vue'
-import SetPsd from '../components/Login/SetPsd.vue'
-import ChangePsd from '../components/Login/Changepsd.vue'
-import ChangePsd2 from '../components/Login/Changepsd2.vue'
-
-import ClassifySearch from '../components/PageAll/ClassifySearch.vue'
-import PageAll from '../components/PageAll/PageAll.vue'
-import PageDetails from '../components/PageAll/PageDetails.vue'
-import PageDetailsChild from '../components/PageAll/PageDetailsChild.vue'
-import Product from '../components/PageAll/Product.vue'
-import RegisterNew from '../components/Login/RegisterNew.vue'
-
-import sunorder from '../components/Sher/Sunorder.vue'
-import top from '../components/Sher/Topup.vue'
-import Offline from '../components/Sher/Offline.vue'
-import Agreement from '../components/Sher/Agreement.vue' // 用户协议
-import Servershop from '../components/MineList/Servershop.vue' //服务商首页
-import Servershop2 from '../components/MineList/servershop2.vue' //支付服务商两万元
+const Index = r => require.ensure( [], () => r (require('@/components/index')));
+const HomePage = r => require.ensure( [], () => r (require('@/components/HomePage')));
+const city = r => require.ensure( [], () => r (require('@/components/main/city')));
+const Classify = () => import('@/components/Classify') //分类
+const Shopping = r => require.ensure( [], () => r (require('@/components/Shopping')));
+const Mine = r => require.ensure( [], () => r (require('@/components/Mine')));
+const search = r => require.ensure( [], () => r (require('@/components/search')));
+const RemainingSum = r => require.ensure( [], () => r (require('@/components/MineList/RemainingSum.vue')));
+const Stamps = r => require.ensure( [], () => r (require('@/components/MineList/Stamps.vue')));
+const myQRCode = r => require.ensure( [], () => r (require('@/components/myQRCode')));
+const Information = r => require.ensure( [], () => r (require('@/components/MineList/Information.vue')));
+const NickName = r => require.ensure( [], () => r (require('@/components/MineList/NickName.vue')));
+const MyAddress = r => require.ensure( [], () => r (require('@/components/MineList/MyAddress.vue')));
+const AddAddress = r => require.ensure( [], () => r (require('@/components/MineList/AddAddress.vue')));
+const MyTeam = r => require.ensure( [], () => r (require('@/components/MineList/MyTeam.vue')));
+const ID = r => require.ensure( [], () => r (require('@/components/MineList/ID.vue')));
+const Integral = r => require.ensure( [], () => r (require('@/components/MineList/Integral.vue')));
+const SellerCenter = r => require.ensure( [], () => r (require('@/components/MineList/SellerCenter')));
+const OrdinaryBusiness = r => require.ensure( [], () => r (require('@/components/MineList/OrdinaryBusiness.vue')));
+const Appreciation = r => require.ensure( [], () => r (require('@/components/MineList/Appreciation.vue')));
+const MerchantsPayCost = r => require.ensure( [], () => r (require('@/components/MineList/MerchantsPayCost.vue')));
+const CreditCard = r => require.ensure( [], () => r (require('@/components/MineList/CreditCard.vue')));
+const CreditCardOK = r => require.ensure( [], () => r (require('@/components/MineList/CreditCardOK.vue')));
+const Collection = r => require.ensure( [], () => r (require('@/components/Sher/Collection.vue')));
+const IndentAll = r => require.ensure( [], () => r (require('@/components/PageAll/IndentAll.vue')));
+const DetailsTwo = r => require.ensure( [], () => r (require('@/components/PageAll/DetailsTwo.vue')));
+const giving = r => require.ensure( [], () => r (require('@/components/Sher/Giving.vue')));
+const giving2 = r => require.ensure( [], () => r (require('@/components/Sher/Giving2.vue')));
+const IntegralDiscount = r => require.ensure( [], () => r (require('@/components/IntegralDiscount/IntegralDiscount.vue')));
+const Redemption = r => require.ensure( [], () => r (require('@/components/redemption/Redemption.vue')));
+const ShareResults = r => require.ensure( [], () => r (require('@/components/MineList/ShareResults.vue')));
+const Pay = r => require.ensure( [], () => r (require('@/components/MineList/Pay.vue')));
+const News = r => require.ensure( [], () => r (require('@/components/main/News.vue')));
+const setpaypsd = r => require.ensure( [], () => r (require('@/components/My/paypsd.vue')));
+const IDcard = r => require.ensure( [], () => r (require('@/components/My/IDcard.vue')));
+const ConfirmAnOrder = r => require.ensure( [], () => r (require('@/components/Shopping/ConfirmAnOrder.vue')));
+const ConfirmAnOrderChild = r => require.ensure( [], () => r (require('@/components/Shopping/ConfirmAnOrderChild.vue')));
+const Login = r => require.ensure( [], () => r (require('@/components/Login/Login.vue')));
+const Register = r => require.ensure( [], () => r (require('@/components/Login/Register.vue')));
+const SetPsd = r => require.ensure( [], () => r (require('@/components/Login/SetPsd.vue')));
+const ChangePsd = r => require.ensure( [], () => r (require('@/components/Login/Changepsd.vue')));
+const ChangePsd2 = r => require.ensure( [], () => r (require('@/components/Login/Changepsd2.vue')));
+const ClassifySearch = r => require.ensure( [], () => r (require('@/components/PageAll/ClassifySearch.vue')));
+const PageAll = r => require.ensure( [], () => r (require('@/components/PageAll/PageAll.vue')));
+const PageDetails = r => require.ensure( [], () => r (require('@/components/PageAll/PageDetails.vue')));
+const PageDetailsChild = r => require.ensure( [], () => r (require('@/components/PageAll/PageDetailsChild.vue')));
+const Product = r => require.ensure( [], () => r (require('@/components/PageAll/Product.vue')));
+const RegisterNew = r => require.ensure( [], () => r (require('@/components/Login/RegisterNew.vue')));
+const sunorder = r => require.ensure( [], () => r (require('@/components/Sher/Sunorder.vue')));
+const top = r => require.ensure( [], () => r (require('@/components/Sher/Topup.vue')));
+const Offline = r => require.ensure( [], () => r (require('@/components/Sher/Offline.vue')));
+const Agreement = r => require.ensure( [], () => r (require('@/components/Sher/Agreement.vue')));
 
 Vue.use(Router)
 
