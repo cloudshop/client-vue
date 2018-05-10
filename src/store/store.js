@@ -113,9 +113,9 @@ export default new Vuex.Store({
           secret: 'w1eb_app'
         },
         auth: {
-          tokenHost: window.location.origin,
-          tokenPath: 'api/auth/login/app',
-          revokePath: 'api/auth/logout/app'
+          tokenHost: window.location.origin + 'api',
+          tokenPath: 'auth/login/app',
+          revokePath: 'auth/logout/app'
         },
         http: {
           headers: {
@@ -181,7 +181,7 @@ export default new Vuex.Store({
           secret: 'w1eb_app'
         },
         auth: {
-          tokenHost: window.location.origin,
+          tokenHost: window.location.origin + 'api',
           tokenPath: 'auth/login/app',
           revokePath: 'auth/logout/app'
         },
