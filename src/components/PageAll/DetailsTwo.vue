@@ -10,14 +10,14 @@
         </div>
         <!-- "综合", "销量","价格","筛选" -->
         <ul class="PageAll_tab_ul" v-show='flag'>
-            <li v-for="(item,index) in tabs" :key="index" :class="{active:index == num}" @click="tab(index)">{{item}}</li>
+            <li v-for="(item,index) in tabs" :key="index" :class="{active:index == num}" @click="tab(97)">{{item}}</li>
         </ul>
         <!-- 内容 -->
         <div class="tabCon">
             <div class='content' >             
                 <div class="tabCon_main"  v-for='(item,index) in arr.mainContent' :key="index"  :data='item.id' @click='details(item.id)'>
                     <div class="tabCon_main_left">
-                        <img src="../../assets/Classify/bg.gif" alt="">
+                        <img :src="item.url" alt="">
                     </div>
                     <div class="tabCon_main_right">
                         <h4 class="h4">{{item.NAME}}</h4>
