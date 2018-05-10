@@ -33,8 +33,8 @@
 </template>
 
 <script>
-// import * as types from '../../store/types';
-import types from '../../store/types';
+import * as types from '../../store/types';
+// import types from '../../store/types';
 export default {
   data() {
     return {
@@ -106,7 +106,7 @@ export default {
                   }else if(isAndroid){  
                       window.androidObject.JSCallAndroid(JSON.stringify(val));
                   }
-        })
+        }))
     },
    
     setDeviceId(registrationID){
