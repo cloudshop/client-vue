@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div class='SellerCenter'>
        <header class="mint-header">
            <div class="mint-header-button is-left">
@@ -14,7 +14,7 @@
         </header>
 
         <div class='content'>
-            <div class='TopContent'>
+            <div class='TopContent' v-show="type==3?false:true" v-bind:hidden="type==5?true:false">
                 <div  v-show="type==1?true:false">
                 	<h2>普通商家相关权益</h2>
 	                <h3>入驻要求</h3>
@@ -61,7 +61,7 @@
                  <ul>
                     <li>分享增值商家入驻100元现金奖励</li>
                 </ul>
-                <div class="msg" v-show="type==4?true:false">
+             		<div class="msg" v-show="type==4?true:false">
 									<p>申请正在处理中...</p>
 								</div>
                      <router-link :to="{ path: '/Appreciation' }" tag="button" class='MyBtn'>申请成为增值商家</router-link>
@@ -87,6 +87,7 @@
                  <ul>
                     <li>分享增值商家入驻100元现金奖励</li>
                 </ul>
+                <router-link :to="{ path: '/servershop' }" tag="button" class='MyBtn'>申请成为服务商</router-link>
             </div>
         </div>
 
@@ -117,6 +118,7 @@ export default {
     return {
       OrdinaryBusinessPage: false,
       AppreciationPage: false,
+      type:""
       
     };
   },
@@ -150,8 +152,9 @@ export default {
     Appreciation
   },
   created(){
-  	var url = window.location.pathname;
-  	var type = url.split("?")[1].split("=")[1];
+  	var url = window.location.href;
+//	console.log(url)
+  	this.type = url.split("?")[1].split("=")[1];
   }
 };
 </script>
