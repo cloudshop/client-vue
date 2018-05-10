@@ -334,6 +334,16 @@ const routes = [{
                 name: 'IDcard',
                 component: IDcard
             },
+            { // 服务商
+                path: '/Servershop',
+                name: 'Servershop',
+                component: Servershop
+            },
+            { // 服务商缴费
+                path: '/Servershop2',
+                name: 'Servershop2',
+                component: Servershop2
+            },
         ]
     },
 ]
@@ -352,15 +362,13 @@ router.beforeEach((to, from, next) => {
         console.log(this.$store.state.token)
         if (this.$store.state.token) {
             next();
-        }
-        else {
+        } else {
             next({
                 path: '/login',
-                query: {redirect: to.fullPath}
+                query: { redirect: to.fullPath }
             })
         }
-    }
-    else {
+    } else {
         next();
     }
 })

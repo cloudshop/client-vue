@@ -11,7 +11,7 @@ import storePlugin from '../storePlugin'
 
 // axios 配置
 axios.defaults.timeout = 5000;
-axios.defaults.baseURL = 'http://app.grjf365.com:9080/';
+axios.defaults.baseURL = 'api';
 
 /*是否有请求正在刷新token*/
 window.isRefreshing = false
@@ -34,8 +34,8 @@ const credentials = {
         secret: 'w1eb_app'
     },
     auth: {
-        tokenHost: 'http://app.grjf365.com:9080/api',
-        tokenPath: '/auth/login/app'
+        tokenHost: window.location.origin,
+        tokenPath: 'api/auth/login/app'
     },
     http: {
         headers: {

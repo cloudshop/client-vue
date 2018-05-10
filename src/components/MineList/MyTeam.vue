@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class='Team'>
         <header class="mint-header">
            <div class="mint-header-button is-left">
@@ -45,9 +45,11 @@ export default {
   data() {
     return {
       arr: "null",
+      iphone:""
     };
   },
   created() {
+  	this.iphone=document.cookie.split(";")[1].split("=")[1]; 
     var that = this;
     this.$axios
       .get(
@@ -64,18 +66,12 @@ export default {
       .catch(function(error) {
         console.log(error);
       });
-     this.iphone=document.cookie.split(";")[1].split("=")[1]; 
 
     if (this.$store.getters.isAuthed !== true) {
       this.flag = true;
     } else {
       this.flag = false;
     }
-    // var url = window.location.search;
-    // // alert(url.length);
-    // // alert(url.lastIndexOf('='));
-    // var loc = url.substring(url.lastIndexOf("=") + 1, url.length);
-    // alert(loc)
   },
   methods: {}
 };

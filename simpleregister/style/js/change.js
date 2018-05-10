@@ -45,9 +45,9 @@ $('.sure').click(function() {
     var yzm = $(".yzm").val();
     var psd = $('.psd').val();
     var urltel =window.location.search;  
-    var tel = urltel.substring(13,24);
+    var tel2 = urltel.substring(13,24);
     var p1 = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;
-    var datas = { 'login': tel, 'password': psd, 'verifyCode': yzm, 'recommend':tel}
+    var datas = { 'login': tel, 'password': psd, 'verifyCode': yzm, 'recommend':tel2}
     $.ajax({
         url: 'uaa/api/register/app',
         method: 'post',

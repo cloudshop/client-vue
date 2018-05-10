@@ -123,7 +123,7 @@ export default {
         IOSAndroid(linkval);
       } else if (product.test(link) == true) {
         //  this.$router.push({name:"Product",params:{name:'/HomePage'}})
-        var Goods = sessionStorage.setItem("GoodsID", link.split("/")[2]); // 商品id
+        var Goods = sessionStorage.setItem("GoodsID", link.split("?")[1]); // 商品id
         var Goods = sessionStorage.getItem("GoodsID");
         this.$axios
           .get(

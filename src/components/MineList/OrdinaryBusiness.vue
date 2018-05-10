@@ -77,6 +77,13 @@
                 <input type="text" placeholder="请输入店铺的名称" class="shpname">
                 <button @click='sub'>提交申请</button>
             </div>
+            <div class="msg" v-show="bol">
+              <div class="succeed">
+                <h3>提示</h3>
+                <p>上传成功,请等待审核</p>
+                <router-link to="/Mine">确定</router-link>
+              </div>
+            </div>
         </div>
    </div>
 </template>
@@ -94,7 +101,8 @@ export default {
       idcardback: "",
       idcardhold: "",
       License: "",
-      shopname: ""
+      shopname: "",
+      bol : false
     };
   },
   methods: {
@@ -190,7 +198,8 @@ export default {
       ) {
         alert("请上传照片和店铺名称");
       }else{
-      alert('上传成功,请等待审核')
+//    alert('上传成功,请等待审核')
+      this.bol = true;
       var data = {
         imgIdcardFront: front,
         imgIdcardBack: back,
@@ -200,10 +209,11 @@ export default {
       };
       console.log(data);
       this.$axios
-          .get("user/api/mercuries/uploadMercuryImages",data)
+          .post("user/api/mercuries/uploadMercuryImages",data)
           .then(function(res) {
             console.log(res);
-            alert('上传成功,请等待审核')
+//          alert('上传成功,请等待审核')
+            this.bol = true;
           })
           .catch(function(error){
             console.log(error);
@@ -213,55 +223,56 @@ export default {
   },
   mounted: function() {
 
-    $(".act").click(function() {
-      var front = $(".front").text();
-      var back = $(".back").text();
-      var hold = $(".hold").text();
-      var license = $(".license").text();
-      var shopname = $(".shpname").val();
-      if (
-        front == "" ||
-        back == "" ||
-        hold == "" ||
-        license == "" ||
-        shopname == ""
-      ) {
-        alert("请上传照片和店铺名称");
-      }else{
-      alert('上传成功,请等待审核')
-      var data = {
-        imgIdcardFront: front,
-        imgIdcardBack: back,
-        imgIdcardHold: hold,
-        imgLicense: license,
-        name: shopname
-      };
-      console.log(data);
+//     $(".act").click(function() {
+//       var front = $(".front").text();
+//       var back = $(".back").text();
+//       var hold = $(".hold").text();
+//       var license = $(".license").text();
+//       var shopname = $(".shpname").val();
+//       if (
+//         front == "" ||
+//         back == "" ||
+//         hold == "" ||
+//         license == "" ||
+//         shopname == ""
+//       ) {
+//         alert("请上传照片和店铺名称");
+//       }else{
+// //    alert('上传成功,请等待审核')
+// 		 this.bol = true;
+//       var data = {
+//         imgIdcardFront: front,
+//         imgIdcardBack: back,
+//         imgIdcardHold: hold,
+//         imgLicense: license,
+//         name: shopname
+//       };
+//       console.log(data);
 
-    $.ajax({
-          url: "user/api/mercuries/uploadMercuryImages",
-          // method:'post',
-          type: "POST",
-          contentType: "application/json",
-          dataType: "json",
-          data: JSON.stringify(data),
-           headers:{
-                  'Content-Type': 'application/json',
-                  Authorization: this.$store.getters.token
-                },
-          success: function(res) {
-            //   alert("上传成功，等待审核")
+//     // $.ajax({
+//     //       url: "user/api/mercuries/uploadMercuryImages",
+//     //       // method:'post',
+//     //       type: "POST",
+//     //       contentType: "application/json",
+//     //       dataType: "json",
+//     //       data: JSON.stringify(data),
+//     //       headers:{
+//     //               'Content-Type': 'application/json',
+//     //               Authorization: this.$store.getters.token
+//     //             },
+//     //       success: function(res) {
+//     //         //   alert("上传成功，等待审核")
             
-            console.log(res);
+//     //         console.log(res);
             
-            //top
-          },
-          error(res) {
-            console.log(res);
-          }
-        });
-}
-    });
+//     //         //top
+//     //       },
+//     //       error(res) {
+//     //         console.log(res);
+//     //       }
+//     //     });
+// }
+//     });
 
    
   }
@@ -409,5 +420,41 @@ input::-webkit-input-placeholder {
   width: 1.78rem;
   height: 1.78rem;
   display: block;
+}
+.msg{
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.3);
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 10;
+}
+.succeed{
+  width: 86%;
+  height: 2.5rem;
+  position: absolute;
+  left: 7%;
+  top: 40%;
+  z-index: 10;
+  background: #fff;
+  border-radius: 0.1rem;
+}
+h3{
+  font-size: 0.3rem;
+  line-height: 0.9rem;
+  padding: 0 0.4rem;
+}
+.msg p{
+  line-height: 0.8rem;
+  font-size: 0.25rem;
+  font-weight: 600;
+}
+.msg a{
+  display: block;
+  text-align: right;
+  padding: 0 0.4rem;
+  color: red;
+  font-weight: 600;
 }
 </style>

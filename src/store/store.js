@@ -113,9 +113,9 @@ export default new Vuex.Store({
           secret: 'w1eb_app'
         },
         auth: {
-          tokenHost: 'http://app.grjf365.com:9080/api',
-          tokenPath: '/auth/login/app',
-          revokePath: '/auth/logout/app'
+          tokenHost: window.location.origin,
+          tokenPath: 'api/auth/login/app',
+          revokePath: 'api/auth/logout/app'
         },
         http: {
           headers: {
@@ -140,10 +140,10 @@ export default new Vuex.Store({
         if (error) {
           console.log('Access Token Error', error.message);
 
-          if (error.response.status === 500) {
+          if (error.status === 500) {
             alert('服务器繁忙，请耐心等待')
           }
-          if (error.response.status === 400) {
+          if (error.status === 400) {
             alert('用户名密码错误')
           }
           return console.log('Access Token Error', error.message);
@@ -181,9 +181,9 @@ export default new Vuex.Store({
           secret: 'w1eb_app'
         },
         auth: {
-          tokenHost: 'http://app.grjf365.com:9080/api',
-          tokenPath: '/auth/login/app',
-          revokePath: '/auth/logout/app'
+          tokenHost: window.location.origin.concat('/api'),
+          tokenPath: 'auth/login/app',
+          revokePath: 'auth/logout/app'
         },
         http: {
           headers: {
