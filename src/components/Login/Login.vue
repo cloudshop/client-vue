@@ -33,7 +33,8 @@
 </template>
 
 <script>
-import * as types from '../../store/types';
+// import * as types from '../../store/types';
+import types from '../../store/types';
 export default {
   data() {
     return {
