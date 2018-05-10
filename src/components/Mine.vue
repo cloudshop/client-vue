@@ -174,16 +174,17 @@ export default {
       }
     },
     SellerCenter(){
-    	this.$router.push({
-          name: 'SellerCenter',
-          params: {
-            type: this.type
-          }
-        })
+    	//   this.$router.push({
+//        name: 'SellerCenter',
+//        params: {
+//          type: this.type
+//        }
+//      })
+      var typeStr=this.type;
       var val = {
         func: "openURL",
         param: {
-          URL: "/#/SellerCenter"
+          URL: "/#/SellerCenter?type="+typeStr
         }
       };
       var u = navigator.userAgent;
