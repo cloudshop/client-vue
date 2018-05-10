@@ -140,13 +140,13 @@ export default new Vuex.Store({
         if (error) {
           console.log('Access Token Error', error.message);
 
-          if (result.response.status === 500) {
+          if (error.status === 500) {
             alert('服务器繁忙，请耐心等待')
           }
-          if (result.response.status === 400) {
+          if (error.status === 400) {
             alert('用户名密码错误')
           }
-          return console.log('Access Token Error', result.message);
+          return console.log('Access Token Error', error.message);
         }
 
         const accessToken = oauth2.accessToken.create(result)
