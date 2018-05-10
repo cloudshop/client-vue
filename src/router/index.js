@@ -66,7 +66,7 @@ import top from '../components/Sher/Topup.vue'
 import Offline from '../components/Sher/Offline.vue'
 import Agreement from '../components/Sher/Agreement.vue' // 用户协议
 import Servershop from '../components/MineList/Servershop.vue' //服务商首页
-import Servershop2 from '../components/MineList/Servershop2.vue' //支付服务商两万元
+import Servershop2 from '../components/MineList/servershop2.vue' //支付服务商两万元
 
 Vue.use(Router)
 
