@@ -53,6 +53,8 @@ const sunorder = r => require.ensure( [], () => r (require('@/components/Sher/Su
 const top = r => require.ensure( [], () => r (require('@/components/Sher/Topup.vue')));
 const Offline = r => require.ensure( [], () => r (require('@/components/Sher/Offline.vue')));
 const Agreement = r => require.ensure( [], () => r (require('@/components/Sher/Agreement.vue')));
+const Servershop = r => require.ensure( [], () => r (require('@/components/MineList/Servershop.vue')));      //服务商首页
+const Servershop2 = r => require.ensure( [], () => r (require('@/components/MineList/servershop2.vue')));    //支付服务商两万元
 
 Vue.use(Router)
 
