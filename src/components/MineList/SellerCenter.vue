@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class='SellerCenter'>
        <header class="mint-header">
            <div class="mint-header-button is-left">
