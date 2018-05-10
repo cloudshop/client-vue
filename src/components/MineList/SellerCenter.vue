@@ -117,7 +117,6 @@ export default {
     return {
       OrdinaryBusinessPage: false,
       AppreciationPage: false,
-      type:"",
       
     };
   },
@@ -152,7 +151,7 @@ export default {
   },
   created(){
   	var url = window.location.pathname;
-  	this.type = url.split("?")[1].split("=")[1];
+  	var type = url.split("?")[1].split("=")[1];
   }
 };
 </script>
