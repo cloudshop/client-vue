@@ -91,6 +91,7 @@
 <script>
 import * as loggedInStatus from '../store/store'
 import Foot from "./main/Foot";
+import {getCookie} from "../assets/js/cookie.js";
 export default {
   data() {
     return {
@@ -116,15 +117,19 @@ export default {
    
   },
   created(){
-    if(this.serviceList==''){
-      this.empty = false;
-      this.emptys = true;
-    }  
     (this.$store.getters.isAuthed === false) ? this.flag=true : this.flag=false;
     var that = this;
     this.$axios.get('shoppingcart/api/shoppingcar/user')
     .then(function(response) {
         that.serviceList = response.data.result;
+        // emptys 去逛逛
+        if(that.serviceList.length != 0){
+          that.empty = true;
+          that.emptys = false;
+        } else{
+          that.empty = false;
+          that.emptys = true;
+        }
     })
     .catch(function(error) {
         console.log(error);
@@ -173,7 +178,7 @@ export default {
           this.serviceList[id].sku.splice(index,1);
         }, 0); 
       }
-      var delSkuid = this.serviceList[shopId].sku[index].skuid;
+      var delSkuid = this.serviceList[id].sku[index].skuid;
       this.$axios.post('shoppingcart/api/shoppingcar/del',delSkuid)
       .then(function(res){
         if(res.data == 'success'){
@@ -208,7 +213,7 @@ export default {
           var Money = this.serviceList[id].sku[index].unitPrice ;
           this.totalPrice -= Money;
         }
-       this.serviceList[id].sku[index].count--;
+        this.serviceList[id].sku[index].count--;
       }
     },
     // pageAll 店铺全选
@@ -216,7 +221,6 @@ export default {
       if(this.serviceList[pageId].checkbox !== true){
         this.serviceList[pageId].sku.map((v,i)=>{
           if(v.checkboxChild==false){
-            // this.checkboxBig = true;
             var Money = v.unitPrice;
             this.totalPrice += Money;
             v.checkboxChild = true;
@@ -227,7 +231,6 @@ export default {
           var Money = v.unitPrice;
           this.totalPrice -= Money;
           v.checkboxChild = false;
-          // this.checkboxBig = false;
         })
       }
     },
@@ -238,7 +241,6 @@ export default {
       this.serviceList[pitchId].sku.forEach((item,index) => {
         if(item.checkboxChild === false) {
           statusFlag = false;
-          // this.checkboxBig = false;
         }
       });
       // if(this.serviceList[pitchId].checkbox == true){
@@ -272,6 +274,7 @@ export default {
     checkboxAll:function(){
       for(var pageId = 0; pageId < this.serviceList.length; pageId++){
         if(this.checkboxBig !== true){
+          console.log(this.serviceList[pageId].checkbox)
           this.serviceList[pageId].checkbox = true;
           this.serviceList[pageId].sku.map((v,i)=>{
             v.checkboxChild = true;
@@ -282,6 +285,9 @@ export default {
             v.checkboxChild = false;
           })
         }
+        // if(this.serviceList[pageId].checkbox){
+
+        // }
       }
       var priceCount=0;
       for(var pageId=0;pageId<this.serviceList.length;pageId++){
@@ -289,12 +295,14 @@ export default {
           var sigal = v.unitPrice*v.count;
           priceCount += sigal;
         })
-       }
-        if(this.checkboxBig !== true){
-          this.totalPrice = priceCount;
-        }else{
-          this.totalPrice = 0; 
-        }
+      }
+      if(this.checkboxBig != true){
+        this.totalPrice = priceCount;
+        console.log(this.checkboxBig)
+      }else{
+        console.log(this.checkboxBig)
+        this.totalPrice = 0; 
+      }
     },
     // 点击结算
     toTal:function(){
@@ -553,7 +561,6 @@ input[type="checkbox"] + label::before {
   margin-top: -.01rem
 }
 input[type="checkbox"]:checked + label::before {
-  /* background: red; */
   background: url("../assets/manage/change.png");
   background-size: 100% 100%;
 }
@@ -603,6 +610,13 @@ input[type="checkbox"]:checked + label::before {
   font-size: 0.24rem;
   color: #2f2f2f;
   margin-bottom: 0.4rem;
+  height: 65px;  
+  width: 100%;  
+  overflow: hidden;  
+  text-overflow: ellipsis;  
+  word-break: break-all;  
+  -webkit-box-orient: vertical;  
+  -webkit-line-clamp:3;  
 }
 span {
   display: inline-block;
