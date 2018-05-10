@@ -34,43 +34,83 @@
 	                <ul>
 	                    <li>分享增值商家入驻100元现金奖励</li>
 	                </ul>
+	                <router-link :to="{ path: '/OrdinaryBusiness' }" tag="button" class='MyBtn'>申请成为普通商家</router-link>
                 </div>
                 <div class="msg" v-show="type==2?true:false">
+                	<h2>普通商家相关权益</h2>
+	                <h3>入驻要求</h3>
+	                <ul>
+	                    <li>年服务费0元;</li>
+	                    <li>提供身份证,营业执照等相关信息;</li>
+	                </ul>
+	                <h3>积分奖励</h3>
+	                <ul>
+	                    <li>享受自己消费,商家让利额10倍贡融积分奖励;</li>
+	                    <li>直接分享会员消费让利10%的贡融积分奖励;</li>
+	                    <li>间接分享会员消费让利额10%的贡融积分奖励;</li>
+	                    <li>直接分享商家让利额10%的贡融积分奖励;</li>
+	                    <li>间接分享商家让利额10%的贡融积分奖励;</li>
+	                </ul>
+	                <h3>积分奖励</h3>
+	                <ul>
+	                    <li>分享增值商家入驻100元现金奖励</li>
+	                </ul>
 									<p>申请正在处理中...</p>
 								</div>
-                <router-link :to="{ path: '/OrdinaryBusiness' }" tag="button" class='MyBtn'>申请成为普通商家</router-link>
             </div>
-            <div class='BottomContent'  v-show="type==3?true:false">
-                 <h2>增值商家相关权益</h2>
-                 <h3>入驻要求</h3>
-                 <ul>
-                    <li>年服务费998元/年;</li>                   
-                    <li>提供身份证,营业执照等相关信息;</li>
-                    <li>提供商家管理者身份认证;</li>
-                </ul>
-                 <h3>积分奖励</h3>
-                 <ul>
-                    <li>享受自身让利额2倍的贡融积分奖励;</li>
-                    <li>享受自己消费,商家让利额10倍贡融积分奖励;</li>
-                    <li>直接分享会员消费让利10%的贡融积分奖励;</li>
-                    <li>间接分享会员消费让利额10%的贡融积分奖励;</li>
-                    <li>直接分享商家让利额10%的贡融积分奖励;</li>
-                    <li>间接分享商家让利额10%的贡融积分奖励;</li>
-                </ul>
-                 <h3>积分奖励</h3>
-                 <ul>
-                    <li>分享增值商家入驻100元现金奖励</li>
-                </ul>
+            <div class='BottomContent' v-show="type==1?false:true" v-bind:hidden="type==5?true:false">
+                 <div v-show="type==3?true:false">
+	                 	<h2>增值商家相关权益</h2>
+	                 <h3>入驻要求</h3>
+	                 <ul>
+	                    <li>年服务费998元/年;</li>                   
+	                    <li>提供身份证,营业执照等相关信息;</li>
+	                    <li>提供商家管理者身份认证;</li>
+	                </ul>
+	                 <h3>积分奖励</h3>
+	                 <ul>
+	                    <li>享受自身让利额2倍的贡融积分奖励;</li>
+	                    <li>享受自己消费,商家让利额10倍贡融积分奖励;</li>
+	                    <li>直接分享会员消费让利10%的贡融积分奖励;</li>
+	                    <li>间接分享会员消费让利额10%的贡融积分奖励;</li>
+	                    <li>直接分享商家让利额10%的贡融积分奖励;</li>
+	                    <li>间接分享商家让利额10%的贡融积分奖励;</li>
+	                </ul>
+	                 <h3>积分奖励</h3>
+	                 <ul>
+	                    <li>分享增值商家入驻100元现金奖励</li>
+	                </ul>
+	                <router-link :to="{ path: '/Appreciation' }" tag="button" class='MyBtn'>申请成为增值商家</router-link>
+                 </div>
              		<div class="msg" v-show="type==4?true:false">
+             			<h2>增值商家相关权益</h2>
+	                 <h3>入驻要求</h3>
+	                 <ul>
+	                    <li>年服务费998元/年;</li>                   
+	                    <li>提供身份证,营业执照等相关信息;</li>
+	                    <li>提供商家管理者身份认证;</li>
+	                </ul>
+	                 <h3>积分奖励</h3>
+	                 <ul>
+	                    <li>享受自身让利额2倍的贡融积分奖励;</li>
+	                    <li>享受自己消费,商家让利额10倍贡融积分奖励;</li>
+	                    <li>直接分享会员消费让利10%的贡融积分奖励;</li>
+	                    <li>间接分享会员消费让利额10%的贡融积分奖励;</li>
+	                    <li>直接分享商家让利额10%的贡融积分奖励;</li>
+	                    <li>间接分享商家让利额10%的贡融积分奖励;</li>
+	                </ul>
+	                 <h3>积分奖励</h3>
+	                 <ul>
+	                    <li>分享增值商家入驻100元现金奖励</li>
+	                </ul>
 									<p>申请正在处理中...</p>
 								</div>
-                     <router-link :to="{ path: '/Appreciation' }" tag="button" class='MyBtn'>申请成为增值商家</router-link>
             </div>
-            <div class='BottomContent'  v-show="type==5?true:false">
+            <div class='BottomContent'  v-show="type==5?true:false" v-bind:hidden="type==1?true:false">
                  <h2>服务商相关权益</h2>
                  <h3>入驻要求</h3>
                  <ul>
-                    <li>年服务费998元/年;</li>                   
+                    <li>年服务费20000元/年;</li>                   
                     <li>提供身份证,营业执照等相关信息;</li>
                     <li>提供商家管理者身份认证;</li>
                 </ul>
@@ -133,6 +173,7 @@ export default {
       this.AppreciationPage = true;
     },
     back() {
+//  	this.$router.push("/Mine");
       var val = {
         func: "closeCurrent",
         param: {}
@@ -168,20 +209,21 @@ export default {
 	left: 0;
 	top: 8%;
 	z-index: 9;
+	padding: 0.2rem 4%;
 }
 	
 .msg p{
 	width: 80%;
-	height: 15%;
+	height: 18%;
 	background: #fff;
 	position: absolute;
-	left: 10%;
-	top: 40%;
+	left: 6%;
+	top: 45%;
 	z-index: 10;
 	font-size: 0.3rem;
 	border-radius: 0.1rem;
 	text-align: center;
-	line-height: 500%;
+	line-height: 600%;
 }
 .SellerCenter {
   width: 100%;
