@@ -15,27 +15,32 @@
 
         <div class='content'>
             <div class='TopContent'>
-                <h2>普通商家相关权益</h2>
-                <h3>入驻要求</h3>
-                <ul>
-                    <li>年服务费0元;</li>
-                    <li>提供身份证,营业执照等相关信息;</li>
-                </ul>
-                <h3>积分奖励</h3>
-                <ul>
-                    <li>享受自己消费,商家让利额10倍贡融积分奖励;</li>
-                    <li>直接分享会员消费让利10%的贡融积分奖励;</li>
-                    <li>间接分享会员消费让利额10%的贡融积分奖励;</li>
-                    <li>直接分享商家让利额10%的贡融积分奖励;</li>
-                    <li>间接分享商家让利额10%的贡融积分奖励;</li>
-                </ul>
-                <h3>积分奖励</h3>
-                <ul>
-                    <li>分享增值商家入驻100元现金奖励</li>
-                </ul>
+                <div  v-show="type==1?true:false">
+                	<h2>普通商家相关权益</h2>
+	                <h3>入驻要求</h3>
+	                <ul>
+	                    <li>年服务费0元;</li>
+	                    <li>提供身份证,营业执照等相关信息;</li>
+	                </ul>
+	                <h3>积分奖励</h3>
+	                <ul>
+	                    <li>享受自己消费,商家让利额10倍贡融积分奖励;</li>
+	                    <li>直接分享会员消费让利10%的贡融积分奖励;</li>
+	                    <li>间接分享会员消费让利额10%的贡融积分奖励;</li>
+	                    <li>直接分享商家让利额10%的贡融积分奖励;</li>
+	                    <li>间接分享商家让利额10%的贡融积分奖励;</li>
+	                </ul>
+	                <h3>积分奖励</h3>
+	                <ul>
+	                    <li>分享增值商家入驻100元现金奖励</li>
+	                </ul>
+                </div>
+                <div class="msg" v-show="type==2?true:false">
+									<p>申请正在处理中...</p>
+								</div>
                 <router-link :to="{ path: '/OrdinaryBusiness' }" tag="button" class='MyBtn'>申请成为普通商家</router-link>
             </div>
-            <div class='BottomContent'>
+            <div class='BottomContent'  v-show="type==3?true:false">
                  <h2>增值商家相关权益</h2>
                  <h3>入驻要求</h3>
                  <ul>
@@ -56,11 +61,34 @@
                  <ul>
                     <li>分享增值商家入驻100元现金奖励</li>
                 </ul>
-
+                <div class="msg" v-show="type==4?true:false">
+									<p>申请正在处理中...</p>
+								</div>
                      <router-link :to="{ path: '/Appreciation' }" tag="button" class='MyBtn'>申请成为增值商家</router-link>
             </div>
+            <div class='BottomContent'  v-show="type==5?true:false">
+                 <h2>服务商相关权益</h2>
+                 <h3>入驻要求</h3>
+                 <ul>
+                    <li>年服务费998元/年;</li>                   
+                    <li>提供身份证,营业执照等相关信息;</li>
+                    <li>提供商家管理者身份认证;</li>
+                </ul>
+                 <h3>积分奖励</h3>
+                 <ul>
+                    <li>享受自身让利额2倍的贡融积分奖励;</li>
+                    <li>享受自己消费,商家让利额10倍贡融积分奖励;</li>
+                    <li>直接分享会员消费让利10%的贡融积分奖励;</li>
+                    <li>间接分享会员消费让利额10%的贡融积分奖励;</li>
+                    <li>直接分享商家让利额10%的贡融积分奖励;</li>
+                    <li>间接分享商家让利额10%的贡融积分奖励;</li>
+                </ul>
+                 <h3>积分奖励</h3>
+                 <ul>
+                    <li>分享增值商家入驻100元现金奖励</li>
+                </ul>
+            </div>
         </div>
-
 
          <!-- 申请成为普通商家 -->
             <mt-popup
@@ -88,7 +116,9 @@ export default {
   data() {
     return {
       OrdinaryBusinessPage: false,
-      AppreciationPage: false
+      AppreciationPage: false,
+      type:"",
+      
     };
   },
   methods: {
@@ -119,11 +149,39 @@ export default {
   components: {
     OrdinaryBusiness,
     Appreciation
+  },
+  created(){
+  	this.type = this.$route.params.type;
+		console.log(this.type);
+  	
   }
 };
 </script>
 
 <style scoped>
+.msg{
+	width: 100%;
+	height: 92%;
+	background: rgba(0,0,0,0.3);
+	position: absolute;
+	left: 0;
+	top: 8%;
+	z-index: 9;
+}
+	
+.msg p{
+	width: 80%;
+	height: 15%;
+	background: #fff;
+	position: absolute;
+	left: 10%;
+	top: 40%;
+	z-index: 10;
+	font-size: 0.3rem;
+	border-radius: 0.1rem;
+	text-align: center;
+	line-height: 500%;
+}
 .SellerCenter {
   width: 100%;
   height: 100%;
@@ -139,7 +197,7 @@ header {
   width: 100%;
   background: #fff;
   color: #2f2f2f;
-  height: 0.94rem;
+  height: 8%;
   font-size: 0.32rem;
   border-bottom: 1px solid #e7e7e7;
 }
