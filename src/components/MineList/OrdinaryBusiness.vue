@@ -208,7 +208,7 @@ export default {
         name: shopname
       };
       console.log(data);
-      this.$axios
+      post.$axios
           .get("user/api/mercuries/uploadMercuryImages",data)
           .then(function(res) {
             console.log(res);
