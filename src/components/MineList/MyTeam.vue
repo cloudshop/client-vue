@@ -18,7 +18,7 @@
                         <dt></dt>
                         <dd>
                             <h3>普通商户</h3>
-                            <p></p>
+                            <p>{{iphone}}</p>
                         </dd>
                     </dl>
                     <p></p>
@@ -64,6 +64,7 @@ export default {
       .catch(function(error) {
         console.log(error);
       });
+     this.iphone=document.cookie.split(";")[1].split("=")[1]; 
 
     if (this.$store.getters.isAuthed !== true) {
       this.flag = true;
