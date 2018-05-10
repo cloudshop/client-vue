@@ -7,7 +7,7 @@
                     <mt-button icon="back"></mt-button>
                    </button>
               </a>
-            </div> 
+            </div>
              <h1 class="mint-header-title">登录</h1>
            <div class="mint-header-button is-right" @click='register' >注册</div>
         </header>
@@ -47,7 +47,7 @@ export default {
   },
   methods: {
     created() {
-     
+
     },
     register() {
       this.$router.push({ name: "Register" });
@@ -103,12 +103,12 @@ export default {
         var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
         if(isiOS){
                       window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-                  }else if(isAndroid){  
+                  }else if(isAndroid){
                       window.androidObject.JSCallAndroid(JSON.stringify(val));
                   }
         })
     },
-   
+
     setDeviceId(registrationID){
       this.registrationID = registrationID
     }

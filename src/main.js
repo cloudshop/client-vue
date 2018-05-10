@@ -4,7 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import './init/css/reset.css'
-import axios  from  './helpers/client' 
+import axios  from  './helpers/client'
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import ElementUI from 'element-ui'
@@ -23,8 +23,8 @@ Vue.use(ElementUI)
 import Vuex from 'vuex'
 Vue.use(Vuex)
 
-import storePlugin from './storePlugin'  
-Vue.use(storePlugin)  
+import storePlugin from './storePlugin'
+Vue.use(storePlugin)
 
 Vue.config.productionTip = false;
 axios.defaults.withCredentials=false;
