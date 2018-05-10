@@ -13,7 +13,7 @@
     <mt-tab-container-item id="1">
       <mt-cell>
         <div class="details_banner">
-          <img src="../../assets/HomePage/bg.gif" alt="">
+          <img :src="data.productContent.url[0]" alt="">
         </div>
         <div class="details_cantent">
           <h4> {{data.productContent.productname}}</h4>
