@@ -1,9 +1,8 @@
 <html>
 
 <head>
-  <script src="./style/js/json.js"></script>
   <script>
-    localStorage.setItem('token', 'test token')
+    localStorage.setItem('token', {'access_token': 'test token', 'refresh_token': 'test refresh token'})
 
     function loadToken() {
       token = localStorage.getItem('token');
@@ -15,13 +14,9 @@
         let token = JSON.parse(tokenJson);
         localStorage.setItem('token', token);
 
-        alert("set token".concat(token))
+        alert("set token ok")
       }
     }
-
-    alert(loadToken ());
-    saveToken ("asdasdasd");
-
   </script>
 </head>
 
