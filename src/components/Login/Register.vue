@@ -1,5 +1,4 @@
 <template>
-
   <div class="registers">
       <header class="mint-header">
            <div class="mint-header-button is-left">
@@ -375,3 +374,4 @@ input::-webkit-input-placeholder{
   border:0;
 }
 </style>
+
