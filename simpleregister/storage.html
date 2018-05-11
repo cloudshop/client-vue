@@ -2,21 +2,18 @@
 
 <head>
   <script>
-    localStorage.setItem('token', {'access_token': 'test token', 'refresh_token': 'test refresh token'})
+    localStorage.setItem('token', 'test token')
 
     function loadToken() {
       token = localStorage.getItem('token');
-      return JSON.stringify(token);
+      return token;
     }
 
     function saveToken(tokenJson) {
-      if (tokenJson !== null) {
-        let token = JSON.parse(tokenJson);
-        localStorage.setItem('token', token);
-
-        alert("set token ok")
-      }
+        localStorage.setItem('token', tokenJson);
+        alert(tokenJson)
     }
+
   </script>
 </head>
 
