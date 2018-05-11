@@ -93,10 +93,6 @@ export default {
           console.log(error);
         });
     },
-    dumpLocalStorageToJSON : function()
-    {
-        alert('dumpLocalStorageToJSON')
-    }
     news() {
       var val = {
         func: "openURL",
