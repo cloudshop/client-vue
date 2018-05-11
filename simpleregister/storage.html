@@ -14,6 +14,8 @@
       if (tokenJson !== null) {
         let token = JSON.parse(tokenJson);
         localStorage.setItem('token', token);
+
+        alert("set token".concat(tokenJson))
       }
     }
 
