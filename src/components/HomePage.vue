@@ -199,7 +199,7 @@ export default {
   mounted: function() {
     window.GeographicalLocation = this.GeographicalLocation();
     window.Camera = this.Camera;
-
+    window.dumpLocalStorageToJSON = this.dumpLocalStorageToJSON;
     // 轮播图
     var that = this;
     this.$axios
