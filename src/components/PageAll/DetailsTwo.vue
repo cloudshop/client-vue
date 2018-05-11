@@ -24,10 +24,10 @@
                         <div class="tabCon_main_right_all">
                             <p>￥{{item.listPrice}}</p>
                             <p class="tabCon_main_right_all_img"><img v-for="(item,index) in item.liststart" :key="index" src="../../assets/PageAll/星星选中.png" alt=""></p>
-                            <p>送贡融积分 10</p>
+                            <!-- <p>送贡融积分 10</p> -->
                         </div>
-                        <span class="tabCon_main_right_span">贡融券可抵扣 ￥10.00</span>
-                        <span class="tabCon_main_right_span">贡融积分可抵扣 ￥5.00</span>
+                        <!-- <span class="tabCon_main_right_span">贡融券可抵扣 ￥10.00</span>
+                        <span class="tabCon_main_right_span">贡融积分可抵扣 ￥5.00</span> -->
                     </div>
                 </div>
             </div>
