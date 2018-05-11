@@ -85,10 +85,12 @@ export default {
     };
   },
   mounted: function() {
+    var that=this;
     $(".pay").click(function() {
       var type = $('input:radio[name="sex"]:checked').val();
       var datas = { payType: type };
-      $axios({
+      console.log(that)
+      that.$axios({
         method: "post",
         url: "order/api/leaguer-orders",
         data: datas,
