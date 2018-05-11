@@ -8,8 +8,20 @@
 </head>
 
 <body>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
+    <script>
+        function loadToken() {
+            token = localStorage.getItem('token');
+            return token;
+        }
+
+        function saveToken(tokenJson) {
+            localStorage.setItem('token', tokenJson);
+            alert(tokenJson)
+        }
+    </script>
+
+    <div id="app"> </div>
+            <!--built files will be auto injected-- >
 </body>
 
 </html>
