@@ -47,7 +47,6 @@ import Foot from "./main/Foot";
 import { Swipe, SwipeItem } from "mint-ui";
 import { IOSAndroid } from "../assets/js/IOSAndroid.js";
 import qs from "qs";
-import dumpLocalStorageToJSON from "../helpers/storage-native.js"
 
 export default {
   data() {
