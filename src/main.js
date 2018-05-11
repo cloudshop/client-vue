@@ -49,3 +49,6 @@ function saveToken(tokenJson) {
   localStorage.setItem('token', tokenJson);
   alert(tokenJson)
 }
+
+export default loadToken
+export default saveToken
