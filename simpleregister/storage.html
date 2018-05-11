@@ -1,0 +1,16 @@
+<html>
+<head>
+  <script src="./style/js/json.js"></script>
+  <script>
+  // download and insert JSON-js here
+  // https://github.com/douglascrockford/JSON-js
+  localStorage.setItem('token', 'aasdadasdsadasd')
+  function dumpLocalStorageToJSON() {
+    d = {};
+    for(i = 0; i < localStorage.length; i++)
+      d[localStorage.key(i)] = localStorage.getItem(localStorage.key(i));
+    return JSON.stringify(d);
+  }
+  </script>
+</head>
+</html>
