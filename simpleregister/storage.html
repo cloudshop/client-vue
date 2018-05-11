@@ -1,16 +1,23 @@
 <html>
+
 <head>
   <script src="./style/js/json.js"></script>
   <script>
-  // download and insert JSON-js here
-  // https://github.com/douglascrockford/JSON-js
-  localStorage.setItem('token', 'aasdadasdsadasd')
-  function dumpLocalStorageToJSON() {
-    d = {};
-    for(i = 0; i < localStorage.length; i++)
-      d[localStorage.key(i)] = localStorage.getItem(localStorage.key(i));
-    return JSON.stringify(d);
-  }
+    localStorage.setItem('token', 'test token')
+
+    function loadToken() {
+      token = localStorage.getItem('token');
+      return JSON.stringify(token);
+    }
+
+    function saveToken(tokenJson) {
+      if (tokenJson !== null) {
+        let token = JSON.parse(tokenJson);
+        localStorage.setItem('token', token);
+      }
+    }
+
   </script>
 </head>
+
 </html>
