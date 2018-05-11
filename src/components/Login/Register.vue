@@ -1,4 +1,5 @@
 <template>
+
   <div class="registers">
       <header class="mint-header">
            <div class="mint-header-button is-left">
@@ -14,7 +15,7 @@
     <div class="register_main">
       <div class="iphone">
         <p>+86 <span>∨</span></p>
-        <input type="text" placeholder="请输入手机号" id="mytest"  v-model="phone">
+        <input type="text" placeholder="请输入手机号" id="mytest"  v-model="phone"  @blur="upperCase">
         <div class="iphones"><span class="one">|</span><button class="iphone_btn"  id='iphone_btn' @click='gain(".iphone_btn")'>获取验证码</button></div>
       </div>
 
@@ -29,13 +30,13 @@
       </div>
         <div class="apps">
             <div class="inputs">
-            <input type="checkbox" id="tonglian" class="checkboxs"  value="通联" name="sex"  v-model="yesIdo" @click="checkChange">
-            <label for="tonglian"></label>
+            <input type="button" id="tonglian" class="checkboxs"  value="通联" name="sex"  v-model="yesIdo" @click="checkChange">
+            <!-- <label for="tonglian"></label> -->
             </div>
-            <p class="yes">我已同意<router-link to="/Agreement" class="xy">《贡融积分会员注册协议》</router-link></p>
+            <p class="yes">我已经同意<router-link to="/Agreement" class="xy">《贡融积分会员注册协议》</router-link></p>
         </div>
       <div class="next">      
-        <input type='button' class="next_btn" @click="next" value='下一步' >
+        <input type='button' class="next_btn" @click="next" value='下一步' :disabled="!phone || !authCode">
       </div>
       
     </div>
@@ -43,6 +44,8 @@
 </template>
 
 <script>
+import * as types from '../../store/types'
+
 export default {
     data(){
       return{
@@ -55,103 +58,110 @@ export default {
     methods:{
       checkChange(){
         this.yesIdo = !this.yesIdo;
+        if(this.yesIdo == true){
+          $('#tonglian').addClass('Color')
+        }else{
+          $('#tonglian').removeClass('Color')
+        }
+      },
+      upperCase() {
+        var theinput = document.getElementById("mytest").value;
+        console.log(theinput)
+        var p1 = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;
+        var p2 = /^[\^\\%@&\*~'\?\/\<\>\|\"`]+$/;
+        //(p1.test(theinput));
+        if (p1.test(theinput) == false) {
+          alert("请填写正确电话号码!!");
+          document.getElementById("mytest").value = "";
+        } else {
+          console.log("succeess");
+          this.iphoneYN = true;
+        }
       },
       next(){
-          var recommend=document.getElementById("recommend").value; 
-          var authCode=document.getElementById("authCode").value; 
-          var p1=/^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;
-          setCookie('authCode',authCode,1000*60) 
-          var that = this;
-          if(recommend != ''){
-            if(p1.test(recommend) == true) {
-              if(this.yesIdo == true){
-                $.ajax({
-                  url:'http://cloud.eyun.online:9080/verify/api/verify/smsvalidate?'+'phone='+this.phone+'&smsCode='+this.authCode,
-                  method:'get',
-                  callback:'cb',
-                  success:function(res){
-                    if(res.message == 'success'){
-                      that.$router.push({path:'/SetPsd'})
-                    }else{
-                      alert(res.content)
-                    }
-                  },  
-                  error(res){
-                    alert(res.responseJSON.title)
-                  }
-                })
-               }else{
-                  alert('您是否同意贡融积分会员注册协议')
-               }
-            }
-            else{
-              alert('推荐人手机填写错误')
-            }
-          }
-          else{
+        var recommend=document.getElementById("recommend").value; 
+        var authCode=document.getElementById("authCode").value; 
+        var p1=/^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;
+        this.$store.commit(types.VERIFY_CODE,authCode) 
+        var that = this;
+        if(recommend != ''){
+          if(p1.test(recommend) == true) {
             if(this.yesIdo == true){
-               $.ajax({
-                url:'http://cloud.eyun.online:9080/verify/api/verify/smsvalidate?'+'phone='+this.phone+'&smsCode='+this.authCode,
-                method:'get',
-                callback:'cb',
-                success:function(res){
-                  if(res.message == 'success'){
+              this.$axios.get('verify/api/verify/smsvalidate?'+'phone='+this.phone+'&smsCode='+this.authCode)
+              .then(function(res) {
+                  if(res.message == 'success' || res.data.message == 'success'){
                     that.$router.push({path:'/SetPsd'})
                   }else{
                     alert(res.content)
                   }
-                },  
-                error(res){
-                  alert(res.responseJSON.title)
-                }
               })
-            }else{
-               alert('您是否同意贡融积分会员注册协议')
-            }
+              .catch(function(error) {
+                   alert(error.response.data.title)
+              })
+              }else{
+                alert('您是否同意贡融积分会员注册协议')
+              }
           }
+          else{
+            alert('推荐人手机填写错误')
+          }
+        }
+        else{
+          if(this.yesIdo == true){
+            this.$axios.get('verify/api/verify/smsvalidate?'+'phone='+this.phone+'&smsCode='+this.authCode)
+            .then(function(res) {
+                if(res.message == 'success' || res.data.message == 'success'){
+                  that.$router.push({path:'/SetPsd'})
+                }else{
+                  alert(res.content)
+                }
+            })
+            .catch(function(error) {
+                 alert(error.response.data.title)
+            })
+          }else{
+              alert('您是否同意贡融积分会员注册协议')
+          }
+        }
       },
       gain(obj){
-          var theinput=document.getElementById("mytest").value; 
-          setCookie('iphone',theinput,1000*60)
-          var p1=/^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/; 
-          if(p1.test(theinput) != false) { 
-            $.ajax({
-              url:'http://cloud.eyun.online:9080/verify/api/verify/smscode?phone='+this.phone,
-              method:'get',
-              callback:'cb',
-              success:function(res){
-                var countdown=60;
-                settime(obj);
-                function settime(obj) {
-                    if (countdown == 0) {
-                        $(obj).attr("disabled",false);
-                        $(obj).text("获取验证码");
-                        countdown = 60;
-                        return;
-                    } else {
-                        $(obj).attr("disabled",true);
-                        $(obj).text(countdown + " s 重新发送");
-                        countdown--;
-                    }
-                      setTimeout(function() {
-                        settime(obj) 
-                      }
-                    ,1000)
-                  }
-              },  
-              error(res){
-                alert(res.responseJSON.title)
+        var theinput=document.getElementById("mytest").value; 
+        this.$store.commit(types.USERPHONE,theinput)
+        var p1=/^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/; 
+        if(p1.test(theinput) != false) { 
+          this.$axios.get('verify/api/verify/smscode?phone='+this.phone)
+          .then(function(res) {
+            var countdown=60;
+            settime(obj);
+            function settime(obj) {
+            if (countdown == 0) {
+                $(obj).attr("disabled",false);
+                $(obj).text("获取验证码");
+                countdown = 60;
+                return;
+            } else {
+                $(obj).attr("disabled",true);
+                $(obj).text(countdown + " s 重新发送");
+                countdown--;
+            }
+              setTimeout(function() {
+                settime(obj) 
               }
-            })
-          }else {
-            alert('请填写正确手机号！'); 
-            document.getElementById("mytest").value="";
-          }
+            ,1000)
+            }
+          })
+          .catch(function(error) {
+              alert(error.response.data.title)
+          })
+        }else {
+          alert('请填写正确手机号！'); 
+          document.getElementById("mytest").value="";
+        }
       }
     },
     mounted:function () {
         $('input').on('keyup',function(){
-             if($('#mytest').val().length>=1 && $('#authCode').val().length>=1){
+             if($('#mytest').val().length>=1 && $('#authCode').val().length !== 0){
                 $('.next_btn').addClass('Color')         
              }else{
                 $('.next_btn').removeClass('Color')  
@@ -165,6 +175,14 @@ export default {
 </script>
 
 <style scoped>
+.checkboxs{
+  border-radius: 60%;
+  height: 50%;
+  border:none;
+  margin-top: .05rem;
+  font-size: 0;
+  background: #ccc
+}
 .Color{
     background:red!important;
 }
@@ -178,6 +196,7 @@ export default {
       width: 100%;
       height: .40rem;
       display: flex;
+      margin-top: .2rem;
   }
   .inputs {
       width: 0.32rem;
@@ -187,37 +206,34 @@ export default {
       position: relative;
   }
   .inputs .checkboxs {
-      width: 80%;
-      height: 80%;
+      width: 65%;
+      height: 65%;
       position: absolute;
-      opacity: 0;
   }
   .apps .yes{
       height: .40rem;
-      text-indent: .2rem;
+      text-indent: .21rem;
       font-size: .28rem;
-      padding-top: .1rem;
   }
-  input[type="checkbox"] + label::before {
+  /* input[type="checkbox"] + label::before {
       box-sizing: border-box;
-      content: " "; /*不换行空格*/
+      content: " ";
       display: inline-block;
       vertical-align: middle;
-      width: 1.2em; 
-      height: 1.2em;
+      width: 1.8em; 
+      height: 1.8em;
       background: url("../../assets/manage/change_no.png");
       background-size: 100% 100%;
       border-radius: 50%;
-      margin-top: .11rem
       }
   input[type="checkbox"]:checked + label::before {
-      /* background: red; */
       background: url("../../assets/manage/change.png");
       background-size: 100% 100%;
-  }
+  }*/
+  
   .xy{
       color: #ff0103
-  }
+  } 
 header{
     width:100%;
     background:#fff;
@@ -278,7 +294,6 @@ button{
   background: #fff;
 }
 .next_btn .iphone_btn{
-  /* width: 30%; */
   height: 100%;
   display: flex;
   font-size: .24rem;
@@ -286,7 +301,6 @@ button{
   border: none;
 }
 #iphone_btn{
-  /* width: 30%; */
   height: 100%;
   display: flex;
   font-size: .24rem;
@@ -346,7 +360,7 @@ input::-webkit-input-placeholder{
 .next{
   width: 100%;
   height: .96rem;
-  margin-top: .5rem;
+  margin-top: .2rem;
 }
 .next_btn{
   width: 100%;
@@ -359,6 +373,5 @@ input::-webkit-input-placeholder{
   background: #c4c4c4;
   border-radius: .08rem;
   border:0;
-  margin-top: 1rem;
 }
 </style>
