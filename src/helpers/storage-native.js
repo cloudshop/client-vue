@@ -4,3 +4,5 @@ function dumpLocalStorageToJSON() {
       d[localStorage.key(i)] = localStorage.getItem(localStorage.key(i));
     return JSON.stringify(d);
 }
+
+export default dumpLocalStorageToJSON;
