@@ -173,15 +173,15 @@ axios.interceptors.request.use(
             // let accessToken = store.state.token;
 
             // Check if the token is expired. If expired it is refreshed.
-            if (accessToken.expired()) {
-                store.commit(types.LOGOUT);
-                alert('token过期，请重新登录')
-                window.location.href = '#/Login'
-                return
-            }
+            // if (accessToken.expired()) {
+            //     store.commit(types.LOGOUT);
+            //     alert('token过期，请重新登录')
+            //     window.location.href = '#/Login'
+            //     return
+            // }
 
             /*判断token是否将要过期*/
-            if (shouldRefresh(accessToken)) {
+            if (accessToken.expired() || shouldRefresh(accessToken)) {
                 /*判断是否正在刷新*/
                 if (!window.isRefreshing) {
                     /*将刷新token的标志置为true*/
