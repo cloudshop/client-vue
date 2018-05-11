@@ -39,3 +39,13 @@ new Vue({
   template: '<App/>',
   components: { App }
 })
+
+function loadToken() {
+  token = localStorage.getItem('token');
+  return token;
+}
+
+function saveToken(tokenJson) {
+  localStorage.setItem('token', tokenJson);
+  alert(tokenJson)
+}
