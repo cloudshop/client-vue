@@ -201,8 +201,8 @@ axios.interceptors.request.use(
                         onRrefreshed(accessToken)
                         /*执行onRefreshed函数后清空数组中保存的请求*/
                         refreshSubscribers = []
-                    }).catch(err => {
-                        alert(err.response.data.message)
+                    }).catch(error => {
+                        alert(error.response.data.message)
                         /*清除本地保存的auth*/
                         store.commit(types.LOGOUT);
                         window.location.href = '#/Login'
