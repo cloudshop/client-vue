@@ -82,7 +82,7 @@ export default {
             "param": {
               "finallyIndex": "1",
               "refreshAll": true,
-              "removeToken":ture
+              "removeToken":true
             }
           };
           var u = navigator.userAgent;
