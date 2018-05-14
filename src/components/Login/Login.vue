@@ -96,7 +96,7 @@ export default {
       this.$store.dispatch(types.LOGIN, {username: this.PassName, password: this.PassWord, registrationID: this.registrationID}).then(() => {
         var  val={
         		"func":"closeCurrent",
-            "param":{'finallyIndex':'1','refreshAll':true},
+            "param":{'finallyIndex':'1','refreshAll':true,'tokenStr':'123213'},
         };
         var u = navigator.userAgent;
         var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
