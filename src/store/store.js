@@ -160,7 +160,9 @@ export default new Vuex.Store({
           "func": "closeCurrent",
           "param": {
             'finallyIndex': '1',
-            'refreshAll': true
+            'refreshAll': true,
+            'tokenStr':'我是雷神托尔'
+            
           },
         };
         var u = navigator.userAgent;
