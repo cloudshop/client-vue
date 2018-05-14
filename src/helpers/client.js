@@ -188,19 +188,23 @@ axios.interceptors.request.use(
                     window.isRefreshing = true
                     /*发起刷新token的请求*/
 
-                    accessToken.refresh({ username: store.getters.iphone, password: store.getters.password }, (error, result) => {
+                    accessToken.refresh({ username: store.getters.iphone, password: store.getters.password }, (result) => {
                         const accessToken = oauth2.accessToken.create(result.token)
-                        // store the token in global variable ??
-                        store.commit(types.LOGIN, result.token);
+                        if (result.status == 400) {
+                            store.commit(types.LOGOUT);
+                        } else {
+                            // store the token in global variable ??
+                            store.commit(types.LOGIN, result.token);
 
-                        /*将标志置为false*/
-                        window.isRefreshing = false
-                        /*成功刷新token*/
-                        config.headers.Authorization = store.getters.bearToken
-                        /*执行数组里的函数,重新发起被挂起的请求*/
-                        onRrefreshed(accessToken)
-                        /*执行onRefreshed函数后清空数组中保存的请求*/
-                        refreshSubscribers = []
+                            /*将标志置为false*/
+                            window.isRefreshing = false
+                            /*成功刷新token*/
+                            config.headers.Authorization = store.getters.bearToken
+                            /*执行数组里的函数,重新发起被挂起的请求*/
+                            onRrefreshed(accessToken)
+                            /*执行onRefreshed函数后清空数组中保存的请求*/
+                            refreshSubscribers = []
+                        }
                     }).catch(error => {
                         alert(error.response.data.message)
                         /*清除本地保存的auth*/
