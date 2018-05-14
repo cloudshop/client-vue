@@ -18,7 +18,7 @@
                 <div class="tabCon_main">
                   <div class="tabCon_main_top">
                       <p><span class="tabCom_mainImg"><img src="../../assets/PageAll/店铺.png" alt=""></span><span class="font">{{item.shopName}}</span></p>
-                      <p><span class="font2">{{status}}</span><span class="tabCom_mainImg"><img src="../../assets/PageAll/删除.png" alt=""></span></p>
+                      <p><span class="font2">{{status}}</span><span class="tabCom_mainImg" @click="userId"><img src="../../assets/PageAll/删除.png" alt=""></span></p>
                   </div>
                   <div class="tabCon_main_center" v-for='(data,ind) in item.proOrderItems' :key='ind'>
                       <div class="tabCon_main_centerImg"><img src="" alt=""></div>
@@ -42,10 +42,17 @@
                    <div class="tabCon_main_agin" v-show='success'>
                       <p>再次购买</p>
                   </div>
+                  <div class='mark' v-show='dele'>
+                    <div class="mark_">
+                        <p>确定删除此订单?</p>
+                        <div class="btn_all"><button class="no" @click='no'>取消</button><button class="sure" @click='sure(item.orderid)'>删除</button></div>
+                    </div>
+                  </div>
                 </div>
             </div>
         </div>
     </div>
+ 
   </div>
 </template>
   
@@ -57,6 +64,7 @@ export default {
             tabs: ["全部", "待付款","待收货","已完成","已取消"],
             arr:null,
             num: 0,
+            dele:false,
             flag: false, // 正常
             flag1: false, // 再次购买+晒单评价
             aginFlag:false, // 查看物流
@@ -71,6 +79,7 @@ export default {
         })
         .then(function(response) {
             that.arr = response.data;
+            console.log(response)
             response.data.map((v,i)=>{
                 if(v.status == 1){
                     that.status='未付款'
@@ -129,7 +138,7 @@ export default {
                     console.log(error);
                 });
             }
-              if(this.num == 2){
+            if(this.num == 2){
                 var that = this;
                 that.flag1=false; that.flag=false; that.success=false; that.aginFlag=true;
                 this.$axios({
@@ -171,6 +180,29 @@ export default {
                     console.log(error);
                 });
             }
+        },
+        // 删除
+        userId(userid){
+            this.dele = true;
+        },
+        no(){
+           this.dele=false;
+        },
+        sure(userid){
+            var that = this;
+            this.$axios({
+                method:'get',
+                url:'http://app.grjf365.com:9080/order/api/manage/deleteOrder/'+userid
+            })
+            .then(function(response) {
+                if(response.data==true){
+                    that.dele=false;
+                    location.reload()
+                }
+            })
+            .catch(function(error) {
+                alert(error);
+            });
         },
         close(){
             var  val={
@@ -437,5 +469,56 @@ export default {
 .tabCon_main_agin p:hover{
     color: #ff0103;
     border: 1px solid #ff0103
+}
+.mark{
+  position: absolute;
+  top:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,.5);
+}
+.mark_{
+  text-align:center;
+  font-size:.32rem;
+  position:fixed;
+  width: 6rem;
+  height: 2.3rem;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  margin:auto;
+  color:#ccc;
+  border-radius: .1rem;
+  background: #fff
+}
+.mark_ p{
+    padding: .71rem 0;
+    color: #2f2f2f;
+    font-weight: bold;
+}
+.mark_ .btn_all{
+    width: 100%;
+    height: .9rem;
+    bottom: 0;
+    border-radius: 0 0 .1rem .1rem;
+    display: flex;
+    border-top: 1px solid #ccc;
+}
+.btn_all .sure{
+    width: 50%;
+    height: 100%;
+    background: #ff0103;
+    border:none;
+    color: #fff;
+    font-size: .30rem;
+    border-radius: 0 0 .1rem 0;
+}
+.btn_all .no{
+    width: 50%;
+    height: 100%;
+    border:none;
+    font-size: .30rem;
+    border-radius: 0 0 0 .1rem;
 }
 </style>
