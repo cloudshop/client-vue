@@ -14,7 +14,7 @@
                    <dd>
                          <h2>{{arr.nickname}}</h2>
                          
-                         <p>{{arr.typeString}}</p>
+                         <p>{{usertype}}</p>
                    </dd>
                </dl>
               <span></span>
@@ -79,8 +79,7 @@
                                 <dt><img src="../assets/Mine/商户中心.png" alt=""></dt>
                                 <dd>商户中心</dd>
                             </dl>
-                            <!--<router-link :to="{ path: '/MyTeam' }" tag='dl'>-->
-                            <router-link :to="{ name: 'MyTeam',params:{tel:arr.phone} }" tag='dl'>
+                            <router-link :to="{ path: '/MyTeam' }" tag='dl'>
                             <dt><img src="../assets/Mine/我的团队.png" alt=""></dt>
                             <dd>我的团队</dd>
                           </router-link>
@@ -98,51 +97,72 @@
 </template>
 
 <script>
-import Foot from './main/Foot'
-import { Header, Popup } from 'mint-ui';
+import Foot from "./main/Foot";
+import { Header, Popup } from "mint-ui";
 export default {
-      data(){
-          return{  
-              arr:'null',
-              flag:false,
-              type:""
-          }
-          
-      },
-      created(){
-      var that =this;
-      console.log( this.$store.getters.isAuthed)
-      this.$store.getters.isAuthed !== true ? this.flag=true : this.flag=false;
-      this.$axios.get("user/api/user-annexes/userInfo")
+  data() {
+    return {
+      arr: "null",
+      flag: false,
+      type: "",
+      usertype:''
+    };
+  },
+  created() {
+    var that = this;
+    console.log(this.$store.getters.isAuthed);
+    this.$store.getters.isAuthed !== true
+      ? (this.flag = true)
+      : (this.flag = false);
+    this.$axios
+      .get("user/api/user-annexes/userInfo")
       .then(function(res) {
-         that.arr = res.data;
-        console.log(res.data)
-         that.type = res.data.type;
-        console.log(that.type);
+        that.arr = res.data;
+        console.log(res.data);
+        that.type = res.data.type;
+        var name = res.data.type;
+        var x;
+        switch (name) {
+          case 1:
+            x = "普通用户";
+            break;
+          case 2:
+            x = "增值用户";
+            break;
+          case 3:
+            x = "普通商户";
+            break;
+          case 4:
+            x = "增值商户";
+            break;
+          case 5:
+            x = "服务商";
+            break;
+        }
+        that.usertype = x
       })
       .catch(function(error) {
         console.log(error);
       });
-      },
-      
-      methods:{
-      logins:function(){ 
-            var  val={
-                  "func":"openURL",
-                  "param":{
-                        "URL":'/#/login'
-                  },
-            };
-            var u = navigator.userAgent;
-            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-            if(isiOS){           
-                  window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-            }else if(isAndroid){  
-                  window.androidObject.JSCallAndroid(JSON.stringify(val));
-            }
-       },
-       openorder() {
+  },
+  methods: {
+    logins: function() {
+      var val = {
+        func: "openURL",
+        param: {
+          URL: "/#/login"
+        }
+      };
+      var u = navigator.userAgent;
+      var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+      if (isiOS) {
+        window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+      } else if (isAndroid) {
+        window.androidObject.JSCallAndroid(JSON.stringify(val));
+      }
+    },
+    openorder() {
       var val = {
         func: "openURL",
         param: {
@@ -158,7 +178,7 @@ export default {
         window.androidObject.JSCallAndroid(JSON.stringify(val));
       }
     },
-    Information(){
+    Information() {
       var val = {
         func: "openURL",
         param: {
@@ -174,18 +194,18 @@ export default {
         window.androidObject.JSCallAndroid(JSON.stringify(val));
       }
     },
-    SellerCenter(){
-    	//   this.$router.push({
-//        name: 'SellerCenter',
-//        params: {
-//          type: this.type
-//        }
-//      })
-      var typeStr=this.type;
+    SellerCenter() {
+      //   this.$router.push({
+      //        name: 'SellerCenter',
+      //        params: {
+      //          type: this.type
+      //        }
+      //      })
+      var typeStr = this.type;
       var val = {
         func: "openURL",
         param: {
-          URL: "/#/SellerCenter?type="+typeStr
+          URL: "/#/SellerCenter?type=" + typeStr
         }
       };
       var u = navigator.userAgent;
@@ -196,218 +216,214 @@ export default {
       } else if (isAndroid) {
         window.androidObject.JSCallAndroid(JSON.stringify(val));
       }
-    },
-      },
-      components:{
-        Foot,
-      },
-}
+    }
+  },
+  components: {
+    Foot
+  }
+};
 </script>
 <style scoped>
-.mark{
+.mark {
   position: absolute;
-  top:0;
-  width:100%;
-  height:100%;
-  background:rgba(255, 255, 255,1);
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 1);
 }
-.mark img{
-  position:fixed;
-  top:-5rem;
-  left:0;
-  right:0;
-  bottom:0;
-  margin:auto;
+.mark img {
+  position: fixed;
+  top: -5rem;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
 }
-.mark p{
-  text-align:center;
-  margin-top:40%;
-  font-size:.32rem;
-   position:fixed;
-  top:40%;
-  left:0;
-  right:0;
-  bottom:0;
-  margin:auto;
-  color:#ccc;
+.mark p {
+  text-align: center;
+  margin-top: 40%;
+  font-size: 0.32rem;
+  position: fixed;
+  top: 40%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  color: #ccc;
 }
-.mark button{
-  margin-top:.2rem;
-  margin-left:20%;
-  width:60%;
-  height:.6rem;
-  font-size:.32rem;
-  border:0;
-  border-radius:.2rem;
-  background:#fff;
-  border:1px solid red;
-  color:#ff0103;
-  position:fixed;
-  top:0;
-  left:0;
-  right:0;
-  bottom:0;
-  margin:auto;
+.mark button {
+  margin-top: 0.2rem;
+  margin-left: 20%;
+  width: 60%;
+  height: 0.6rem;
+  font-size: 0.32rem;
+  border: 0;
+  border-radius: 0.2rem;
+  background: #fff;
+  border: 1px solid red;
+  color: #ff0103;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
 }
-.header{
-   width:100%;
-   height:1.92rem;
-   background:#ff5067;
-   display:flex;
-   justify-content:space-between;
-   align-items:center;
-   position: fixed;
-   top:0;
+.header {
+  width: 100%;
+  height: 1.92rem;
+  background: #ff5067;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
 }
-.header dl{
-   padding-left:.2rem;
-   display:flex;
-   margin-top:.4rem;
+.header dl {
+  padding-left: 0.2rem;
+  display: flex;
+  margin-top: 0.4rem;
 }
-.header dl dt{
-   width:.92rem;
-   height:.92rem;
-   border-radius:50%;
-   border:3px solid #ffffff;
+.header dl dt {
+  width: 0.92rem;
+  height: 0.92rem;
+  border-radius: 50%;
+  border: 3px solid #ffffff;
 }
-.header dl dt img{
-   width:.92rem;
-   height:.92rem;
-   border-radius:50%;
+.header dl dt img {
+  width: 0.92rem;
+  height: 0.92rem;
+  border-radius: 50%;
 }
-.header dl dd{
-   padding-left:.2rem;
+.header dl dd {
+  padding-left: 0.2rem;
 }
-.header dl dd h2{
-   font-size:.32rem;
-   color:#ffffff;
+.header dl dd h2 {
+  font-size: 0.32rem;
+  color: #ffffff;
 }
-.header dl dd p{
-   font-size:.24rem;
-   color:#fff;
-   padding-top:.4rem;
+.header dl dd p {
+  font-size: 0.24rem;
+  color: #fff;
+  padding-top: 0.4rem;
 }
-.header span{
-   width:.4rem;
-   height:.4rem;
-   margin-right:.15rem;
-   display:inline-block;
-   background:url(../assets/Mine/更多.png);
-   background-size:100% 100%;
-    margin-top:.4rem;
+.header span {
+  width: 0.4rem;
+  height: 0.4rem;
+  margin-right: 0.15rem;
+  display: inline-block;
+  background: url(../assets/Mine/更多.png);
+  background-size: 100% 100%;
+  margin-top: 0.4rem;
 }
-.header .headRight{
-      position: absolute;
-      right:.3rem;
-      top:.2rem;
-      display:flex;
+.header .headRight {
+  position: absolute;
+  right: 0.3rem;
+  top: 0.2rem;
+  display: flex;
 }
-.header .headRight P{
-     width:.5rem;
-     height:.5rem;  
+.header .headRight P {
+  width: 0.5rem;
+  height: 0.5rem;
 }
-.header .headRight p:first-child{
-      background:url('../assets/Mine/设置.png');
-      background-size:100% 100%;
-          margin-right:.24rem;
+.header .headRight p:first-child {
+  background: url("../assets/Mine/设置.png");
+  background-size: 100% 100%;
+  margin-right: 0.24rem;
 }
-.header .headRight p:last-child{
-      background:url('../assets/Mine/消息.png');
-      background-size:100% 100%;
+.header .headRight p:last-child {
+  background: url("../assets/Mine/消息.png");
+  background-size: 100% 100%;
 }
-.content{
-      background:#fff;
+.content {
+  background: #fff;
 }
-.main{
-   margin-top:1.92rem;
+.main {
+  margin-top: 1.92rem;
 }
-.main .nav{
-   display:flex;
-   height:1.61rem;
-   border-top:1px solid #e7e7e7;
+.main .nav {
+  display: flex;
+  height: 1.61rem;
+  border-top: 1px solid #e7e7e7;
 }
-.main .nav dl{
-   flex:1;
-   display:flex;
-   justify-content:center;
-   align-items:center;
-   flex-direction:column;
-   height:1.61rem;  
- 
+.main .nav dl {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 1.61rem;
 }
-.main .nav dl dt{
-   width: .5rem;
-   height:.5rem;  
+.main .nav dl dt {
+  width: 0.5rem;
+  height: 0.5rem;
 }
-.main .nav dl dt img{
-   width: .5rem;
-   height:.5rem;
+.main .nav dl dt img {
+  width: 0.5rem;
+  height: 0.5rem;
 }
-.main .nav dl dd{
-   font-size:.24rem;
-   color:#2f2f2f;
-   line-height: .45rem;
+.main .nav dl dd {
+  font-size: 0.24rem;
+  color: #2f2f2f;
+  line-height: 0.45rem;
 }
-.main .nav dl dd p{
-   text-align:center;      
+.main .nav dl dd p {
+  text-align: center;
 }
-.main .nav dl dd span{
-   display:block;
-   text-align:center;
-  
+.main .nav dl dd span {
+  display: block;
+  text-align: center;
 }
 .mainContent {
-      border-top:1px solid #e7e7e7;
-      margin:0 .4rem;
+  border-top: 1px solid #e7e7e7;
+  margin: 0 0.4rem;
 }
-.mainContent h2{
-      margin:.3rem 0;
-      font-size:.24rem;
-      color:#2f2f2f;
-      font-weight:bold;
+.mainContent h2 {
+  margin: 0.3rem 0;
+  font-size: 0.24rem;
+  color: #2f2f2f;
+  font-weight: bold;
 }
-.mainContent .list{
-     display:flex;
-     flex-wrap:wrap;
-     width:100%;
+.mainContent .list {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
 }
-.mainContent .list dl{
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      flex-direction:column;
-      width:25%;
-      
+.mainContent .list dl {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 25%;
 }
-.mainContent .list dl dt{
-      width:.5rem;
-      height:.5rem;
+.mainContent .list dl dt {
+  width: 0.5rem;
+  height: 0.5rem;
 }
-dl dt img{
-      width:.5rem;
-      height:.5rem;
+dl dt img {
+  width: 0.5rem;
+  height: 0.5rem;
 }
-.mainContent .list dl  dd{
-      color:#2f2f2f;
-      font-size:.24rem;
-      margin-top:.3rem;
+.mainContent .list dl dd {
+  color: #2f2f2f;
+  font-size: 0.24rem;
+  margin-top: 0.3rem;
 }
-.onLine{
-      display:flex;
+.onLine {
+  display: flex;
 }
-.mainContent .onlinelist{
-      width:25%;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-}
-
-.mainContent .onlinelist dd{
-       color:#2f2f2f;
-      font-size:.24rem;
-      margin-top:.25rem;
-      margin-bottom: .3rem;
+.mainContent .onlinelist {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
+.mainContent .onlinelist dd {
+  color: #2f2f2f;
+  font-size: 0.24rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.3rem;
+}
 </style>
