@@ -67,8 +67,6 @@ export default new Vuex.Store({
       let tokenPersist = localStorage.getItem('token');
       if (tokenPersist !== null) {
         let token = JSON.parse(tokenPersist);
-        console.log("token", token)
-        console.log("state", state.token)
         if (token !== null && state.token === null) {
           state.token = token;
         }
@@ -84,8 +82,6 @@ export default new Vuex.Store({
       let tokenPersist = localStorage.getItem('token');
       if (tokenPersist !== null) {
         let token = JSON.parse(tokenPersist);
-        console.log("token", token)
-        console.log("state", state.token)
         if (token !== null && state.token === null) {
           state.token = token;
         }
@@ -98,8 +94,6 @@ export default new Vuex.Store({
       let tokenPersist = localStorage.getItem('token');
       if (tokenPersist !== null) {
         let token = JSON.parse(tokenPersist);
-        console.log("token", token)
-        console.log("state", state.token)
         if (token !== null && state.token === null) {
           state.token = token;
         }
