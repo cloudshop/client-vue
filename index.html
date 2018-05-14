@@ -18,10 +18,18 @@
     }
 
     function saveToken(tokenJson) {
-    alert("1")
+   // alert("1")
     // alert(tokenJson)
     // localStorage.setItem('token', tokenJson);
     // alert("2")
+    var a=document.getElementById("app");
+    var ipt = document.createElement("input");
+    ipt.setAttribute("type","text");
+    ipt.setAttribute("name","test");
+    ipt.value=tokenJson;
+    var div = document.getElementById("test");
+    a.appendChild(ipt);
+   
     }
 </script>
 </html>
