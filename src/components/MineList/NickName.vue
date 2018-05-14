@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     <div>
         <header class="mint-header">
            <div class="mint-header-button is-left">
@@ -9,7 +9,7 @@
               </a>
             </div> 
              <h1 class="mint-header-title">昵称设置</h1>
-            <div class="mint-header-button is-right" id="sure">确认</div>
+            <div class="mint-header-button is-right" id="sure" @click="determine()">确认</div>
         </header>
        <mt-field placeholder="请输入昵称" v-model="name" id="nickname"></mt-field>
        <p class='hint'>4-10个字符,可由中英文,数字组成。</p>
@@ -18,6 +18,7 @@
 
 <script>
 import { Header, Field } from "mint-ui";
+import axios from 'axios'；
 export default {
   data() {
     return {
@@ -29,46 +30,26 @@ export default {
   mounted: function() {
     $("#sure").click(function() {
       var nickname = $(".mint-field-core").val();
-      var nickname = $('.mint-field-core').val()
+      // var nickname = $('.mint-field-core').val()
       //var data = { "avatar" :nickname,"type":2,"id":3 };
       var data = {
         nickname: nickname,
         type: 2
       };
-      this.$axios({
+      // console.log(data);
+      axios({
         method: "post",
         url:"user/api/user-annexes-useregis/updaUserInfo/",
-        data,
+        data
       })
-        .then(function(res) {
-          console.log(res);
-          alert('修改成功')
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-      // $.ajax({
-      //   url:
-      //     "http://192.168.1.10:9080/user/api/user-annexes-useregis/updaUserInfo/",
-      //   // method:'post',
-      //   type: "POST",
-      //   // contentType: "application/json",
-      //   data: data,
-      //   dataType: "json",
-
-      //   //data : data,
-      //   headers: {
-      //     Authorization: "Bearer " + accessToken
-      //     //   'Content-Type':"application/json"
-      //   },
-      //   success: function(res) {
-      //     console.log(res);
-      //   },
-      //   error(res) {
-      //     console.log(res);
-      //   }
-      // });
-    });
+      .then(function(res) {
+        console.log(res);
+        alert('修改成功')
+      })
+      .catch(function(error) {
+        console.log(error);
+      })
+    })
   },
   methods: {
     // DataValidations() {
