@@ -18,7 +18,7 @@
                         <dt></dt>
                         <dd>
                             <h3>普通商户</h3>
-                            <p>{{iphone}}</p>
+                            <p>{{this.$route.params.tel}}</p>
                         </dd>
                     </dl>
                     <p></p>
@@ -44,12 +44,12 @@
 export default {
   data() {
     return {
-      arr: "null",
+      arr: "",
       iphone:""
     };
   },
   created() {
-  	this.iphone=document.cookie.split(";")[1].split("=")[1]; 
+//   	this.iphone=document.cookie.split(";")[1].split("=")[1]; 
     var that = this;
     this.$axios
       .get(
