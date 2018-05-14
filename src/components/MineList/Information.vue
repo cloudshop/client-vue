@@ -81,7 +81,8 @@ export default {
             "func": "closeCurrent",
             "param": {
               "finallyIndex": "1",
-              "refreshAll": true
+              "refreshAll": true,
+              "removeToken":ture
             }
           };
           var u = navigator.userAgent;
