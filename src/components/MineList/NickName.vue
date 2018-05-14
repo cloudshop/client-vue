@@ -18,7 +18,7 @@
 
 <script>
 import { Header, Field } from "mint-ui";
-import axios from 'axios'；
+import axios from 'axios';
 export default {
   data() {
     return {
