@@ -482,7 +482,7 @@ export default {
   font-size:.32rem;
   position:fixed;
   width: 6rem;
-  height: 2.3rem;
+  height: 2.7rem;
   top:0;
   left:0;
   right:0;
@@ -507,7 +507,7 @@ export default {
 }
 .btn_all .sure{
     width: 50%;
-    height: 100%;
+    height: .9rem;
     background: #ff0103;
     border:none;
     color: #fff;
@@ -516,7 +516,7 @@ export default {
 }
 .btn_all .no{
     width: 50%;
-    height: 100%;
+    height: .9rem;
     border:none;
     font-size: .30rem;
     border-radius: 0 0 0 .1rem;
