@@ -9,13 +9,12 @@
               </a>
             </div> 
              <h1 class="mint-header-title">贡融券</h1>
-            <div class="mint-header-button is-right" ></div>
+            <div class="mint-header-button is-right"></div>
         </header>
         <div class='content'>
           <div class='banner'>
                   <p>贡融券</p>
                   <h2>{{arr.ticket}}</h2>
-                  <!--<h2>{{$route.params.num}}</h2>-->
           </div>
           <div class="main">
             <ul class='list' v-for="item in brr">
@@ -26,52 +25,52 @@
             </li>
           </ul>
           </div>
-      </div>
+        </div>
 
   </div>
-
 </template>
 
 <script>
-import { Header, Popup } from "mint-ui";
+import TouchBalance from "./TouchBalance";
 export default {
   data() {
     return {
       arr: "null",
-      brr: "null"
+      brr: "null",
+      time:[],
     };
   },
+
+
   created() {
     var that = this;
     this.$axios
-      .get("wallet/api/wallets/user", {})
+      .get("wallet/api/wallets/user")
       .then(function(res) {
-        //     console.log(res.data.balance)
         that.arr = res.data;
-        //      that.arr = res.data
-        //      console.log(arr)
       })
       .catch(function(error) {
         console.log(error);
       });
-
     this.$axios
-      .get("wallet/api/wallet/details/ticket?sort=createdTime%2Cdesc", {})
+      .get(
+        "wallet/api/wallet/details/ticket?sort=createdTime%2Cdesc"
+      )
       .then(function(res) {
         that.brr = res.data;
-        console.log(that.brr);
-        that.brr = that.brr.filter(item => {
+        console.log(that.brr)
+        that.brr = that.brr.filter((item)=>{
           // return item.createdTime=item.createdTime.replace(/[A-Z]*/g, "");
-          return (item.createdTime = item.createdTime
-            .substr(0, 19)
-            .replace("T", "    "));
-        });
+         return item.createdTime=item.createdTime.substr(0,19).replace('T', '    ');
+        }) 
       })
       .catch(function(error) {
         console.log(error);
       });
   },
-  methods: {}
+  methods: {
+    one: function() {}
+  }
 };
 </script>
 
@@ -83,7 +82,10 @@ header {
   height: 0.94rem;
   font-size: 0.32rem;
 }
-
+.is-right {
+  color: #0096ff;
+  font-size: 0.28rem;
+}
 .RemainingSum {
   width: 100%;
   height: 100%;
@@ -95,11 +97,16 @@ header {
   overflow: hidden;
   background: #f5f5f5;
 }
+.main{
+  padding-top: 3.7rem
+}
 .banner {
   background: url("../../assets/Mine/RemainingSum/bg.png");
   background-size: 100%;
   width: 100%;
   height: 3.7rem;
+  position: fixed;
+  top: .94rem
 }
 .banner p {
   text-align: center;
@@ -114,7 +121,6 @@ header {
   padding-top: 0.36rem;
 }
 .list li {
-  color: #929292;
   height: 1.44rem;
   border-bottom: 1px solid #dfdfdd;
 }
@@ -137,12 +143,27 @@ header {
 }
 .list li p:nth-child(2) b:nth-child(1) {
   font-size: 0.28rem;
-  color: #929292;
-  font-weight: normal;
+  color: #696969;
 }
 .list li p:nth-child(2) b:nth-child(2) {
   font-size: 0.32rem;
-  color: #ff0e00;
-  font-weight: normal;
+  color: #2f2f2f;
+}
+.footer {
+  height: 0.98rem;
+  display: flex;
+}
+.footer button {
+  width: 50%;
+  font-size: 0.32rem;
+  border: 0;
+}
+.footer button:first-child {
+  color: #1692e1;
+  background: #fff;
+}
+.footer button:last-child {
+  color: #fff;
+  background: #1692e1;
 }
 </style>
