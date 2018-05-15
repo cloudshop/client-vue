@@ -8,7 +8,7 @@
                    </router-link>
               </a>
             </div> 
-             <h1 class="mint-header-title">余额</h1>
+             <h1 class="mint-header-title">积分</h1>
             <div class="mint-header-button is-right"></div>
         </header>
         <div class='content'>
@@ -26,11 +26,6 @@
           </ul>
           </div>
         </div>
-
-        <footer class='footer'>
-          <button>转出</button>
-          <router-link :to="{ path: '/top' }" tag='button'>转入</router-link>
-        </footer>
 
   </div>
 </template>
