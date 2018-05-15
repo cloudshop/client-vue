@@ -84,7 +84,21 @@ export default {
             this.$axios.post('uaa/api/account/update-password',data)
             .then(function(response) {
               if(response.status == 200){
-                alert('修改成功')
+                alert('修改成功');
+                var  val={
+                  "func":"openURL",
+                  "param":{
+                      "URL":'/#/login'
+                  },
+                };
+                var u = navigator.userAgent;
+                var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+                var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+                if(isiOS){           
+                    window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+                }else if(isAndroid){   
+                  window.androidObject.JSCallAndroid(JSON.stringify(val));
+                }
               }
             })
             .catch(function(error) {
