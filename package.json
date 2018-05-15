@@ -23,11 +23,10 @@
     "mint-ui": "^2.2.13",
     "navigator": "^1.0.1",
     "simple-oauth2": "^1.5.2",
-    "smsapiappsss": "^0.0.1",
     "vue": "^2.5.2",
     "vue-auto-focus": "^1.0.0",
     "vue-router": "^3.0.1",
-    "xmlhttprequest": "^1.8.0"
+    "compression-webpack-plugin": "1.1.11"
   },
   "devDependencies": {
     "animate.css": "^3.6.1",
