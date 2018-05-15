@@ -27,7 +27,7 @@
         <p>设置密码<input type="password" class="input" id="setPassword" v-model="setPassword" ></p>
         <p class="yzm">确认密码<input type="password" class="input" id="affirmPassword" v-model="affirmPassword"></p>
           <div class="nexts">      
-            <input type='button' class="nexts_btn" disabled @click="next" value='下一步' >
+            <input type='button' class="nexts_btn"  @click="next" value='下一步' >
           </div>
       </div>
   </div>
@@ -89,7 +89,9 @@ export default {
             })
             .catch(function(error) {
               if(error.response.status === 500){
-                  alert('服务器繁忙，请耐心等待')
+                alert('服务器繁忙，请耐心等待')
+              }else{
+                alert(error.response.data.title)
               }
             });
         }
@@ -125,7 +127,9 @@ export default {
             })
             .catch(function(error) {
               if(error.response.status === 500){
-                  alert('服务器繁忙，请耐心等待')
+                alert('服务器繁忙，请耐心等待')
+              }else{
+                alert(error.response.data.title)
               }
             });
           }
