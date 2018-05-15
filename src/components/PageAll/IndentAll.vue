@@ -224,7 +224,7 @@ export default {
                 }
             })
             .catch(function(error) {
-                alert(error);
+                alert(error.response.data.title);
             });
         },
         receiving(){
@@ -241,7 +241,7 @@ export default {
                 }
             })
             .catch(function(error) {
-                alert(error);
+                alert(error.response.data.title);
             });
         },
         close(){
