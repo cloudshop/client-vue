@@ -4,7 +4,7 @@
     <div class="shopping_head">
         <div class="shopping_header">
             <p @click='close'>&lt;</p>
-            <p>全部订单</p>
+            <p @click="receiving">全部订单</p>
             <!-- <p><img src="../../assets/Classify/消息黑色.png" alt=""><span class="shopping_red">3</span></p> -->
             <p></p>
         </div>
@@ -37,8 +37,8 @@
                       <p @click='goPayNent(index)'>去付款</p>
                   </div>
                   <div class="tabCon_main_agin" v-show='aginFlag'>
-                      <p>查看物流</p>
-                      <p>确认收货</p>
+                      <p @click='logistics'>查看物流</p>
+                      <p >确认收货</p>
                   </div>
                    <div class="tabCon_main_agin" v-show='success'>
                       <p>再次购买</p>
@@ -69,7 +69,9 @@ export default {
             flag: false, // 正常
             flag1: false, // 再次购买+晒单评价
             aginFlag:false, // 查看物流
-            success:false // 已取消
+            success:false, // 已取消
+            shipingCode: '',
+            shippingName: ''
         }
     },
     created(){
@@ -135,7 +137,6 @@ export default {
                 })
                 .then(function(response) {
                    that.arr = response.data;
-                   console.log(response.data)
                 })
                 .catch(function(error) {
                     console.log(error);
@@ -149,7 +150,10 @@ export default {
                     url:'order/api/findDispatchItems/1/1'
                 })
                 .then(function(response) {
-                   that.arr = response.data;
+                    that.arr = response.data;
+                    that.shipingCode = response.data.shipingCode;
+                    that.shippingName = response.data.shippingName;
+                    that.orderNo = response.data.orderNo;
                 })
                 .catch(function(error) {
                     console.log(error);
@@ -191,11 +195,44 @@ export default {
         no(){
            this.dele=false;
         },
+        logistics(){
+            let that = this;
+            var  val={
+                "func":"checkLogistics",
+                "param":{'LogisticsNumber':that.shipingCode,'ogisticsCode':that.shippingName},
+            };
+            console.log(val)
+            var u = navigator.userAgent;
+            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+            if(isiOS){
+                window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+            }else if(isAndroid){  
+                window.androidObject.JSCallAndroid(JSON.stringify(val));
+            }
+        },
         sure(userid){
             var that = this;
             this.$axios({
                 method:'get',
                 url:'http://app.grjf365.com:9080/order/api/manage/deleteOrder/'+userid
+            })
+            .then(function(response) {
+                if(response.data==true){
+                    that.dele=false;
+                    location.reload()
+                }
+            })
+            .catch(function(error) {
+                alert(error);
+            });
+        },
+        receiving(){
+            let that = this;
+            console.log(that.orderNo)
+            this.$axios({
+                method:'get',
+                url:'order/api/ConfirmPro/'+that.orderNo
             })
             .then(function(response) {
                 if(response.data==true){
