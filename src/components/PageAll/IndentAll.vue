@@ -5,7 +5,8 @@
         <div class="shopping_header">
             <p @click='close'>&lt;</p>
             <p>全部订单</p>
-            <p><img src="../../assets/Classify/消息黑色.png" alt=""><span class="shopping_red">3</span></p>
+            <!-- <p><img src="../../assets/Classify/消息黑色.png" alt=""><span class="shopping_red">3</span></p> -->
+            <p></p>
         </div>
     </div>
     <ul class="indentAll_tab_ul">
@@ -82,7 +83,7 @@ export default {
             console.log(response)
             response.data.map((v,i)=>{
                 if(v.status == 1){
-                    that.status='未付款'
+                    that.status='未付款';
                     that.aginFlag=false; that.flag=false; that.success=false; that.flag1=true; // 去付款
                 }
                 if(v.status == 2){
@@ -106,12 +107,14 @@ export default {
         .catch(function(error) {
             console.log(error);
         });
+        
     },
     methods: {
         tab(index){
             this.num = index; 
             var that = this;
             if(this.num == 0){
+                location.reload();
                 this.$axios({
                     method:'get',
                     url:'order/api/findAllOrder/1/5'
@@ -281,6 +284,12 @@ export default {
             this.$router.push({name:"sunorder"})
         }
     },
+    mounted: function() {
+        $('.indentAll_tab_ul li').eq(0).addClass('actives')
+        $('.indentAll_tab_ul li').click(function(){
+            $(this).addClass('actives').siblings().removeClass('actives')
+        })
+    }
 }
 </script>
 
@@ -345,10 +354,6 @@ export default {
     color: #676767;
     justify-content: center;
     align-items: center;
-}
-.indentAll_tab_ul li:hover{
-    color: #ff0103;
-    border-bottom: 2px solid #ff0103;
 }
 .tabCon{
     margin-top: .12rem;
@@ -466,9 +471,9 @@ export default {
 .tabCon_main_agin p:nth-child(2){
     margin-right: .3rem;
 }
-.tabCon_main_agin p:hover{
+.actives{
     color: #ff0103;
-    border: 1px solid #ff0103
+    border-bottom: 2px solid #ff0103;
 }
 .mark{
   position: absolute;
