@@ -4,7 +4,7 @@
     <div class="shopping_head">
         <div class="shopping_header">
             <p @click='close'>&lt;</p>
-            <p @click="receiving">全部订单</p>
+            <p>全部订单</p>
             <!-- <p><img src="../../assets/Classify/消息黑色.png" alt=""><span class="shopping_red">3</span></p> -->
             <p></p>
         </div>
@@ -38,7 +38,7 @@
                   </div>
                   <div class="tabCon_main_agin" v-show='aginFlag'>
                       <p @click='logistics'>查看物流</p>
-                      <p >确认收货</p>
+                      <p @click="receiving">确认收货</p>
                   </div>
                    <div class="tabCon_main_agin" v-show='success'>
                       <p>再次购买</p>
