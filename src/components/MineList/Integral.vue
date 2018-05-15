@@ -18,28 +18,15 @@
                   <!--<h2>{{$route.params.num}}</h2>-->
                   <h2>{{arr.integral}}</h2>
           </div>
-          <!--<ul class='list'>-->
-          <!--     <li>-->
-          <!--          <dl class='left'>-->
-          <!--              <dt>2018-03-06</dt>-->
-          <!--              <dd>提现</dd>-->
-          <!--          </dl>-->
-          <!--          <dl class='right'>-->
-          <!--              <dt>&nbsp;</dt>-->
-          <!--              <dd>1205.75</dd>-->
-          <!--          </dl>-->
-          <!--     </li>-->
-          <!--     <li>-->
-          <!--          <dl class='left'>-->
-          <!--              <dt>2018-03-06</dt>-->
-          <!--              <dd>提现</dd>-->
-          <!--          </dl>-->
-          <!--          <dl class='right'>-->
-          <!--              <dt>&nbsp;</dt>-->
-          <!--              <dd>1205.75</dd>-->
-          <!--          </dl>-->
-          <!--     </li>-->
-          <!-- </ul>-->
+          <div class="main">
+            <ul class='list' v-for="item in brr">
+            <li>
+              <!-- <p><span>{{item.createdTime}}</span><span></span></p> -->
+              <p><span>{{item.createdTime}}</span><span></span></p>
+              <p><b>{{item.typeString}}</b><b>{{item.integral}}</b></p>
+            </li>
+          </ul>
+          </div>
         </div>
 
   </div>
@@ -51,27 +38,38 @@ import { Header,Popup } from 'mint-ui';
 export default {
       data(){
           return{  
-              arr:'null'
+              arr:'null',
+              brr:'null'
           }
           
       },
    
-      created:{
-            
-      },
+
       created(){
              var that = this
         this.$axios.get('wallet/api/wallets/user',{
         })
         .then(function(res){
-      //     console.log(res.data.balance)
           that.arr = res.data
-      //      that.arr = res.data
-      //      console.log(arr)
         })
         .catch(function(error){
           console.log(error)
         })
+        //http://app.grjf365.com:9080/wallet/api/wallet/details/integral?sort=createdTime%2Cdesc
+    this.$axios
+      .get("wallet/api/wallet/details/integral?sort=createdTime%2Cdesc")
+      .then(function(res) {
+        that.brr = res.data;
+        that.brr = that.brr.filter(item => {
+          // return item.createdTime=item.createdTime.replace(/[A-Z]*/g, "");
+          return (item.createdTime = item.createdTime
+            .substr(0, 19)
+            .replace("T", "    "));
+        });
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
      },
       methods:{
             one:function(){
