@@ -55,7 +55,7 @@ const Offline = r => require.ensure( [], () => r (require('@/components/Sher/Off
 const Agreement = r => require.ensure( [], () => r (require('@/components/Sher/Agreement.vue')));
 const Servershop = r => require.ensure( [], () => r (require('@/components/MineList/Servershop.vue')));      //服务商首页
 const Servershop2 = r => require.ensure( [], () => r (require('@/components/MineList/servershop2.vue')));    //支付服务商两万元
-
+const Xorders = r => require.ensure([], () => r(require('@/components/MineList/Xorders.vue'))); //线下订单
 Vue.use(Router)
 
 const routes = [{
@@ -345,6 +345,11 @@ const routes = [{
                 path: '/Servershop2',
                 name: 'Servershop2',
                 component: Servershop2
+            },
+            { // 线下支付
+                path: '/Xorders',
+                name: 'Xorders',
+                component: Xorders
             },
         ]
     },
