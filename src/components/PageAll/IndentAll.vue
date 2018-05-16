@@ -37,8 +37,8 @@
                       <p @click='goPayNent(index)'>去付款</p>
                   </div>
                   <div class="tabCon_main_agin" v-show='aginFlag'>
-                      <p @click='logistics'>查看物流</p>
-                      <p @click="receiving">确认收货</p>
+                      <p @click='logistics(item.shipingCode,item.shippingName)'>查看物流</p>
+                      <p @click="receiving(item.orderNo)">确认收货</p>
                   </div>
                    <div class="tabCon_main_agin" v-show='success'>
                       <p>再次购买</p>
@@ -70,8 +70,6 @@ export default {
             flag1: false, // 再次购买+晒单评价
             aginFlag:false, // 查看物流
             success:false, // 已取消
-            shipingCode: '',
-            shippingName: ''
         }
     },
     created(){
@@ -82,7 +80,6 @@ export default {
         })
         .then(function(response) {
             that.arr = response.data;
-            console.log(response)
             response.data.map((v,i)=>{
                 if(v.status == 1){
                     that.status='未付款';
@@ -109,7 +106,6 @@ export default {
         .catch(function(error) {
             console.log(error);
         });
-        
     },
     methods: {
         tab(index){
@@ -151,13 +147,11 @@ export default {
                 })
                 .then(function(response) {
                     that.arr = response.data;
-                    that.shipingCode = response.data.shipingCode;
-                    that.shippingName = response.data.shippingName;
-                    that.orderNo = response.data.orderNo;
                 })
                 .catch(function(error) {
                     console.log(error);
                 });
+               
             }
               if(this.num == 3){
                 var that = this;
@@ -195,13 +189,11 @@ export default {
         no(){
            this.dele=false;
         },
-        logistics(){
-            let that = this;
+        logistics(shipingCode,shippingName){
             var  val={
                 "func":"checkLogistics",
-                "param":{'LogisticsNumber':that.shipingCode,'ogisticsCode':that.shippingName},
+                "param":{'LogisticsNumber':shipingCode,'ogisticsCode':shippingName},
             };
-            console.log(val)
             var u = navigator.userAgent;
             var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
             var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
@@ -215,7 +207,7 @@ export default {
             var that = this;
             this.$axios({
                 method:'get',
-                url:'http://app.grjf365.com:9080/order/api/manage/deleteOrder/'+userid
+                url:'/order/api/manage/deleteOrder/'+userid
             })
             .then(function(response) {
                 if(response.data==true){
@@ -227,16 +219,15 @@ export default {
                 alert(error.response.data.title);
             });
         },
-        receiving(){
-            let that = this;
-            console.log(that.orderNo)
+        receiving(orderNo,index){
+            var that = this;
             this.$axios({
                 method:'get',
-                url:'order/api/ConfirmPro/'+that.orderNo
+                url:'/order/api/ConfirmPro/'+this.orderNo
             })
             .then(function(response) {
                 if(response.data==true){
-                    that.dele=false;
+                    alert('确认收货成功')
                     location.reload()
                 }
             })
