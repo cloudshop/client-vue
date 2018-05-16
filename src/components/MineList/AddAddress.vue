@@ -26,6 +26,13 @@
       <div class="button" v-show="!bol">
           <button @click="reset">保存</button>
       </div>
+      <div class="msg" v-show="bo">
+        <div class="succeed">
+          <h3>提示</h3>
+          <p>添加成功</p>
+          <span @click="backMine">确定</span>
+        </div>
+      </div>
   </div>
 </template>
 <script>
@@ -39,7 +46,8 @@ export default {
       dataObj:"",
       bol:"",
       id:"",
-      obj:""
+      obj:"",
+      bo:false
     };
     var p1 = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;
   },
@@ -53,6 +61,9 @@ export default {
     this.id = this.dataObj.id;
   },
   methods: {
+    backMine() {
+      this.$router.push({name:"MyAddress",params:{obj:this.obj}});
+    },
     // 删除 清空
     del: function() {
       this.name = "";
@@ -75,9 +86,7 @@ export default {
         phone :this.phone,
         address : this.address,
         id : this.id
-      }
-      // console.log(this.obj);
-      this.$router.push({name:"MyAddress",params:{obj:this.obj}});
+      }    
       if (
         $("#name").val() == "" ||
         $("#tel").val() == "" ||
@@ -90,6 +99,7 @@ export default {
         if (a.test(b) == false) {
           alert("您的手机号码未输入或输入有误");
         } else {
+          this.bo = true;
           // var data = {"contact":this.name,"phone":this.phone,}
           var datas = {
             "contact": this.name,
@@ -167,6 +177,43 @@ export default {
 };
 </script>
 <style scoped>
+.msg{
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.3);
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 10;
+}
+.succeed{
+  width: 86%;
+  height: 2.5rem;
+  position: absolute;
+  left: 7%;
+  top: 40%;
+  z-index: 10;
+  background: #fff;
+  border-radius: 0.1rem;
+}
+h3{
+  font-size: 0.3rem;
+  line-height: 0.9rem;
+  padding: 0 0.4rem;
+}
+.msg p{
+  line-height: 0.8rem;
+  font-size: 0.25rem;
+  font-weight: 600;
+  padding: 0 0.5rem;
+}
+.msg span{
+  display: block;
+  text-align: right;
+  padding: 0 0.4rem;
+  color: red;
+  font-weight: 600;
+}
 .header {
   width: 100%;
   height: 0.96rem;
