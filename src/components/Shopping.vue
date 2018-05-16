@@ -47,7 +47,7 @@
                     <div class="contents_right_moneyAll">
                       <div class="contents_right_money">￥ {{data.unitPrice}}</div>
                       <div class="contents_right_delete"> 
-                        <a href="javascript:;" @click="removeAll(index,item.id)">删除</a>
+                        <a href="javascript:;" @click="removeAll">删除</a>
                         <!-- <span class="contents_right_shu">|</span>
                         <a href="javascript:;" @click="collect(item.id,index)">加入收藏</a> -->
                       </div>
@@ -55,6 +55,12 @@
                   </div>
                 </div>
               </div>
+               <div class='marks' v-show='dele'>
+              <div class="mark_s">
+                <p>确定删除此商品?</p>
+                <div class="btn_all"><button class="no" @click='no'>取消</button><button class="sure" @click='sure(index,item.id,data.skuid)'>删除</button></div>
+              </div>
+            </div>
             </div>
             <!-- footer -->
             <div class="shopping_footer">
@@ -70,6 +76,7 @@
               </div>
               <div class="shopping_footer_right" @click="toTal">去结算</div>
             </div>
+           
           </div>
         </div>
         <div class="vacancy" v-show='emptys'>
@@ -79,11 +86,12 @@
         </div>
       </div>
     </div>
-   <div class='mark' v-show='flag'>
+    <div class='mark' v-show='flag'>
       <img src="../assets/HomePage/LOGO.png" alt="">
       <p>此功能需先登录</p>
       <button @click='logins'>登录</button>
     </div>
+    
   <Foot></Foot>
  </div>
    
@@ -107,7 +115,8 @@ export default {
       checkboxBig: false,
       serviceList: '',
       empty:true, 
-      emptys:false
+      emptys:false,
+      dele:false,
     };
   },
   watch:{
@@ -169,9 +178,12 @@ export default {
     //       console.log(error);
     //   });  
     // },
-    // 删除操作
-    removeAll:function(index,id){
-      // if(this.serviceList[id].sku[index].checkboxChild == true){
+    // 删除
+    no(){
+        this.dele=false;
+    },
+    sure(index,id,skuids){
+       // if(this.serviceList[id].sku[index].checkboxChild == true){
       //   var Money = this.serviceList[id].sku[index].unitPrice*this.serviceList[id].sku[index].count;
       //   this.totalPrice -= Money;
       //   setTimeout(function(){
@@ -179,24 +191,27 @@ export default {
       //   }, 0); 
       // }
       var delSkuid = this.serviceList[id].sku[index].skuid;
-      console.log(delSkuid)
       this.$axios.post('shoppingcart/api/shoppingcar/del',delSkuid)
       .then(function(res){
         if(res.data == 'success'){
+          this.dele=false;
           this.serviceList[id].sku.splice(index,1);
         }
       })
       .catch(function(error){
-        console.log(error)
+        alert(error.response.data.title)
       })
       if(this.serviceList[id].sku.length == 0){
         var str = this.serviceList.length-1;
         $('.shopping_main')[id].remove()
       }
     },
+    // 删除操作
+    removeAll(){
+      this.dele = true;
+    },
     // ++
     add:function(index,id){
-      console.log(index)
       if(this.serviceList[id].sku[index].checkboxChild == true){
         var Money = this.serviceList[id].sku[index].unitPrice;
         this.totalPrice += Money;
@@ -363,6 +378,57 @@ export default {
 </script>
 
 <style scoped>
+.marks{
+  position: absolute;
+  top:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,.2);
+}
+.mark_s{
+  text-align:center;
+  font-size:.32rem;
+  position:fixed;
+  width: 6rem;
+  height: 2.7rem;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  margin:auto;
+  color:#ccc;
+  border-radius: .1rem;
+  background: #fff
+}
+.mark_s p{
+    padding: .71rem 0;
+    color: #2f2f2f;
+    font-weight: bold;
+}
+.mark_s .btn_all{
+    width: 100%;
+    height: .9rem;
+    bottom: 0;
+    border-radius: 0 0 .1rem .1rem;
+    display: flex;
+    border-top: 1px solid #ccc;
+}
+.btn_all .sure{
+    width: 50%;
+    height: .9rem;
+    background: #ff0103;
+    border:none;
+    color: #fff;
+    font-size: .30rem;
+    border-radius: 0 0 .1rem 0;
+}
+.btn_all .no{
+    width: 50%;
+    height: .9rem;
+    border:none;
+    font-size: .30rem;
+    border-radius: 0 0 0 .1rem;
+}
 .vacancy{
   width: 70%;
   margin-left: 15%;
@@ -400,7 +466,7 @@ export default {
   top:0;
   width:100%;
   height:100%;
-  background:rgba(255, 255, 255,1);
+  background:rgba(0,0, 0,0.5);
 }
 .mark img{
   position:fixed;
@@ -685,6 +751,7 @@ span {
   color: #428bca;
   width: .5rem;
   height: .3rem;
+
 }
 .contents_right_shu {
   padding: 0 0.12rem;
