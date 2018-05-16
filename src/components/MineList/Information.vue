@@ -1,12 +1,9 @@
 <template>
-<!-- <transition  leave-active-class="animated slideOutRight"> -->
   <div id='main'>
       <header class="mint-header">
            <div class="mint-header-button is-left">
                <a class="router-link-active">
                    <button class="mint-button mint-button--default mint-button--normal">
-                        <!--<router-link :to="{ path: '/Mine' }" tag='mt-button'>&lt;-->
-                        <!--</router-link> -->
                         <mt-button @click="back">&lt;</mt-button>
                    </button>
               </a>
@@ -16,20 +13,15 @@
         </header>
       <div class="main">
           <ul class="list">
-              <li>我的头像<span class="user_img"></span><b>></b></li>
-              <router-link :to="{ path: '/NickName' }" tag='li'>昵称 <p class="user_name">{{arr.nickname}}</p><b>></b></router-link>
+              <li><router-link :to="{ path: '/Myhead' }">我的头像<span class="user_img"></span><b>></b></router-link></li>
+              <router-link :to="{ name: 'NickName',params:{nickname:arr.nickname} }" tag='li'>昵称<p class="user_name">{{arr.nickname}}</p><b>></b></router-link>
               <li>手机号<p>{{arr.phone}}</p><b></b></li>
               <li @click="address">我的地址<b>></b></li>
               <router-link :to="{ path: '/ID' }" tag='li'>账号与安全 <b>></b></router-link>            
-              <li>我的分享人 <b>></b></li>
+              <li>我的分享人 <b>{{arr.invPhone}}</b></li>
               <li  @click="actionSheet">退出登录</li>
           </ul>
       </div>
-
-        <mt-actionsheet  
-                    :actions= "data"  
-                    v-model="sheetVisible">  
-        </mt-actionsheet>
     
   </div>
   <!-- </transition> -->
@@ -49,19 +41,20 @@ export default {
       data: [
         {
           name: "确定",
-          method: this.confirms
+          method: this.confirms,
+          nickname:""
         }
       ],
       sheetVisible: false
     };
   },
   created() {
-
     var that = this;
     this.$axios
       .get("user/api/user-annexes/userInfo")
       .then(function(res) {
           that.arr = res.data;
+          console.log(res.data);
       })
       .catch(function(error) {
         console.log(error);
@@ -81,8 +74,7 @@ export default {
             "func": "closeCurrent",
             "param": {
               "finallyIndex": "1",
-              "refreshAll": true,
-              "removeToken":true
+              "refreshAll": true
             }
           };
           var u = navigator.userAgent;
@@ -145,6 +137,10 @@ header {
   position: absolute;
   right: 0.6rem;
 }
+.list li:nth-child(6) b{
+  font-size: 0.27rem;
+  font-weight: 200;
+}
 .list li p {
   float: right;
   padding-right: 20%;
@@ -190,5 +186,8 @@ header {
   position: absolute;
   z-index: 99999;
   background: #f5f5f5;
+}
+a{
+  color: #000;
 }
 </style>
