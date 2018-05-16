@@ -8,7 +8,6 @@
            <div class="myQrCode_body">
                 <div id="qrcode" v-show='flag' ref="qrcode"></div>
                 <div class="codeCenter"><img src="../assets/user/logoCode.png" alt=""></div>
-                <div class="borderCode"><img src="../assets/user/borderCode.png" alt=""></div>
                 <div class="logins" v-show="logined">您还未登录，请先去登录,否则无法分享哦~</div>
            </div>
            <Foot></Foot>
@@ -103,17 +102,6 @@ export default {
         left: 152px;
     }
     .codeCenter img{
-        width: 100%;
-        height: 100%;
-    }
-    .borderCode{
-        position: absolute;
-        width: 54%;
-        height: 30%;
-        bottom: 267px;
-        left: 83px;
-    }
-    .borderCode img{
         width: 100%;
         height: 100%;
     }
