@@ -18,7 +18,7 @@
             <p>订单金额：<input type="text" id="ordermoney" v-model="ordermoney" maxlength="7"></p>
             <p>让利比例：<input type="text" id="letmoney" placeholder="让利范围在12%～98%之间" v-model="msg" maxlength="2"></p>
             <p>让利金额：<span class="mone">{{msg*ordermoney/100}}</span></p>
-            <p class="test">小票凭证：</p>
+            <!--<p class="test">小票凭证：</p>-->
             <p class="upload">
               <span>
                   <el-upload
@@ -206,7 +206,7 @@ export default {
   font-size: 0.28rem;
   color: rgb(102, 102, 102);
 }
-.main p:nth-child(8) {
+.main p:nth-child(7) {
   padding-left: 0;
 }
 .main p input {
@@ -216,11 +216,11 @@ export default {
   padding-left: 0.2rem;
   border-radius: 0.1rem;
 }
-.main p:nth-child(9) {
+.main p:nth-child(8) {
   text-align: center;
   margin-top: 0.8rem;
 }
-.main p:nth-child(9) input {
+.main p:nth-child(8) input {
   height: 0.7rem;
   background: #ff0103;
   border: none;
