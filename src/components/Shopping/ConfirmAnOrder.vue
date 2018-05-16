@@ -149,7 +149,7 @@ export default {
         this.count = sessionStorage.getItem("count");// 几个
         this.productSkuId = sessionStorage.getItem("Productskuid"); // 
         var that = this;
-        this.$axios.get('api/wallet/api/wallets/user')
+        this.$axios.get('wallet/api/wallets/user')
         .then(function(res){
             console.log(res)
            sessionStorage.setItem("money",res.data.balance);
