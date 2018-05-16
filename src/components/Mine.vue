@@ -84,6 +84,10 @@
                             <dt><img src="../assets/Mine/我的团队.png" alt=""></dt>
                             <dd>我的团队</dd>
                         </router-link>
+                         <router-link :to="{ path: '/Xorders' }" tag='dl'>
+                            <dt><img src="../assets/Mine/money.png" alt=""></dt>
+                            <dd>现金支付</dd>
+                          </router-link>
                     </div>              
               </div>
         </div>
@@ -426,5 +430,8 @@ dl dt img {
   font-size: 0.24rem;
   margin-top: 0.25rem;
   margin-bottom: 0.3rem;
+}
+.list dl:last-child{
+      margin-top: .2rem;
 }
 </style>
