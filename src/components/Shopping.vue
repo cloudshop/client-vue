@@ -2,7 +2,7 @@
    <div>
     <div class='content'>
       <div class="register_header">
-        <p>〈</p >
+        <p></p >
         <p>购物车</p >
         <p></p>
         <!-- <p><img src="../assets/Classify/消息黑色.png" alt=""><span class="shopping_red">3</span></p> -->
@@ -48,8 +48,8 @@
                       <div class="contents_right_money">￥ {{data.unitPrice}}</div>
                       <div class="contents_right_delete"> 
                         <a href="javascript:;" @click="removeAll(index,item.id)">删除</a>
-                        <span class="contents_right_shu">|</span>
-                        <a href="javascript:;" @click="collect(item.id,index)">加入收藏</a>
+                        <!-- <span class="contents_right_shu">|</span>
+                        <a href="javascript:;" @click="collect(item.id,index)">加入收藏</a> -->
                       </div>
                     </div>
                   </div>
@@ -106,7 +106,7 @@ export default {
       totalAllPrice: 0,
       checkboxBig: false,
       serviceList: '',
-      empty:true,
+      empty:true, 
       emptys:false
     };
   },
@@ -153,32 +153,33 @@ export default {
       }
     },
     // 加入收藏
-    collect:function(shopId,index){
-      // var skuid = this.serviceList[shopId].sku[index].skuid;
-      var skuid = 28;  //
-      var type = 1;
-      this.$axios.get('favorite/api/favProduct/'+skuid+'/'+type)
-      .then(function(response) {
-          if(response.data == true){
-            alert('收藏成功！')
-          }else{
-            alert('取消收藏')
-          }
-      })
-      .catch(function(error) {
-          console.log(error);
-      });  
-    },
+    // collect:function(shopId,index){
+    //   // var skuid = this.serviceList[shopId].sku[index].skuid;
+    //   var skuid = 28;  //
+    //   var type = 1;
+    //   this.$axios.get('favorite/api/favProduct/'+skuid+'/'+type)
+    //   .then(function(response) {
+    //       if(response.data == true){
+    //         alert('收藏成功！')
+    //       }else{
+    //         alert('取消收藏')
+    //       }
+    //   })
+    //   .catch(function(error) {
+    //       console.log(error);
+    //   });  
+    // },
     // 删除操作
     removeAll:function(index,id){
-      if(this.serviceList[id].sku[index].checkboxChild == true){
-        var Money = this.serviceList[id].sku[index].unitPrice*this.serviceList[id].sku[index].count;
-        this.totalPrice -= Money;
-        setTimeout(function(){
-          this.serviceList[id].sku.splice(index,1);
-        }, 0); 
-      }
+      // if(this.serviceList[id].sku[index].checkboxChild == true){
+      //   var Money = this.serviceList[id].sku[index].unitPrice*this.serviceList[id].sku[index].count;
+      //   this.totalPrice -= Money;
+      //   setTimeout(function(){
+      //     this.serviceList[id].sku.splice(index,1);
+      //   }, 0); 
+      // }
       var delSkuid = this.serviceList[id].sku[index].skuid;
+      console.log(delSkuid)
       this.$axios.post('shoppingcart/api/shoppingcar/del',delSkuid)
       .then(function(res){
         if(res.data == 'success'){
@@ -195,6 +196,7 @@ export default {
     },
     // ++
     add:function(index,id){
+      console.log(index)
       if(this.serviceList[id].sku[index].checkboxChild == true){
         var Money = this.serviceList[id].sku[index].unitPrice;
         this.totalPrice += Money;
@@ -476,6 +478,8 @@ export default {
 }
 .shopping_main_all{
   margin-top: .96rem;
+  overflow-y:scroll;
+  max-height: 80%
 }
 .shopping_header {
   flex-shrink: 0;
@@ -679,6 +683,8 @@ span {
   text-decoration: none;
   /* out-line: none; */
   color: #428bca;
+  width: .5rem;
+  height: .3rem;
 }
 .contents_right_shu {
   padding: 0 0.12rem;

@@ -1,4 +1,4 @@
-<template>
+﻿<template>
 
    <div>
 
@@ -79,10 +79,11 @@
                                 <dt><img src="../assets/Mine/商户中心.png" alt=""></dt>
                                 <dd>商户中心</dd>
                             </dl>
-                            <router-link :to="{ path: '/MyTeam' }" tag='dl'>
+                            <!--<router-link :to="{ path: '/MyTeam' }" tag='dl'>-->
+                            <router-link :to="{ name: 'MyTeam',params:{arr} }" tag='dl'>
                             <dt><img src="../assets/Mine/我的团队.png" alt=""></dt>
                             <dd>我的团队</dd>
-                          </router-link>
+                        </router-link>
                     </div>              
               </div>
         </div>

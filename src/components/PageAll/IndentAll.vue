@@ -5,7 +5,8 @@
         <div class="shopping_header">
             <p @click='close'>&lt;</p>
             <p>全部订单</p>
-            <p><img src="../../assets/Classify/消息黑色.png" alt=""><span class="shopping_red">3</span></p>
+            <!-- <p><img src="../../assets/Classify/消息黑色.png" alt=""><span class="shopping_red">3</span></p> -->
+            <p></p>
         </div>
     </div>
     <ul class="indentAll_tab_ul">
@@ -36,8 +37,8 @@
                       <p @click='goPayNent(index)'>去付款</p>
                   </div>
                   <div class="tabCon_main_agin" v-show='aginFlag'>
-                      <p>查看物流</p>
-                      <p>确认收货</p>
+                      <p @click='logistics(item.shipingCode,item.shippingName)'>查看物流</p>
+                      <p @click="receiving(item.orderNo)">确认收货</p>
                   </div>
                    <div class="tabCon_main_agin" v-show='success'>
                       <p>再次购买</p>
@@ -68,7 +69,7 @@ export default {
             flag: false, // 正常
             flag1: false, // 再次购买+晒单评价
             aginFlag:false, // 查看物流
-            success:false // 已取消
+            success:false, // 已取消
         }
     },
     created(){
@@ -79,10 +80,9 @@ export default {
         })
         .then(function(response) {
             that.arr = response.data;
-            console.log(response)
             response.data.map((v,i)=>{
                 if(v.status == 1){
-                    that.status='未付款'
+                    that.status='未付款';
                     that.aginFlag=false; that.flag=false; that.success=false; that.flag1=true; // 去付款
                 }
                 if(v.status == 2){
@@ -112,6 +112,7 @@ export default {
             this.num = index; 
             var that = this;
             if(this.num == 0){
+                location.reload();
                 this.$axios({
                     method:'get',
                     url:'order/api/findAllOrder/1/5'
@@ -132,7 +133,6 @@ export default {
                 })
                 .then(function(response) {
                    that.arr = response.data;
-                   console.log(response.data)
                 })
                 .catch(function(error) {
                     console.log(error);
@@ -146,11 +146,12 @@ export default {
                     url:'order/api/findDispatchItems/1/1'
                 })
                 .then(function(response) {
-                   that.arr = response.data;
+                    that.arr = response.data;
                 })
                 .catch(function(error) {
                     console.log(error);
                 });
+               
             }
               if(this.num == 3){
                 var that = this;
@@ -188,11 +189,25 @@ export default {
         no(){
            this.dele=false;
         },
+        logistics(shipingCode,shippingName){
+            var  val={
+                "func":"checkLogistics",
+                "param":{'LogisticsNumber':shipingCode,'ogisticsCode':shippingName},
+            };
+            var u = navigator.userAgent;
+            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+            if(isiOS){
+                window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+            }else if(isAndroid){  
+                window.androidObject.JSCallAndroid(JSON.stringify(val));
+            }
+        },
         sure(userid){
             var that = this;
             this.$axios({
                 method:'get',
-                url:'http://app.grjf365.com:9080/order/api/manage/deleteOrder/'+userid
+                url:'/order/api/manage/deleteOrder/'+userid
             })
             .then(function(response) {
                 if(response.data==true){
@@ -201,7 +216,23 @@ export default {
                 }
             })
             .catch(function(error) {
-                alert(error);
+                alert(error.response.data.title);
+            });
+        },
+        receiving(orderNo,index){
+            var that = this;
+            this.$axios({
+                method:'get',
+                url:'/order/api/ConfirmPro/'+this.orderNo
+            })
+            .then(function(response) {
+                if(response.data==true){
+                    alert('确认收货成功')
+                    location.reload()
+                }
+            })
+            .catch(function(error) {
+                alert(error.response.data.title);
             });
         },
         close(){
@@ -281,6 +312,12 @@ export default {
             this.$router.push({name:"sunorder"})
         }
     },
+    mounted: function() {
+        $('.indentAll_tab_ul li').eq(0).addClass('actives')
+        $('.indentAll_tab_ul li').click(function(){
+            $(this).addClass('actives').siblings().removeClass('actives')
+        })
+    }
 }
 </script>
 
@@ -345,10 +382,6 @@ export default {
     color: #676767;
     justify-content: center;
     align-items: center;
-}
-.indentAll_tab_ul li:hover{
-    color: #ff0103;
-    border-bottom: 2px solid #ff0103;
 }
 .tabCon{
     margin-top: .12rem;
@@ -466,9 +499,9 @@ export default {
 .tabCon_main_agin p:nth-child(2){
     margin-right: .3rem;
 }
-.tabCon_main_agin p:hover{
+.actives{
     color: #ff0103;
-    border: 1px solid #ff0103
+    border-bottom: 2px solid #ff0103;
 }
 .mark{
   position: absolute;

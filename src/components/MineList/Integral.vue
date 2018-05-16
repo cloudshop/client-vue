@@ -3,153 +3,167 @@
     <header class="mint-header">
            <div class="mint-header-button is-left">
                <a class="router-link-active">
-                  <router-link :to="{ path: '/Mine' }" tag='button' class="mint-button mint-button--default mint-button--normal">
+                   <router-link :to="{ path: '/Mine' }" tag='button' class="mint-button mint-button--default mint-button--normal">
                     <mt-button icon="back"></mt-button>
                    </router-link>
               </a>
             </div> 
-             <h1 class="mint-header-title">贡融积分</h1>
-            <div class="mint-header-button is-right" ></div>
+             <h1 class="mint-header-title">积分</h1>
+            <div class="mint-header-button is-right"></div>
         </header>
         <div class='content'>
           <div class='banner'>
-                  <p>贡融积分</p>
-                  <!-- <h2>91.0</h2> -->
-                  <!--<h2>{{$route.params.num}}</h2>-->
+                  <p>积分</p>
                   <h2>{{arr.integral}}</h2>
           </div>
-          <!--<ul class='list'>-->
-          <!--     <li>-->
-          <!--          <dl class='left'>-->
-          <!--              <dt>2018-03-06</dt>-->
-          <!--              <dd>提现</dd>-->
-          <!--          </dl>-->
-          <!--          <dl class='right'>-->
-          <!--              <dt>&nbsp;</dt>-->
-          <!--              <dd>1205.75</dd>-->
-          <!--          </dl>-->
-          <!--     </li>-->
-          <!--     <li>-->
-          <!--          <dl class='left'>-->
-          <!--              <dt>2018-03-06</dt>-->
-          <!--              <dd>提现</dd>-->
-          <!--          </dl>-->
-          <!--          <dl class='right'>-->
-          <!--              <dt>&nbsp;</dt>-->
-          <!--              <dd>1205.75</dd>-->
-          <!--          </dl>-->
-          <!--     </li>-->
-          <!-- </ul>-->
+          <div class="main">
+            <ul class='list' v-for="item in brr">
+            <li>
+              <!-- <p><span>{{item.createdTime}}</span><span></span></p> -->
+              <p><span>{{item.createdTime}}</span><span></span></p>
+              <p><b>{{item.typeString}}</b><b>{{item.integral}}</b></p>
+            </li>
+          </ul>
+          </div>
         </div>
 
   </div>
-
 </template>
 
 <script>
-import { Header,Popup } from 'mint-ui';
+import TouchBalance from "./TouchBalance";
 export default {
-      data(){
-          return{  
-              arr:'null'
-          }
-          
-      },
-   
-      created:{
-            
-      },
-      created(){
-             var that = this
-        this.$axios.get('wallet/api/wallets/user',{
-        })
-        .then(function(res){
-      //     console.log(res.data.balance)
-          that.arr = res.data
-      //      that.arr = res.data
-      //      console.log(arr)
-        })
-        .catch(function(error){
-          console.log(error)
-        })
-     },
-      methods:{
-            one:function(){
-                  
-            }
-      },
-}
+  data() {
+    return {
+      arr: "null",
+      brr: "null",
+      time:[],
+    };
+  },
+
+
+  created() {
+    var that = this;
+    this.$axios
+      .get("wallet/api/wallets/user")
+      .then(function(res) {
+        that.arr = res.data;
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+    this.$axios
+      .get(
+        "wallet/api/wallet/details/integral?sort=createdTime%2Cdesc"
+      )
+      .then(function(res) {
+        that.brr = res.data;
+        console.log(that.brr)
+        that.brr = that.brr.filter((item)=>{
+          // return item.createdTime=item.createdTime.replace(/[A-Z]*/g, "");
+         return item.createdTime=item.createdTime.substr(0,19).replace('T', '    ');
+        }) 
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  },
+  methods: {
+    one: function() {}
+  }
+};
 </script>
 
 <style scoped>
-header{
-    width:100%;
-    background:#fff;
-    color:#2f2f2f;
-    height:.94rem;
-     font-size:.32rem;
+header {
+  width: 100%;
+  background: #fff;
+  color: #2f2f2f;
+  height: 0.94rem;
+  font-size: 0.32rem;
 }
-
-.RemainingSum{
-    width: 100%;
-    height: 100%; 
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    overflow: hidden;
-    background:#f5f5f5;
+.is-right {
+  color: #0096ff;
+  font-size: 0.28rem;
 }
-.banner{
-  background:url("../../assets/Mine/RemainingSum/bg.png");
-  background-size:100%; 
-  width:100%;
-  height: 3.7rem;;
+.RemainingSum {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  overflow: hidden;
+  background: #f5f5f5;
 }
-.banner p{
-  text-align:center;
-  font-size:.32rem;
-  color:#fff;
-  padding-top:.98rem;
+.main{
+  padding-top: 3.7rem
 }
-.banner h2{
-  text-align:center;
-  font-size:.8rem;
-  color:#fff;
-  padding-top:.36rem;
+.banner {
+  background: url("../../assets/Mine/RemainingSum/bg.png");
+  background-size: 100%;
+  width: 100%;
+  height: 3.7rem;
+  position: fixed;
+  top: .94rem
 }
-.list li{
-    height:1.26rem;
-    border-bottom:1px solid #dfdfdd;
-    display:flex;
-    justify-content:space-between;
-    padding:0 .3rem;
+.banner p {
+  text-align: center;
+  font-size: 0.32rem;
+  color: #fff;
+  padding-top: 0.98rem;
 }
-.list li .left{
-    padding-top:.28rem;
+.banner h2 {
+  text-align: center;
+  font-size: 0.8rem;
+  color: #fff;
+  padding-top: 0.36rem;
 }
-.list li .left dt{
-    font-size:.22rem;
-    color:#929292;
+.list li {
+  height: 1.44rem;
+  border-bottom: 1px solid #dfdfdd;
 }
-.list li .left dd{
-    padding-top:.2rem;
-    color:#000;
-    font-size:.28rem;
+.list li span {
+  color: #929292;
+  font-size: 0.22rem;
 }
-.list li .right{
-    padding-top:.34rem; 
+.list li p:nth-child(1) {
+  padding-top: 0.37rem;
+  margin-left: 0.3rem;
 }
-.list li .right dt{
-    font-size:.22rem;
-    color:#929292;
-    font-weight:normal;
+.list li p:nth-child(1) span:nth-child(2) {
+  padding-left: 0.3rem;
 }
-.list li .right dd{
-    padding-top:.1rem;
-     font-size:.32rem;
-     color:#ff0e00;
-     font-weight:bold;
+.list li p:nth-child(2) {
+  padding: 0 0.3rem;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.16rem;
+}
+.list li p:nth-child(2) b:nth-child(1) {
+  font-size: 0.28rem;
+  color: #696969;
+}
+.list li p:nth-child(2) b:nth-child(2) {
+  font-size: 0.32rem;
+  color: #2f2f2f;
+}
+.footer {
+  height: 0.98rem;
+  display: flex;
+}
+.footer button {
+  width: 50%;
+  font-size: 0.32rem;
+  border: 0;
+}
+.footer button:first-child {
+  color: #1692e1;
+  background: #fff;
+}
+.footer button:last-child {
+  color: #fff;
+  background: #1692e1;
 }
 </style>
