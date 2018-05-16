@@ -4,7 +4,7 @@
           <ul> 
               <router-link :to="{ path: '/MyAddress' }" tag='li'>&lt;</router-link>
               <li>编辑收货地址</li>
-              <li><span>删除</span></li>
+              <li><span @click="del">删除</span></li>
           </ul>
       </header>
       <div class="center">
@@ -18,8 +18,13 @@
       <ul class="bottom">
           <li>详细地址：<input type="text" v-model="address" id="address_big"></li>    
       </ul>  
-      <div class="button">
+      <!-- 添加地址 -->
+      <div class="button" v-show="bol">
           <button @click="save">保存</button>
+      </div>
+      <!-- 修改地址 -->
+      <div class="button" v-show="!bol">
+          <button @click="reset">保存</button>
       </div>
   </div>
 </template>
@@ -31,10 +36,28 @@ export default {
       name: "",
       phone: "",
       address: "",
+      dataObj:"",
+      bol:"",
+      id:""
     };
     var p1 = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;
   },
+  created(){
+    this.bol = this.$route.params.bol;
+    console.log(this.bol);
+    this.dataObj = this.$route.params.dataObj;
+    this.phone = this.dataObj.phone;
+    this.name = this.dataObj.contact;
+    this.address = this.dataObj.city;
+    this.id = this.dataObj.id;
+  },
   methods: {
+    // 删除 清空
+    del: function() {
+      this.name = "";
+      this.phone = "";
+      this.address = "";
+    },
     closeEditAddress: function() {
       this.$parent.$parent.EditAddress = false;
     },
@@ -44,7 +67,9 @@ export default {
       // 将数据放在当前组件的数据内
       this.msg = routerParams;
     },
+    // 添加地址
     save() {
+      this.$router.push({path:"/MyAddress"});
       if (
         $("#name").val() == "" ||
         $("#tel").val() == "" ||
@@ -81,7 +106,48 @@ export default {
           $("#name").val(""), $("#tel").val(""), $("#address_big").val("");
         }
       }
-    }
+    },
+    // 修改地址
+    reset() {
+      this.$router.push({path:"/MyAddress"});
+      if (
+        $("#name").val() == "" ||
+        $("#tel").val() == "" ||
+        $("#address_big").val() == ""
+      ) {
+        alert("请填写收货信息");
+      } else {
+        var a = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;
+        var b = $("#tel").val();
+        if (a.test(b) == false) {
+          alert("您的手机号码未输入或输入有误");
+        } else {
+          var datas = {
+            "contact": this.name,
+            "city": this.address,
+            "phone": this.phone,
+            "id": this.id,
+            userAnnex: {
+              avatar: "string"
+            }
+          };
+          console.log(datas);
+          this.$axios
+            .post(
+              "user/api/user-annexes-upstateAddress",
+
+              datas
+            )
+            .then(function(res) {
+              console.log(res);
+            })
+            .catch(function(error) {
+              console.log(error);
+            });
+          $("#name").val(""), $("#tel").val(""), $("#address_big").val("");
+        }
+      }
+    },
   }
 };
 </script>

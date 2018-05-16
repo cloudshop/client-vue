@@ -8,33 +8,30 @@
           </ul>
       </div>
       <div class="main">
-         <ul v-for="(item,index) in arr" :key='index' class="list">
-             <li>
-                  <!-- <span class="name">{{item.name}}</span>
-                  <span class="tel">{{item.tel}}</span> -->
-                  <span class="name"><em>{{item.contact}}</em></span>
-                  <span class="tel"><rp>{{item.phone}}</rp></span>
-              </li>
-              <li class="address">
-                  {{item.city}}
-              </li>
-              <li>
-                  <span class="addlist">       
-                       <input type="radio" :id="'adress-0'+item.id" name="sex"/>
-                       <label :for="'adress-0'+item.id" @click="re($event)"></label>
-                        默认地址
-                        <p>
-                            <i>{{item.id}}</i>
-                           <b @click="sendParams($event)" style="color:#667766"><img src="../../assets/manage/编辑.png" alt="">编辑</b>
-                            <b @click="display($event)"><img src="../../assets/manage/删除.png">删除</b>
-                        </p>
-                  </span>   
-              </li>
+        <ul v-for="(item,index) in arr" :key='index' class="list">
+          <li>
+            <span class="name"><em>{{item.contact}}</em></span>
+            <span class="tel"><rp>{{item.phone}}</rp></span>
+          </li>
+          <li class="address">
+              {{item.city}}
+          </li>
+          <li>
+            <span class="addlist">       
+              <input type="radio" :id="'adress-0'+item.id" name="sex" :checked="item.checked"/>
+              <label :for="'adress-0'+item.id" @click="re(item)"></label>
+              默认地址
+              <p>
+                  <i>{{item.id}}</i>
+                  <b @click="sendParams(item)" style="color:#667766"><img src="../../assets/manage/编辑.png">编辑</b>
+                  <b @click="display($event)"><img src="../../assets/manage/删除.png">删除</b>
+              </p>
+            </span>   
+          </li>
          </ul>
-      
       </div>
       <div class="bottom">
-           <router-link :to="{ path: '/AddAddress' }" tag='button'>＋新建地址</router-link>
+           <router-link :to="{ name: 'AddAddress',params:{bol:true} }" tag='button'>＋新建地址</router-link>
       </div>
 
       <!-- 编辑收货地址 -->
@@ -67,29 +64,34 @@ export default {
       EditAddress: false,
       init: null,
       name: "",
-      type: ""
+      type: "",
+      Addressid:"",
+      bol:""
     };
   },
   created() {
     var that = this;
-    this.$axios
+      this.$axios
       .get("user/api/delivery-addresses-list")
       .then(function(res) {
         that.arr = [];
         var le = res.data.length;
         for (var i = 0; i < le; i++) {
           that.arr.push(res.data[i]);
+          console.log(that.arr)
+          for(var j=0;j<that.arr.length;j++){
+            if(that.arr[i].default_address==0){
+              that.arr[i].checked = true;
+              break;
+            }else{
+              that.arr[i].checked = false;
+            }    
+          }
         }
       })
-      .catch(function(error) {
-        console.log(error);
-      });
-    // var chks=$("input:radio")
-    // // console.log(chks)
-    // for(var j=0;j<chks.length;j++){
-    //   console.log(chks[j])
-    //   console.log(chks[j].is(":checked"))
-    // }
+    .catch(function(error) {
+      console.log(error);
+    });
   },
   mounted: function() {},
   methods: {
@@ -101,23 +103,20 @@ export default {
     },
     //更改默认地址
     re(a) {
+    	this.Addressid = a.id;
+  	  console.log(this.Addressid)
       var b = $(a.target);
-
-      var c = b
-        .parent()
-        .find("i")
-        .text();
-      console.log(c);
       var datas = {
         "defaultAddress": 0,
-        "id": c,
+        "id": this.Addressid,
         "userAnnex": {
           "avatar": "string"
         }
       };
+      console.log(datas);
       this.$axios
-        .post(
-          "user/api/user-annexes-updateAddress",
+        .get(
+          "user/api/user-annexes-updateAddress/" + this.Addressid,
           datas
         )
         .then(function(res) {
@@ -141,7 +140,6 @@ export default {
       var r = confirm("确定删除地址吗？");
       if (r == false) {
       } else {
-        // alert(b)
         var datas = {
           id: b,
           userAnnex: {
@@ -163,7 +161,6 @@ export default {
           });
       }
     },
-
     //取消事件
     cancel() {
       $(".del").hide();
@@ -177,46 +174,12 @@ export default {
     //编辑地址
     sendParams(a) {
       var that = this;
-      var id = $(a.target)
-        .parent()
-        // .children()
-        .find("i")
-        .text();
-      var name = $(a.target)
-        .parent()
-        .parent()
-        .parent()
-        .parent()
-        // .children()
-        .find(".name")
-        .text();
-      var phone = $(a.target)
-        .parent()
-        .parent()
-        .parent()
-        .parent()
-        // .children()
-        .find(".tel")
-        .text();
-      var address = $(a.target)
-        .parent()
-        .parent()
-        .parent()
-        .parent()
-        // .children()
-        .find(".address")
-        .text();
-      console.log(id);
-      sessionStorage.setItem("addid", id);
-      sessionStorage.setItem("addname", name);
-      sessionStorage.setItem("addphone", phone);
-      sessionStorage.setItem("addaddress", address);
       this.$router.push({
-        path: "/AddAddress2",
-        name: "AddAddress2",
+        path: "/AddAddress",
+        name: "AddAddress",
         params: {
-          name: "name",
-          dataObj: this.msg
+          bol:false,
+          dataObj: a
         }
       });
     },
