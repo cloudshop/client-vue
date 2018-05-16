@@ -38,7 +38,8 @@ export default {
       address: "",
       dataObj:"",
       bol:"",
-      id:""
+      id:"",
+      obj:""
     };
     var p1 = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;
   },
@@ -69,7 +70,14 @@ export default {
     },
     // 添加地址
     save() {
-      this.$router.push({path:"/MyAddress"});
+      this.obj = {
+        name : this.name,
+        phone :this.phone,
+        address : this.address,
+        id : this.id
+      }
+      // console.log(this.obj);
+      this.$router.push({name:"MyAddress",params:{obj:this.obj}});
       if (
         $("#name").val() == "" ||
         $("#tel").val() == "" ||
@@ -109,7 +117,14 @@ export default {
     },
     // 修改地址
     reset() {
-      this.$router.push({path:"/MyAddress"});
+      this.obj = {
+        name : this.name,
+        phone :this.phone,
+        address : this.address,
+        id : this.id
+      }
+      // console.log(this.obj);
+      this.$router.push({name:"MyAddress",params:{obj:this.obj}});
       if (
         $("#name").val() == "" ||
         $("#tel").val() == "" ||
