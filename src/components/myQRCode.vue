@@ -1,7 +1,7 @@
 <template>
        <div class="myQrCode">
             <div class="myQrCode_header">
-                <p>〈</p >
+                <p></p >
                 <p>扫码注册</p >
                 <p></p>
             </div>
@@ -94,17 +94,6 @@ export default {
         background-repeat: no-repeat !important;  
         background-size: 100% 100% !important;  
     }
-    .codeCenter {
-        position: absolute;
-        width: 16%;
-        height: 9%;
-        bottom: 337px;
-        left: 152px;
-    }
-    .codeCenter img{
-        width: 100%;
-        height: 100%;
-    }
 	#qrcode{
 		height: 170px;
 		width: 170px;
@@ -112,6 +101,18 @@ export default {
         position: relative;
         top: 30%;
 	}
+    .codeCenter {
+        position: absolute;
+        width: 16%;
+        height: 9%;
+        bottom: 52%;
+        left: 50.5%;
+        margin-left: -8%;
+    }
+    .codeCenter img{
+        width: 100%;
+        height: 100%;
+    }
     .logins{
         width: 100%;
         text-align: center;
