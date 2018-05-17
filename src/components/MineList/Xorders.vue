@@ -173,6 +173,7 @@ export default {
           })
           .catch(function(error){
             console.log(error);
+            this.bol = true;
           });
       }
         }
