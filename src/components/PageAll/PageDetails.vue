@@ -135,7 +135,10 @@ export default {
               console.log(error);
               alert('error')
         });
-        }
+        },
+    mounted(){
+        window.GetParams = this.GetParams;
+    }
 
   }
 };
