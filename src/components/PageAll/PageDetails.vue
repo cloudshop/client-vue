@@ -137,7 +137,7 @@ export default {
               alert('error')
         });
         }
-  }
+  },
    created(){},
     mounted(){
         window.GetParams = this.GetParams;
