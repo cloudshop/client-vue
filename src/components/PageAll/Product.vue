@@ -20,14 +20,14 @@
           <p><span class="details_red">¥  {{data.productContent.price}} </span><span class='details_sc'>贡融商城</span></p>
           <small class="small"><!--<span><i class='imgcopy'><img src="../../assets/details/选择拷贝.png" alt=""></i>贡融券可以抵扣 10.00</span>--><span><i class='imgcopy'><img src="../../assets/details/选择拷贝.png" alt=""></i>送贡融券积分  {{data.productContent.integral}}</span><!-- <span><i class='imgcopy'><img src="../../assets/details/选择拷贝.png" alt=""></i>贡融积分可抵扣5.00</span>--></small>
         </div>
-        <div class="pitch">
-          <span class="details_checked">已选</span>
-          <span>深空灰色，</span>
-          <span>公开版，</span>
-          <span>64GB，</span>
-          <span>官方标配，</span>
-          <span>1件</span>
-        </div>
+        <!--<div class="pitch">-->
+        <!--  <span class="details_checked">已选</span>-->
+        <!--  <span>深空灰色，</span>-->
+        <!--  <span>公开版，</span>-->
+        <!--  <span>64GB，</span>-->
+        <!--  <span>官方标配，</span>-->
+        <!--  <span>1件</span>-->
+        <!--</div>-->
         <div class="details_bourn">
           <span class="details_checkeder">送至</span>
           <p class="details_p">
