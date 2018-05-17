@@ -58,6 +58,8 @@ export default {
                         url:'product/api/product/all',
                         data: {
                             'categoryId':this.id.DetailsTwo,
+                            'pageNum':1,
+                            'pageSize':10,
                             },
                         headers:{'Content-Type': 'application/json',}
                 })
