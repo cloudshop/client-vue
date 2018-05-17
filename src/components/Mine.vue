@@ -7,7 +7,7 @@
                   <!--<router-link :to="{ path: '/Information' }" tag='p'>-->
                   <!--</router-link> -->
                   <p @click='Information'></p>
-                  <p></p>
+                  <!--<p></p>-->
                </div>
                <dl>
                    <dt><img src="../assets/Mine/headportrait.jpg" alt=""></dt>
@@ -334,12 +334,11 @@ export default {
 .header .headRight p:first-child {
   background: url("../assets/Mine/设置.png");
   background-size: 100% 100%;
-  margin-right: 0.24rem;
 }
-.header .headRight p:last-child {
-  background: url("../assets/Mine/消息.png");
-  background-size: 100% 100%;
-}
+/*.header .headRight p:last-child {*/
+/*  background: url("../assets/Mine/消息.png");*/
+/*  background-size: 100% 100%;*/
+/*}*/
 .content {
   background: #fff;
 }
