@@ -133,7 +133,7 @@ export default {
           })
           .then(function(response) {
               console.log(response.data)   
-              that.arr = res.data;
+              that.arr = response.data;
               alert('success')
           })
           .catch(function(error) {
