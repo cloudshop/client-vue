@@ -17,7 +17,7 @@
             <p>用户手机：<input type="text" maxlength="11" id="phone"></p>
             <p>订单金额：<input type="text" id="ordermoney" v-model="ordermoney" maxlength="7"></p>
             <p>服务费&#12288;：<input type="text" id="letmoney" placeholder="让利范围在12%～98%之间" v-model="msg" maxlength="2"></p>
-            <p>让利金额：<span class="mone">{{msg*ordermoney/100}}</span> <br>  小票凭证:</p>
+            <p>服务费金额：<span class="mone">{{msg*ordermoney/100}}</span> <br>  小票凭证:</p>
             <!-- <p class="test">小票凭证：</p> -->
             <p class="upload">
               <span>
