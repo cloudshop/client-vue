@@ -331,6 +331,10 @@
         var that = this; //商品内容
     //    var Goods = sessionStorage.getItem("GoodsID") ? sessionStorage.getItem("GoodsID") : 32; // 商品id 
          var Goods = sessionStorage.getItem("GoodsID")
+         if(Goods==null)
+         {
+             Goods='28';
+         }
         console.log(Goods)
         this.$axios.get('product/api/product/content?id=' + Goods)
          .then(function(response) {   
