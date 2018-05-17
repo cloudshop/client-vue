@@ -17,7 +17,7 @@
          <p class="cccty" style="display:none">{{this.$route.params.city3}}</p>
               <h1>附近商家</h1>
               <div class='list'>
-                  <dl v-for='(item,index) in Locations' :key='index' @click='Nearbyshops'>
+                  <dl v-for='(item,index) in Locations' :key='index' @click='Nearbyshops(index)'>
                     <!-- <b class='fixed'><i>让利</i><em>111</em></b> -->
                     <dt><img :src='item.img_license'></dt>
                     <dd>
@@ -176,11 +176,13 @@ export default {
           }
         
       },
-    Nearbyshops() {
+    Nearbyshops(index) {
+        var item= this.Locations[index];
+        
       var val = {
         func: "openURL",
         param: {
-          URL: "/#/PageDetails"
+          URL: "/#/PageDetails?id="+item.id+'&shopName='+item.name
         }
       };
       var u = navigator.userAgent;
