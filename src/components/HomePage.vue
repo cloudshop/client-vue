@@ -182,7 +182,7 @@ export default {
       var val = {
         func: "openURL",
         param: {
-          URL: "/#/PageDetails?id="+item.id+'&shopName='+item.name
+          URL: "/#/PageDetails?id="+item.id
         }
       };
       var u = navigator.userAgent;
