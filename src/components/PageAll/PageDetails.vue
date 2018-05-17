@@ -123,7 +123,7 @@ export default {
           this.id = JSON.parse(id); 
           this.$axios({
                 method:'get',
-                url:"user/api/mercuries/getMercuryInfoProductList/"+'id='+id+'/pageNum=1/'+'pageSize=10',
+                url:"user/api/mercuries/getMercuryInfoProductList/"+id+'/1/'+'10',
                 
                 headers:{'Content-Type': 'application/json',}
           })
