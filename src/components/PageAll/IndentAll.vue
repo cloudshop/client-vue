@@ -192,7 +192,7 @@ export default {
         logistics(shipingCode,shippingName){
             var  val={
                 "func":"checkLogistics",
-                "param":{'LogisticsNumber':shipingCode,'ogisticsCode':shippingName},
+                "param":{'LogisticsNumber':shipingCode,'LogisticsCode':shippingName},
             };
             var u = navigator.userAgent;
             var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
