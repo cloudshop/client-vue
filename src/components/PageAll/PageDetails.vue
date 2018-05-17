@@ -124,10 +124,10 @@ export default {
          // this.id = JSON.parse(parmObj);
          var paramObj = JSON.parse(parmStr);
           var aid = paramObj.id
-          alert(aid)
+         // alert(aid)
           this.$axios({
                 method:'get',
-                url:"user/api/mercuries/getMercuryInfoProductList/"+aid+'/1/'+'10',
+                url:"user/api/mercuries/getMercuryInfoProductList/"+'1515'+'/1/'+'10',
                 
                 headers:{'Content-Type': 'application/json',}
           })
