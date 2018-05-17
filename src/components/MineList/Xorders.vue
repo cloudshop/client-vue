@@ -129,7 +129,7 @@ export default {
       return isJPG && isLt2M;
     },
     sub() {
-      this.bol = true;
+      
       var useid = this.id
       var ban = this.money
       var tel = $("#phone").val();
@@ -169,8 +169,7 @@ export default {
           // .post("commission/api/user-annexes-offlineParams",data)
           .then(function(res) {
             console.log(res);
-            // alert('提交成功')
-            this.$router.push({ path: "/mine" });
+            this.bol = true;
           })
           .catch(function(error){
             console.log(error);
