@@ -118,11 +118,12 @@ export default {
       sessionStorage.setItem("GoodsID", id);
       this.$router.push({ name: "Product", params: { name: "/Product" } });
     },
-    GetParams(parmObj){
+    GetParams(parmStr){
           var that = this;
-          alert(parmObj)
-         // this.id = JSON.parse(parmObj); 
-          var aid = parmObj.id
+          alert(parmStr)
+         // this.id = JSON.parse(parmObj);
+         var paramObj = JSON.parse(parmStr);
+          var aid = paramObj.id
           alert(aid)
           this.$axios({
                 method:'get',
