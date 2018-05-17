@@ -136,11 +136,11 @@ export default {
               alert('error')
         });
         },
-    mounted(){
+  }
+   mounted(){
         window.GetParams = this.GetParams;
     }
 
-  }
 };
 </script>
 
