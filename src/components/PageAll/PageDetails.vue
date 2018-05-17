@@ -71,22 +71,23 @@ export default {
   //       }
   //     });
   //   },
-  created() {
-    var that = this;
-    this.$axios
-      .post("user/api/mercuries/getMercuryInfoProductList/5/",{
-      })
-      .then(function(res) {
-        console.log(res);
-        //     console.log(res.data.balance)
-        that.arr = res.data;
-        //      that.arr = res.data
-        //      console.log(arr)
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
-  },
+  
+//   created() {
+//     var that = this;
+//     this.$axios
+//       .post("user/api/mercuries/getMercuryInfoProductList/5/",{
+//       })
+//       .then(function(res) {
+//         console.log(res);
+//         //     console.log(res.data.balance)
+//         that.arr = res.data;
+//         //      that.arr = res.data
+//         //      console.log(arr)
+//       })
+//       .catch(function(error) {
+//         console.log(error);
+//       });
+//   },
   components: {
     PageAll,
     PageDetailsChild
@@ -135,9 +136,10 @@ export default {
               console.log(error);
               alert('error')
         });
-        },
+        }
   }
-   mounted(){
+   created(){},
+    mounted(){
         window.GetParams = this.GetParams;
     }
 
