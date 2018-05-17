@@ -120,7 +120,9 @@ export default {
     },
     GetParams(id){
           var that = this;
+          alert(id)
           this.id = JSON.parse(id); 
+          alret(this.id)
           this.$axios({
                 method:'get',
                 url:"user/api/mercuries/getMercuryInfoProductList/"+id+'/1/'+'10',
@@ -130,6 +132,7 @@ export default {
           .then(function(response) {
               console.log(response.data)   
               that.arr = res.data;
+              alert('success')
           })
           .catch(function(error) {
               console.log(error);
