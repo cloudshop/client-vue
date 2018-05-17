@@ -120,7 +120,7 @@ export default {
     },
     GetParams(parmStr){
           var that = this;
-          alert(parmStr)
+         // alert(parmStr)
          // this.id = JSON.parse(parmObj);
          var paramObj = JSON.parse(parmStr);
           var aid = paramObj.id
@@ -134,11 +134,11 @@ export default {
           .then(function(response) {
               console.log(response.data)   
               that.arr = response.data;
-              alert('success')
+             // alert('success')
           })
           .catch(function(error) {
               console.log(error);
-              alert(error)
+             // alert(error)
         });
         }
   },
