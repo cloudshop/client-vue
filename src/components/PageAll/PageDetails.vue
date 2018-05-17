@@ -122,10 +122,11 @@ export default {
           var that = this;
           alert(id)
           this.id = JSON.parse(id); 
+          var aid = id.id
           alert(JSON.parse(id))
           this.$axios({
                 method:'get',
-                url:"user/api/mercuries/getMercuryInfoProductList/"+id+'/1/'+'10',
+                url:"user/api/mercuries/getMercuryInfoProductList/"+aid+'/1/'+'10',
                 
                 headers:{'Content-Type': 'application/json',}
           })
