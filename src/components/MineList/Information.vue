@@ -23,7 +23,11 @@
               <li  @click="actionSheet">退出登录</li>
           </ul>
       </div>
-    
+        <mt-actionsheet  
+                    :actions= "data"  
+                    v-model="sheetVisible">  
+        </mt-actionsheet>
+
   </div>
   <!-- </transition> -->
 </template>
