@@ -117,6 +117,24 @@ export default {
       sessionStorage.setItem("GoodsID", id);
       this.$router.push({ name: "Product", params: { name: "/Product" } });
     }
+    GetParams(id){
+          var that = this;
+          this.id = JSON.parse(id); 
+          this.$axios({
+                method:'get',
+                url:"user/api/mercuries/getMercuryInfoProductList/"+'id='+id+'/pageNum=1/'+'pageSize=10',
+                
+                headers:{'Content-Type': 'application/json',}
+          })
+          .then(function(response) {
+              console.log(response.data)   
+              that.arr = res.data;
+          })
+          .catch(function(error) {
+              console.log(error);
+        });
+        }
+
   }
 };
 </script>
