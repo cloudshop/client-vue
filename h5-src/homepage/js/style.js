@@ -81,15 +81,13 @@
 				var template = ''
 				if(data.length>=1){
 					$.each(data,function(i,item){
-						template += '<li class="shopList flex spaceBetween"><img class="listLf" src='+item['img_license']+' /><div class="flex1 flexNowrap listRig"><div class="flex spaceBetween listRig_name"><p class="listRig_name_title">'+item['name']+'</p><p class="listRig_name_tips"><span>让利</span><br /><span class="font20">20%</span></p></div><div class="listRig_mid"><p class="star fl"><span class="star-in fl" style="width:75%;"></span></p><span class="color67 font20">| &nbsp;&nbsp;123人光临</span></div><div class="flex spaceBetween color67 font20"><p class="flex1 overflow">'+item['city']+'</p><p>8.8km</p></div></div></li>';
+						template += '<li class="shopList flex spaceBetween" data="'+item.id+'" ><img class="listLf" src='+item['img_license']+' /><div class="flex1 flexNowrap listRig"><div class="flex spaceBetween listRig_name"><p class="listRig_name_title">'+item['name']+'</p><p class="listRig_name_tips"><span>让利</span><br /><span class="font20">20%</span></p></div><div class="listRig_mid"><p class="star fl"><span class="star-in fl" style="width:75%;"></span></p><span class="color67 font20">| &nbsp;&nbsp;123人光临</span></div><div class="flex spaceBetween color67 font20"><p class="flex1 overflow">'+item['city']+'</p><p>8.8km</p></div></div></li>';
 					})
 					var html = '',
 						dateStr = (new Date()).toLocaleString();
 	
 					for(var i = 0; i < count; i++) {
 						html += exports.renderTemplate(template, {
-//							title: prevTitle + '商品名称【' + counterArr[counterIndex] + '】',
-							//              date: dateStr
 						});
 	
 						counterArr[counterIndex]++;
