@@ -130,11 +130,10 @@ export default {
           .then(function(response) {
               console.log(response.data)   
               that.arr = res.data;
-              alert('success')
           })
           .catch(function(error) {
               console.log(error);
-              alert('error')
+              
         });
         }
   },
