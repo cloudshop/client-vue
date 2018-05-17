@@ -56,6 +56,7 @@ const Agreement = r => require.ensure( [], () => r (require('@/components/Sher/A
 const Servershop = r => require.ensure( [], () => r (require('@/components/MineList/Servershop.vue')));      //服务商首页
 const Servershop2 = r => require.ensure( [], () => r (require('@/components/MineList/servershop2.vue')));    //支付服务商两万元
 const Xorders = r => require.ensure([], () => r(require('@/components/MineList/Xorders.vue'))); //线下订单
+const Cash = r => require.ensure([], () => r(require('@/components/MineList/Cash.vue'))); //提现
 Vue.use(Router)
 
 const routes = [{
@@ -350,6 +351,11 @@ const routes = [{
                 path: '/Xorders',
                 name: 'Xorders',
                 component: Xorders
+            },
+            { // 提现
+                path: '/Cash',
+                name: 'Cash',
+                component: Cash
             },
         ]
     },
