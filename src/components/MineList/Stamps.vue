@@ -20,12 +20,17 @@
             <ul class='list' v-for="item in brr">
             <li>
               <!-- <p><span>{{item.createdTime}}</span><span></span></p> -->
-              <p><span>{{item.createdTime}}</span><span></span></p>
+              <p><span>{{item.createdTime}}</span><span></span></p><!--这个是时间？对啊-->
               <p><b>{{item.typeString}}</b><b>{{item.ticket}}</b></p>
             </li>
           </ul>
           </div>
         </div>
+
+        <footer class='footer'>
+          <button>转出</button>
+          <router-link :to="{ path: '/top' }" tag='button'>转入</router-link>
+        </footer>
 
   </div>
 </template>
@@ -37,15 +42,14 @@ export default {
     return {
       arr: "null",
       brr: "null",
-      time:[],
+      time: []
     };
   },
-
-
   created() {
     var that = this;
     this.$axios
       .get("wallet/api/wallets/user")
+     
       .then(function(res) {
         that.arr = res.data;
       })
@@ -55,21 +59,34 @@ export default {
     this.$axios
       .get(
         "wallet/api/wallet/details/ticket?sort=createdTime%2Cdesc"
+         // wallet/api/wallet/details/integral?sort=createdTime%2Cdesc
       )
       .then(function(res) {
+        res.data.map(v => {
+          let utc = v.createdTime,
+            date = new Date(utc),
+            date1 = that.date(date);
+          v.createdTime = date1;
+        });
         that.brr = res.data;
-        console.log(that.brr)
-        that.brr = that.brr.filter((item)=>{
-          // return item.createdTime=item.createdTime.replace(/[A-Z]*/g, "");
-         return item.createdTime=item.createdTime.substr(0,19).replace('T', '    ');
-        }) 
       })
       .catch(function(error) {
         console.log(error);
       });
   },
   methods: {
-    one: function() {}
+    one: function() {},
+    date(time) {
+      const year = time.getFullYear(),
+        m = time.getMonth() + 1,
+        month = m < 10 ? "0" + m : m,
+        d = time.getDate(),day = d < 10 ? "0" + d : d,
+        h=time.getHours() ,hour=h < 10 ? "0" + h : h,
+        min=time.getMinutes() ,Minutes=min < 10 ? "0" +min: min,
+        se=time.getSeconds(),Seconds=se<10?"0"+se:se;
+      const date=year+"-"+month+"-"+day+"　"+h+":"+Minutes+":"+Seconds
+      return date;
+    }
   }
 };
 </script>
@@ -97,8 +114,8 @@ header {
   overflow: hidden;
   background: #f5f5f5;
 }
-.main{
-  padding-top: 3.7rem
+.main {
+  padding-top: 3.7rem;
 }
 .banner {
   background: url("../../assets/Mine/RemainingSum/bg.png");
@@ -106,7 +123,7 @@ header {
   width: 100%;
   height: 3.7rem;
   position: fixed;
-  top: .94rem
+  top: 0.94rem;
 }
 .banner p {
   text-align: center;
