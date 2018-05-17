@@ -12,10 +12,8 @@
           <mt-swipe :auto="4000" class='banner'>
            <mt-swipe-item v-for='(item,index) in data' :key='index'><img :src=item.image alt="" @click='banner(item.link)'></mt-swipe-item> 
       </mt-swipe>
-       <HomePageNav></HomePageNav>
-       <!-- <h2>{{XX}}{{YY}}</h2> -->
+       <!-- <HomePageNav></HomePageNav> -->
        <div class='Nearbyshops'>
-         <!-- {{this.$route.params.city3}} -->
          <p class="cccty" style="display:none">{{this.$route.params.city3}}</p>
               <h1>附近商家</h1>
               <div class='list'>
@@ -283,7 +281,6 @@ header ul li img {
   padding-left: 0.25rem;
   color: #2f2f2f;
 }
-
 .main h2 b {
   background: url(../assets/HomePage/kuaibao.gif);
   background-size: 100% 100%;
@@ -321,7 +318,6 @@ header ul li img {
 .Nearbyshops h1 {
   height: 0.9rem;
   line-height: 0.9rem;
-  margin-top: 0.16rem;
   text-align: center;
   font-size: 0.32rem;
   color: #525252;
@@ -341,9 +337,10 @@ header ul li img {
   width: 80%;
   margin-left: 0.2rem;
 }
-.Nearbyshops .list dl dd h3 span {
+.Nearbyshops .list dl dd h3{
   font-size: 0.28rem;
   color: #525252;
+  padding-top: 0.1rem;
 }
 .Nearbyshops .list dl dd .star {
   margin-top: 0.1rem;
