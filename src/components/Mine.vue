@@ -6,7 +6,7 @@
                <div class='headRight'>
                   <!--<router-link :to="{ path: '/Information' }" tag='p'>-->
                   <!--</router-link> -->
-                  <p @click='Information'></p>
+                  <!-- <p @click='Information'></p> -->
                   <!--<p></p>-->
                </div>
                <dl>
@@ -17,7 +17,7 @@
                          <p>{{usertype}}</p>
                    </dd>
                </dl>
-              <span></span>
+              <span @click='Information'></span>
          </header>
      
         <div class='main content'>
@@ -331,10 +331,10 @@ export default {
   width: 0.5rem;
   height: 0.5rem;
 }
-.header .headRight p:first-child {
+/* .header .headRight p:first-child {
   background: url("../assets/Mine/设置.png");
   background-size: 100% 100%;
-}
+} */
 /*.header .headRight p:last-child {*/
 /*  background: url("../assets/Mine/消息.png");*/
 /*  background-size: 100% 100%;*/
