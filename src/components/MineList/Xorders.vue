@@ -209,7 +209,7 @@ export default {
   font-size: 0.28rem;
   color: rgb(102, 102, 102);
 }
-.main p:nth-child(8) {
+.main p:nth-child(7) {
   padding-left: 0;
 }
 .main p input {
@@ -219,11 +219,11 @@ export default {
   padding-left: 0.2rem;
   border-radius: 0.1rem;
 }
-.main p:nth-child(9) {
+.main p:nth-child(8) {
   text-align: center;
   margin-top: 0.8rem;
 }
-.main p:nth-child(9) input {
+.main p:nth-child(8) input {
   height: 0.7rem;
   background: #ff0103;
   border: none;
