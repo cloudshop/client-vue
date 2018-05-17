@@ -2,9 +2,9 @@
     <div class="Xorder">
         <header class="mint-header header">
            <div class="mint-header-button is-left">
-               <mt-button icon="back"></mt-button>
+               <mt-button icon="back" @click="back"></mt-button>
             </div> 
-             <h1 class="mint-header-title">表单录入</h1>
+             <h1 class="mint-header-title">现金支付</h1>
             <div class="mint-header-button is-right"></div>
         </header>
         <div style="display:none">
@@ -16,9 +16,9 @@
             <p>你的余额：<span>{{money}}</span></p>
             <p>用户手机：<input type="text" maxlength="11" id="phone"></p>
             <p>订单金额：<input type="text" id="ordermoney" v-model="ordermoney" maxlength="7"></p>
-            <p>让利比例：<input type="text" id="letmoney" placeholder="让利范围在12%～98%之间" v-model="msg" maxlength="2"></p>
+            <p>服务费&nbsp;&nbsp;：<input type="text" id="letmoney" placeholder="让利范围在12%～98%之间" v-model="msg" maxlength="2"></p>
             <p>让利金额：<span class="mone">{{msg*ordermoney/100}}</span></p>
-            <!--<p class="test">小票凭证：</p>-->
+            <p class="test">小票凭证：</p>
             <p class="upload">
               <span>
                   <el-upload
@@ -69,6 +69,7 @@ export default {
       .then(function(res) {
         that.money = res.data.balance;
         that.id = res.data.userid
+      
       })
       .catch(function(error) {
         console.log(error);
@@ -81,7 +82,7 @@ export default {
     back() {
       var msg = "请确定是否返回，返回后图片将需要重新上传";
       if (confirm(msg) == true) {
-        this.$router.push({ path: "/SellerCenter" });
+        this.$router.push({ path: "/mine" });
         // $this.$router.push({name:'SellerCenter'});
       } else {
         return false;
@@ -160,6 +161,8 @@ export default {
           // .post("commission/api/user-annexes-offlineParams",data)
           .then(function(res) {
             console.log(res);
+            alert('提交成功')
+            this.$router.push({ path: "/mine" });
           })
           .catch(function(error){
             console.log(error);
@@ -206,7 +209,7 @@ export default {
   font-size: 0.28rem;
   color: rgb(102, 102, 102);
 }
-.main p:nth-child(7) {
+.main p:nth-child(8) {
   padding-left: 0;
 }
 .main p input {
@@ -216,11 +219,11 @@ export default {
   padding-left: 0.2rem;
   border-radius: 0.1rem;
 }
-.main p:nth-child(8) {
+.main p:nth-child(9) {
   text-align: center;
   margin-top: 0.8rem;
 }
-.main p:nth-child(8) input {
+.main p:nth-child(9) input {
   height: 0.7rem;
   background: #ff0103;
   border: none;
@@ -235,15 +238,20 @@ export default {
   text-align: center;
   display: block;
 }
-.upload span img {
+/* .upload span img {
   width: 100%;
   height: 100%;
-}
+} */
 .avatar-uploader {
   width: 50%;
   margin: auto;
   line-height: 1.2rem;
   height: 1.2rem;
+  overflow: hidden;
   border: 1px solid #ccc;
+}
+.avatar-uploader img{
+  width: 100%;
+  height: 100%;
 }
 </style>
