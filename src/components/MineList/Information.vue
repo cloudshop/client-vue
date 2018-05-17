@@ -17,15 +17,13 @@
               <router-link :to="{ name: 'NickName',params:{nickname:arr.nickname} }" tag='li'>昵称<p class="user_name">{{arr.nickname}}</p><b>></b></router-link>
               <li>手机号<p>{{arr.phone}}</p><b></b></li>
               <li @click="address">我的地址<b>></b></li>
-              <router-link :to="{ path: '/ID' }" tag='li'>账号与安全 <b>></b></router-link>            
+              <router-link :to="{ path: '/Approve' }" tag='li' v-show="!bo">账号与安全<b>></b></router-link> 
+              <li v-show="bo">账号与安全<b>{{statusString}}</b></li>           
               <li>我的分享人 <b>{{arr.invPhone}}</b></li>
               <li  @click="actionSheet">退出登录</li>
           </ul>
       </div>
-        <mt-actionsheet  
-                    :actions= "data"  
-                    v-model="sheetVisible">  
-        </mt-actionsheet>
+    
   </div>
   <!-- </transition> -->
 </template>
@@ -45,7 +43,9 @@ export default {
         {
           name: "确定",
           method: this.confirms,
-          nickname:""
+          nickname:"",
+          statusString:"",
+          bo:false
         }
       ],
       sheetVisible: false
@@ -62,6 +62,18 @@ export default {
       .catch(function(error) {
         console.log(error);
       });
+      this.$axios
+	      .get("user/api/my-auth")
+	      .then(function(res) {
+	          console.log(res.data);
+	          if(res.data.statusString == "审核中"){
+	          	that.bo = true;
+	          	that.statusString = res.data.statusString;
+	          }
+	      })
+	      .catch(function(error) {
+	        console.log(error);
+	      });
   },
   methods: {
     actionSheet: function() {
@@ -169,6 +181,7 @@ header {
 .list li:nth-child(4),
 .list li:nth-child(5),
 .list li:nth-child(7),
+.list li:nth-child(8),
 .list li:nth-child(6) {
   height: 0.84rem;
   line-height: 0.84rem;
@@ -176,8 +189,13 @@ header {
 .list li:nth-child(6) {
   margin-top: 0.2rem;
 }
-.list li:nth-child(7) {
-  padding: 0;
+.list li:nth-child(7) b{
+  font-size: 0.28rem;
+  color: #2f2f2f;
+  font-weight: 400;
+}
+.list li:nth-child(8){
+	padding: 0;
   margin-top: 0.2rem;
   text-align: center;
   font-size: 0.28rem;
@@ -192,5 +210,9 @@ header {
 }
 a{
   color: #000;
+}
+.main .list .r{
+	font-weight: 100;
+	font-size: 0.25rem;
 }
 </style>
