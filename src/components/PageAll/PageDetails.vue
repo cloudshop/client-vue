@@ -116,7 +116,7 @@ export default {
       // var id =$(".id").text()
       sessionStorage.setItem("GoodsID", id);
       this.$router.push({ name: "Product", params: { name: "/Product" } });
-    }
+    },
     GetParams(id){
           var that = this;
           this.id = JSON.parse(id); 
