@@ -45,6 +45,13 @@
             </p>
             <p><input type="button" value="提交" @click="sub"></p>
         </div>
+        <div class="msg" v-show="bol">
+              <div class="succeed">
+                <h3>提示</h3>
+                <p>提交成功</p>
+                <router-link to="/Mine">确定</router-link>
+              </div>
+            </div>
     </div>
 </template>
 <script>
@@ -59,7 +66,8 @@ export default {
       money: "",
       msg: "",
       ordermoney: "",
-      id:''
+      id:'',
+      bol : false
     };
   },
   created() {
@@ -69,7 +77,6 @@ export default {
       .then(function(res) {
         that.money = res.data.balance;
         that.id = res.data.userid
-      
       })
       .catch(function(error) {
         console.log(error);
@@ -122,6 +129,7 @@ export default {
       return isJPG && isLt2M;
     },
     sub() {
+      this.bol = true;
       var useid = this.id
       var ban = this.money
       var tel = $("#phone").val();
@@ -161,7 +169,7 @@ export default {
           // .post("commission/api/user-annexes-offlineParams",data)
           .then(function(res) {
             console.log(res);
-            alert('提交成功')
+            // alert('提交成功')
             this.$router.push({ path: "/mine" });
           })
           .catch(function(error){
@@ -251,5 +259,42 @@ export default {
 .avatar-uploader img{
   width: 100%;
   height: 100%;
+}
+.msg{
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.3);
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 10;
+}
+.succeed{
+  width: 86%;
+  height: 2.5rem;
+  position: absolute;
+  left: 7%;
+  top: 40%;
+  z-index: 10;
+  background: #fff;
+  border-radius: 0.1rem;
+}
+h3{
+  font-size: 0.3rem;
+  line-height: 0.9rem;
+  padding: 0 0.4rem;
+}
+.msg p{
+  line-height: 0.8rem;
+  font-size: 0.25rem;
+  font-weight: 600;
+  padding-left: .4rem
+}
+.msg a{
+  display: block;
+  text-align: right;
+  padding: 0 0.4rem;
+  color: red;
+  font-weight: 600;
 }
 </style>
