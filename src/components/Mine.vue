@@ -84,7 +84,7 @@
                             <dt><img src="../assets/Mine/我的团队.png" alt=""></dt>
                             <dd>我的团队</dd>
                         </router-link>
-                         <router-link :to="{ path: '/Xorders' }" tag='dl'>
+                         <router-link :to="{ path: '/Xorders' }" tag='dl' class='moneypay'>
                             <dt><img src="../assets/Mine/money.png" alt=""></dt>
                             <dd>现金支付</dd>
                           </router-link>
@@ -125,6 +125,12 @@ export default {
         that.arr = res.data;
         console.log(res.data);
         that.type = res.data.type;
+        var tt = that.type
+        if(tt<2){
+              $('.moneypay').hide()
+        }else{
+          $('.moneypay').show()
+        }
         var name = res.data.type;
         var x;
         switch (name) {
