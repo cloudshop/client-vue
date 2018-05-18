@@ -48,7 +48,8 @@
         <div class="msg" v-show="bol">
               <div class="succeed">
                 <h3>提示</h3>
-                <p>提交成功</p>
+                <!--<p>提交成功</p>-->
+                <p>系统升级中,请稍后再试</p>
                 <router-link to="/Mine">确定</router-link>
               </div>
             </div>
