@@ -1,4 +1,4 @@
-import Vue from 'vue'
+﻿import Vue from 'vue'
 import Router from 'vue-router'
 
 const Index = r => require.ensure( [], () => r (require('@/components/index')));
@@ -36,6 +36,10 @@ const Pay = r => require.ensure( [], () => r (require('@/components/MineList/Pay
 const News = r => require.ensure( [], () => r (require('@/components/main/News.vue')));
 const setpaypsd = r => require.ensure( [], () => r (require('@/components/My/paypsd.vue')));
 const IDcard = r => require.ensure( [], () => r (require('@/components/My/IDcard.vue')));
+
+const Myhead = r => require.ensure( [], () => r (require('@/components/MineList/Myhead.vue')));
+
+const Approve = r => require.ensure( [], () => r (require('@/components/MineList/Approve.vue')));//实名认证
 const ConfirmAnOrder = r => require.ensure( [], () => r (require('@/components/Shopping/ConfirmAnOrder.vue')));
 const ConfirmAnOrderChild = r => require.ensure( [], () => r (require('@/components/Shopping/ConfirmAnOrderChild.vue')));
 const Login = r => require.ensure( [], () => r (require('@/components/Login/Login.vue')));
@@ -356,6 +360,16 @@ const routes = [{
                 path: '/Cash',
                 name: 'Cash',
                 component: Cash
+            },
+            { // 修改头像
+                path: '/Myhead',
+                name: 'Myhead',
+                component: Myhead
+            },
+            { // 实名认证
+                path: '/Approve',
+                name: 'Approve',
+                component: Approve
             },
         ]
     },
