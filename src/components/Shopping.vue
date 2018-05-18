@@ -193,7 +193,8 @@ export default {
       //     this.serviceList[id].sku.splice(index,1);
       //   }, 0); 
       // }
-      var delSkuid = this.serviceList[id].sku[index].skuid;
+      var delSkuid = [];
+      delSkuid.push(this.serviceList[id].sku[index].skuid);
       this.$axios.post('shoppingcart/api/shoppingcar/del',delSkuid)
       .then(function(res){
         if(res.data == 'success'){
