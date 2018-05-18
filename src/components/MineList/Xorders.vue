@@ -12,11 +12,11 @@
               <span class="photo2">{{title2}}</span>
             </div>
         <div class="main">
-            <p>注：您当前的账户余额不得少于让利金额</p>
-            <p>你的余额：<span>{{money}}</span></p>
-            <p>用户手机：<input type="text" maxlength="11" id="phone"></p>
-            <p>订单金额：<input type="text" id="ordermoney" v-model="ordermoney" maxlength="7"></p>
-            <p>服务费&#12288;：<input type="text" id="letmoney" placeholder="让利范围在12%～98%之间" v-model="msg" maxlength="2"></p>
+            <p>注：您当前的账户余额不得少于服务费</p>
+            <p>你的余额&#12288;：<span>{{money}}</span></p>
+            <p>用户手机&#12288;：<input type="text" maxlength="11" id="phone"></p>
+            <p>订单金额&#12288;：<input type="text" id="ordermoney" v-model="ordermoney" maxlength="7"></p>
+            <p>服务费比例：<input type="text" id="letmoney" placeholder="让利范围在12%～98%之间" v-model="msg" maxlength="2"></p>
             <p>服务费金额：<span class="mone">{{msg*ordermoney/100}}</span> <br>  小票凭证:</p>
             <!-- <p class="test">小票凭证：</p> -->
             <p class="upload">
