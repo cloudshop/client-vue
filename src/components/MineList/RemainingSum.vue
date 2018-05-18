@@ -28,10 +28,17 @@
         </div>
 
         <footer class='footer'>
-          <button>转出</button>
+          <button @click="out">转出</button>
           <router-link :to="{ path: '/top' }" tag='button'>转入</router-link>
         </footer>
-
+      <div class="msg" v-show="bol">
+              <div class="succeed">
+                <h3>提示</h3>
+                <p>尚未实名认证，请前往个人中心实名认证</p>
+                <!-- <router-link to="/RemainingSum">取消</router-link> -->
+                <span @click="sure">确定</span>
+              </div>
+      </div>
   </div>
 </template>
 
@@ -42,14 +49,17 @@ export default {
     return {
       arr: "null",
       brr: "null",
-      time: []
+      audit: "null",
+      datt:'',
+      time: [],
+      bol : false
     };
   },
   created() {
     var that = this;
     this.$axios
       .get("wallet/api/wallets/user")
-     
+
       .then(function(res) {
         that.arr = res.data;
       })
@@ -59,7 +69,7 @@ export default {
     this.$axios
       .get(
         "wallet/api/wallet/details/balance?page=0&size=10&sort=createdTime%2Cdesc"
-         // wallet/api/wallet/details/ticket?sort=createdTime%2Cdesc
+        // wallet/api/wallet/details/ticket?sort=createdTime%2Cdesc
       )
       .then(function(res) {
         res.data.map(v => {
@@ -73,19 +83,62 @@ export default {
       .catch(function(error) {
         console.log(error);
       });
+    this.$axios
+      .get("user/api/my-auth")
+
+      .then(function(res) {
+        console.log(res)
+        that.datt = res.data
+        that.audit = res.data.statusString;
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   },
   methods: {
+
+    sure(){
+         this.bol = false;
+    },
     one: function() {},
     date(time) {
       const year = time.getFullYear(),
         m = time.getMonth() + 1,
         month = m < 10 ? "0" + m : m,
-        d = time.getDate(),day = d < 10 ? "0" + d : d,
-        h=time.getHours() ,hour=h < 10 ? "0" + h : h,
-        min=time.getMinutes() ,Minutes=min < 10 ? "0" +min: min,
-        se=time.getSeconds(),Seconds=se<10?"0"+se:se;
-      const date=year+"-"+month+"-"+day+"　"+h+":"+Minutes+":"+Seconds
+        d = time.getDate(),
+        day = d < 10 ? "0" + d : d,
+        h = time.getHours(),
+        hour = h < 10 ? "0" + h : h,
+        min = time.getMinutes(),
+        Minutes = min < 10 ? "0" + min : min,
+        se = time.getSeconds(),
+        Seconds = se < 10 ? "0" + se : se;
+      const date =
+        year +
+        "-" +
+        month +
+        "-" +
+        day +
+        "　" +
+        h +
+        ":" +
+        Minutes +
+        ":" +
+        Seconds;
       return date;
+    },
+    out() {
+      // alert(this.audit)
+      var ty = this.audit;
+      var msg = "尚未实名认证，是否前往个人中心实名认证？认证后即可提现";
+      console.log(ty)
+
+      if(ty == null){
+        this.bol = true;
+      }else if(ty == '审核通过'){
+           this.$router.push({ path: "/Cash" });
+      }
+
     }
   }
 };
@@ -183,4 +236,46 @@ header {
   color: #fff;
   background: #1692e1;
 }
+.msg{
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.3);
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 10;
+}
+.succeed{
+  width: 86%;
+  height: 2.5rem;
+  position: absolute;
+  left: 7%;
+  top: 40%;
+  z-index: 10;
+  background: #fff;
+  border-radius: 0.1rem;
+}
+.succeed router-link{
+  float: left;
+  display: inline-block;
+}
+h3{
+  font-size: 0.3rem;
+  line-height: 0.9rem;
+  padding: 0 0.4rem;
+}
+.msg p{
+  line-height: 0.8rem;
+  font-size: 0.25rem;
+  font-weight: 600;
+  padding-left: .3rem;
+}
+.msg span{
+  display: block;
+  text-align: right;
+  padding: 0 0.4rem;
+  color: red;
+  font-weight: 600;
+}
+
 </style>

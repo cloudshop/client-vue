@@ -37,6 +37,14 @@
               </p>
           </div>
       </div>
+      <div class="msg" v-show="bol">
+              <div class="succeed">
+                <h3>提示</h3>
+                <p>提现金额必须是100的整数倍</p>
+                <!-- <router-link to="/RemainingSum">取消</router-link> -->
+                <span @click="sure">确定</span>
+              </div>
+      </div>
     </div>
 </template>
 <script>
@@ -47,7 +55,8 @@ export default {
       name: "",
       phone: "",
       address: "",
-      psd: ""
+      psd: "",
+      bol:false
     };
     var p1 = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;
   },
@@ -59,12 +68,17 @@ export default {
       var number = $(".number").val();
       if (cardnum == "" || bank == "" || username == "" || number == "") {
         alert("请填全信息");
+        console.log('请填全信息')
       } else {
         if (!isNaN(number)) {
           number = 1 * number;
           if (number > 0 && number % 100 == 0) {
             $(".password").fadeIn(300);
-          } else alert("提现金额需要是100的整数倍");
+          } else {
+            //   alert("提现金额需要是100的整数倍");
+  
+              this.bol = true;
+          }
         }
         // $('.password').fadeIn(300)
         var data = {
@@ -77,10 +91,14 @@ export default {
     },
     del() {
       $(".password").fadeOut(200);
+    },
+    sure(){
+        this.bol = false;
     }
   },
   watch: {
     psd(curVal) {
+        var that = this
       if (curVal.length == 6) {
         var cardnum = $(".card").val();
         var bank = $(".bank").val();
@@ -99,6 +117,14 @@ export default {
           .post("wallet/api/put-forward", data)
           .then(function(res) {
             console.log(res);
+            console.log(res.status);
+            var typ = res.status
+            if(typ== '200'){
+                 alert('提交成功')
+                 that.$router.push({ path: "/Mine" });
+            }else{
+                console.log('服务器错误，请稍后重试')
+            }
           })
           .catch(function(error) {
             console.log(error);
@@ -203,4 +229,46 @@ h2 {
   right: 0;
   color: #ccc;
 }
+.msg{
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.3);
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 10;
+}
+.succeed{
+  width: 86%;
+  height: 2.5rem;
+  position: absolute;
+  left: 7%;
+  top: 40%;
+  z-index: 10;
+  background: #fff;
+  border-radius: 0.1rem;
+}
+.succeed router-link{
+  float: left;
+  display: inline-block;
+}
+h3{
+  font-size: 0.3rem;
+  line-height: 0.9rem;
+  padding: 0 0.4rem;
+}
+.msg p{
+  line-height: 0.8rem;
+  font-size: 0.25rem;
+  font-weight: 600;
+  padding-left: .3rem;
+}
+.msg span{
+  display: block;
+  text-align: right;
+  padding: 0 0.4rem;
+  color: red;
+  font-weight: 600;
+}
+
 </style>
