@@ -67,7 +67,6 @@ export default {
       msg: "",
       ordermoney: "",
       id:'',
-      bol : false
     };
   },
   created() {
@@ -170,10 +169,13 @@ export default {
           // .post("commission/api/user-annexes-offlineParams",data)
           .then(function(res) {
             console.log(res);
+            // alert('提交成功')
             this.bol = true;
+            // this.$router.push({ path: "/mine" });
           })
           .catch(function(error){
             console.log(error);
+
           });
       }
         }
