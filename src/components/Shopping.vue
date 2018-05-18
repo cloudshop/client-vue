@@ -132,6 +132,9 @@ export default {
     .then(function(response) {
         that.serviceList = response.data.result;
         // emptys 去逛逛
+        console.log(that.serviceList)
+        console.log(response.data)
+        console.log(that.serviceList.length)
         if(that.serviceList == undefined || that.serviceList.length == 0){
           that.empty = false;
           that.emptys = true;
@@ -353,7 +356,11 @@ export default {
           that.$router.push({name:"ConfirmAnOrder"}) 
         })
         .catch((error)=>{
-          console.log(error);
+          if(error.response.data.status == 500){
+            alert('服务器繁忙，请耐心等待')
+          }else{
+            alert(error.response.data.title)
+          }
         });
       },
       goings:function(){
