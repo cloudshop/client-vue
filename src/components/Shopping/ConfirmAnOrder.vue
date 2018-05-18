@@ -12,8 +12,8 @@
             <div class="mint-header-button is-right"></div>
         </header>
         <div class='content'>
-            <div class='nav'>
-                <dl @click='HarvestAddress'>
+            <div class='nav'  @click='HarvestAddress'>
+                <dl>
                     <dt><b id='nick'>{{this.$route.params.contact}}</b>&nbsp;<b>{{this.$route.params.phone}}</b></dt>
                     <dd>
                         <!-- <img :src = productUrl alt=""> -->
