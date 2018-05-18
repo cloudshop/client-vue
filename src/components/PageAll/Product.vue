@@ -277,19 +277,37 @@
         var shopId = this.data.productContent.shopid;
         var skuId = this.data.productContent.id;
         var params = {"skuId":skuId,"shopId":shopId,"count": 1}
-        this.$axios({
-                method:'post',
-                url:'shoppingcart/api/shoppingcar/add',
-                data:params,
-            })
-            .then(function(response) {
-              if(response.data.message == 'success'){
-                alert('加入购物车成功')
-              }
-            })
-            .catch((error)=>{
-                console.log(error);
-            }) 
+        if(this.$store.getters.isAuthed === false){
+          alert('请先登陆');
+          var  val={
+              "func":"openURL",
+              "param":{
+                  "URL":'/#/Login',
+              },
+          };
+          var u = navigator.userAgent;
+          var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+          var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+          if(isiOS){
+             window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+          }else if(isAndroid){  
+             window.androidObject.JSCallAndroid(JSON.stringify(val));
+          }
+        }else{
+          this.$axios({
+            method:'post',
+            url:'shoppingcart/api/shoppingcar/add',
+            data:params,
+          })
+          .then(function(response) {
+            if(response.data.message == 'success'){
+              alert('加入购物车成功')
+            }
+          })
+          .catch((error)=>{
+              console.log(error);
+          }) 
+        }
       },
       back(){   
          var  val={
