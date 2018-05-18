@@ -13,7 +13,7 @@
         </header>
       <div class="main">
           <ul class="list">
-              <li><router-link :to="{ path: '/Myhead' }">我的头像<span class="user_img"></span><b>></b></router-link></li>
+              <li><router-link :to="{ name: 'Myhead',params:{id} }">我的头像<span class="user_img"><img :src="arr.avatar"/></span><b>></b></router-link></li>
               <router-link :to="{ name: 'NickName',params:{nickname:arr.nickname} }" tag='li'>昵称<p class="user_name">{{arr.nickname}}</p><b>></b></router-link>
               <li>手机号<p>{{arr.phone}}</p><b></b></li>
               <li @click="address">我的地址<b>></b></li>
