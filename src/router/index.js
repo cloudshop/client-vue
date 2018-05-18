@@ -36,9 +36,8 @@ const Pay = r => require.ensure( [], () => r (require('@/components/MineList/Pay
 const News = r => require.ensure( [], () => r (require('@/components/main/News.vue')));
 const setpaypsd = r => require.ensure( [], () => r (require('@/components/My/paypsd.vue')));
 const IDcard = r => require.ensure( [], () => r (require('@/components/My/IDcard.vue')));
-
 const Myhead = r => require.ensure( [], () => r (require('@/components/MineList/Myhead.vue')));
-
+const addressYes = r => require.ensure( [], () => r (require('@/components/MineList/addressYes.vue'))); // 修改收货地址
 const Approve = r => require.ensure( [], () => r (require('@/components/MineList/Approve.vue')));//实名认证
 const ConfirmAnOrder = r => require.ensure( [], () => r (require('@/components/Shopping/ConfirmAnOrder.vue')));
 const ConfirmAnOrderChild = r => require.ensure( [], () => r (require('@/components/Shopping/ConfirmAnOrderChild.vue')));
@@ -370,6 +369,11 @@ const routes = [{
                 path: '/Approve',
                 name: 'Approve',
                 component: Approve
+            },
+            { // 修改收货地址
+                path: '/addressYes',
+                name: 'addressYes',
+                component: addressYes
             },
         ]
     },
