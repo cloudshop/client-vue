@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div id='main'>
       <header class="mint-header">
            <div class="mint-header-button is-left">
@@ -17,8 +17,10 @@
               <router-link :to="{ name: 'NickName',params:{nickname:arr.nickname} }" tag='li'>昵称<p class="user_name">{{arr.nickname}}</p><b>></b></router-link>
               <li>手机号<p>{{arr.phone}}</p><b></b></li>
               <li @click="address">我的地址<b>></b></li>
-              <router-link :to="{ path: '/Approve' }" tag='li' v-show="!bo">账号与安全<b>></b></router-link> 
-              <li v-show="bo">账号与安全<b>{{statusString}}</b></li>           
+              <router-link :to="{ path: '/ID' }" tag='li'>账号与安全<b>></b></router-link> 
+              <router-link :to="{ path: '/Approve' }" tag='li' v-show="bo==1?true:false">实名认证<b>></b></router-link> 
+              <li v-show="bo==2?true:false">实名认证<b>{{statusString}}</b></li>    
+              <li v-show="bo==3?true:false">实名认证<b>{{statusString}}</b></li>           
               <li>我的分享人 <b>{{arr.invPhone}}</b></li>
               <li  @click="actionSheet">退出登录</li>
           </ul>
@@ -49,7 +51,8 @@ export default {
           method: this.confirms,
           nickname:"",
           statusString:"",
-          bo:false
+          bo:"",
+          id:""
         }
       ],
       sheetVisible: false
@@ -61,6 +64,7 @@ export default {
       .get("user/api/user-annexes/userInfo")
       .then(function(res) {
           that.arr = res.data;
+          that.id = that.arr.id;
           console.log(res.data);
       })
       .catch(function(error) {
@@ -70,9 +74,17 @@ export default {
 	      .get("user/api/my-auth")
 	      .then(function(res) {
 	          console.log(res.data);
-	          if(res.data.statusString == "审核中"){
-	          	that.bo = true;
-	          	that.statusString = res.data.statusString;
+	          if(res.data == ""){
+	          	that.bo = 1;
+	          }else if(res.data.statusString == "审核中"){
+	          	that.bo = 2;
+	          	that.statusString = "审核中";
+	          	console.log(that.statusString);
+	          }else if(res.data.statusString == "审核通过"){
+	          	that.bo = 3;
+	          	that.statusString = "已认证";
+	          }else if(res.data.statusString == "未审核通过"){
+	          	that.bo = 1;
 	          }
 	      })
 	      .catch(function(error) {
@@ -156,7 +168,7 @@ header {
   position: absolute;
   right: 0.6rem;
 }
-.list li:nth-child(6) b{
+.list li:nth-child(7) b{
   font-size: 0.27rem;
   font-weight: 200;
 }
@@ -180,25 +192,36 @@ header {
   top: 15%;
   right: 20%;
 }
+.user_img img{
+	width: 0.98rem;
+  height: 0.98rem;
+  border-radius: 50%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 10;
+}
 .list li:nth-child(2),
 .list li:nth-child(3),
 .list li:nth-child(4),
 .list li:nth-child(5),
 .list li:nth-child(7),
 .list li:nth-child(8),
+.list li:nth-child(9),
+.list li:nth-child(10),
 .list li:nth-child(6) {
   height: 0.84rem;
   line-height: 0.84rem;
 }
-.list li:nth-child(6) {
+.list li:nth-child(8) {
   margin-top: 0.2rem;
 }
-.list li:nth-child(7) b{
+.list li:nth-child(9) b{
   font-size: 0.28rem;
   color: #2f2f2f;
   font-weight: 400;
 }
-.list li:nth-child(8){
+.list li:nth-child(10){
 	padding: 0;
   margin-top: 0.2rem;
   text-align: center;
