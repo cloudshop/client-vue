@@ -132,9 +132,6 @@ export default {
     .then(function(response) {
         that.serviceList = response.data.result;
         // emptys 去逛逛
-        console.log(that.serviceList)
-        console.log(response.data)
-        console.log(that.serviceList.length)
         if(that.serviceList == undefined || that.serviceList.length == 0){
           that.empty = false;
           that.emptys = true;
