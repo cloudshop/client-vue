@@ -153,6 +153,7 @@ export default {
           if(letmon <12 || letmon >98){
         alert('让利比例需在12%～98%之间')
       }else{
+          this.bol = true;
           var letmoney = money1*letmon/100
           var data = {
               ment:money1,
@@ -173,7 +174,6 @@ export default {
           })
           .catch(function(error){
             console.log(error);
-            this.bol = true;
           });
       }
         }
