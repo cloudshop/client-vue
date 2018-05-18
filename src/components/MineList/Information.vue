@@ -83,7 +83,7 @@ export default {
 	          }else if(res.data.statusString == "审核通过"){
 	          	that.bo = 3;
 	          	that.statusString = "已认证";
-	          }else if(res.data.statusString == "未审核通过"){
+	          }else if(res.data.statusString == "未通过审核"){
 	          	that.bo = 1;
 	          }
 	      })

@@ -1,6 +1,6 @@
 <template>
     <div class="Approve">
-        <header>实名认证</header>
+        <header><span @click="backMine">&lt;</span>实名认证</header>
         <div class="main">
             <p>
             	<label for="">姓名：</label>
@@ -43,6 +43,13 @@
             	<button @click="submit">提交</button>
             </p>
         </div>
+        <div class="msg" v-show="bol">
+            <div class="succeed">
+            <h3>提示</h3>
+            <p>提交审核中</p>
+            <span @click="backMine">确定</span>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -56,6 +63,7 @@ export default {
 	    	reverseImg:"",
 	    	imageUrl: "",
 	    	imageUrl2: "",
+	    	bol:false
 	    };
   	},
   	methods:{
@@ -115,12 +123,16 @@ export default {
 	            )
 			    .then(function(res) {
 			        console.log(res);
-			        this.$router.push({path:"/Information"});
+			        this.bol = true;
+			        
 			    })
 			    .catch(function(error) {
 			        console.log(error);
 			    });
 			}
+	    },
+	    backMine(){
+	        this.$router.push({ path: "/information" });
 	    },
   	}
 }
@@ -138,6 +150,11 @@ header{
 	background: #fff;
 	border-bottom: 2px solid #bbb;
 	font-size: 0.3rem;
+}
+header span{
+	position: absolute;
+	left: 7%;
+	top: 0;
 }
 .main{
 	width: 100;
@@ -157,7 +174,7 @@ p:nth-of-type(2){
 	justify-content: space-between;
 }
 p label{
-	width: 20%;
+	width: 30%;
 }
 p input{
 	width: 60%;
@@ -173,14 +190,13 @@ p:nth-of-type(4){
 	margin: 6vh 0;
 }
 p span:first-child{
-	width: 30%;
+	width: 38;
 	line-height: 11vh;
 }
 p span:last-child{
 	width: 36%;
 	height: 11vh;
 	margin: 0 5%;
-	/*padding: 2vh 0;*/
 	background: #eee;
 	border: 1px solid #555;
 }
@@ -189,9 +205,6 @@ p span:last-child{
     height: 11vh;
     text-align: center;
 }
-/*.mint-header-button{
-	font-size: 0.25rem;
-}*/
 .avatar-uploader-icon {
 	font-size: 0.5rem;
 	color: #8c939d;
@@ -208,12 +221,50 @@ p:last-child{
 }
 p button{
 	width: 40%;
+	height: 0.5rem;
 	text-align: center;
 	margin: 0 30%;
-	padding: 0.1rem 1rem;
+	/*padding: 0.1rem 1rem;*/
 	border: 1px solid #555;
 	border-radius: 0.1rem;
 	background: #eee;
+}
+.msg{
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.3);
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 10;
+}
+.succeed{
+  width: 86%;
+  height: 2.5rem;
+  position: absolute;
+  left: 7%;
+  top: 40%;
+  z-index: 10;
+  background: #fff;
+  border-radius: 0.1rem;
+}
+h3{
+  font-size: 0.3rem;
+  line-height: 0.9rem;
+  padding: 0 0.4rem;
+}
+.msg p{
+  line-height: 0.8rem;
+  font-size: 0.25rem;
+  font-weight: 600;
+  padding-left: 0.5rem;
+}
+.msg span{
+  display: block;
+  text-align: right;
+  padding: 0 0.4rem;
+  color: red;
+  font-weight: 600;
 }
 </style>
 
