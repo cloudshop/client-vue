@@ -18,7 +18,11 @@
               <li>手机号<p>{{arr.phone}}</p><b></b></li>
               <li @click="address">我的地址<b>></b></li>
               <router-link :to="{ path: '/ID' }" tag='li'>账号与安全<b>></b></router-link> 
+<<<<<<< HEAD
+              <router-link :to="{ name: 'Approve',params:{b:b} }" tag='li' v-show="bo==1?true:false">实名认证<b><span v-show="b==1?true:false">认证失败，请重新认证</span> > </b></router-link> 
+=======
               <router-link :to="{ path: '/Approve' }" tag='li' v-show="bo==1?true:false">实名认证<b><span v-show="b==1?true:false">认证失败，请重新认证</span> > </b></router-link> 
+>>>>>>> d791af110e05d8ff18a0bf1cac0b2c0457706fa9
               <li v-show="bo==2?true:false">实名认证<b>{{statusString}}</b></li>    
               <li v-show="bo==3?true:false">实名认证<b>{{statusString}}</b></li>           
               <li>我的分享人 <b>{{arr.invPhone}}</b></li>
@@ -52,8 +56,13 @@ export default {
           nickname:"",
           statusString:"",
           bo:"",
+<<<<<<< HEAD
+          id:""，
+	  b:""
+=======
           id:"",
           b:""
+>>>>>>> d791af110e05d8ff18a0bf1cac0b2c0457706fa9
         }
       ],
       sheetVisible: false
@@ -77,6 +86,7 @@ export default {
 	          console.log(res.data);
 	          if(res.data == ""){
 	          	that.bo = 1;
+			that.b = 0;
 	          }else if(res.data.statusString == "审核中"){
 	          	that.bo = 2;
 	          	that.statusString = "审核中";
@@ -86,7 +96,11 @@ export default {
 	          	that.statusString = "已认证";
 	          }else if(res.data.statusString == "未通过审核"){
 	          	that.bo = 1;
+<<<<<<< HEAD
+			that.b = 1;
+=======
 	          	that.b = 1;
+>>>>>>> d791af110e05d8ff18a0bf1cac0b2c0457706fa9
 	          }
 	      })
 	      .catch(function(error) {
@@ -169,8 +183,17 @@ header {
   display: inline-block;
   position: absolute;
   right: 0.6rem;
+<<<<<<< HEAD
+  font-weight: 200;
+}
+.list li:nth-child(7) b{
+  font-size: 0.4rem;
+  font-weight: 200;
+}
+=======
   font-weight: 400;
 }
+>>>>>>> d791af110e05d8ff18a0bf1cac0b2c0457706fa9
 .list li:nth-child(8) b{
   font-size: 0.27rem;
   font-weight: 400;

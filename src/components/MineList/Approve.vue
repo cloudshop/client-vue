@@ -40,7 +40,8 @@
             </p>
             <p></p>
             <p>
-            	<button @click="submit">提交</button>
+            	<button @click="submit" v-show="b=0?true:false">提交</button>
+            	<button @click="reset" v-show="b=1?true:false">提交</button>
             </p>
         </div>
         <div class="msg" v-show="bol">
@@ -63,8 +64,13 @@ export default {
 	    	reverseImg:"",
 	    	imageUrl: "",
 	    	imageUrl2: "",
-	    	bol:false
+	    	bol:false,
+	    	b:""
 	    };
+  	},
+  	created(){
+  		console.log(this.$route.params.b);
+  		this.b = this.$route.params.b;
   	},
   	methods:{
   		// 上传身份证照片
@@ -124,6 +130,33 @@ export default {
 			    .then(function(res) {
 			        console.log(res);
 			        this.bol = true;
+			        
+			    })
+			    .catch(function(error) {
+			        console.log(error);
+			    });
+			}
+	    },
+  		reset() {
+  			this.bol = true;
+			if (this.realName==""||this.realNumber==""||this.imageUrl==""||this.imageUrl2=="") {
+				alert("填写不完善");
+			} else{
+				var datas={
+	  				realName:this.realName,
+	  				idnuber:this.idnuber,
+	  				frontImg:this.idcardfront,
+	  				reverseImg:this.idcardfront2
+	  			}
+	  			console.log(datas);
+				this.$axios
+			    .put(
+	                "user/api/my-auth/update",
+	                datas
+	            )
+			    .then(function(res) {
+			        console.log(res);
+			        
 			        
 			    })
 			    .catch(function(error) {
