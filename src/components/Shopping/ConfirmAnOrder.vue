@@ -14,10 +14,10 @@
         <div class='content'>
             <div class='nav'>
                 <dl @click='HarvestAddress'>
-                    <dt> <b id='nick'>皮皮虾啊</b>&nbsp;<b>138****438</b></dt>
+                    <dt><b id='nick'>{{this.$route.params.contact}}</b>&nbsp;<b>{{this.$route.params.phone}}</b></dt>
                     <dd>
                         <!-- <img :src = productUrl alt=""> -->
-                        <p>湖北武汉市洪山区城区群光广场1707</p>
+                        <p>{{this.$route.params.city}}</p>
                     </dd>
                 </dl>
                 <span>></span>
@@ -124,10 +124,13 @@ export default {
             this.$router.push({name:"Product"}) 
         },
         HarvestAddress(){
-            this.$router.push({name:"MyAddress",params:{'address':'/ConfirmAnOrder'}}) 
+            this.$router.push({name:"addressYes",params:{'address':'/ConfirmAnOrder'}}) 
         },
         Pay(){
-             this.$router.push(
+            if(this.nick==''){
+                alert('请输入收货地址')
+            }else{
+                 this.$router.push(
                  {name:"Pay",
                     params:
                    {'payment':this.price*this.count,
@@ -140,6 +143,7 @@ export default {
                    'shopId':this.shopID
                    }
                  }) 
+            }
         }
     },
     created(){
