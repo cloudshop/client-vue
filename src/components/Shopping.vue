@@ -383,7 +383,7 @@ export default {
   top:0;
   width:100%;
   height:100%;
-  background:rgba(0,0,0,0);
+  background:rgba(0,0,0,0.2);
 }
 .mark_s{
   text-align:center;
@@ -466,7 +466,6 @@ export default {
   top:0;
   width:100%;
   height:100%;
-  background:rgba(0,0, 0,0.5);
 }
 .mark img{
   position:fixed;
