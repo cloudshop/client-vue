@@ -27,10 +27,7 @@
           </div>
         </div>
 
-        <footer class='footer'>
-          <button>转出</button>
-          <router-link :to="{ path: '/top' }" tag='button'>转入</router-link>
-        </footer>
+      
 
   </div>
 </template>
