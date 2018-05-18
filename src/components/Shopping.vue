@@ -132,12 +132,12 @@ export default {
     .then(function(response) {
         that.serviceList = response.data.result;
         // emptys 去逛逛
-        if(that.serviceList.length != 0){
-          that.empty = true;
-          that.emptys = false;
-        } else{
+        if(that.serviceList == undefined || that.serviceList.length == 0){
           that.empty = false;
           that.emptys = true;
+        }else{
+          that.empty = true;
+          that.emptys = false;
         }
     })
     .catch(function(error) {
