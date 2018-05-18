@@ -216,6 +216,7 @@ header{
    margin-top:.2rem;
    color:#676767;
    font-size:.2rem;
+   text-indent: .4rem;
 }
 .Single{
     height:2.26rem;
