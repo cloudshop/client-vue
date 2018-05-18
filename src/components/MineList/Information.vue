@@ -18,7 +18,7 @@
               <li>手机号<p>{{arr.phone}}</p><b></b></li>
               <li @click="address">我的地址<b>></b></li>
               <router-link :to="{ path: '/ID' }" tag='li'>账号与安全<b>></b></router-link> 
-              <router-link :to="{ path: '/Approve' }" tag='li' v-show="bo==1?true:false">实名认证<b>></b></router-link> 
+              <router-link :to="{ path: '/Approve' }" tag='li' v-show="bo==1?true:false">实名认证<b><span v-show="b==1?true:false">认证失败，请重新认证</span> > </b></router-link> 
               <li v-show="bo==2?true:false">实名认证<b>{{statusString}}</b></li>    
               <li v-show="bo==3?true:false">实名认证<b>{{statusString}}</b></li>           
               <li>我的分享人 <b>{{arr.invPhone}}</b></li>
@@ -52,7 +52,8 @@ export default {
           nickname:"",
           statusString:"",
           bo:"",
-          id:""
+          id:"",
+          b:""
         }
       ],
       sheetVisible: false
@@ -85,6 +86,7 @@ export default {
 	          	that.statusString = "已认证";
 	          }else if(res.data.statusString == "未通过审核"){
 	          	that.bo = 1;
+	          	that.b = 1;
 	          }
 	      })
 	      .catch(function(error) {
@@ -167,10 +169,16 @@ header {
   display: inline-block;
   position: absolute;
   right: 0.6rem;
+  font-weight: 400;
 }
-.list li:nth-child(7) b{
+.list li:nth-child(8) b{
   font-size: 0.27rem;
-  font-weight: 200;
+  font-weight: 400;
+}
+.list li:nth-child(6) b span{
+	display: inline-block;
+	font-weight: 400;
+	font-size: 0.26rem;
 }
 .list li p {
   float: right;
