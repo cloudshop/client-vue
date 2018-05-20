@@ -189,10 +189,10 @@ axios.interceptors.request.use(
                     /*发起刷新token的请求*/
 
                     accessToken.refresh({ username: store.getters.iphone, password: store.getters.password }, (result) => {
-                        const accessToken = oauth2.accessToken.create(result.token)
                         if (result.status == 400) {
                             store.commit(types.LOGOUT);
                         } else {
+                            const accessToken = oauth2.accessToken.create(result.token)
                             // store the token in global variable ??
                             store.commit(types.LOGIN, result.token);
 
