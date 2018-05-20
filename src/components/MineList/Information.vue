@@ -52,11 +52,7 @@ export default {
           nickname:"",
           statusString:"",
           bo:"",
-<<<<<<< HEAD
           id:"",
-=======
-          id:""，
->>>>>>> 389c801148e41cb2c4b133f8eadaa97dbf46dd29
 	  b:""
         }
       ],
