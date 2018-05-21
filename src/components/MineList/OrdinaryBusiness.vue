@@ -1,4 +1,4 @@
-<template>
+﻿<template>
    <div class='OrdinaryBusiness'>
         <header class="mint-header">
            <div class="mint-header-button is-left">
@@ -102,15 +102,15 @@ export default {
       idcardhold: "",
       License: "",
       shopname: "",
-      bol : false
+      bol : false,
+      type : 1
     };
   },
   methods: {
      back() {
       var msg = "请确定是否返回，返回后图片将需要重新上传";
       if (confirm(msg) == true) {
-        this.$router.push({ path: "/SellerCenter" });
-        // $this.$router.push({name:'SellerCenter'});
+        this.$router.push({ name: "SellerCenter",params:{type:this.type} });
       } else {
         return false;
       }
