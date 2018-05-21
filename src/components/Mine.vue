@@ -1,25 +1,18 @@
-<template>
-
+﻿<template>
    <div>
-
-         <header class='header'>
-               <div class='headRight'>
-                  <!--<router-link :to="{ path: '/Information' }" tag='p'>-->
-                  <!--</router-link> -->
-                  <!-- <p @click='Information'></p> -->
-                  <!--<p></p>-->
-               </div>
-               <dl>
-                   <dt><img src="../assets/Mine/headportrait.jpg" alt=""></dt>
-                   <dd>
-                         <h2>{{arr.nickname}}</h2>
-                         
-                         <p>{{usertype}}</p>
-                   </dd>
-               </dl>
-              <span @click='Information'></span>
-         </header>
-     
+      <header class='header'>
+        <div class='headRight'>
+        </div>
+        <dl>
+            <dt><img src="../assets/Mine/headportrait.jpg" alt=""></dt>
+            <dd>
+                  <h2>{{arr.nickname}}</h2>
+                  
+                  <p>{{usertype}}</p>
+            </dd>
+        </dl>
+      <span @click='Information'></span>
+      </header>
         <div class='main content'>
               <div class='nav'>
                     <!-- <router-link :to="{ path: '/RemainingSum' }" tag='dl'> -->
@@ -48,19 +41,17 @@
                     </router-link>
               </div>
               <div class='mainContent'>
-                     <h2>线上商城</h2> 
-                     <div class='onLine'>
-                     <dl class='onlinelist' @click="openorder">
-                           <dt><img src="../assets/Mine/订单.png" alt=""></dt>
-                           <dd>全部订单</dd>
-                    </dl>
-                    
-                     <router-link :to="{ path: '/collection' }" tag='dl' class='onlinelist'>
-                           <dt><img src="../assets/Mine/我的收藏.png" alt=""></dt>
-                           <dd>我的收藏</dd>
-                     </router-link>
-                     </div>
-                     
+                <h2>线上商城</h2> 
+                <div class='list'>
+                  <dl  @click="openorder">
+                    <dt><img src="../assets/Mine/订单.png" alt=""></dt>
+                    <dd>全部订单</dd>
+                  </dl>
+                  <router-link :to="{ path: '/collection' }" tag='dl' >
+                    <dt><img src="../assets/Mine/我的收藏.png" alt=""></dt>
+                    <dd>我的收藏</dd>
+                  </router-link>
+                </div>
               </div>
              <div class='mainContent'> 
                      <h2>贡融服务</h2> 
@@ -77,20 +68,27 @@
                           <!--</router-link>-->
                             <dl @click='SellerCenter'>
                                 <dt><img src="../assets/Mine/商户中心.png" alt=""></dt>
-                                <dd>商户中心</dd>
+                                <dd>商家入驻</dd>
                             </dl>
                             <!--<router-link :to="{ path: '/MyTeam' }" tag='dl'>-->
                             <router-link :to="{ name: 'MyTeam',params:{arr} }" tag='dl'>
                             <dt><img src="../assets/Mine/我的团队.png" alt=""></dt>
                             <dd>我的团队</dd>
                         </router-link>
-                         <!-- <router-link :to="{ path: '/Xorders' }" tag='dl' class='moneypay'> -->
-                          <dl class='moneypay' @click="mopay">
-                            <dt><img src="../assets/Mine/money.png" alt=""></dt>
-                            <dd>现金支付</dd>
-                          </dl>
-                          <!-- </router-link> -->
                     </div>              
+              </div>
+              <div class='mainContent moneypay'> 
+                  <h2>商户中心</h2> 
+                  <div class='list'>
+                    <router-link :to="{ path: '/Xorders' }" tag='dl'>
+                      <dt><img src="../assets/Mine/money.png" alt=""></dt>
+                      <dd>现金支付</dd>
+                    </router-link>
+                    <router-link :to="{ path: '/Xorders' }" tag='dl'>
+                      <dt><img src="../assets/Mine/money.png" alt=""></dt>
+                      <dd>出款码</dd>
+                    </router-link>
+                  </div>              
               </div>
         </div>
         <div class='mark' v-show='flag'>
@@ -117,7 +115,7 @@ export default {
   },
   created() {
     var that = this;
-    console.log(this.$store.getters.isAuthed);
+    // console.log(this.$store.getters.isAuthed);
     this.$store.getters.isAuthed !== true
       ? (this.flag = true)
       : (this.flag = false);
@@ -129,7 +127,7 @@ export default {
         that.type = res.data.type;
         var tt = that.type
         if(tt<2){
-              $('.moneypay').hide()
+          $('.moneypay').hide()
         }else{
           $('.moneypay').show()
         }
@@ -180,22 +178,6 @@ export default {
         func: "openURL",
         param: {
           URL: "/#/indentAll"
-        }
-      };
-      var u = navigator.userAgent;
-      var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
-      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-      if (isiOS) {
-        window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-      } else if (isAndroid) {
-        window.androidObject.JSCallAndroid(JSON.stringify(val));
-      }
-    },
-    mopay() {
-      var val = {
-        func: "openURL",
-        param: {
-          URL: "/#/Xorders"
         }
       };
       var u = navigator.userAgent;
@@ -404,7 +386,8 @@ export default {
 }
 .mainContent {
   border-top: 1px solid #e7e7e7;
-  margin: 0 0.4rem;
+  margin: 0 0.2rem;
+  margin-bottom: .25rem;
 }
 .mainContent h2 {
   margin: 0.3rem 0;
@@ -454,7 +437,5 @@ dl dt img {
   margin-top: 0.25rem;
   margin-bottom: 0.3rem;
 }
-.list dl:last-child{
-      margin-top: .2rem;
-}
+
 </style>
