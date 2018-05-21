@@ -46,7 +46,7 @@
                   <div class='mark' v-show='dele'>
                     <div class="mark_">
                         <p>确定删除此订单?</p>
-                        <div class="btn_all"><div class="no" @click='no'>取消</div><div class="sure" @click='sure(item.orderid)'>删除</div></div>
+                        <div class="btn_all"><div class="no" @click='nos'>取消</div><div class="sure" @click='sures(item.orderid)'>删除</div></div>
                     </div>
                   </div>
                 </div>
@@ -81,24 +81,30 @@ export default {
         .then(function(response) {
             that.arr = response.data;
             response.data.map((v,i)=>{
+                 console.log(v)
                 if(v.status == 1){
                     that.status='未付款';
+                    console.log('未付款')
                     that.aginFlag=false; that.flag=false; that.success=false; that.flag1=true; // 去付款
                 }
                 if(v.status == 2){
                    that.status='已付款';
+                    console.log('已付款')
                    that.flag1=false; that.flag=false; that.success=false; that.aginFlag=true; // 查看物流+确认收货
                 }
                 if(v.status == 3){
                     that.status='已发货';
+                    console.log('已发货')
                     that.flag1=false; that.flag=false; that.success=false; that.aginFlag=true;  // 查看物流+确认收货
                 }
                 if(v.status == 4){
                    that.status='交易成功';
+                   console.log('交易成功')
                    that.flag1=false;  that.aginFlag=false;  that.success=false; that.flag=true; // 晒单评价+再次购买
                 }
                 if(v.status == 5){
                    that.status='交易关闭';
+                   console.log('交易关闭')
                    that.aginFlag=false; that.flag1=false;  that.flag=false; that.success=true; // 再次购买
                 }
             })
@@ -126,6 +132,7 @@ export default {
             }
             if(this.num == 1){
                 var that = this;
+                that.status='未付款';
                 this.aginFlag=false; this.flag=false; this.success=false; this.flag1=true;
                 this.$axios({
                     method:'get',
@@ -140,6 +147,7 @@ export default {
             }
             if(this.num == 2){
                 var that = this;
+                that.status='待收货';
                 that.flag1=false; that.flag=false; that.success=false; that.aginFlag=true;
                 this.$axios({
                     method:'get',
@@ -154,6 +162,7 @@ export default {
             }
             if(this.num == 3){
                 var that = this;
+                that.status='已完成';
                 that.flag1=false;  that.aginFlag=false;  that.success=false; that.flag=true;
                 this.$axios({
                     method:'get',
@@ -168,6 +177,7 @@ export default {
             }
             if(this.num == 4){
                 var that = this;
+                that.status='已取消';
                 that.aginFlag=false; that.flag1=false;  that.flag=false; that.success=true;
                 this.$axios({
                     method:'get',
@@ -185,7 +195,7 @@ export default {
         userId(userid){
             this.dele = true;
         },
-        no(){
+        nos(){
            this.dele=false;
         },
         logistics(shipingCode,shippingName){
@@ -202,7 +212,7 @@ export default {
                 window.androidObject.JSCallAndroid(JSON.stringify(val));
             }
         },
-        sure(userid){
+        sures(userid){
             var that = this;
             this.$axios({
                 method:'get',
