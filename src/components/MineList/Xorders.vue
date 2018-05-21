@@ -2,7 +2,7 @@
     <div class="Xorder">
         <div class="shopping_head">
         <div class="shopping_header">
-            <p @click='back'>&lt;</p>
+            <p @click='close'>&lt;</p>
             <p>线下支付</p>
             <p></p>
         </div>
@@ -86,10 +86,7 @@ export default {
     lets(){
       console.log("123")
     },
-    close(){
-           
-        },
-     back(){
+     close(){
             var  val={
                 "func":"closeCurrent",
                 "param":{'finallyIndex':4},
@@ -179,6 +176,7 @@ export default {
           // .post("commission/api/user-annexes-offlineParams",data)
           .then(function(res) {
             console.log(res);
+            // alert('提交成功')
             // that.bol = true;
             var a = res.data
             if( a == 'jb' ){
@@ -186,7 +184,6 @@ export default {
             }else if( a == 'ok' ){
                that.bol = true;
             }
-            
           })
           .catch(function(error){
             console.log(error);
