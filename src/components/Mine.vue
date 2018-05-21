@@ -1,4 +1,4 @@
-﻿<template>
+<template>
 
    <div>
 
@@ -84,10 +84,12 @@
                             <dt><img src="../assets/Mine/我的团队.png" alt=""></dt>
                             <dd>我的团队</dd>
                         </router-link>
-                         <router-link :to="{ path: '/Xorders' }" tag='dl' class='moneypay'>
+                         <!-- <router-link :to="{ path: '/Xorders' }" tag='dl' class='moneypay'> -->
+                          <dl class='moneypay' @click="mopay">
                             <dt><img src="../assets/Mine/money.png" alt=""></dt>
                             <dd>现金支付</dd>
-                          </router-link>
+                          </dl>
+                          <!-- </router-link> -->
                     </div>              
               </div>
         </div>
@@ -178,6 +180,22 @@ export default {
         func: "openURL",
         param: {
           URL: "/#/indentAll"
+        }
+      };
+      var u = navigator.userAgent;
+      var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+      if (isiOS) {
+        window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+      } else if (isAndroid) {
+        window.androidObject.JSCallAndroid(JSON.stringify(val));
+      }
+    },
+    mopay() {
+      var val = {
+        func: "openURL",
+        param: {
+          URL: "/#/Xorders"
         }
       };
       var u = navigator.userAgent;
