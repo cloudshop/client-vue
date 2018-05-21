@@ -109,13 +109,14 @@ export default {
     },
     methods: {
         tab(index){
+            console.log(index)
             this.num = index; 
             var that = this;
             if(this.num == 0){
                 location.reload();
                 this.$axios({
                     method:'get',
-                    url:'order/api/findAllOrder/1/5'
+                    url:'order/api/findAllOrder/1/7'
                 })
                 .then(function(response) {
                     that.arr = response.data;
@@ -129,7 +130,7 @@ export default {
                 this.aginFlag=false; this.flag=false; this.success=false; this.flag1=true;
                 this.$axios({
                     method:'get',
-                    url:'order/api/findAllItemsByStatus/1/1/5'
+                    url:'order/api/findAllItemsByStatus/1/1/7'
                 })
                 .then(function(response) {
                    that.arr = response.data;
@@ -223,7 +224,7 @@ export default {
             var that = this;
             this.$axios({
                 method:'get',
-                url:'/order/api/ConfirmPro/'+this.orderNo
+                url:'/order/api/ConfirmPro/'+orderNo
             })
             .then(function(response) {
                 if(response.data==true){
