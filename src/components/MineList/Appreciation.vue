@@ -1,9 +1,9 @@
-<template>
+﻿<template>
   <div class='Appreciation'>
       <header class="mint-header">
            <div class="mint-header-button is-left">
                <a class="router-link-active">
-                    <router-link :to="{ path: '/SellerCenter' }" tag='button' class="mint-button mint-button--default mint-button--normal">
+                    <router-link :to="{ name: 'SellerCenter',params:{type:this.type} }" tag='button' class="mint-button mint-button--default mint-button--normal">
                     <mt-button icon="back"></mt-button>
                    </router-link>
               </a>
@@ -39,7 +39,7 @@ import { Header } from 'mint-ui';
 export default {
     data(){
         return{
-
+		type : 3
         }
     },
     methods:{
