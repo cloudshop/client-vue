@@ -80,7 +80,6 @@ export default {
         })
         .then(function(response) {
             that.arr = response.data;
-                    console.log(response)
             response.data.map((v,i)=>{
                 if(v.status == 1){
                     that.status='未付款';
