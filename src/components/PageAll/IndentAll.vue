@@ -46,7 +46,7 @@
                   <div class='mark' v-show='dele'>
                     <div class="mark_">
                         <p>确定删除此订单?</p>
-                        <div class="btn_all"><button class="no" @click='no'>取消</button><button class="sure" @click='sure(item.orderid)'>删除</button></div>
+                        <div class="btn_all"><div class="no" @click='no'>取消</div><div class="sure" @click='sure(item.orderid)'>删除</div></div>
                     </div>
                   </div>
                 </div>
@@ -80,6 +80,7 @@ export default {
         })
         .then(function(response) {
             that.arr = response.data;
+                    console.log(response)
             response.data.map((v,i)=>{
                 if(v.status == 1){
                     that.status='未付款';
@@ -109,7 +110,6 @@ export default {
     },
     methods: {
         tab(index){
-            console.log(index)
             this.num = index; 
             var that = this;
             if(this.num == 0){
@@ -152,9 +152,8 @@ export default {
                 .catch(function(error) {
                     console.log(error);
                 });
-               
             }
-              if(this.num == 3){
+            if(this.num == 3){
                 var that = this;
                 that.flag1=false;  that.aginFlag=false;  that.success=false; that.flag=true;
                 this.$axios({
@@ -168,7 +167,7 @@ export default {
                     console.log(error);
                 });
             }
-              if(this.num == 4){
+            if(this.num == 4){
                 var that = this;
                 that.aginFlag=false; that.flag1=false;  that.flag=false; that.success=true;
                 this.$axios({
@@ -224,7 +223,7 @@ export default {
             var that = this;
             this.$axios({
                 method:'get',
-                url:'/order/api/ConfirmPro/'+orderNo
+                url:'/order/api/ConfirmPro/'+ orderNo
             })
             .then(function(response) {
                 if(response.data==true){
@@ -542,6 +541,7 @@ export default {
 .btn_all .sure{
     width: 50%;
     height: .9rem;
+    line-height:.9rem;
     background: #ff0103;
     border:none;
     color: #fff;
@@ -552,6 +552,7 @@ export default {
     width: 50%;
     height: .9rem;
     border:none;
+    line-height:.9rem;
     font-size: .30rem;
     border-radius: 0 0 0 .1rem;
 }
