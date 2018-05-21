@@ -19,7 +19,9 @@
                 <div class="tabCon_main">
                   <div class="tabCon_main_top">
                       <p><span class="tabCom_mainImg"><img src="../../assets/PageAll/店铺.png" alt=""></span><span class="font">{{item.shopName}}</span></p>
-                      <p><span class="font2">{{status}}</span><span class="tabCom_mainImg" @click="userId"><img src="../../assets/PageAll/删除.png" alt=""></span></p>
+                      <p><span class="font2">{{tabNew[item.status-1]}}
+                      </span>
+                      <span class="tabCom_mainImg" @click="userId"><img src="../../assets/PageAll/删除.png" alt=""></span></p>
                   </div>
                   <div class="tabCon_main_center" v-for='(data,ind) in item.proOrderItems' :key='ind'>
                       <div class="tabCon_main_centerImg"><img src="" alt=""></div>
@@ -29,18 +31,22 @@
                       <p>共{{item.proOrderItems.length}}件商品</p>
                       <p>实付款：<span>￥{{item.payment}}</span></p>
                   </div>
-                  <div class="tabCon_main_agin" v-show='flag'>
+                  <div class="tabCon_main_agin" v-show='item.status==4?true:false'>
                       <p @click="evaluate">晒单评价</p>
                       <p @click='agin'>再次购买</p>
                   </div>
-                   <div class="tabCon_main_agin" v-show='flag1'>
+                   <div class="tabCon_main_agin" v-show='item.status==1?true:false'>
                       <p @click='goPayNent(index)'>去付款</p>
                   </div>
-                  <div class="tabCon_main_agin" v-show='aginFlag'>
+                  <div class="tabCon_main_agin" v-show='item.status==2?true:false'>
                       <p @click='logistics(item.shipingCode,item.shippingName)'>查看物流</p>
                       <p @click="receiving(item.orderNo)">确认收货</p>
                   </div>
-                   <div class="tabCon_main_agin" v-show='success'>
+                  <div class="tabCon_main_agin" v-show='item.status==3?true:false'>
+                      <p @click='logistics(item.shipingCode,item.shippingName)'>查看物流</p>
+                      <p @click="receiving(item.orderNo)">确认收货</p>
+                  </div>
+                  <div class="tabCon_main_agin" v-show='item.status==5?true:false'>
                       <p>再次购买</p>
                   </div>
                   <div class='mark' v-show='dele'>
@@ -63,13 +69,10 @@ export default {
     data() {
        return {
             tabs: ["全部", "待付款","待收货","已完成","已取消"],
+            tabNew: ["未付款", "已付款","已发货","已完成","已取消"],
             arr:null,
             num: 0,
             dele:false,
-            flag: false, // 正常
-            flag1: false, // 再次购买+晒单评价
-            aginFlag:false, // 查看物流
-            success:false, // 已取消
         }
     },
     created(){
@@ -80,34 +83,6 @@ export default {
         })
         .then(function(response) {
             that.arr = response.data;
-            response.data.map((v,i)=>{
-                 console.log(v)
-                if(v.status == 1){
-                    that.status='未付款';
-                    console.log('未付款')
-                    that.aginFlag=false; that.flag=false; that.success=false; that.flag1=true; // 去付款
-                }
-                if(v.status == 2){
-                   that.status='已付款';
-                    console.log('已付款')
-                   that.flag1=false; that.flag=false; that.success=false; that.aginFlag=true; // 查看物流+确认收货
-                }
-                if(v.status == 3){
-                    that.status='已发货';
-                    console.log('已发货')
-                    that.flag1=false; that.flag=false; that.success=false; that.aginFlag=true;  // 查看物流+确认收货
-                }
-                if(v.status == 4){
-                   that.status='交易成功';
-                   console.log('交易成功')
-                   that.flag1=false;  that.aginFlag=false;  that.success=false; that.flag=true; // 晒单评价+再次购买
-                }
-                if(v.status == 5){
-                   that.status='交易关闭';
-                   console.log('交易关闭')
-                   that.aginFlag=false; that.flag1=false;  that.flag=false; that.success=true; // 再次购买
-                }
-            })
         })
         .catch(function(error) {
             console.log(error);
