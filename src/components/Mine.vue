@@ -135,16 +135,16 @@ export default {
         var x;
         switch (name) {
           case 1:
-            x = "普通用户";
+            x = "普通会员";
             break;
           case 2:
-            x = "增值用户";
+            x = "增值会员";
             break;
           case 3:
-            x = "普通商户";
+            x = "普通商家";
             break;
           case 4:
-            x = "增值商户";
+            x = "增值商家";
             break;
           case 5:
             x = "服务商";
