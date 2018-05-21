@@ -48,8 +48,8 @@
         <div class="msg" v-show="bol">
               <div class="succeed">
                 <h3>提示</h3>
-                <!--<p>提交成功</p>-->
-                <p>系统升级中,请稍后再试</p>
+                <p>提交成功</p>
+                <!-- <p>系统升级中，稍后再试</p> -->
                 <router-link to="/Mine">确定</router-link>
               </div>
             </div>
@@ -86,11 +86,23 @@ export default {
     lets(){
       console.log("123")
     },
+    close(){
+           
+        },
     back() {
       var msg = "请确定是否返回，返回后图片将需要重新上传";
       if (confirm(msg) == true) {
-        this.$router.push({ path: "/mine" });
-        // $this.$router.push({name:'SellerCenter'});
+         var  val={
+                "func":"closeCurrent"
+            };
+            var u = navigator.userAgent;
+            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+            if(isiOS){
+                window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+            }else if(isAndroid){  
+                window.androidObject.JSCallAndroid(JSON.stringify(val));
+            }
       } else {
         return false;
       }
@@ -129,7 +141,7 @@ export default {
       return isJPG && isLt2M;
     },
     sub() {
-      
+      var that = this
       var useid = this.id
       var ban = this.money
       var tel = $("#phone").val();
@@ -153,7 +165,8 @@ export default {
           if(letmon <12 || letmon >98){
         alert('让利比例需在12%～98%之间')
       }else{
-          this.bol = true;
+          // this.bol = true;
+          // alert('服务器维护中')
           var letmoney = money1*letmon/100
           var data = {
               ment:money1,
@@ -171,12 +184,12 @@ export default {
           .then(function(res) {
             console.log(res);
             // alert('提交成功')
-            this.bol = true;
+            that.bol = true;
             // this.$router.push({ path: "/mine" });
           })
           .catch(function(error){
             console.log(error);
-
+             alert('服务器错误')
           });
       }
         }
