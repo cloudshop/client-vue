@@ -1,12 +1,12 @@
 <template>
     <div class="Xorder">
-        <header class="mint-header header">
-           <div class="mint-header-button is-left">
-               <mt-button icon="back" @click="back"></mt-button>
-            </div> 
-             <h1 class="mint-header-title">现金支付</h1>
-            <div class="mint-header-button is-right"></div>
-        </header>
+        <div class="shopping_head">
+        <div class="shopping_header">
+            <p @click='back'>&lt;</p>
+            <p>线下支付</p>
+            <p></p>
+        </div>
+    </div>
         <div style="display:none">
               <span class="photo1">{{title1}}</span>
               <span class="photo2">{{title2}}</span>
@@ -89,15 +89,10 @@ export default {
     close(){
            
         },
-    back() {
-    //   var msg = "请确定是否返回，返回后图片将需要重新上传";
-    //   if (confirm(msg) == true) {
-        
-    //   } else {
-    //     return false;
-    //   }
-     var  val={
-                "func":"closeCurrent"
+     back(){
+            var  val={
+                "func":"closeCurrent",
+                "param":{'finallyIndex':4},
             };
             var u = navigator.userAgent;
             var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
@@ -107,7 +102,7 @@ export default {
             }else if(isAndroid){  
                 window.androidObject.JSCallAndroid(JSON.stringify(val));
             }
-    },
+        },
     handleAvatarSuccess(res, file) {
       this.imageUrl = URL.createObjectURL(file.raw);
       console.log(res);
@@ -213,6 +208,36 @@ export default {
 .back {
   background: none;
   border: 1px solid #fff;
+}
+.shopping_head{
+    width: 100%;
+    background: #fff;
+    border-bottom: 1px solid #e7e7e7;
+}
+.shopping_header{
+  flex-shrink: 0;
+  width: 92%;
+  margin-left: 4%;
+  height: .96rem;
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #2f2f2f;
+} 
+.shopping_header p:nth-child(1){
+  font-size: .32rem;
+}
+.shopping_header p:nth-child(2){
+  font-size: .32rem;
+}
+.shopping_header p:nth-child(3){
+  width:.5rem;
+  height:.5rem;
+  position: relative;
+}
+.shopping_header p:nth-child(3) img{
+  width: 100%;
+  height: 100%;
 }
 .header {
   background: #fff;
