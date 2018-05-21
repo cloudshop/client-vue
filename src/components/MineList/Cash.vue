@@ -122,12 +122,12 @@ export default {
             if(typ== '200'){
                  alert('提交成功')
                  that.$router.push({ path: "/Mine" });
-            }else{
-                console.log('服务器错误，请稍后重试')
             }
           })
           .catch(function(error) {
             console.log(error);
+            var show = error.response.data.title
+            alert(show)
           });
       }
     }
