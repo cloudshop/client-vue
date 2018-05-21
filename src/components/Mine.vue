@@ -4,7 +4,7 @@
         <div class='headRight'>
         </div>
         <dl>
-            <dt><img src="../assets/Mine/headportrait.jpg" alt=""></dt>
+            <dt><img :src="arr.avatar"/></dt>
             <dd>
                   <h2>{{arr.nickname}}</h2>
                   
