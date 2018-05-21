@@ -47,7 +47,7 @@
                     <dt><img src="../assets/Mine/订单.png" alt=""></dt>
                     <dd>全部订单</dd>
                   </dl>
-                  <router-link :to="{ path: '/collection' }" tag='dl' >
+                  <router-link :to="{ path: '/collection' }" tag='dl' v-show="false">
                     <dt><img src="../assets/Mine/我的收藏.png" alt=""></dt>
                     <dd>我的收藏</dd>
                   </router-link>
@@ -56,11 +56,11 @@
              <div class='mainContent'> 
                      <h2>贡融服务</h2> 
                      <div class='list'>
-                          <router-link :to="{ path: '/CreditCard' }" tag='dl'>
+                          <router-link :to="{ path: '/CreditCard' }" tag='dl' v-show="false">
                            <dt><img src="../assets/Mine/消费支付.png" alt=""></dt>
                            <dd>消费支付</dd>
                           </router-link>
-                         <router-link :to="{ path: '/giving' }" tag='dl'>
+                         <router-link :to="{ path: '/giving' }" tag='dl' v-show="false">
                             <dt><img src="../assets/Mine/积分赠送.png" alt=""></dt>
                             <dd>积分赠送</dd>
                          </router-link>

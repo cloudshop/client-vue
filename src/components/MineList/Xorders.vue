@@ -179,9 +179,14 @@ export default {
           // .post("commission/api/user-annexes-offlineParams",data)
           .then(function(res) {
             console.log(res);
-            // alert('提交成功')
-            that.bol = true;
-            // this.$router.push({ path: "/mine" });
+            // that.bol = true;
+            var a = res.data
+            if( a == 'jb' ){
+              alert('用户手机号不得为商户自身号码')
+            }else if( a == 'ok' ){
+               that.bol = true;
+            }
+            
           })
           .catch(function(error){
             console.log(error);
