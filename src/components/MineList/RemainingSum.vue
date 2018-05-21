@@ -3,9 +3,9 @@
     <header class="mint-header">
            <div class="mint-header-button is-left">
                <a class="router-link-active">
-                   <router-link :to="{ path: '/Mine' }" tag='button' class="mint-button mint-button--default mint-button--normal">
-                    <mt-button icon="back"></mt-button>
-                   </router-link>
+                   <button class="mint-button mint-button--default mint-button--normal" @click="close">
+                      <mt-button icon="back"></mt-button>
+                   </button>
               </a>
             </div> 
              <h1 class="mint-header-title">余额</h1>
@@ -138,8 +138,21 @@ export default {
       }else if(ty == '审核通过'){
            this.$router.push({ path: "/Cash" });
       }
-
-    }
+    },
+      close(){
+            var  val={
+                "func":"closeCurrent",
+                "param":{'finallyIndex':4},
+            };
+            var u = navigator.userAgent;
+            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+            if(isiOS){
+                window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+            }else if(isAndroid){  
+                window.androidObject.JSCallAndroid(JSON.stringify(val));
+            }
+        },
   }
 };
 </script>
