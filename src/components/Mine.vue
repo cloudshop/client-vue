@@ -16,13 +16,20 @@
         <div class='main content'>
               <div class='nav'>
                     <!-- <router-link :to="{ path: '/RemainingSum' }" tag='dl'> -->
-                    <router-link :to="{ name: 'RemainingSum',params:{num:arr.balance} }" tag='dl'>
-                         <dt><img src="../assets/Mine/余额.png" alt=""></dt>
+                    <!--<router-link :to="{ name: 'RemainingSum',params:{num:arr.balance} }" tag='dl'>-->
+                    <!--     <dt><img src="../assets/Mine/余额.png" alt=""></dt>-->
+                    <!--    <dd>-->
+                    <!--          <p>余额</p>-->
+                    <!--          <span>{{arr.balance}}</span>-->
+                    <!--    </dd>-->
+                    <!--</router-link>-->
+                    <dl @click='balance'>
+                        <dt><img src="../assets/Mine/余额.png" alt=""></dt>
                         <dd>
                               <p>余额</p>
                               <span>{{arr.balance}}</span>
                         </dd>
-                    </router-link>
+                    </dl>
                   <!-- <router-link :to="{ path: '/Stamps' }" tag='dl'> -->
                   <router-link :to="{ name: 'Stamps',params:{num:arr.ticket} }" tag='dl'>
                         <dt><img src="../assets/Mine/贡融券.png" alt=""></dt>
@@ -80,10 +87,14 @@
               <div class='mainContent moneypay'> 
                   <h2>商户中心</h2> 
                   <div class='list'>
-                    <router-link :to="{ path: '/Xorders' }" tag='dl'>
-                      <dt><img src="../assets/Mine/money.png" alt=""></dt>
-                      <dd>现金支付</dd>
-                    </router-link>
+                    <!--<router-link :to="{ path: '/Xorders' }" tag='dl'>-->
+                    <!--  <dt><img src="../assets/Mine/money.png" alt=""></dt>-->
+                    <!--  <dd>现金支付</dd>-->
+                    <!--</router-link>-->
+                    <dl class='moneypay' @click="mopay">
+                            <dt><img src="../assets/Mine/money.png" alt=""></dt>
+                            <dd>现金支付</dd>
+                          </dl>
                     <router-link :to="{ path: '/Xorders' }" tag='dl'>
                       <dt><img src="../assets/Mine/money.png" alt=""></dt>
                       <dd>出款码</dd>
@@ -178,6 +189,38 @@ export default {
         func: "openURL",
         param: {
           URL: "/#/indentAll"
+        }
+      };
+      var u = navigator.userAgent;
+      var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+      if (isiOS) {
+        window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+      } else if (isAndroid) {
+        window.androidObject.JSCallAndroid(JSON.stringify(val));
+      }
+    },
+    balance() {
+      var val = {
+        func: "openURL",
+        param: {
+          URL: "/#/RemainingSum"
+        }
+      };
+      var u = navigator.userAgent;
+      var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+      if (isiOS) {
+        window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+      } else if (isAndroid) {
+        window.androidObject.JSCallAndroid(JSON.stringify(val));
+      }
+    },
+     mopay() {
+      var val = {
+        func: "openURL",
+        param: {
+          URL: "/#/Xorders"
         }
       };
       var u = navigator.userAgent;
