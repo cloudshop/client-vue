@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     <div class="Approve">
         <header><span @click="backMine">&lt;</span>实名认证</header>
         <div class="main">
@@ -138,7 +138,6 @@ export default {
 			}
 	    },
   		reset() {
-  			this.bol = true;
 			if (this.realName==""||this.realNumber==""||this.imageUrl==""||this.imageUrl2=="") {
 				alert("填写不完善");
 			} else{
@@ -156,7 +155,7 @@ export default {
 	            )
 			    .then(function(res) {
 			        console.log(res);
-			        
+			        this.bol = true;
 			        
 			    })
 			    .catch(function(error) {
