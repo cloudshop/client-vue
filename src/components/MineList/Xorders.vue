@@ -90,9 +90,13 @@ export default {
            
         },
     back() {
-      var msg = "请确定是否返回，返回后图片将需要重新上传";
-      if (confirm(msg) == true) {
-         var  val={
+    //   var msg = "请确定是否返回，返回后图片将需要重新上传";
+    //   if (confirm(msg) == true) {
+        
+    //   } else {
+    //     return false;
+    //   }
+     var  val={
                 "func":"closeCurrent"
             };
             var u = navigator.userAgent;
@@ -103,9 +107,6 @@ export default {
             }else if(isAndroid){  
                 window.androidObject.JSCallAndroid(JSON.stringify(val));
             }
-      } else {
-        return false;
-      }
     },
     handleAvatarSuccess(res, file) {
       this.imageUrl = URL.createObjectURL(file.raw);
