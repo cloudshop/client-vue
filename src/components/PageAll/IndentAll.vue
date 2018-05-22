@@ -480,11 +480,14 @@ export default {
     border-bottom: 2px solid #ff0103;
 }
 .mark{
-  position: absolute;
-  top:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,.2);
+   position: fixed; 
+    width:100%;
+    height:100%; 
+    top: 0;  
+    left: 0;  
+    right: 0;  
+    bottom: 0;  
+    background: rgba(0,0,0,0.2);  
 }
 .mark_{
   text-align:center;
@@ -528,6 +531,7 @@ export default {
     width: 50%;
     height: .9rem;
     border:none;
+    color: #000;
     line-height:.9rem;
     font-size: .30rem;
     border-radius: 0 0 0 .1rem;
