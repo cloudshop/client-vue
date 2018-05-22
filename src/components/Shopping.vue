@@ -384,11 +384,14 @@ export default {
 
 <style scoped>
 .marks{
-  position: absolute;
-  top:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.2);
+   position: fixed; 
+    width:100%;
+    height:100%; 
+    top: 0;  
+    left: 0;  
+    right: 0;  
+    bottom: 0;  
+    background: rgba(0,0,0,0.3);  
 }
 .mark_s{
   text-align:center;
@@ -414,6 +417,7 @@ export default {
     width: 100%;
     height: .9rem;
     bottom: 0;
+    display:flex;
     border-radius: 0 0 .1rem .1rem;
     border-top: 1px solid #ccc;
 }
@@ -423,7 +427,6 @@ export default {
     background: #ff0103;
     border:none;
     color: #fff;
-    float:right;
     line-height:.9rem;
     font-size: .30rem;
     border-radius: 0 0 .1rem 0;
@@ -432,7 +435,7 @@ export default {
     width: 50%;
     height: .9rem;
     border:none;
-    float:left;
+    color: #000;
     line-height:.9rem;
     font-size: .30rem;
     border-radius: 0 0 0 .1rem;
