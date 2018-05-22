@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="manage">
       <div class="header">
           <ul>
@@ -93,7 +93,7 @@ export default {
       console.log(error);
     });
 
-    console.log(this.router.params);
+   // console.log(this.router.params);
   },
   mounted: function() {},
   methods: {
