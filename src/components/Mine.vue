@@ -92,12 +92,12 @@
                     <!--  <dd>现金支付</dd>-->
                     <!--</router-link>-->
                     <dl class='moneypay' @click="mopay">
-                            <dt><img src="../assets/Mine/money.png" alt=""></dt>
-                            <dd>现金支付</dd>
-                          </dl>
-                    <router-link :to="{ path: '/Xorders' }" tag='dl'>
                       <dt><img src="../assets/Mine/money.png" alt=""></dt>
-                      <dd>出款码</dd>
+                      <dd>现金支付</dd>
+                    </dl>
+                    <router-link :to="{ path: '/recevingCode' }" tag='dl'>
+                      <dt><img src="../assets/Mine/receivingCode.png" alt=""></dt>
+                      <dd>收款码</dd>
                     </router-link>
                   </div>              
               </div>
