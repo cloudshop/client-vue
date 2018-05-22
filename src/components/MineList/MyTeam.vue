@@ -12,7 +12,7 @@
         <div class="mint-header-button is-right" ></div>
     </header>
     <div class='nav'>
-        <h2>分享人</h2>
+        <!-- <h2>分享人</h2> -->
         <div class='list'>
           <dl>
             <dt></dt>
@@ -127,9 +127,10 @@ header {
 
 /* 分享人 */
 .nav {
-  height: 2.2rem;
+  height: 1.6rem;
   background: #fff;
   margin-top: 0.16rem;
+  padding: 0.1rem 0;
 }
 .nav .list dl {
   display: flex;
