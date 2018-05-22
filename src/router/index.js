@@ -60,6 +60,7 @@ const Servershop = r => require.ensure( [], () => r (require('@/components/MineL
 const Servershop2 = r => require.ensure( [], () => r (require('@/components/MineList/servershop2.vue')));    //支付服务商两万元
 const Xorders = r => require.ensure([], () => r(require('@/components/MineList/Xorders.vue'))); //线下订单
 const Cash = r => require.ensure([], () => r(require('@/components/MineList/Cash.vue'))); //提现
+const recevingCode = r => require.ensure([], () => r(require('@/components/MineList/recevingCode.vue'))); // 收款码
 Vue.use(Router)
 
 const routes = [{
@@ -319,6 +320,11 @@ const routes = [{
                 path: '/Offline',
                 name: 'Offline',
                 component: Offline
+            },
+            { // 收款码
+                path: '/recevingCode',
+                name: 'recevingCode',
+                component: recevingCode
             },
             { //搜索
                 path: '/search',
