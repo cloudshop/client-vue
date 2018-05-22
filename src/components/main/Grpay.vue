@@ -132,9 +132,15 @@ export default {
     .type li{
         height: .5rem;
         line-height: .5rem;
+        padding-left: .3rem;
+        position: relative;
+        font-size: .28rem;
     }
     .type img{
-        width: .3rem;
+        width: .32rem;
+        position: absolute;
+        margin-top: .08rem;
+        left: -.1rem;
     }
     .type span{
         color: #404040;
@@ -145,6 +151,7 @@ export default {
         line-height: 1rem;
         /* background: red; */
         text-align: right;    
+        font-size: .28rem;
     }
     .changetype span{
         padding-right: .5rem;
