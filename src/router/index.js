@@ -61,6 +61,8 @@ const Servershop2 = r => require.ensure( [], () => r (require('@/components/Mine
 const Xorders = r => require.ensure([], () => r(require('@/components/MineList/Xorders.vue'))); //线下订单
 const Cash = r => require.ensure([], () => r(require('@/components/MineList/Cash.vue'))); //提现
 const recevingCode = r => require.ensure([], () => r(require('@/components/MineList/recevingCode.vue'))); // 收款码
+const grpay = r => require.ensure([], () => r(require('@/components/main/Grpay.vue'))); //扫码付
+const Surepay = r => require.ensure([], () => r(require('@/components/main/Surepay.vue'))); //扫码付2
 Vue.use(Router)
 
 const routes = [{
@@ -365,6 +367,16 @@ const routes = [{
                 path: '/Cash',
                 name: 'Cash',
                 component: Cash
+            },
+            { // 扫码付
+                path: '/grpay',
+                name: 'grpay',
+                component: grpay
+            },
+            { // 扫码付2
+                path: '/Surepay',
+                name: 'Surepay',
+                component: Surepay
             },
             { // 修改头像
                 path: '/Myhead',
