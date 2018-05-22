@@ -107,8 +107,6 @@ export default {
             }
             if(this.num == 1){
                 var that = this;
-                that.status='未付款';
-                this.aginFlag=false; this.flag=false; this.success=false; this.flag1=true;
                 this.$axios({
                     method:'get',
                     url:'order/api/findAllItemsByStatus/1/1/7'
@@ -122,8 +120,6 @@ export default {
             }
             if(this.num == 2){
                 var that = this;
-                that.status='待收货';
-                that.flag1=false; that.flag=false; that.success=false; that.aginFlag=true;
                 this.$axios({
                     method:'get',
                     url:'order/api/findDispatchItems/1/1'
@@ -137,8 +133,6 @@ export default {
             }
             if(this.num == 3){
                 var that = this;
-                that.status='已完成';
-                that.flag1=false;  that.aginFlag=false;  that.success=false; that.flag=true;
                 this.$axios({
                     method:'get',
                     url:'order/api/findAllItemsByStatus/4/1/1'
@@ -152,8 +146,6 @@ export default {
             }
             if(this.num == 4){
                 var that = this;
-                that.status='已取消';
-                that.aginFlag=false; that.flag1=false;  that.flag=false; that.success=true;
                 this.$axios({
                     method:'get',
                     url:'order/api/findAllItemsByStatus/5/1/1'       
