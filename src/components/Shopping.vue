@@ -415,7 +415,6 @@ export default {
     height: .9rem;
     bottom: 0;
     border-radius: 0 0 .1rem .1rem;
-    display: flex;
     border-top: 1px solid #ccc;
 }
 .btn_all .sure{
@@ -424,6 +423,8 @@ export default {
     background: #ff0103;
     border:none;
     color: #fff;
+    float:right;
+    line-height:.9rem;
     font-size: .30rem;
     border-radius: 0 0 .1rem 0;
 }
@@ -431,6 +432,8 @@ export default {
     width: 50%;
     height: .9rem;
     border:none;
+    float:left;
+    line-height:.9rem;
     font-size: .30rem;
     border-radius: 0 0 0 .1rem;
 }
