@@ -40,8 +40,8 @@
             </p>
             <p></p>
             <p>
-            	<button @click="submit" v-show="b=0?true:false">提交</button>
-            	<button @click="reset" v-show="b=1?true:false">提交</button>
+            	<button @click="submit" v-show="b==0?true:false">提交</button>
+            	<button @click="reset" v-show="b==1?true:false">提交</button>
             </p>
         </div>
         <div class="msg" v-show="bol">
