@@ -17,14 +17,14 @@
           <dl>
             <dt></dt>
             <dd>
-              <img :src="this.$route.params.arr.avatar" alt="">
+              <img :src="arr2.avatar" alt="">
             </dd>
             <dd>
-              <h3>{{this.$route.params.arr.nickname}}</h3>
-              <p>{{this.$route.params.arr.typeString}}</p>
+              <h3>{{arr2.nickname}}</h3>
+              <p>{{arr2.typeString}}</p>
             </dd>
             <dd>
-              <p>{{this.$route.params.arr.phone}}</p>
+              <p>{{arr2.phone}}</p>
             </dd>
           </dl>
       </div>
@@ -54,12 +54,25 @@ export default {
   data() {
     return {
       arr: "null",
-      iphone:""
+      iphone:"",
+      arr2:""
     };
   },
   created() {
     // this.iphone=document.cookie.split(";")[1].split("=")[1]; 
     console.log(this.$route.params)
+    this.arr2 = this.$route.params.arr;
+    if(this.arr2.type==1){
+      this.arr2.typeString = "普通会员";
+    }else if(this.arr2.type==2){
+      this.arr2.typeString = "增值会员";
+    }else if(this.arr2.type==3){
+      this.arr2.typeString = "普通商家";
+    }else if(this.arr2.type==4){
+      this.arr2.typeString = "增值商家";
+    }else if(this.arr2.type==5){
+      this.arr2.typeString = "服务商";
+    }
     var that = this;
     this.$axios
       .get(
