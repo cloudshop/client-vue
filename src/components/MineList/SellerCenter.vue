@@ -13,7 +13,7 @@
       <div class="mint-header-button is-right"></div>
     </header>
 
-    <div class='content'>
+    <!-- <div class='content'> -->
       <div class='TopContent' v-show="type==1?true:false">
         <h2>普通商家相关权益</h2>
         <h3>入驻要求</h3>
@@ -35,7 +35,7 @@
         </ul>
         <router-link :to="{ path: '/OrdinaryBusiness' }" tag="button" class='MyBtn'>申请成为普通商家</router-link>
     </div>
-    <div  v-show="type==2?true:false">
+    <div class='TopContent' v-show="type==2?true:false">
       <h2>普通商家相关权益</h2>
       <h3>入驻要求</h3>
       <ul>
@@ -128,7 +128,7 @@
         <span @click="backMine">确定</span>
       </div>
     </div>
-  </div>
+  <!-- </div> -->
 
     <!-- 申请成为普通商家 -->
     <mt-popup
