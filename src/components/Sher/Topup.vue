@@ -161,24 +161,44 @@ export default {
           .then(function(res) {
             console.log(res);
             var param1 = 1;
-            var param2 = "orderStr" + ":" + res.orderString;
+            // var param2 = "orderStr" + ":" + res.orderString;
             var param3 = res.data.orderString;
-            var val = {
-              func: "pay",
-              param: {
-                payType: "Ali",
-                orderStr: param3
+             if (re == 1) {
+              var val = {
+                func: "pay",
+                param: {
+                  payType: "Ali",
+                  orderStr: param3
+                }
+              };
+              console.log(val)
+              var u = navigator.userAgent;
+              var isAndroid =
+                u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+              var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+              if (isiOS) {
+                window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+              } else if (isAndroid) {
+                window.androidObject.JSCallAndroid(JSON.stringify(val));
               }
-            };
-            console.log(val);
-            console.log(JSON.stringify(val));
-            var u = navigator.userAgent;
-            var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
-            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-            if (isiOS) {
-              window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-            } else if (isAndroid) {
-              window.androidObject.JSCallAndroid(JSON.stringify(val));
+            } else if (re == 2) {
+              var val = {
+                func: "pay",
+                param: {
+                  payType: "Wechat",
+                  orderStr: param3
+                }
+              };
+              console.log(val)
+              var u = navigator.userAgent;
+              var isAndroid =
+                u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+              var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+              if (isiOS) {
+                window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+              } else if (isAndroid) {
+                window.androidObject.JSCallAndroid(JSON.stringify(val));
+              }
             }
           })
           //bottom
