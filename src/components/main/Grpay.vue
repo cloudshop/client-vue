@@ -4,7 +4,7 @@
             <ul>
                 <li><span @click="close">&lt;</span></li>
                 <li>贡融支付</li>
-                <li>{{tell}}</li>
+                <li></li>
             </ul>
         </div>
         <div class="main">
