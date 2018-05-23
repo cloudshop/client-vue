@@ -157,6 +157,7 @@ export default {
   background: #fff;
   margin-top: 0.5rem;
   color: #676767;
+  font-size: .28rem;
 }
 .main p:first-child {
   width: 80%;
