@@ -117,26 +117,26 @@ export default {
             $(".password").fadeIn(300);
           var moo = aamon.toString();
           var uss = useid.toString();
+          console.log(moo)
           console.log(typeof moo);
           var datas = {
                 "amount": aamon,
                 "balance": 0,
-                "buserId": useid,
+                "buserId": uss,
                 "payment": 0,
                 "ticket": aamon,
                 "type": 3
             }
         //   var datt = JSON.stringify(datas);
-        //   console.log(datas);
+          console.log(datas);
           this.$axios({
             method: "post",
             url: "order/api/face_orders/createOrder",
             data: datas
           })
             .then(function(res) {
-              var ordernum = res.data;
-              that.ordernum = ordernum;
-              console.log(ordernum);
+              console.log(res);
+               that.ordernum = res.request.response;
             })
             .catch(error => {
               console.log(error);
@@ -172,7 +172,7 @@ export default {
             })
               .then(function(res) {
                 console.log(res);
-                that.ordernum = res.data;
+               that.ordernum = res.request.response;
               })
               .catch(error => {
                 console.log(error);
@@ -188,10 +188,10 @@ export default {
           $(".password").fadeIn(300);
           var datas = {
             amount: aamon,
-            balance: 0,
+            balance: aamon,
             buserId: useid,
             payment: 0,
-            ticket: aamon,
+            ticket: 0,
             type: 1
           };
           this.$axios({
@@ -201,7 +201,7 @@ export default {
           })
             .then(function(res) {
               console.log(res);
-              that.ordernum = res.data;
+               that.ordernum = res.request.response;
             })
             .catch(error => {
               console.log(error);
@@ -210,12 +210,12 @@ export default {
       }
     },
     threepay() {
-        var that = this
+        // var that =this
       var paymo = $(".allmo").text();
       console.log(paymo);
       var paramss = {
         amount: paymo,
-        buserId: that.usdd,
+        buserId: this.usdd,
         payment: paymo,
         type: 4
       };
@@ -254,6 +254,7 @@ export default {
         console.log(curVal);
         var psd = curVal;
         var orno = that.ordernum;
+        // var orno = that.ordernum
         var data = {
           orderNo: orno,
           password: psd
