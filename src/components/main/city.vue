@@ -95,7 +95,8 @@ export default {
       // 选择当前添加active
       this.showDistrictList.map( a => a.selected = false );
       this.showDistrictList[index].selected = true;
-      sessionStorage.setItem("District",this.District); 
+      sessionStorage.setItem("District",this.District);
+      this.$router.push({name:'homePage'})
       var val={
         "func":"setNewCity",
         "param":{
