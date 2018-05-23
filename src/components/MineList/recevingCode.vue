@@ -5,7 +5,7 @@
                 <p>收款码</p >
                 <p> </p>
             </div>
-           <div class="myQrCode_body">
+           <div class="myQrCode_bodys">
               <div class='body_top'>
                 <span class="spans"><img src="../../assets/Mine/reving1.png" alt=""></span>
                 <p>二维码收款</p>
@@ -84,12 +84,12 @@ export default {
     .myQrCode{
        position: relative;
     }
-    .myQrCode_body{
+    .myQrCode_bodys{
         margin-top: .96rem;
         width: 100%;
         height: 100%;
         position: absolute;
-        background: #ff5065 
+        background: #ff5065 !important;
     }
     .body_top{
       width: 6.74rem;
