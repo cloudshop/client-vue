@@ -39,7 +39,7 @@ export default {
     // var urltel = "http://app.grjf365.com/#/grpay?phoneNumber=17600045817";
     that.tell = test.substring(43, 54);
     console.log(that.tell);
-
+    sessionStorage.setItem("phone", that.tell);
     this.$axios
       .get("wallet/api/wallets/user")
       .then(function(res) {
