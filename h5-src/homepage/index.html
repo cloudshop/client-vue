@@ -39,7 +39,7 @@
 
             <!--头部定位 start-->
             <div class="header flex spaceBetween">
-                <a href="#" class="loaction">北京市
+                <a href="http://app.grjf365.com/#/city" class="loaction">北京市
                     <span class="arrowRight"></span>
                 </a>
                 <input type="hidden" value="116.66847" id="langitude" />
@@ -174,7 +174,10 @@
     </script>
     <script type="text/javascript">
         var arr;
-        window.brr = '123123123'
+        window.brr = '123123123';
+        var District = sessionStorage.getItem("District");
+        console.log(District)
+        $('.loaction').text(District)
         $(document).ready(function () {
             $.ajax({
                 type: "GET",
