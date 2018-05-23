@@ -130,7 +130,6 @@
 
             <!--附近商家 start-->
             <p class="titleBox">附近商家</p>
-            <p id="google_geo"></p>
             <ul class="data-list" id="listdata"></ul>
             <!--附近商家 end-->
         </div>
@@ -313,6 +312,24 @@
 
     </script>
     <script>
+        function GeographicalLocation(X, Y) {
+                this.XX = X;
+                this.YY = Y;
+                $.ajax({
+                    type: "POST",
+                    url: "http://app.grjf365.com/api/user/api/mercuries/info-list/MercuryInfo",
+                    async: true,
+                    dataType: "json",
+                    data: {
+                        langitude: 116.66847,
+                        lantitude: 39.88372
+                    },
+                    contentType: "application/json",
+                    success: function (data) {
+                        console.log(data)
+                    }
+                });
+            }
         function getLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition, showError);
