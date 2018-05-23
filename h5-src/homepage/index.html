@@ -174,9 +174,6 @@
     <script type="text/javascript">
         var arr;
         window.brr = '123123123';
-        var District = sessionStorage.getItem("District");
-        console.log(District)
-        $('.loaction').text(District)
         $(document).ready(function () {
             $.ajax({
                 type: "GET",
@@ -312,9 +309,10 @@
 
     </script>
     <script>
-        function GeographicalLocation(X, Y) {
+        function GeographicalLocation(X, Y, Z) {
                 this.XX = X;
                 this.YY = Y;
+                $('.loaction').text(Z)
                 $.ajax({
                     type: "POST",
                     url: "http://app.grjf365.com/api/user/api/mercuries/info-list/MercuryInfo",
