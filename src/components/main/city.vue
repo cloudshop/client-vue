@@ -96,7 +96,7 @@ export default {
       this.showDistrictList.map( a => a.selected = false );
       this.showDistrictList[index].selected = true;
       sessionStorage.setItem("District",this.District);
-      this.$router.push({name:'homePage'})
+      this.$router.go(-1);
       var val={
         "func":"setNewCity",
         "param":{
