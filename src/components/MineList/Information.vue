@@ -16,7 +16,7 @@
               <li><router-link :to="{ name: 'Myhead',params:{id} }">我的头像<span class="user_img"><img :src="arr.avatar"/></span><b>></b></router-link></li>
               <router-link :to="{ name: 'NickName',params:{nickname:arr.nickname} }" tag='li'>昵称<p class="user_name">{{arr.nickname}}</p><b>></b></router-link>
               <li>手机号<p>{{arr.phone}}</p><b></b></li>
-              <li @click="address">我的地址<b>></b></li>
+	      <router-link :to="{ path: '/MyAddress' }" tag='li'>我的地址<b>></b></router-link> 
               <router-link :to="{ path: '/ID' }" tag='li'>账号与安全<b>></b></router-link> 
               <router-link :to="{ name: 'Approve',params:{b:b} }" tag='li' v-show="bo==1?true:false">实名认证<b><span v-show="b==1?true:false">认证失败，请重新认证</span> > </b></router-link> 
               <li v-show="bo==2?true:false">实名认证<b>{{statusString}}</b></li>    
@@ -136,9 +136,6 @@ export default {
                 window.androidObject.JSCallAndroid(JSON.stringify(val));
               }
      },
-    address() {
-      this.$router.push({ name: "MyAddress" });
-    }
   },
   components: {}
 };
