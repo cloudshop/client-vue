@@ -37,7 +37,7 @@ export default {
     var that = this;
     var test = window.location.href;
     var urltel = "http://app.grjf365.com/#/grpay?phoneNumber=17600045817";
-    that.tell = urltel.substring(43, 54);
+    that.tell = test.substring(43, 54);
     console.log(that.tell);
     sessionStorage.setItem("phone", that.tell);
     this.$axios
