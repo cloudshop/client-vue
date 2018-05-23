@@ -1,7 +1,7 @@
 <template>
        <div class="receving">
             <div class="receving_header">
-                <p>&lt;</p >
+                <p @click='back'>&lt;</p >
                 <p>收款码</p >
                 <p> </p>
             </div>
@@ -15,13 +15,11 @@
                   <div id="qrcode" v-show='flag' ref="qrcode"></div>
                 </div>
            </div>
-           <!-- <Foot></Foot> -->
        </div>
 </template>
 
 <script> 
 import qrcode from "../../../static/js/qrcode.js";
-// import Foot from './main/Foot';
 
 export default {
     data(){
@@ -51,11 +49,22 @@ export default {
                 }
                 this.i = true;
             })
+        },
+        back: function(){
+            var  val={
+                "func":"closeCurrent",
+                "param":{'refreshParent':true},
+            };
+            var u = navigator.userAgent;
+            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+            if(isiOS){
+                window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+            }else if(isAndroid){  
+                window.androidObject.JSCallAndroid(JSON.stringify(val));
+            }
         }
     },
-    // components:{
-    //     Foot
-    // },
 }
 </script>
 
