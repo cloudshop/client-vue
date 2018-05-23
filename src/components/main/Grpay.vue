@@ -2,7 +2,7 @@
     <div>
         <div class="header">
             <ul>
-                <li><span>&lt;</span></li>
+                <li><span @click="close">&lt;</span></li>
                 <li>贡融支付</li>
                 <li>{{tell}}</li>
             </ul>
@@ -36,8 +36,8 @@ export default {
   created() {
     var that = this;
     var test = window.location.href;
-    // var urltel = "http://app.grjf365.com/#/grpay?phoneNumber=17600045817";
-    that.tell = test.substring(43, 54);
+    var urltel = "http://app.grjf365.com/#/grpay?phoneNumber=17600045817";
+    that.tell = urltel.substring(43, 54);
     console.log(that.tell);
     sessionStorage.setItem("phone", that.tell);
     this.$axios
@@ -51,6 +51,20 @@ export default {
       });
   },
   methods: {
+    close() {
+      var val = {
+        func: "closeCurrent",
+        param: { finallyIndex: 1 }
+      };
+      var u = navigator.userAgent;
+      var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+      if (isiOS) {
+        window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+      } else if (isAndroid) {
+        window.androidObject.JSCallAndroid(JSON.stringify(val));
+      }
+    },
     bun() {
       var aa = $(".ticke").text();
       var bb = $(".bana").text();
