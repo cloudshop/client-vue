@@ -210,11 +210,12 @@ export default {
       }
     },
     threepay() {
+        var that = this
       var paymo = $(".allmo").text();
       console.log(paymo);
       var paramss = {
         amount: paymo,
-        buserId: useid,
+        buserId: that.usdd,,
         payment: paymo,
         type: 4
       };
