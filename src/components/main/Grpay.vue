@@ -40,8 +40,24 @@ export default {
     that.tell = test.substring(43, 54);
     console.log(that.tell);
     sessionStorage.setItem("phone", that.tell);
-    this.$axios
-      .get("wallet/api/wallets/user")
+    if(this.$store.getters.isAuthed === false){
+      alert('请先登陆');
+      var  val={
+          "func":"openURL",
+          "param":{
+              "URL":'/#/Login',
+          },
+      };
+      var u = navigator.userAgent;
+      var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+      if(isiOS){
+          window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+      }else if(isAndroid){  
+          window.androidObject.JSCallAndroid(JSON.stringify(val));
+      }
+    }else{
+      this.$axios.get("wallet/api/wallets/user")
       .then(function(res) {
         that.arr = res.data;
         console.log(res.data);
@@ -49,6 +65,7 @@ export default {
       .catch(function(error) {
         console.log(error);
       });
+    }
   },
   methods: {
     close() {
