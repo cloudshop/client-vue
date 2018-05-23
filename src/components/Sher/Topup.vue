@@ -36,15 +36,15 @@
        <ul class="top_bottom1 top_bottom2">
             <li><img src="../../assets/top/快捷支付.png"></li>
             <li>
-                <p>快捷支付(开联通)</p>
-                <p>因为信任,所以简单</p>
+                <p>微信</p>
+                <p>放心支付,免费生活</p>
                 <span>
-                    <input type="radio" id="kuaijiezhifu" value="快捷支付" name="sex"/>
-                    <label for="kuaijiezhifu"></label>
+                    <input type="radio" id="wechat" value="2" name="sex"/>
+                    <label for="wechat"></label>
                 </span>
             </li>
         </ul>
-        <ul class="top_bottom1">
+        <!-- <ul class="top_bottom1">
             <li><img src="../../assets/top/银联.png"></li>
             <li>
                 <p>通联</p>
@@ -54,7 +54,7 @@
                     <label for="tonglian"></label>
                 </span>
             </li>
-        </ul>
+        </ul> -->
 
       
         <!-- <div class="jump"></div> -->
@@ -72,76 +72,92 @@
 import $ from "jquery";
 import axios from "axios";
 export default {
-  data(){
-    return{
-      money:''
-    }
+  data() {
+    return {
+      money: ""
+    };
   },
   mounted: function() {
-    var that = this
+    var that = this;
     $(".main_top li").on("click", function() {
       $(this)
         .addClass("col")
         .siblings()
         .removeClass("col");
-      var aa = $(this).val()
-        that.money = aa
+      var aa = $(this).val();
+      that.money = aa;
     });
     $("#money").focus(function() {
       $(".main_top li").removeClass("col");
-      that.money = ''
+      that.money = "";
     });
-
-   
   },
   methods: {
     //  $("#btn").on("click", function() {
     chong() {
-      var that = this
+      var that = this;
       if ($("#money").val() == "") {
-              var re = $('input:radio[name="sex"]:checked').val();
-              var mo = that.money;
-              var data = { payType: re, payment: mo };
-              console.log(this)
-              this.$axios.post("order/api/dep-orders/deposit", data)
-                .then(function(res) {
-                  console.log(res);
-                  var param1 = 1;
-                  var param2 = "orderStr" + ":" + res.orderString;
-                  var param3 = res.data.orderString;
-                  var val = {
-                    func: "pay",
-                    param: {
-                      payType: "Ali",
-                      orderStr: param3
-                    }
-                  };
-                  console.log(val);
-                  console.log(JSON.stringify(val));
-                  var u = navigator.userAgent;
-                  var isAndroid =
-                    u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
-                  var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-                  if (isiOS) {
-                    window.webkit.messageHandlers.GongrongAppModel.postMessage(
-                      val
-                    );
-                  } else if (isAndroid) {
-                    window.androidObject.JSCallAndroid(JSON.stringify(val));
-                  }
-                })
-                //bottom
-                .catch(function(error) {
-                  console.log(error);
-                });
- 
+        var re = $('input:radio[name="sex"]:checked').val();
+        var mo = that.money;
+        var data = { payType: re, payment: mo };
+        console.log(data);
+        this.$axios
+          .post("order/api/dep-orders/deposit", data)
+          .then(function(res) {
+            console.log(res);
+            var param1 = 1;
+            // var param2 = "orderStr" + ":" + res.orderString;
+            var param3 = res.data.orderString;
+            if (re == 1) {
+              var val = {
+                func: "pay",
+                param: {
+                  payType: "Ali",
+                  orderStr: param3
+                }
+              };
+              console.log(val)
+              var u = navigator.userAgent;
+              var isAndroid =
+                u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+              var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+              if (isiOS) {
+                window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+              } else if (isAndroid) {
+                window.androidObject.JSCallAndroid(JSON.stringify(val));
+              }
+            } else if (re == 2) {
+              var val = {
+                func: "pay",
+                param: {
+                  payType: "Wechat",
+                  orderStr: param3
+                }
+              };
+              console.log(val)
+              var u = navigator.userAgent;
+              var isAndroid =
+                u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+              var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+              if (isiOS) {
+                window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+              } else if (isAndroid) {
+                window.androidObject.JSCallAndroid(JSON.stringify(val));
+              }
+            }
+          })
+          //bottom
+          .catch(function(error) {
+            console.log(error);
+          });
       } else {
         var re = $('input:radio[name="sex"]:checked').val();
         console.log("即将使用" + re + "为您充值" + $("#money").val() + "元");
         var mm = $("#money").val();
         var data = { payType: re, payment: mm };
-        console.log(this)
-        this.$axios.post("order/api/dep-orders/deposit", data)
+        console.log(this);
+        this.$axios
+          .post("order/api/dep-orders/deposit", data)
           .then(function(res) {
             console.log(res);
             var param1 = 1;
