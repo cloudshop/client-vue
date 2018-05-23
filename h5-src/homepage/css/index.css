@@ -112,6 +112,8 @@ html{
 .loaction{
 	font-size:0.32rem;
 	color: #fff;
+	width: 1rem;
+	height: .5rem;
 }
 .arrowRight{
   width: 0.2rem;

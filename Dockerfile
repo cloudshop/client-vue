@@ -1,15 +1,11 @@
 FROM nginx:1.13
 
 # Install base packages
-RUN apk update
-RUN apk upgrade
-RUN apk add ca-certificates && update-ca-certificates
-# Change TimeZone
-RUN apk add --update tzdata
-ENV TZ=Asia/Shanghai
-# Clean APK cache
-RUN rm -rf /var/cache/apk/*
-
+RUN apt-get update
+RUN apt-get install tzdata
+RUN echo "Asia/Shanghai" > /etc/timezone && \
+    dpkg-reconfigure -f noninteractive tzdata
+    
 RUN rm /etc/nginx/conf.d/default.conf
 #//删除nginx 默认配置
 

@@ -95,6 +95,7 @@ export default {
       // 选择当前添加active
       this.showDistrictList.map( a => a.selected = false );
       this.showDistrictList[index].selected = true;
+      sessionStorage.setItem("District",this.District); 
       var val={
         "func":"setNewCity",
         "param":{
@@ -114,7 +115,6 @@ export default {
       // console.log(this.City) // 市
       // console.log(this.District) // 区
       // console.log(this.Province) //省
-      this.$router.push({path:'/'})
     },
     districtSelected: function() {
       this.showProvince=false;

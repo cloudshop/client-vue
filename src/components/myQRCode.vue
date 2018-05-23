@@ -60,7 +60,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
     .myQrCode_header {
         flex-shrink: 0;
         width: 100%;

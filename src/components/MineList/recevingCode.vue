@@ -1,11 +1,11 @@
 <template>
-       <div class="myQrCode">
-            <div class="myQrCode_header">
-                <p>&lt;</p >
+       <div class="receving">
+            <div class="receving_header">
+                <p @click='back'>&lt;</p >
                 <p>收款码</p >
                 <p> </p>
             </div>
-           <div class="myQrCode_body">
+           <div class="receving_bodys">
               <div class='body_top'>
                 <span class="spans"><img src="../../assets/Mine/reving1.png" alt=""></span>
                 <p>二维码收款</p>
@@ -15,13 +15,11 @@
                   <div id="qrcode" v-show='flag' ref="qrcode"></div>
                 </div>
            </div>
-           <!-- <Foot></Foot> -->
        </div>
 </template>
 
 <script> 
 import qrcode from "../../../static/js/qrcode.js";
-// import Foot from './main/Foot';
 
 export default {
     data(){
@@ -51,17 +49,28 @@ export default {
                 }
                 this.i = true;
             })
+        },
+        back: function(){
+            var  val={
+                "func":"closeCurrent",
+                "param":{'refreshParent':true},
+            };
+            var u = navigator.userAgent;
+            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+            if(isiOS){
+                window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+            }else if(isAndroid){  
+                window.androidObject.JSCallAndroid(JSON.stringify(val));
+            }
         }
     },
-    // components:{
-    //     Foot
-    // },
 }
 </script>
 
-<style>
+<style scoped>
    
-    .myQrCode_header {
+    .receving_header {
         flex-shrink: 0;
         width: 100%;
         height: 0.96rem;
@@ -74,22 +83,22 @@ export default {
         color: #fff;
         background: #ff5065 !important;
     }
-    .myQrCode_header p:nth-child(1) {
+    .receving_header p:nth-child(1) {
         padding-left: .4rem;
         font-size: .32rem;
     }
-    .myQrCode_header p:nth-child(2) {
+    .receving_header p:nth-child(2) {
         font-size: 0.32rem;
     }
-    .myQrCode{
+    .receving{
        position: relative;
     }
-    .myQrCode_body{
+    .receving_bodys{
         margin-top: .96rem;
         width: 100%;
         height: 100%;
         position: absolute;
-        background: #ff5065 
+        background: #ff5065;
     }
     .body_top{
       width: 6.74rem;

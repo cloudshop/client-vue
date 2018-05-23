@@ -136,7 +136,7 @@ export default {
         console.log(res.data);
         that.type = res.data.type;
         var tt = that.type
-        if(tt<2){
+        if(tt<=2){
           $('.moneypay').hide()
         }else{
           $('.moneypay').show()

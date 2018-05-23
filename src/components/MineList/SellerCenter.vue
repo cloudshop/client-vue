@@ -1,134 +1,134 @@
 ﻿<template>
   <div class='SellerCenter'>
-       <header class="mint-header">
-           <div class="mint-header-button is-left">
-               <a class="router-link-active">
-                   <button @click="back" class="mint-button mint-button--default mint-button--normal">
-                       <!-- <router-link :to="{ path: '/Mine' }" tag='button' class="mint-button mint-button--default mint-button--normal"> -->
-                    <mt-button icon="back"></mt-button>
-                   </button>
-              </a>
-            </div> 
-             <h1 class="mint-header-title">商户中心</h1>
-            <div class="mint-header-button is-right"></div>
-        </header>
+    <header class="mint-header">
+      <div class="mint-header-button is-left">
+        <a class="router-link-active">
+          <button @click="back" class="mint-button mint-button--default mint-button--normal">
+              <!-- <router-link :to="{ path: '/Mine' }" tag='button' class="mint-button mint-button--default mint-button--normal"> -->
+          <mt-button icon="back"></mt-button>
+          </button>
+        </a>
+      </div> 
+        <h1 class="mint-header-title">商户中心</h1>
+      <div class="mint-header-button is-right"></div>
+    </header>
 
-        <div class='content'>
-          <div class='TopContent' v-show="type==1?true:false">
-              <h2>普通商家相关权益</h2>
-              <h3>入驻要求</h3>
-              <ul>
-                  <li>年服务费0元;</li>
-                  <li>提供身份证,营业执照等相关信息;</li>
-              </ul>
-              <h3>积分奖励</h3>
-              <ul>
-                  <li>享受自己消费,商家让利额10倍贡融积分奖励;</li>
-                  <li>直接分享会员消费让利10%的贡融积分奖励;</li>
-                  <li>间接分享会员消费让利额10%的贡融积分奖励;</li>
-                  <li>直接分享商家让利额10%的贡融积分奖励;</li>
-                  <li>间接分享商家让利额10%的贡融积分奖励;</li>
-              </ul>
-              <h3>积分奖励</h3>
-              <ul>
-                  <li>分享增值商家入驻100元现金奖励</li>
-              </ul>
-              <router-link :to="{ path: '/OrdinaryBusiness' }" tag="button" class='MyBtn'>申请成为普通商家</router-link>
-          </div>
-          <div  v-show="type==2?true:false">
-              <h2>普通商家相关权益</h2>
-              <h3>入驻要求</h3>
-              <ul>
-                  <li>年服务费0元;</li>
-                  <li>提供身份证,营业执照等相关信息;</li>
-              </ul>
-              <h3>积分奖励</h3>
-              <ul>
-                  <li>享受自己消费,商家让利额10倍贡融积分奖励;</li>
-                  <li>直接分享会员消费让利10%的贡融积分奖励;</li>
-                  <li>间接分享会员消费让利额10%的贡融积分奖励;</li>
-                  <li>直接分享商家让利额10%的贡融积分奖励;</li>
-                  <li>间接分享商家让利额10%的贡融积分奖励;</li>
-              </ul>
-              <h3>积分奖励</h3>
-              <ul>
-                  <li>分享增值商家入驻100元现金奖励</li>
-              </ul>
-              <router-link :to="{ path: '/OrdinaryBusiness' }" tag="button" class='MyBtn'>申请成为普通商家</router-link>
-          </div>
-          <div class='BottomContent' v-show="type==3?true:false">
-              <h2>增值商家相关权益</h2>
-              <h3>入驻要求</h3>
-              <ul>
-                  <li>年服务费998元/年;</li>                   
-                  <li>提供身份证,营业执照等相关信息;</li>
-                  <li>提供商家管理者身份认证;</li>
-              </ul>
-                <h3>积分奖励</h3>
-              <ul>
-                <li>享受自身让利额2倍的贡融积分奖励;</li>
-                <li>享受自己消费,商家让利额10倍贡融积分奖励;</li>
-                <li>直接分享会员消费让利10%的贡融积分奖励;</li>
-                <li>间接分享会员消费让利额10%的贡融积分奖励;</li>
-                <li>直接分享商家让利额10%的贡融积分奖励;</li>
-                <li>间接分享商家让利额10%的贡融积分奖励;</li>
-              </ul>
-              <h3>积分奖励</h3>
-              <ul>
-                <li>分享增值商家入驻100元现金奖励</li>
-              </ul>
-              <router-link :to="{ path: '/Appreciation' }" tag="button" class='MyBtn'>申请成为增值商家</router-link>
-          </div>
-          <div class='ServiceContent'  v-show="type==4?true:false">
-            <h3>服务商权益</h3>
-            <ul>
-              <li>1 享受自身销售让利贡融积分奖励;</li>                   
-              <li>2 享受体系内商家入住分红;</li>
-              <li>3 享受体系内商家销售交易手续费分红;</li>
-              <li>4 享受体系内无限制商家销售让利积分奖励;</li>                   
-              <li>5 享受间接体系内无线商家销售让利积分奖励;</li>
-              <li>6 享受间接享受体系内无限制商家销售让利积分奖励;</li>
-              <li>7 可建立贡融积分线下运营中心;</li>
-              <li>8 有机会参加贡融积分服务商大会;</li>
-            </ul>
-            <h3>商家入驻流程</h3>
-            <ul>
-              <li>1 已有贡融商城入驻增值商家;</li>
-              <li>2 缴纳全额平台代理费用（2万元/年）;</li>
-              <li>3 确定服务商申请协议，并上传公司及法人代表相关资料和资格证件;</li>
-              <li>4 开始拓展市场，发展商家入驻贡融商城;</li>
-          </ul>
-          <router-link :to="{ path: '/servershop' }" tag="button" class='MyBtn'>申请成为服务商</router-link>
-        </div>
-        <div class='ServiceContent'  v-show="type==5?true:false">
-            <h3>服务商权益</h3>
-            <ul>
-              <li>1 享受自身销售让利贡融积分奖励;</li>                   
-              <li>2 享受体系内商家入住分红;</li>
-              <li>3 享受体系内商家销售交易手续费分红;</li>
-              <li>4 享受体系内无限制商家销售让利积分奖励;</li>                   
-              <li>5 享受间接体系内无线商家销售让利积分奖励;</li>
-              <li>6 享受间接享受体系内无限制商家销售让利积分奖励;</li>
-              <li>7 可建立贡融积分线下运营中心;</li>
-              <li>8 有机会参加贡融积分服务商大会;</li>
-          </ul>
-            <h3>商家入驻流程</h3>
-            <ul>
-              <li>1 已有贡融商城入驻增值商家;</li>
-              <li>2 缴纳全额平台代理费用（2万元/年）;</li>
-              <li>3 确定服务商申请协议，并上传公司及法人代表相关资料和资格证件;</li>
-              <li>4 开始拓展市场，发展商家入驻贡融商城;</li>
-          </ul>
-          <router-link :to="{ path: '/servershop' }" tag="button" class='MyBtn'>申请成为服务商</router-link>
+    <!-- <div class='content'> -->
+      <div class='TopContent' v-show="type==1?true:false">
+        <h2>普通商家相关权益</h2>
+        <h3>入驻要求</h3>
+        <ul>
+          <li>年服务费0元;</li>
+          <li>提供身份证,营业执照等相关信息;</li>
+        </ul>
+        <h3>积分奖励</h3>
+        <ul>
+          <li>享受自己消费,商家让利额10倍贡融积分奖励;</li>
+          <li>直接分享会员消费让利10%的贡融积分奖励;</li>
+          <li>间接分享会员消费让利额10%的贡融积分奖励;</li>
+          <li>直接分享商家让利额10%的贡融积分奖励;</li>
+          <li>间接分享商家让利额10%的贡融积分奖励;</li>
+        </ul>
+        <h3>积分奖励</h3>
+        <ul>
+          <li>分享增值商家入驻100元现金奖励</li>
+        </ul>
+        <router-link :to="{ path: '/OrdinaryBusiness' }" tag="button" class='MyBtn'>申请成为普通商家</router-link>
+    </div>
+    <div class='TopContent' v-show="type==2?true:false">
+      <h2>普通商家相关权益</h2>
+      <h3>入驻要求</h3>
+      <ul>
+        <li>年服务费0元;</li>
+        <li>提供身份证,营业执照等相关信息;</li>
+      </ul>
+      <h3>积分奖励</h3>
+      <ul>
+        <li>享受自己消费,商家让利额10倍贡融积分奖励;</li>
+        <li>直接分享会员消费让利10%的贡融积分奖励;</li>
+        <li>间接分享会员消费让利额10%的贡融积分奖励;</li>
+        <li>直接分享商家让利额10%的贡融积分奖励;</li>
+        <li>间接分享商家让利额10%的贡融积分奖励;</li>
+      </ul>
+      <h3>积分奖励</h3>
+      <ul>
+        <li>分享增值商家入驻100元现金奖励</li>
+      </ul>
+      <router-link :to="{ path: '/OrdinaryBusiness' }" tag="button" class='MyBtn'>申请成为普通商家</router-link>
+    </div>
+    <div class='BottomContent' v-show="type==3?true:false">
+      <h2>增值商家相关权益</h2>
+      <h3>入驻要求</h3>
+      <ul>
+        <li>年服务费998元/年;</li>                   
+        <li>提供身份证,营业执照等相关信息;</li>
+        <li>提供商家管理者身份认证;</li>
+      </ul>
+        <h3>积分奖励</h3>
+      <ul>
+        <li>享受自身让利额2倍的贡融积分奖励;</li>
+        <li>享受自己消费,商家让利额10倍贡融积分奖励;</li>
+        <li>直接分享会员消费让利10%的贡融积分奖励;</li>
+        <li>间接分享会员消费让利额10%的贡融积分奖励;</li>
+        <li>直接分享商家让利额10%的贡融积分奖励;</li>
+        <li>间接分享商家让利额10%的贡融积分奖励;</li>
+      </ul>
+      <h3>积分奖励</h3>
+      <ul>
+        <li>分享增值商家入驻100元现金奖励</li>
+      </ul>
+      <router-link :to="{ path: '/Appreciation' }" tag="button" class='MyBtn'>申请成为增值商家</router-link>
+    </div>
+    <div class='ServiceContent'  v-show="type==4?true:false">
+      <h3>服务商权益</h3>
+      <ul>
+        <li>1 享受自身销售让利贡融积分奖励;</li>                   
+        <li>2 享受体系内商家入住分红;</li>
+        <li>3 享受体系内商家销售交易手续费分红;</li>
+        <li>4 享受体系内无限制商家销售让利积分奖励;</li>                   
+        <li>5 享受间接体系内无线商家销售让利积分奖励;</li>
+        <li>6 享受间接享受体系内无限制商家销售让利积分奖励;</li>
+        <li>7 可建立贡融积分线下运营中心;</li>
+        <li>8 有机会参加贡融积分服务商大会;</li>
+      </ul>
+      <h3>商家入驻流程</h3>
+      <ul>
+        <li>1 已有贡融商城入驻增值商家;</li>
+        <li>2 缴纳全额平台代理费用（2万元/年）;</li>
+        <li>3 确定服务商申请协议，并上传公司及法人代表相关资料和资格证件;</li>
+        <li>4 开始拓展市场，发展商家入驻贡融商城;</li>
+      </ul>
+      <router-link :to="{ path: '/servershop' }" tag="button" class='MyBtn'>申请成为服务商</router-link>
+    </div>
+    <div class='ServiceContent'  v-show="type==5?true:false">
+      <h3>服务商权益</h3>
+      <ul>
+        <li>1 享受自身销售让利贡融积分奖励;</li>                   
+        <li>2 享受体系内商家入住分红;</li>
+        <li>3 享受体系内商家销售交易手续费分红;</li>
+        <li>4 享受体系内无限制商家销售让利积分奖励;</li>                   
+        <li>5 享受间接体系内无线商家销售让利积分奖励;</li>
+        <li>6 享受间接享受体系内无限制商家销售让利积分奖励;</li>
+        <li>7 可建立贡融积分线下运营中心;</li>
+        <li>8 有机会参加贡融积分服务商大会;</li>
+      </ul>
+      <h3>商家入驻流程</h3>
+      <ul>
+        <li>1 已有贡融商城入驻增值商家;</li>
+        <li>2 缴纳全额平台代理费用（2万元/年）;</li>
+        <li>3 确定服务商申请协议，并上传公司及法人代表相关资料和资格证件;</li>
+        <li>4 开始拓展市场，发展商家入驻贡融商城;</li>
+      </ul>
+      <router-link :to="{ path: '/servershop' }" tag="button" class='MyBtn'>申请成为服务商</router-link>
+    </div>
+    <div class="msgg" v-show="bol">
+      <div class="succeed">
+        <h3>提示</h3>
+        <p>您已申请为服务商</p>
+        <span @click="backMine">确定</span>
       </div>
-      <div class="msgg" v-show="bol">
-        <div class="succeed">
-          <h3>提示</h3>
-          <p>您已申请为服务商</p>
-          <span @click="backMine">确定</span>
-        </div>
-      </div>
-  </div>
+    </div>
+  <!-- </div> -->
 
     <!-- 申请成为普通商家 -->
     <mt-popup
@@ -137,7 +137,6 @@
         :modal=false> 
         <OrdinaryBusiness></OrdinaryBusiness>   
     </mt-popup>
-
     <!-- 申请成为增值商家 -->
     <mt-popup
         v-model="AppreciationPage"
@@ -163,7 +162,7 @@ export default {
   },
   methods: {
     backMine(){
-        this.$router.push({ path: "/information" });
+      this.$router.push({ path: "/Mine" });
     },
     SellerCenterClose: function() {
       this.$parent.$parent.SellerCenterPage = false;
@@ -175,7 +174,6 @@ export default {
       this.AppreciationPage = true;
     },
     back() {
-//  	this.$router.push("/Mine");
       var val = {
         func: "closeCurrent",
         param: {}
@@ -305,6 +303,7 @@ ul li {
   border: 0;
   margin-top: 0.2rem;
 }
+/*弹出信息*/
 .msgg{
   width: 100%;
   height: 100%;
