@@ -136,7 +136,7 @@ export default {
                 window.androidObject.JSCallAndroid(JSON.stringify(val));
               }
      },
-    address: function() {
+    address() {
       this.$router.push({ name: "MyAddress" });
     }
   },
