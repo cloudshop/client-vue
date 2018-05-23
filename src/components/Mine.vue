@@ -7,7 +7,7 @@
           <dt><img :src="arr.avatar"/></dt>
           <dd>
               <h2>{{arr.nickname}}</h2>
-              <p>{{arr.typeString}}</p>
+              <p>{{usertype}}</p>
           </dd>
         </dl>
       <span @click='Information'></span>
@@ -134,33 +134,33 @@ export default {
       .then(function(res) {
         that.arr = res.data;
         console.log(res.data);
-        // that.type = res.data.type;
-        // var tt = that.type
-        // if(tt<2){
-        //   $('.moneypay').hide()
-        // }else{
-        //   $('.moneypay').show()
-        // }
-        // var name = res.data.type;
-        // var x;
-        // switch (name) {
-        //   case 1:
-        //     x = "普通会员";
-        //     break;
-        //   case 2:
-        //     x = "增值会员";
-        //     break;
-        //   case 3:
-        //     x = "普通商家";
-        //     break;
-        //   case 4:
-        //     x = "增值商家";
-        //     break;
-        //   case 5:
-        //     x = "服务商";
-        //     break;
-        // }
-        // that.usertype = x
+        that.type = res.data.type;
+        var tt = that.type
+        if(tt<2){
+          $('.moneypay').hide()
+        }else{
+          $('.moneypay').show()
+        }
+        var name = res.data.type;
+        var x;
+        switch (name) {
+          case 1:
+            x = "普通会员";
+            break;
+          case 2:
+            x = "增值会员";
+            break;
+          case 3:
+            x = "普通商家";
+            break;
+          case 4:
+            x = "增值商家";
+            break;
+          case 5:
+            x = "服务商";
+            break;
+        }
+        that.usertype = x
       })
       .catch(function(error) {
         console.log(error);

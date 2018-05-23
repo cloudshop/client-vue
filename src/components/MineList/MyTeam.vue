@@ -12,19 +12,19 @@
         <div class="mint-header-button is-right" ></div>
     </header>
     <div class='nav'>
-        <h2>分享人</h2>
+        <!-- <h2>分享人</h2> -->
         <div class='list'>
           <dl>
             <dt></dt>
             <dd>
-              <img :src="this.$route.params.arr.avatar" alt="">
+              <img :src="arr2.avatar" alt="">
             </dd>
             <dd>
-              <h3>{{this.$route.params.arr.nickname}}</h3>
-              <p>{{this.$route.params.arr.typeString}}</p>
+              <h3>{{arr2.nickname}}</h3>
+              <p>{{arr2.typeString}}</p>
             </dd>
             <dd>
-              <p>{{this.$route.params.arr.phone}}</p>
+              <p>{{arr2.phone}}</p>
             </dd>
           </dl>
       </div>
@@ -38,7 +38,7 @@
             </dd>
             <dd>
               <h3>{{item.nickname}}</h3>
-              <p>{{item.typeString}}</p>
+              <p>{{item.typeStrings}}</p>
             </dd>
             <dd>
               <p>{{item.phone}}</p>
@@ -54,12 +54,25 @@ export default {
   data() {
     return {
       arr: "null",
-      iphone:""
+      iphone:"",
+      arr2:""
     };
   },
   created() {
     // this.iphone=document.cookie.split(";")[1].split("=")[1]; 
     console.log(this.$route.params)
+    this.arr2 = this.$route.params.arr;
+    if(this.arr2.type==1){
+      this.arr2.typeString = "普通会员";
+    }else if(this.arr2.type==2){
+      this.arr2.typeString = "增值会员";
+    }else if(this.arr2.type==3){
+      this.arr2.typeString = "普通商家";
+    }else if(this.arr2.type==4){
+      this.arr2.typeString = "增值商家";
+    }else if(this.arr2.type==5){
+      this.arr2.typeString = "服务商";
+    }
     var that = this;
     this.$axios
       .get(
@@ -68,15 +81,22 @@ export default {
       .then(function(res) {
         that.arr=[]
         var le = res.data.length;
-        // 
-        
-        // for(var i=0;i<that.arr.length;i++){
-        //     // that.arr.push(res.data[i].phone)
-            
-        // }
         that.arr = res.data;
-        console.log(res.data)
-        console.log(that.arr)
+        // console.log(res.data);
+        console.log(that.arr);
+        for (var i = 0; i < that.arr.length; i++) {
+          if(that.arr[i].type==1){
+            that.arr[i].typeStrings = "普通会员";
+          }else if(that.arr[i].type==2){
+            that.arr[i].typeStrings = "增值会员";
+          }else if(that.arr[i].type==3){
+            that.arr[i].typeStrings = "普通商家";
+          }else if(that.arr[i].type==4){
+            that.arr[i].typeStrings = "增值商家";
+          }else if(that.arr[i].type==5){
+            that.arr[i].typeStrings = "服务商";
+          }    
+        }
       })
       .catch(function(error) {
         console.log(error);
@@ -114,9 +134,10 @@ header {
 
 /* 分享人 */
 .nav {
-  height: 2.2rem;
+  height: 1.6rem;
   background: #fff;
   margin-top: 0.16rem;
+  padding: 0.1rem 0;
 }
 .nav .list dl {
   display: flex;

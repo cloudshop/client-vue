@@ -19,7 +19,7 @@
 	                    :show-file-list="false"
 	                    :on-success="handleAvatarSuccess"
 	                    :before-upload="beforeAvatarUpload">
-	                    <img v-if="imageUrl" :src="imageUrl" class="avatar" v-model="imageUrl">
+	                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
 	                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
 	                </el-upload>
                 </span>
@@ -33,7 +33,7 @@
 	                    :show-file-list="false"
 	                    :on-success="handleAvatarSuccess2"
 	                    :before-upload="beforeAvatarUpload2">
-	                    <img v-if="imageUrl2" :src="imageUrl2" class="avatar" v-model="imageUrl2">
+	                    <img v-if="imageUrl2" :src="imageUrl2" class="avatar">
 	                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
 	                </el-upload>
                 </span>
@@ -115,6 +115,7 @@ export default {
 			if (this.realName==""||this.realNumber==""||this.imageUrl==""||this.imageUrl2=="") {
 				alert("填写不完善");
 			} else{
+				this.bol = true;
 				var datas={
 	  				realName:this.realName,
 	  				idnuber:this.idnuber,
@@ -129,8 +130,6 @@ export default {
 	            )
 			    .then(function(res) {
 			        console.log(res);
-			        this.bol = true;
-			        
 			    })
 			    .catch(function(error) {
 			        console.log(error);
@@ -141,12 +140,13 @@ export default {
 			if (this.realName==""||this.realNumber==""||this.imageUrl==""||this.imageUrl2=="") {
 				alert("填写不完善");
 			} else{
+				this.bol = true;
 				var datas={
 	  				realName:this.realName,
 	  				idnuber:this.idnuber,
 	  				frontImg:this.idcardfront,
 	  				reverseImg:this.idcardfront2
-	  			}
+				  }				
 	  			console.log(datas);
 				this.$axios
 			    .put(
@@ -155,8 +155,6 @@ export default {
 	            )
 			    .then(function(res) {
 			        console.log(res);
-			        this.bol = true;
-			        
 			    })
 			    .catch(function(error) {
 			        console.log(error);
