@@ -13,7 +13,7 @@
           <div class="shopping_main_nav">
             <div class="nav_newmain">
               <span class="shopping_q">
-                <input type="checkbox" id="tonglian"  class="checkboxs" value="通联" name="sex"  v-model="item.checkbox" @click="pageAll(item.id)"/>
+                <input type="checkbox" id="tonglian"  class="checkboxs"   v-model="item.checkbox" @click="pageAll(item)"/>
                 <label for="tonglian"></label>
               </span>
               <span class="nav_newmain_quan"  @click='ok(item.id,index)'>{{item.shopName}}</span>
@@ -25,7 +25,7 @@
             <div class="contents_all">
               <div class="contents_left">
                 <span class="shopping_q">
-                  <input type="checkbox" id="tonglian" class="checkboxs"  value="通联" name="sex"  v-model="data.checkboxChild" @click="pageItem(item.id,index,$event)"/>
+                  <input type="checkbox" id="tonglian" class="checkboxs"   v-model="data.checkboxChild" @click="pageItem(item,item.id,index,$event)"/>
                   <label for="tonglian"></label>
                 </span>
               </div>
@@ -72,7 +72,8 @@
                   </span>
                 </div>   
                 <!--{{data.price*data.num | filtermoney totalPrice}}  -->
-                <div class="money">合计: ￥ {{totalPrice.toFixed(2)}}</div>   
+                <!-- <div class="money">合计: ￥ {{totalPrice.toFixed(2)}}</div>    -->
+                <div class="money">合计: ￥ {{totalMoney.toFixed(2)}}</div>   
               </div>
               <div class="shopping_footer_right" @click="toTal">去结算</div>
             </div>
@@ -123,29 +124,46 @@ export default {
    
   },
   computed:{
-   
+     totalMoney(){
+      let totalnum = this.serviceList.reduce((total,item,index)=>{
+           let num = 0;
+           let result= item.sku.reduce((all,item)=>{
+            let val = 0;
+            // console.log(item.checkboxChild)
+                if(item.checkboxChild === true ){
+                  val = item.unitPrice*item.count;
+                }
+                all +=val
+                return all
+           },0)
+            total+= result
+            return total
+        },0)
+      return totalnum
+     }
   },
   created(){
     (this.$store.getters.isAuthed === false) ? this.flag=true : this.flag=false;
-    var that = this;
+    // var that = this;
     this.$axios.get('shoppingcart/api/shoppingcar/user')
-    .then(function(response) {
-        that.serviceList = response.data.result;
+    .then((response)=> {
+        this.serviceList = response.data.result;
+        console.log(this.serviceList)
         // emptys 去逛逛
-        if(that.serviceList == undefined || that.serviceList.length == 0){
-          that.empty = false;
-          that.emptys = true;
+        if(this.serviceList == undefined || this.serviceList.length == 0){
+          this.empty = false;
+          this.emptys = true;
         }else{
-          that.empty = true;
-          that.emptys = false;
+          this.empty = true;
+          this.emptys = false;
         }
     })
-    .catch(function(error) {
+    .catch((error)=> {
         console.log(error);
     }); 
   },
   methods: {
-    logins:function(){  
+    logins(){  
       var  val={
         "func":"openURL",
         "param":{
@@ -193,13 +211,13 @@ export default {
       var delSkuid = [];
       delSkuid.push(this.serviceList[id].sku[index].skuid);
       this.$axios.post('shoppingcart/api/shoppingcar/del',delSkuid)
-      .then(function(res){
+      .then((res)=>{
         if(res.data == 'success'){
           this.dele=false;
           this.serviceList[id].sku.splice(index,1);
         }
       })
-      .catch(function(error){
+      .catch((error)=>{
         alert(error.response.data.title)
       })
       if(this.serviceList[id].sku.length == 0){
@@ -212,7 +230,7 @@ export default {
       this.dele = true;
     },
     // ++
-    add:function(index,id){
+    add(index,id){
       if(this.serviceList[id].sku[index].checkboxChild == true){
         var Money = this.serviceList[id].sku[index].unitPrice;
         this.totalPrice += Money;
@@ -225,7 +243,7 @@ export default {
       }
     },
     // --
-    subtract:function(index,id){
+    subtract(index,id){
        if(this.serviceList[id].sku[index].count>1){
         if(this.serviceList[id].sku[index].checkboxChild == true){
           var Money = this.serviceList[id].sku[index].unitPrice ;
@@ -235,48 +253,41 @@ export default {
       }
     },
     // pageAll 店铺全选
-    pageAll:function(pageId){
-      if(this.serviceList[pageId].checkbox !== true){
-        this.serviceList[pageId].sku.map((v,i)=>{
-          if(v.checkboxChild==false){
-            var Money = v.unitPrice;
-            this.totalPrice += Money;
-            v.checkboxChild = true;
-          } 
-        })
-      }else{
-        this.serviceList[pageId].sku.map((v,i)=>{
-          var Money = v.unitPrice;
-          this.totalPrice -= Money;
-          v.checkboxChild = false;
-        })
-      }
+    pageAll(item){
+        item.checkbox === true? item.sku.map((item)=>{
+          return item.checkboxChild =false
+        }):item.sku.map((item)=>{
+          return item.checkboxChild =true
+        });
+        let totalnum = item.sku.reduce((total,item)=>{
+        let num = 0;
+        if(item.checkboxChild == true ){
+          num = item.unitPrice*item.count;
+        }
+        total+= num
+        return total
+      },0);
+        item.totalPrice = totalnum
+       this.totalPrice = totalnum;
     },
     // 判断 商品是否全部选中
-    pageItem:function(pitchId,index,e){
+    pageItem(data,pitchId,index,e){
       this.serviceList[pitchId].sku[index].checkboxChild = !this.serviceList[pitchId].sku[index].checkboxChild;
       let statusFlag = true;
-      this.serviceList[pitchId].sku.forEach((item,index) => {
-        if(item.checkboxChild === false) {
-          statusFlag = false;
-        }
-      });
-      // if(this.serviceList[pitchId].checkbox == true){
-      //   this.serviceList[pitchId].sku.forEach((item,index) => {
-      //   if(item.checkboxChild !== true) {
-      //     this.checkboxBig = true;
-      //   }
-      // });
-      // }
+      statusFlag = data.sku.every((ele)=>{
+        return ele.checkboxChild === true;
+      })
       this.serviceList[pitchId].checkbox = statusFlag;
       // 金额
-      if(this.serviceList[pitchId].sku[index].checkboxChild == false){
-        var Money = this.serviceList[pitchId].sku[index].unitPrice*this.serviceList[pitchId].sku[index].count;
-        this.totalPrice -= Money;
-      }else{
-        var Money = this.serviceList[pitchId].sku[index].unitPrice*this.serviceList[pitchId].sku[index].count;
-        this.totalPrice += Money;
-      }
+      let totalnum = data.sku.reduce((total,item)=>{
+        let num = 0;
+        if(item.checkboxChild == true ){
+          num = item.unitPrice*item.count;
+        }
+        total+= num
+        return total
+      },0);
+       this.totalPrice = totalnum;
       // 传参
       if(this.serviceList[pitchId].sku[index].checkboxChild == true){
         this.price = this.serviceList[pitchId].sku[index].unitPrice; // 价钱
@@ -289,7 +300,7 @@ export default {
       }
     },
     // 全选 选中计算
-    checkboxAll:function(){
+    checkboxAll(){
       for(var pageId = 0; pageId < this.serviceList.length; pageId++){
         if(this.checkboxBig !== true){
           console.log(this.serviceList[pageId].checkbox)
@@ -303,27 +314,10 @@ export default {
             v.checkboxChild = false;
           })
         }
-        // if(this.serviceList[pageId].checkbox){
-
-        // }
-      }
-      var priceCount=0;
-      for(var pageId=0;pageId<this.serviceList.length;pageId++){
-        this.serviceList[pageId].sku.map((v,i)=>{
-          var sigal = v.unitPrice*v.count;
-          priceCount += sigal;
-        })
-      }
-      if(this.checkboxBig != true){
-        this.totalPrice = priceCount;
-        console.log(this.checkboxBig)
-      }else{
-        console.log(this.checkboxBig)
-        this.totalPrice = 0; 
       }
     },
     // 点击结算
-    toTal:function(){
+    toTal(){
       sessionStorage.setItem("price",this.price); // 价钱
       sessionStorage.setItem("productName",this.productName);  // 姓名
       sessionStorage.setItem("count",this.count); // 几个
@@ -349,7 +343,7 @@ export default {
         url:'order/api/depproorders/0',
         data: params
         })
-        .then(function(response) {
+        .then((response)=> {
           console.log(response.data)
           that.$router.push({name:"ConfirmAnOrder"}) 
         })
@@ -361,7 +355,7 @@ export default {
           }
         });
       },
-      goings:function(){
+      goings(){
         var  val={
             "func":"closeCurrent",
             "param":{'finallyIndex':'2','refreshAll':true},
