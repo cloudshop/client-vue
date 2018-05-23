@@ -95,6 +95,7 @@ export default {
 
     console.log(this.router.params);
   },
+
   methods: {
     closeAddress: function() {
       this.$parent.$parent.address = false;
@@ -389,6 +390,3 @@ button {
   color: #fff;
 }
 </style>
-
-
-
