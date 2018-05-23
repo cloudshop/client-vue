@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div class="manage">
       <div class="header">
           <ul>
@@ -93,9 +93,8 @@ export default {
       console.log(error);
     });
 
-   // console.log(this.router.params);
+    console.log(this.router.params);
   },
-  mounted: function() {},
   methods: {
     closeAddress: function() {
       this.$parent.$parent.address = false;
@@ -140,15 +139,13 @@ export default {
       // +$(".del").show();
       console.log(b);
       var r = confirm("确定删除地址吗？");
-      if (r == false) {
-      } else {
+      if (r == true) {
         var datas = {
           id: b,
           userAnnex: {
             avatar: "string"
           }
         };
-        var that = this;
         this.$axios
           .post(
             "user/api/user-annexes-deleteAddress",
@@ -161,6 +158,8 @@ export default {
           .catch(function(error) {
             console.log(error);
           });
+      } else {  
+        
       }
     },
     //取消事件
@@ -390,3 +389,6 @@ button {
   color: #fff;
 }
 </style>
+
+
+
