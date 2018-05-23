@@ -21,6 +21,14 @@
             </p>
             
         </div>
+        <div class="password">
+          <div class="password_bottom">
+              <span @click="del">×</span>
+              <p class="password_p">
+                  <input type="password" maxlength="6" id="psd" v-model="psd" placeholder="请输入支付密码">
+              </p>
+          </div>
+      </div>
     </div>
 </template>
 <script>
@@ -34,32 +42,53 @@ export default {
       tick: "",
       type: true,
       typp: true,
-      buserId:'',
+      buserId: "",
+      ordernum: "",
+      psd: "",
+      phonn: "",
+      usdd: ""
     };
   },
+
   created() {
+    var that = this;
+    // var test = window.location.href;
+    // var urltel = "http://app.grjf365.com/#/grpay?phoneNumber=17600045817"
+    // var tel2 = urltel.substring(43,54);
+    // console.log(tel2);
+    this.phonn = sessionStorage.getItem("phone");
+    this.$axios
+      .get("user/api/user-annexes-getUserInfosByPhone/" + this.phonn)
+      .then(function(res) {
+        // console.log(res.data.id);
+        // var that =this
+        that.usdd = res.data.id;
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
     this.type = sessionStorage.getItem("changetype");
     this.money = sessionStorage.getItem("monbumber");
     this.banl = sessionStorage.getItem("balance");
     this.tick = sessionStorage.getItem("ticket");
-    this.tick =Number(this.tick)
-    this.money = Number(this.money)
+    this.tick = Number(this.tick);
+    this.money = Number(this.money);
     if (this.type == "false") {
       this.type = false;
     } else {
       this.type = true;
     }
-    if(this.tick > this.money){
-        this.typp = false;
-    }else{
-        this.typp = true;
+    if (this.tick > this.money) {
+      this.typp = false;
+    } else {
+      this.typp = true;
     }
   },
-  filters:{
-      keep:function(value){
-          value = Number(value);
-          return value.toFixed(2)
-      }
+  filters: {
+    keep: function(value) {
+      value = Number(value);
+      return value.toFixed(2);
+    }
   },
   methods: {
     back() {
@@ -67,34 +96,125 @@ export default {
       sessionStorage.removeItem("balance");
       sessionStorage.removeItem("changetype");
       sessionStorage.removeItem("ticket");
+      sessionStorage.removeItem("phone");
     },
-    sure(){
-        var that =this
-        var aamon = that.money
-        var aatic =that.tick
-        var aabanl = that.banl
-        var all =parseInt(aatic) + parseInt(aabanl)
-        if(that.tick > that.money){
-            
-           console.log('劵足够支付')
-        }else{
-            console.log('需要余额支付')
-            if(aatic < aamon){
-                var need = aamon - aatic
-                console.log('需要支付'+aatic + '劵')
-                console.log('需要支付'+need + '余额')
+    del() {
+      $(".password").fadeOut(200);
+    },
+    sure() {
+      var that = this;
+      var aamon = that.money;
+      var aatic = that.tick;
+      var aabanl = that.banl;
+      var useid = that.usdd;
+      console.log(typeof aamon);
+      var all = parseInt(aatic) + parseInt(aabanl);
+      if (that.type == true) {
+        console.log("允许贡融劵");
+        if (that.tick >= that.money) {
+          //贡融劵支付顶部
+          console.log("劵足够支付");
+            $(".password").fadeIn(300);
+          var moo = aamon.toString();
+          var uss = useid.toString();
+          console.log(typeof moo);
+          var datas = {
+                "amount": aamon,
+                "balance": 0,
+                "buserId": useid,
+                "payment": 0,
+                "ticket": aamon,
+                "type": 3
             }
-            if(all < aamon){
-                alert('当前支付方式不足以支付订单，请选择第三方支付')
-            }
+        //   var datt = JSON.stringify(datas);
+        //   console.log(datas);
+          this.$axios({
+            method: "post",
+            url: "order/api/face_orders/createOrder",
+            data: datas
+          })
+            .then(function(res) {
+              var ordernum = res.data;
+              that.ordernum = ordernum;
+              console.log(ordernum);
+            })
+            .catch(error => {
+              console.log(error);
+            });
+          //贡融劵支付底部
+        } else {
+          //贡融劵余额支付顶部
+          console.log("组合支付");
+          var need = aamon - aatic;
+          var needban = need.toFixed(2);
+          //   var bbbanl = aabanl.toFixed(2);
+
+          var a1 = Number(needban);
+          var a2 = Number(aabanl);
+          //   console.log(needban);
+          //   console.log(aabanl);
+          if (a1 > a2) {
+            alert("当前支付方式不足以支付订单，请充值或使用第三方支付");
+          } else {
+            $(".password").fadeIn(300);
+            var datas = {
+              amount: aamon,
+              balance: needban,
+              buserId: useid,
+              payment: 0,
+              ticket: aatic,
+              type: 3
+            };
+            this.$axios({
+              method: "post",
+              url: "order/api/face_orders/createOrder",
+              data: datas
+            })
+              .then(function(res) {
+                console.log(res);
+                that.ordernum = res.data;
+              })
+              .catch(error => {
+                console.log(error);
+              });
+          }
         }
+      } else {
+        console.log("不允许贡融劵");
+        if (aamon > aabanl) {
+          alert("余额不足，请充值或使用第三方支付");
+        } else {
+          console.log("余额可以支付");
+          $(".password").fadeIn(300);
+          var datas = {
+            amount: aamon,
+            balance: 0,
+            buserId: useid,
+            payment: 0,
+            ticket: aamon,
+            type: 1
+          };
+          this.$axios({
+            method: "post",
+            url: "order/api/face_orders/createOrder",
+            data: datas
+          })
+            .then(function(res) {
+              console.log(res);
+              that.ordernum = res.data;
+            })
+            .catch(error => {
+              console.log(error);
+            });
+        }
+      }
     },
     threepay() {
       var paymo = $(".allmo").text();
       console.log(paymo);
       var paramss = {
         amount: paymo,
-        buserId: 3,
+        buserId: useid,
         payment: paymo,
         type: 4
       };
@@ -126,7 +246,38 @@ export default {
         });
     }
   },
-  watch: {}
+  watch: {
+    psd(curVal) {
+      var that = this;
+      if (curVal.length == 6) {
+        console.log(curVal);
+        var psd = curVal;
+        var orno = that.ordernum;
+        var data = {
+          orderNo: orno,
+          password: psd
+        };
+        console.log(data);
+        this.$axios
+          .post("wallet/api/wallets/balance/pay", data)
+          .then(function(res) {
+            console.log(res);
+            console.log(res.status);
+            var typ = res.status;
+            if (typ == "200") {
+              alert("支付成功");
+              //  that.$router.push({ path: "/Mine" });
+            } else {
+            }
+          })
+          .catch(function(error) {
+            console.log(error);
+            var show = error.response.data.title;
+            alert(show);
+          });
+      }
+    }
+  }
 };
 </script>
 
@@ -157,7 +308,7 @@ export default {
   background: #fff;
   margin-top: 0.5rem;
   color: #676767;
-  font-size: .28rem;
+  font-size: 0.28rem;
 }
 .main p:first-child {
   width: 80%;
@@ -203,5 +354,44 @@ export default {
   color: #fff;
   font-size: 0.3rem;
   background: #ff0103;
+}
+.password {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+}
+.password_bottom {
+  width: 100%;
+  height: 50%;
+  background: #fff;
+  position: fixed;
+  bottom: 0;
+}
+.password_p {
+  width: 100%;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  /* background: #ccc; */
+  text-align: center;
+}
+.password_p input {
+  text-align: center;
+  width: 3rem;
+  height: 0.7rem;
+  border: 1px solid #ccc;
+}
+.password_bottom span {
+  display: inline-block;
+  width: 1rem;
+  height: 0.8rem;
+  line-height: 0.8rem;
+  text-align: center;
+  position: absolute;
+  float: right;
+  font-size: 0.5rem;
+  right: 0;
+  color: #ccc;
 }
 </style>
