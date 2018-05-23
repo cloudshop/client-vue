@@ -38,7 +38,7 @@
             </dd>
             <dd>
               <h3>{{item.nickname}}</h3>
-              <p>{{item.typeString}}</p>
+              <p>{{item.typeStrings}}</p>
             </dd>
             <dd>
               <p>{{item.phone}}</p>
@@ -81,15 +81,22 @@ export default {
       .then(function(res) {
         that.arr=[]
         var le = res.data.length;
-        // 
-        
-        // for(var i=0;i<that.arr.length;i++){
-        //     // that.arr.push(res.data[i].phone)
-            
-        // }
         that.arr = res.data;
-        console.log(res.data)
-        console.log(that.arr)
+        // console.log(res.data);
+        console.log(that.arr);
+        for (var i = 0; i < that.arr.length; i++) {
+          if(that.arr[i].type==1){
+            that.arr[i].typeStrings = "普通会员";
+          }else if(that.arr[i].type==2){
+            that.arr[i].typeStrings = "增值会员";
+          }else if(that.arr[i].type==3){
+            that.arr[i].typeStrings = "普通商家";
+          }else if(that.arr[i].type==4){
+            that.arr[i].typeStrings = "增值商家";
+          }else if(that.arr[i].type==5){
+            that.arr[i].typeStrings = "服务商";
+          }    
+        }
       })
       .catch(function(error) {
         console.log(error);
