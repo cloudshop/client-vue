@@ -215,7 +215,7 @@ export default {
       console.log(paymo);
       var paramss = {
         amount: paymo,
-        buserId: that.usdd,,
+        buserId: that.usdd,
         payment: paymo,
         type: 4
       };
