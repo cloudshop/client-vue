@@ -19,7 +19,7 @@
        </div>
 </template>
 
-<script scoped> 
+<script> 
 import qrcode from "../../../static/js/qrcode.js";
 // import Foot from './main/Foot';
 
@@ -59,7 +59,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
    
     .receving_header {
         flex-shrink: 0;
