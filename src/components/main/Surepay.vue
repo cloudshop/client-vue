@@ -29,6 +29,14 @@
               </p>
           </div>
       </div>
+      <div class="msg" v-show="bol">
+              <div class="succeed">
+                <h3>提示</h3>
+                <p>支付成功</p>
+                <!-- <router-link to="/RemainingSum">取消</router-link> -->
+                <span @click="dell">确定</span>
+              </div>
+      </div>
     </div>
 </template>
 <script>
@@ -46,7 +54,8 @@ export default {
       ordernum: "",
       psd: "",
       phonn: "",
-      usdd: ""
+      usdd: "",
+      bol: false
     };
   },
 
@@ -101,6 +110,20 @@ export default {
     del() {
       $(".password").fadeOut(200);
     },
+    dell() {
+      var val = {
+        func: "closeCurrent",
+        param: { finallyIndex: 1 }
+      };
+      var u = navigator.userAgent;
+      var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+      if (isiOS) {
+        window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+      } else if (isAndroid) {
+        window.androidObject.JSCallAndroid(JSON.stringify(val));
+      }
+    },
     sure() {
       var that = this;
       var aamon = that.money;
@@ -114,20 +137,20 @@ export default {
         if (that.tick >= that.money) {
           //贡融劵支付顶部
           console.log("劵足够支付");
-            $(".password").fadeIn(300);
+          $(".password").fadeIn(300);
           var moo = aamon.toString();
           var uss = useid.toString();
-          console.log(moo)
+          console.log(moo);
           console.log(typeof moo);
           var datas = {
-                "amount": aamon,
-                "balance": 0,
-                "buserId": uss,
-                "payment": 0,
-                "ticket": aamon,
-                "type": 3
-            }
-        //   var datt = JSON.stringify(datas);
+            amount: aamon,
+            balance: 0,
+            buserId: uss,
+            payment: 0,
+            ticket: aamon,
+            type: 3
+          };
+          //   var datt = JSON.stringify(datas);
           console.log(datas);
           this.$axios({
             method: "post",
@@ -136,7 +159,7 @@ export default {
           })
             .then(function(res) {
               console.log(res);
-               that.ordernum = res.request.response;
+              that.ordernum = res.request.response;
             })
             .catch(error => {
               console.log(error);
@@ -172,7 +195,7 @@ export default {
             })
               .then(function(res) {
                 console.log(res);
-               that.ordernum = res.request.response;
+                that.ordernum = res.request.response;
               })
               .catch(error => {
                 console.log(error);
@@ -201,7 +224,7 @@ export default {
           })
             .then(function(res) {
               console.log(res);
-               that.ordernum = res.request.response;
+              that.ordernum = res.request.response;
             })
             .catch(error => {
               console.log(error);
@@ -210,7 +233,7 @@ export default {
       }
     },
     threepay() {
-        // var that =this
+      // var that =this
       var paymo = $(".allmo").text();
       console.log(paymo);
       var paramss = {
@@ -255,19 +278,20 @@ export default {
         var psd = curVal;
         var orno = that.ordernum;
         // var orno = that.ordernum
-        var data = {
+        var datas = {
           orderNo: orno,
           password: psd
         };
-        console.log(data);
+        console.log(datas);
         this.$axios
-          .post("wallet/api/wallets/balance/pay", data)
+          .post("wallet/api/wallets/balance/pay",datas)
           .then(function(res) {
             console.log(res);
             console.log(res.status);
             var typ = res.status;
             if (typ == "200") {
-              alert("支付成功");
+              that.bol = true;
+              //   alert("支付成功");
               //  that.$router.push({ path: "/Mine" });
             } else {
             }
@@ -395,5 +419,46 @@ export default {
   font-size: 0.5rem;
   right: 0;
   color: #ccc;
+}
+.msg {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 10;
+}
+.succeed {
+  width: 86%;
+  height: 2.5rem;
+  position: absolute;
+  left: 7%;
+  top: 40%;
+  z-index: 10;
+  background: #fff;
+  border-radius: 0.1rem;
+}
+.succeed router-link {
+  float: left;
+  display: inline-block;
+}
+h3 {
+  font-size: 0.3rem;
+  line-height: 0.9rem;
+  padding: 0 0.4rem;
+}
+.msg p {
+  line-height: 0.8rem;
+  font-size: 0.25rem;
+  font-weight: 600;
+  padding-left: 0.3rem;
+}
+.msg span {
+  display: block;
+  text-align: right;
+  padding: 0 0.4rem;
+  color: red;
+  font-weight: 600;
 }
 </style>
