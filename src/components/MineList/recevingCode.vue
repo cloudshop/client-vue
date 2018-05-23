@@ -1,11 +1,11 @@
 <template>
-       <div class="myQrCode">
-            <div class="myQrCode_header">
+       <div class="receving">
+            <div class="receving_header">
                 <p>&lt;</p >
                 <p>收款码</p >
                 <p> </p>
             </div>
-           <div class="myQrCode_bodys">
+           <div class="receving_bodys">
               <div class='body_top'>
                 <span class="spans"><img src="../../assets/Mine/reving1.png" alt=""></span>
                 <p>二维码收款</p>
@@ -19,7 +19,7 @@
        </div>
 </template>
 
-<script> 
+<script scoped> 
 import qrcode from "../../../static/js/qrcode.js";
 // import Foot from './main/Foot';
 
@@ -61,7 +61,7 @@ export default {
 
 <style>
    
-    .myQrCode_header {
+    .receving_header {
         flex-shrink: 0;
         width: 100%;
         height: 0.96rem;
@@ -74,22 +74,22 @@ export default {
         color: #fff;
         background: #ff5065 !important;
     }
-    .myQrCode_header p:nth-child(1) {
+    .receving_header p:nth-child(1) {
         padding-left: .4rem;
         font-size: .32rem;
     }
-    .myQrCode_header p:nth-child(2) {
+    .receving_header p:nth-child(2) {
         font-size: 0.32rem;
     }
-    .myQrCode{
+    .receving{
        position: relative;
     }
-    .myQrCode_bodys{
+    .receving_bodys{
         margin-top: .96rem;
         width: 100%;
         height: 100%;
         position: absolute;
-        background: #ff5065 !important;
+        background: #ff5065;
     }
     .body_top{
       width: 6.74rem;
