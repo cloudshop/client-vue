@@ -126,7 +126,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .myAddress{
   width: 100%;
   background-color: white;
