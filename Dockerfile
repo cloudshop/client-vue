@@ -13,6 +13,6 @@ ADD default.conf /tmp/template.conf
 #//添加我们自己的配置 default.conf 在下面
 ADD dist /usr/share/nginx/html/  
 #//把刚才生成dist文件夹下的文件copy到nginx下面去
-ADD h5-src/ /usr/share/nginx/html/
+# ADD h5-src/ /usr/share/nginx/html/
 
 EXPOSE 8888
