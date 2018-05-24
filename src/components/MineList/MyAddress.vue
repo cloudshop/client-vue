@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="manage">
       <div class="header">
           <ul>
@@ -92,8 +92,6 @@ export default {
     .catch(function(error) {
       console.log(error);
     });
-
-    console.log(this.router.params);
   },
 
   methods: {
