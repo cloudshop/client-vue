@@ -170,7 +170,7 @@ header {
   font-weight: 400;
 }
 .list li:nth-child(7) b{
-  font-size: 0.4rem;
+  font-size: 0.27rem;
   font-weight: 400;
 }
 .list li:nth-child(8) b{
