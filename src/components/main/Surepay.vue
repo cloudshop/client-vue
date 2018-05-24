@@ -295,6 +295,7 @@ export default {
         .catch(error => {
           console.log(error);
         });
+        this.three = false;
     },
     wechatpay() {
       // var that =this
@@ -332,6 +333,7 @@ export default {
         .catch(error => {
           console.log(error);
         });
+        this.three = false;
     },
     payStatus(type, item) {
     //   $(".del").show();
