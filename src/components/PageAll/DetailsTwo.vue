@@ -9,9 +9,9 @@
             </div>
         </div>
         <!-- "综合", "销量","价格","筛选" -->
-        <ul class="PageAll_tab_ul" v-show='flag'>
+        <!-- <ul class="PageAll_tab_ul" v-show='flag'>
             <li v-for="(item,index) in tabs" :key="index" :class="{active:index == num}" @click="tab(97)">{{item}}</li>
-        </ul>
+        </ul> -->
         <!-- 内容 -->
         <div class="tabCon">
             <div class='content' >             
