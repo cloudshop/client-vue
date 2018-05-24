@@ -18,7 +18,7 @@
                </ul>
                 <span>
                     <input type="radio" id="yue" name="sex" value="余额" checked/>
-                    <label for="yue"></label>
+                    <!-- <label for="yue"></label> -->
                 </span>
             </p>
             <p class="two">
@@ -30,7 +30,19 @@
                 支付宝
                 <span>
                     <input type="radio" id="zhifubao" name="sex" value="支付宝" />
-                    <label for="zhifubao"></label>
+                    <!-- <label for="zhifubao"></label> -->
+                </span>
+            </p>
+            <p class="two">
+                <img src="../../assets/top/微信.png" alt="">
+                <!-- <ul>
+                    <li>贡融卷(可抵扣<b>1</b>元)</li>
+                    <li>1.00</li>
+                </ul> -->
+                微信
+                <span>
+                    <input type="radio" id="zhifubao" name="sex" value="微信" />
+                    <!-- <label for="zhifubao"></label> -->
                 </span>
             </p>
          </div>
@@ -138,7 +150,7 @@ export default {
           };
           this.$axios({
             method: "post",
-            url: "order/api/depproorders",
+            url: "order/api/depproorders/1",
             data: paramss
           })
             .then(function(response) {
@@ -190,6 +202,50 @@ export default {
                 func: "pay",
                 param: {
                   payType: "Ali",
+                  orderStr: that.took
+                }
+              };
+              var u = navigator.userAgent;
+              var isAndroid =
+                u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+              var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+              if (isiOS) {
+                window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+              } else if (isAndroid) {
+                window.androidObject.JSCallAndroid(JSON.stringify(val));
+              }
+            })
+            .catch(error => {
+              console.log(error);
+            });
+        }
+       if(re == '微信'){
+          var paramss = {
+            payment: that.payment,
+            postFee: that.postFee,
+            paymentType: 3,
+            buyerMessage: that.buyerMessage,
+            buyerNick: that.buyerNick,
+            shopId: Number(that.shopId),
+            proOrderItems: [
+              {
+                productSkuId: Number(that.productSkuId),
+                count: Number(that.count),
+                price: Number(that.price)
+              }
+            ]
+          };
+          this.$axios({
+            method: "post",
+            url: "order/api/depproorders/1",
+            data: paramss
+          })
+            .then(function(response) {
+              that.took = response.data;
+              var val = {
+                func: "pay",
+                param: {
+                  payType: "Wechat",
                   orderStr: that.took
                 }
               };
@@ -343,7 +399,7 @@ export default {
   padding-right: 0.3rem;
 }
 .change p input {
-  display: none;
+  /* display: none; */
 }
 .change p ul {
   float: left;
