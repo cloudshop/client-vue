@@ -16,10 +16,15 @@
           <p class="usertype">缴费类型 <span>服务商代理费</span></p>
           <p class="number">需要支付：20000元</p>
           <p class="changetype">支付方式</p>
-          <p class="yue">
+          <p class="ali">
               <img src="../../assets/Login/支付宝.png">
               <em class="e">支付宝</em>
-              <span></span>
+              <span><input type="radio" name="sex" checked value="2"></span>
+          </p>
+          <p class="ali">
+            <img src="../../assets/Login/微信.png">
+            <em class="e">微信</em>
+            <span><input type="radio" name="sex" value="3"></span>
           </p>
       </div>
       <div class="bottom">
@@ -42,50 +47,68 @@ export default {
       psd: ""
     };
   },
-  created() {
-
-  },
+  created() {},
   mounted() {},
   methods: {
     pay() {
-      //确认支付
-      //   console.log(this);
-      //   if (this.money < 20000) {
-      //     alert("余额不足");
-      //   } else {
-      //     $(".password").fadeIn(100);
-      //   }
-      var datas  ={
-          "payType": 2,
-      }
-      this.$axios
-        .post(
-          "order/api/leaguer-order/serviceProvider",
-          datas
-        )
-        .then(function(res) {
-          console.log(res.data);
-          var took = res.data;
-           var val = {
-                func: "pay",
-                param: {
-                  payType: "Ali",
-                  orderStr: took
-                }
-              };
-              var u = navigator.userAgent;
-              var isAndroid =
-                u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
-              var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-              if (isiOS) {
-                window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-              } else if (isAndroid) {
-                window.androidObject.JSCallAndroid(JSON.stringify(val));
+      var re = $('input:radio[name="sex"]:checked').val();
+      var datas = {
+        payType: re
+      };
+      console.log(datas);
+      if (re == 2) {
+        this.$axios
+          .post("order/api/leaguer-order/serviceProvider", datas)
+          .then(function(res) {
+            // console.log(res.data);
+            var took = res.data;
+            var val = {
+              func: "pay",
+              param: {
+                payType: "Ali",
+                orderStr: took
               }
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+            };
+            console.log(val)
+            var u = navigator.userAgent;
+            var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+            if (isiOS) {
+              window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+            } else if (isAndroid) {
+              window.androidObject.JSCallAndroid(JSON.stringify(val));
+            }
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      } else if (re == 3) {
+        this.$axios
+          .post("order/api/leaguer-order/serviceProvider", datas)
+          .then(function(res) {
+            // console.log(res.data.orderString);
+            var took = res.data;
+            var val = {
+              func: "pay",
+              param: {
+                payType: "Wechat",
+                orderStr: took
+              }
+            };
+            console.log(val)
+            var u = navigator.userAgent;
+            var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+            if (isiOS) {
+              window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+            } else if (isAndroid) {
+              window.androidObject.JSCallAndroid(JSON.stringify(val));
+            }
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      }
     }
   },
   watch: {
@@ -168,22 +191,27 @@ header {
   color: #c4c4c4;
   padding-left: 0.3rem;
 }
-.yue {
+.ali {
   width: 100%;
   height: 0.9rem;
   line-height: 0.9rem;
   background: #fff;
   font-size: 0.28rem;
+  border-bottom: 1px solid #e7e7e7;
 }
-.yue img {
+.ali img {
   width: 0.5rem;
   display: block;
   float: left;
   margin-top: 0.15rem;
   padding-left: 0.3rem;
 }
-.yue em {
+.ali em {
   margin-left: 0.1rem;
+}
+.ali input {
+  border: none;
+  border: 1px solid red;
 }
 .bottom {
   width: 100%;
