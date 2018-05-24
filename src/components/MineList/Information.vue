@@ -21,7 +21,7 @@
               <router-link :to="{ name: 'Approve',params:{b:b} }" tag='li' v-show="bo==1?true:false">实名认证<b><span v-show="b==1?true:false">认证失败，请重新认证</span> > </b></router-link> 
               <li v-show="bo==2?true:false">实名认证<b>{{statusString}}</b></li>    
               <li v-show="bo==3?true:false">实名认证<b>{{statusString}}</b></li>           
-              <li><router-link to="/grpay">我的分享人 <b>{{arr.invPhone}}</b></router-link></li>
+              <li>我的分享人 <b>{{arr.invPhone}}</b></li>
               <li  @click="actionSheet">退出登录</li>
           </ul>
       </div>
