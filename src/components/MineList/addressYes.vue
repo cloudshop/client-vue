@@ -1,5 +1,5 @@
 <template>
-  <div class="manage">
+  <div class="addressYes">
       <div class="header">
           <ul>
               <li @click='PreviousMenu'>&lt;</li>
@@ -131,7 +131,7 @@ body {
   height: 100%;
   display: flex;
 }
-.manage {
+.addressYes {
   width: 100%;
   height: 100%;
 }
