@@ -8,10 +8,6 @@
                 <span @click='seekAll'>搜索</span>
             </div>
         </div>
-        <!-- "综合", "销量","价格","筛选" -->
-        <!-- <ul class="PageAll_tab_ul" v-show='flag'>
-            <li v-for="(item,index) in tabs" :key="index" :class="{active:index == num}" @click="tab(97)">{{item}}</li>
-        </ul> -->
         <!-- 内容 -->
         <div class="tabCon">
             <div class='content' >             
@@ -40,7 +36,7 @@ export default {
     data() {
        return {
             num: 0,
-            tabs: ["综合","销量","价格","筛选"],
+            // tabs: ["综合","销量","价格","筛选"],
             arr:null,
             id:null,
             seekContent:'',
