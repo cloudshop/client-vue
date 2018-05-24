@@ -4,7 +4,7 @@
     <div class="shopping_head">
         <div class="shopping_header">
             <p @click='close'>&lt;</p>
-            <p>全部订单</p>
+            <p @click="aa">全部订单</p>
             <!-- <p><img src="../../assets/Classify/消息黑色.png" alt=""><span class="shopping_red">3</span></p> -->
             <p></p>
         </div>
@@ -59,7 +59,14 @@
             </div>
         </div>
     </div>
- 
+     <div class="password">
+            <div class="password_bottom">
+                <span @click="del">×</span>
+                <p class="password_p">
+                    <input type="password" maxlength="6" id="psd" v-model="psd" placeholder="请输入支付密码">
+                </p>
+            </div>
+       </div>
   </div>
 </template>
   
@@ -73,6 +80,8 @@ export default {
             arr:null,
             num: 0,
             dele:false,
+            psd: "",
+            abc:''
         }
     },
     created(){
@@ -83,12 +92,17 @@ export default {
         })
         .then(function(response) {
             that.arr = response.data;
+            console.log(response.data)
         })
         .catch(function(error) {
             console.log(error);
         });
     },
     methods: {
+        del() {
+            $(".password").fadeOut(200);
+            $("#psd").val('');
+        },
         tab(index){
             this.num = index; 
             var that = this;
@@ -262,25 +276,73 @@ export default {
         agin(){ //再次购买
             this.$router.push({name:"Product"})
         },
+        aa(){
+            $(".password").fadeIn(300);
+        },
         goPayNent(took){ // 去结算
-            took = this.arr[took].orderString;
-            if(took==''){
+            orderFrom = this.arr[took].paymentType;
+            if(orderFrom==''){
                 return;
             }else{
-                var  val={
-                    "func":'pay',
-                    "param":{
-                    "payType":'Ali',
-                    "orderStr": took
+                if(orderFrom==1){
+                    console.log(orderStringNo)
+                    orderStringNo = this.arr[took].orderNo;
+                    var pssd = this.abc;
+                    var datas = {
+                        orderNo: orderStringNo,
+                        password: pssd
+                    };
+                    console.log(datas);
+                    this.$axios.post("wallet/api/wallets/balance/pay",datas)
+                    .then(function(res) {
+                        console.log(res);
+                        console.log(res.status);
+                        var typ = res.status;
+                        if (typ == "200") {
+                            alert('支付成功')
+                        } else {
+                            alert('支付失败')
+                        }
+                    })
+                    .catch(function(error) {
+                        alert(error.response.data.title);
+                    });
+                }
+                if(orderFrom==2){ // 支付宝
+                    orderStringAli = this.arr[took].orderString;
+                    var  val={
+                        "func":'pay',
+                        "param":{
+                        "payType":'Ali',
+                        "orderStr": orderStringAli
+                        }
+                    }
+                    var u = navigator.userAgent;
+                    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+                    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+                    if(isiOS){
+                        window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+                    }else if(isAndroid){  
+                        window.androidObject.JSCallAndroid(JSON.stringify(val));
                     }
                 }
-                var u = navigator.userAgent;
-                var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-                var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-                if(isiOS){
-                    window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-                }else if(isAndroid){  
-                    window.androidObject.JSCallAndroid(JSON.stringify(val));
+                if(orderFrom==3){ // wx
+                    orderStringWx = this.arr[took].orderString;
+                    var  val={
+                        "func":'pay',
+                        "param":{
+                        "payType":'Wechat',
+                        "orderStr": orderStringWx
+                        }
+                    }
+                    var u = navigator.userAgent;
+                    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+                    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+                    if(isiOS){
+                        window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+                    }else if(isAndroid){  
+                        window.androidObject.JSCallAndroid(JSON.stringify(val));
+                    }
                 }
             }
         },
@@ -293,11 +355,59 @@ export default {
         $('.indentAll_tab_ul li').click(function(){
             $(this).addClass('actives').siblings().removeClass('actives')
         })
+    },
+    watch: {
+        psd(curVal) {
+            var that = this;
+            if (curVal.length == 6) {
+                var abc = $('#psd').val()
+                this.abc = abc
+            }
+        }
     }
 }
 </script>
 
 <style scoped>
+.password {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+}
+.password_bottom {
+  width: 100%;
+  height: 50%;
+  background: #fff;
+  position: fixed;
+  bottom: 0;
+}
+.password_p {
+  width: 100%;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  /* background: #ccc; */
+  text-align: center;
+}
+.password_p input {
+  text-align: center;
+  width: 3rem;
+  height: 0.7rem;
+  border: 1px solid #ccc;
+}
+.password_bottom span {
+  display: inline-block;
+  width: 1rem;
+  height: 0.8rem;
+  line-height: 0.8rem;
+  text-align: center;
+  position: absolute;
+  float: right;
+  font-size: 0.5rem;
+  right: 0;
+  color: #ccc;
+}
 .shopping_head{
     width: 100%;
     background: #fff;
