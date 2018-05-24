@@ -15,7 +15,7 @@
                     <li class="yuee" v-show="typp">余额：<span> <i>{{banl}}</i> 元 </span></li>
                 </ul>
             </p>
-            <p style="color:#0088cc"><span @click="threepay">钱不够？去支付宝付款</span></p>
+            <p style="color:#0088cc"><span @click="threepay">钱不够？使用第三方支付</span></p>
             <p>
                 <input type="button" value="立即付款" @click="sure">
             </p>
@@ -37,6 +37,23 @@
                 <span @click="dell">确定</span>
               </div>
       </div>
+      <div class="msg three" v-show="three">
+              <div class="succeed three2">
+                <span @click="closethree">×</span>
+                <h3>选择支付方式</h3>
+                <p @click="alipay">支付宝支付</p>
+                <p @click="wechatpay">微信支付</p>
+                <!-- <router-link to="/RemainingSum">取消</router-link> -->
+              </div>
+      </div>
+      <div class="msg" v-show="phonety">
+              <div class="succeed">
+                <h3>提示</h3>
+                <p>&nbsp;{{phonetype2}}</p>
+                <!-- <router-link to="/RemainingSum">取消</router-link> -->
+                <span @click="dell">确定</span>
+              </div>
+      </div>
     </div>
 </template>
 <script>
@@ -52,10 +69,14 @@ export default {
       typp: true,
       buserId: "",
       ordernum: "",
+      three:false,
       psd: "",
       phonn: "",
       usdd: "",
-      bol: false
+      bol: false,
+      phonety:false,
+      phonetype:'',
+      phonetype2:'',
     };
   },
 
@@ -109,6 +130,9 @@ export default {
     },
     del() {
       $(".password").fadeOut(200);
+    },
+    closethree(){
+        this.three = false;
     },
     dell() {
       var val = {
@@ -232,7 +256,10 @@ export default {
         }
       }
     },
-    threepay() {
+    threepay(){
+        this.three = true
+    },
+    alipay() {
       // var that =this
       var paymo = $(".allmo").text();
       console.log(paymo);
@@ -268,7 +295,58 @@ export default {
         .catch(error => {
           console.log(error);
         });
-    }
+    },
+    wechatpay() {
+      // var that =this
+      var paymo = $(".allmo").text();
+      console.log(paymo);
+      var paramss = {
+        amount: paymo,
+        buserId: this.usdd,
+        payment: paymo,
+        type: 5
+      };
+      this.$axios({
+        method: "post",
+        url: "order/api/face_orders/createOrder",
+        data: paramss
+      })
+        .then(function(response) {
+          var took = response.data;
+          var val = {
+            func: "pay",
+            param: {
+              payType: "Wechat",
+              orderStr: took
+            }
+          };
+          var u = navigator.userAgent;
+          var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+          var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+          if (isiOS) {
+            window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+          } else if (isAndroid) {
+            window.androidObject.JSCallAndroid(JSON.stringify(val));
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    payStatus(type, item) {
+    //   $(".del").show();
+      this.phonety = true
+      this.phonetype = type;
+      if (this.phonetype == "success") {
+        this.phonetype2 = "支付成功";
+      } else if (this.type == "cancel") {
+        this.phonetype2 = "用户取消";
+      } else if (this.type == "failed") {
+        this.phonetype2 = "支付失败";
+      } else if (this.type == "unknown") {
+        this.phonetype2 = "未知状态";
+      }
+    },
   },
   watch: {
     psd(curVal) {
@@ -460,5 +538,35 @@ h3 {
   padding: 0 0.4rem;
   color: red;
   font-weight: 600;
+}
+.three span{
+  display: block;
+  position: absolute;
+  font-size: .4rem;
+  right: 0;
+  color: red;
+  top: .2rem;
+  right: -.2rem;
+}
+.three2{
+    top: 25%;
+    height: 5rem;
+    /* margin-top:  */
+}
+.three p{
+    width: 40%;
+    color: #fff;
+    font-size: .32rem;
+    height: .8rem;
+    line-height: .8rem;
+    margin-top: .4rem;
+    font-style: normal;
+    font-weight: normal;
+    margin: auto;
+    text-align: center;
+    padding: 0;
+    background: #ff5065;
+    margin-top: .4rem;
+    border-radius: .2rem;
 }
 </style>
