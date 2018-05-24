@@ -15,10 +15,10 @@
         <div class='content'>
             <div class='nav'>
                 <dl>
-                    <dt><img src="../../assets/Mine/headportrait.jpg" alt=""></dt>
+                    <dt><img :src="user.avatar" alt=""></dt>
                     <dd>
                         <h2>用户名</h2>
-                        <p>当前尚未开通</p>
+                        <p>当前尚未开通</p>sss
                     </dd>
                 </dl>
             </div>
@@ -39,13 +39,24 @@ import { Header } from 'mint-ui';
 export default {
     data(){
         return{
-		type : 3
+            type : 3,
+            user : ''
         }
     },
     methods:{
           AppreciationPageClose(){
             this.$parent.$parent.AppreciationPage = false
         }
+    },
+    created(){
+        var that = this;
+        this.$axios.get("user/api/user-annexes/userInfo")
+	      .then(function(res) {
+	        that.user = res.data;
+	      })
+	      .catch(function(error) {
+	        console.log(error);
+	      });
     }
 }
 </script>
