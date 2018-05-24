@@ -32,7 +32,7 @@
           <span class="details_checkeder">送至</span>
           <p class="details_p">
             <span class="imgWz"><img src="../../assets/details/定位.png" alt=""></span>
-            <span @click='Address'>湖北省武汉市洪山区街道口未来城E座205</span>
+            <span>{{data.productContent.productname}}</span>
           </p>
           <span class="omit"><img src="../../assets/details/定位.png" alt=""></span>
         </div>
@@ -177,21 +177,6 @@
             </div>
         </div>
   </transition>
-  <!-- 第二个蒙版 -->
-  <transition  enter-active-class="animated fadeInUp"  leave-active-class="animated fadeOutDown">
-        <div class="box" v-show='address'>
-            <div class="mainCon">
-                  <h2 class='h2'>配送至</h2>
-                  <div class='span' @click='addressClose'>×</div> 
-                  <ol class='content list'>
-                    <li class='active'>收获地址</li>
-                    <li>收获地址</li>
-                    <li>收获地址</li>
-                    <li>收获地址</li>
-                  </ol>            
-            </div>
-        </div>
-  </transition>
 </div>
 </template>
 
@@ -205,7 +190,6 @@
         tabContents: ["内容一", "内容二","内容三"],
         num: 1,
         flag:false,
-        address:false,
         val:1,
         data:"", //数据,
         productname: ''
@@ -238,12 +222,6 @@
         }else{
           this.val++;
         }
-      },
-      Address:function(){
-        this.address = true;
-      },
-      addressClose:function(){
-        this.address = false;
       },
       ConfirmAnOrder(){
         if(this.$store.getters.isAuthed === false){
@@ -660,18 +638,6 @@
     color: #2f2f2f;
     position: relative;
     overflow: hidden;
-  }
-  .details_p span:nth-child(2)::after{
-    content: "...";
-    overflow: hidden;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    padding-left: .4rem;
-    background: -webkit-linear-gradient(left, transparent, #fff 55%);
-    background: -o-linear-gradient(right, transparent, #fff 55%);
-    background: -moz-linear-gradient(right, transparent, #fff 55%);
-    background: linear-gradient(to right, transparent, #fff 55%);
   }
   .details_p .omit{
     width: 10%;
