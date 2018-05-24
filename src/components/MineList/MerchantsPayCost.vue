@@ -17,7 +17,7 @@
                 <!-- <li><span>贡融券:</span><em>0.4</em></li> -->
                 <li><span>年费状态:</span><em>未缴纳年费</em></li>
                 <li><span>缴费类型:</span><em>增值商家平台使用费</em></li>
-                <li><span>服务期限:</span><em>2017-12-03&nbsp;18:12:42</em></li>
+                <!--<li><span>服务期限:</span><em>2017-12-03&nbsp;18:12:42</em></li>-->
                 <p>需要支付:998元</p>
             </ul>
 
@@ -66,7 +66,7 @@
         <footer class='footer'>
             <P>
                 <span>
-                    <input type="checkbox" id="read" name="sex" value="read" checked/>
+                    <input type="radio" id="read" name="nan" value="read" checked/>
                     <label for="read"></label>
                 </span>
                 我已阅读并接受<i>《贡融商户协议》</i>和<i>《商家入驻须知》</i>
