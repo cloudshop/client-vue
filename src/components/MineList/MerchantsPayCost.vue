@@ -3,7 +3,7 @@
          <header class="mint-header">
            <div class="mint-header-button is-left">
                <a class="router-link-active">
-                    <router-link :to="{ name: 'SellerCenter',params:{type:type}}" tag='button' class="mint-button mint-button--default mint-button--normal">
+                    <router-link :to="{ path: '/SellerCenter' }" tag='button' class="mint-button mint-button--default mint-button--normal">
                     <mt-button icon="back"></mt-button>
                    </router-link>
               </a>
@@ -17,14 +17,14 @@
                 <!-- <li><span>贡融券:</span><em>0.4</em></li> -->
                 <li><span>年费状态:</span><em>未缴纳年费</em></li>
                 <li><span>缴费类型:</span><em>增值商家平台使用费</em></li>
-                <li><span>服务期限:</span><em>{{year}}-{{month}}-{{date}}&nbsp;23:59:59</em></li>
+                <li><span>服务期限:</span><em>2017-12-03&nbsp;18:12:42</em></li>
                 <p>需要支付:998元</p>
             </ul>
 
             <!-- <div class='slide'>
                 <p>贡融券支付:0.4</p><mt-switch v-model="value"></mt-switch>
             </div> -->
-        <div class="pay">
+        <div>
                 <ul class="top_bottom1">
                     <li><img src="../../assets/top/支付宝.png"></li>
                     <li>
@@ -32,10 +32,35 @@
                         <p>因为信任,所以简单</p>
                         <span>
                             <input type="radio" id="zhifubao" name="sex" value="2" checked/>
-                            <label for="zhifubao"></label>
+                            <!-- <label for="zhifubao"></label> -->
                         </span>
                     </li>
                 </ul>
+               <ul class="top_bottom1 top_bottom2">
+                        <li><img src="../../assets/top/微信.png"></li>
+                        <li>
+                            <p>微信</p>
+                            <p>放心支付,免费生活</p>
+                            <span>
+                                <input type="radio" id="kuaijiezhifu" value="3" name="sex"/>
+                                <!-- <label for="kuaijiezhifu"></label> -->
+                            </span>
+                        </li>
+                    </ul>
+                <!--  <ul class="top_bottom1">
+                    <li><img src="../../assets/top/银联.png"></li>
+                    <li>
+                        <p>通联</p>
+                        <p>支付便捷,流畅支付</p>
+                        <span>
+                            <input type="radio" id="tonglian" value="通联" name="sex"/>
+                            <label for="tonglian"></label>
+                        </span>
+                    </li>
+                </ul> -->
+
+      
+        <!-- <div class="jump"></div> -->
             </div> 
         </div>
         <footer class='footer'>
@@ -44,7 +69,7 @@
                     <input type="checkbox" id="read" name="sex" value="read" checked/>
                     <label for="read"></label>
                 </span>
-				我已阅读并接受<i>《贡融商户协议》</i>和<i>《商家入驻须知》</i>
+                我已阅读并接受<i>《贡融商户协议》</i>和<i>《商家入驻须知》</i>
             </P>
             <h2 class="pay">确认支付</h2>
         </footer>
@@ -53,73 +78,78 @@
 
 <script>
 import { Switch } from "mint-ui";
-import axios from 'axios';
 export default {
   data() {
     return {
-      value: false,
-      year:"",
-      month:"",
-      date:"",
-      type:"",
-      arr:""
+      value: false
     };
   },
-  created(){
-    var that = this;
-    this.$axios.get("user/api/user-annexes/userInfo")
-	      .then(function(res) {
-	        that.arr = res.data;
-	        that.type = res.data.type;
-	        // console.log(that.type)
-	      })
-	      .catch(function(error) {
-	        console.log(error);
-	      });
-  },
   mounted: function() {
-    
     var that = this;
-    that.year=new Date().getFullYear()+1;
-    that.month=new Date().getMonth()+1;
-    that.date=new Date().getDate();
-    if (that.month < 10) {
-      that.month = "0" + that.month;
-    }
-    if (that.date < 10) {
-      that.date = "0" + that.date;
-    }
     $(".pay").click(function() {
-      // that.$router.push({ path: "/Mine" });
       var type = $('input:radio[name="sex"]:checked').val();
       var datas = { payType: type };
-      axios({
-        method: "post",
-        url: "order/api/leaguer-orders",
-        data: datas,
-      })
-      .then(function(response) {
-        var param3 = response.data
-        var val = {
-          func: "pay",
-          param: {
-            payType: "Ali",
-            orderStr: param3
-          }
-        };
-        // console.log(val);
-        var u = navigator.userAgent;
-        var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
-        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-        if (isiOS) {
-          window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-        } else if (isAndroid) {
-          window.androidObject.JSCallAndroid(JSON.stringify(val));
-        }
-      })
-      .catch(error => {
-        console.log(error);
-      });
+      console.log(that);
+      if (type == 2) {
+        that
+          .$axios({
+            method: "post",
+            url: "order/api/leaguer-orders",
+            data: datas
+          })
+          .then(function(response) {
+            var param3 = response.data;
+            var val = {
+              func: "pay",
+              param: {
+                payType: "Ali",
+                orderStr: param3
+              }
+            };
+            console.log(val);
+            var u = navigator.userAgent;
+            var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+            if (isiOS) {
+              window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+            } else if (isAndroid) {
+              window.androidObject.JSCallAndroid(JSON.stringify(val));
+            }
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      }
+      if (type == 3) {
+        that
+          .$axios({
+            method: "post",
+            url: "order/api/leaguer-orders",
+            data: datas
+          })
+          .then(function(response) {
+            var param3 = response.data;
+            var val = {
+              func: "pay",
+              param: {
+                payType: "Wechat",
+                orderStr: param3
+              }
+            };
+            console.log(val);
+            var u = navigator.userAgent;
+            var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+            if (isiOS) {
+              window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+            } else if (isAndroid) {
+              window.androidObject.JSCallAndroid(JSON.stringify(val));
+            }
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      }
     });
   },
   methods: {}
@@ -206,6 +236,8 @@ header {
   margin-top: 0.02rem;
   padding-top: 0.1rem;
   padding-bottom: 0.3rem;
+  border-bottom: none;
+  border-bottom: 1px solid #e7e7e7;
 }
 .top_bottom1 li {
   width: 50%;
@@ -214,7 +246,7 @@ header {
   line-height: 0.96rem;
   height: 0.96rem;
   background: #fff;
-  margin-top: 0.15rem;
+  margin-top: 0.1rem;
 }
 .top_bottom1 li:nth-child(1) {
   margin-top: 0;
@@ -279,7 +311,7 @@ input[type="checkbox"]:checked + label::before {
   background-size: 100% 100%;
 }
 .top_bottom1 input {
-  display: none;
+  /* display: none; */
 }
 .top_bottom1 span {
   display: inline-block;
