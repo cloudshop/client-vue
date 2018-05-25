@@ -329,6 +329,18 @@ import { Swipe, SwipeItem } from "mint-ui";
           var iid = JSON.stringify(id);  
           alert(id)
           var strArr=iid.split(':');
+          var s="" 
+         for(i=0;i<v.length;i++) 
+          { 
+ 
+            if("0123456789".indexOf(v.substr(i,1))>-1) 
+ 
+           s+=v.substr(i,1) 
+ 
+          } 
+ 
+          alert(s) 
+
           var a = parseInt(strArr[1].substring(1));
         //   var Goods = Number(a);
           var Goods = a.toString();
