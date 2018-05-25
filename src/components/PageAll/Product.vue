@@ -330,12 +330,12 @@ import { Swipe, SwipeItem } from "mint-ui";
           alert(id)
           var strArr=iid.split(':');
           var s="" 
-         for(i=0;i<v.length;i++) 
+         for(i=0;i<strArr[1].length;i++) 
           { 
  
-            if("0123456789".indexOf(v.substr(i,1))>-1) 
+            if("0123456789".indexOf(strArr[1].substr(i,1))>-1) 
  
-           s+=v.substr(i,1) 
+           s+=strArr[1].substr(i,1) 
  
           } 
  
