@@ -331,16 +331,9 @@ import { Swipe, SwipeItem } from "mint-ui";
           var strArr=iid.split(':');
           var subIdStr=strArr[1];
           alert(subIdStr)
-          var s="" 
-         for(var i=0;i<subIdStr.length;i++) 
-          { 
- 
-            if("0123456789".indexOf(subIdStr.substr(i,1))>-1) 
- 
-           s+=subIdStr.substr(i,1) 
- 
-          } 
-          alert(s) 
+         
+         var valueStr = subIdStr.replace(/[^0-9]/ig,"");
+          alert(valueStr) 
 
           var a = parseInt(strArr[1].substring(1));
         //   var Goods = Number(a);
