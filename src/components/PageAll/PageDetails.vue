@@ -146,7 +146,7 @@ export default {
         .then(function(res) {
           console.log(res);
           //     console.log(res.data.balance)
-          that.arr = res.data;
+          that.arr = res.data.productList;
           //      that.arr = res.data
           //      console.log(arr)
         })
