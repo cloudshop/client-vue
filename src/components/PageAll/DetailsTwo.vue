@@ -127,7 +127,7 @@ export default {
            var  val={
              "func":"openURL",
              "param":{
-                  "URL":'/#/Product',
+                  "URL":'/#/Product?id='+id,
               },
              };
           var u = navigator.userAgent;
