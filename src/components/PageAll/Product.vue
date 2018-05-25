@@ -344,6 +344,7 @@ import { Swipe, SwipeItem } from "mint-ui";
           .then(function(response) {
               console.log(response.data)   
               that.data = response.data;
+              that.urlArr = response.data.productContent.url;
           })
           .catch(function(error) {
               console.log(error);
