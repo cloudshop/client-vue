@@ -335,12 +335,11 @@ import { Swipe, SwipeItem } from "mint-ui";
          var valueStr = subIdStr.replace(/[^0-9]/ig,"");
           alert(valueStr) 
 
-          var a = parseInt(strArr[1].substring(1));
-        //   var Goods = Number(a);
-          var Goods = a.toString();
+         
+          var Goods = valueStr;
           console.log(typeof Goods)
           console.log(Goods)
-          alert(Goods)
+         
           this.$axios.get('product/api/product/content?id=' + Goods)
           .then(function(response) {
               console.log(response.data)   
