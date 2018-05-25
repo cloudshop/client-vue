@@ -334,6 +334,7 @@ import { Swipe, SwipeItem } from "mint-ui";
           var Goods = a.toString();
           console.log(typeof Goods)
           console.log(Goods)
+          alert(Goods)
           this.$axios.get('product/api/product/content?id=' + Goods)
           .then(function(response) {
               console.log(response.data)   
