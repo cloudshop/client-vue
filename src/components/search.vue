@@ -8,7 +8,21 @@
             </ul>
         </header>
         <div class="main">
-            <!-- <p>{{mentype}}</p> -->
+            <div class="tabCon_main"  v-for='(item,index) in arr' :key="index"  :data='item.id' @click="commodity(item.productid)">
+                <div class="tabCon_main_left">
+                    <img :src="item.imgurl" alt="">
+                </div>
+                <div class="tabCon_main_right">
+                    <h4 class="h4">{{item.productname}}</h4>
+                    <div class="tabCon_main_right_all">
+                        <p>￥{{item.listprice}}</p>
+                        <p class="tabCon_main_right_all_img"><img v-for="(item,index) in 5" :key="index" src="../assets/PageAll/星星选中.png" alt=""></p>
+                        <p>送贡融积分</p>
+                    </div>
+                    <!-- <span class="tabCon_main_right_span">贡融券可抵扣 ￥10.00</span>
+                    <span class="tabCon_main_right_span">贡融积分可抵扣 ￥5.00</span> -->
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -16,7 +30,8 @@
 export default {
   data(){
       return{
-          Search: ""
+          Search: "",
+          arr: []
       }
   },
   methods:{
@@ -37,32 +52,43 @@ export default {
         }
      },
       searchs(){
+        var that = this;
         if(this.Search == '' ) return;
         var data = {
             "productName": this.Search
         }
-        this.$axios.post("/product/search",data)
+        this.$axios.post("/product/api/product/search",data)
         .then(function(res) {
-            console.log(res)
-            var typ = res.status;
-            // if (typ == "200") {
-            //     alert('支付成功')
-            // } else {
-            //     alert('支付失败')
-            // }
+            res.data.length == 0 ? alert('未找到该商品') : that.arr = res.data
         })
         .catch(function(error) {
-            alert(error.response.data.title);
+            alert('服务器繁忙，请稍后再试');
         });
+      },
+      commodity(id){
+          sessionStorage.setItem("GoodsID", id);
+          var val = {
+                func: "openURL",
+                param: {
+                    URL: "/#/Product"
+                }
+            };
+            var u = navigator.userAgent;
+            var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+            if (isiOS) {
+                window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+            } else if (isAndroid) {
+                window.androidObject.JSCallAndroid(JSON.stringify(val));
+            }
       }
   },
-  mounted:function(){
-    //   if(this.mentype == 'homepage'){
-    //       console.log(111)
-    //   }else{
-    //       console.log(222)
-    //   }
-
+  watch:{
+      Search(Val){
+          if(Val.length==0){
+              this.arr = ''
+          }
+      }
   }
 }
 </script>
@@ -104,5 +130,69 @@ export default {
         font-size: .12rem;
         border-radius: .2rem;
     }
+.main{
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    background: #fff;
+}
+.tabCon_main{
+    width: 98%;
+    margin-left: 1%;
+    display: flex;
+}
+.tabCon_main_left{
+    width: 1.82rem;
+    height: 1.82rem;
+    padding: .15rem;
+}
+.tabCon_main_left img{
+    width: 100%;
+    height: 100%;
+    border: 1px solid #ccc;
+    border-radius: .05rem;
+}
+.tabCon_main_right{
+    flex: 1;
+    height: 1.82rem;
+    padding: .18rem 0;
+}
+.h4{
+    font-size: .28rem;
+    color: #2f2f2f;
+    font-weight: normal;
+}
+.tabCon_main_right_all{
+    display: flex;
+    margin-top: .2rem;
+    margin-top: .3rem;
+}
+.tabCon_main_right_all p:nth-child(1){
+    width: 20%;
+    font-size: .26rem;
+    color: #ff0103;
+    margin-right: .24rem;
+    font-weight: bold;
+}
+.tabCon_main_right_all p:nth-child(3){
+    font-size: .18rem;
+    color: #1692e1;
+    margin-top: 0.05rem;
+}
+.tabCon_main_right_all_img{
+    width: 30%;
+    margin-right: .24rem;
+    margin-left: .2rem;
+}
+.tabCon_main_right_all_img img{
+    width: 20%;
+}
+.tabCon_main_right_span{
+    width: 100%;
+    font-size: .18rem;
+    color: #676767;
+    margin-top: .11rem;
+    display: inline-block;
+}
 </style>
 
