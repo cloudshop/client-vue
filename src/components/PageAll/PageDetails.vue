@@ -88,30 +88,6 @@ export default {
     //     console.log(error);
     //   });
   },
-  GetParams(id){
-          var that = this;    
-          var iid = JSON.stringify(id);  
-          var strArr=iid.split(':');
-          var subIdStr=strArr[1];
-         var valueStr = subIdStr.replace(/[^0-9]/ig,"");
-          var shopID = valueStr;
-          console.log(typeof shopID)
-          console.log(shopID)
-         
-           this.$axios
-      .post("user/api/mercuries/getMercuryInfoProductList/"+shopID)
-      .then(function(res) {
-        console.log(res);
-        //     console.log(res.data.balance)
-        that.arr = res.data;
-        //      that.arr = res.data
-        //      console.log(arr)
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
-        }
-    },
 
   components: {
     PageAll,
@@ -154,13 +130,34 @@ export default {
       } else if (isAndroid) {
         window.androidObject.JSCallAndroid(JSON.stringify(val));
       }
+    },
+    GetParams(id) {
+      var that = this;
+      var iid = JSON.stringify(id);
+      var strArr = iid.split(":");
+      var subIdStr = strArr[1];
+      var valueStr = subIdStr.replace(/[^0-9]/gi, "");
+      var shopID = valueStr;
+      console.log(typeof shopID);
+      console.log(shopID);
+
+      this.$axios
+        .post("user/api/mercuries/getMercuryInfoProductList/" + shopID)
+        .then(function(res) {
+          console.log(res);
+          //     console.log(res.data.balance)
+          that.arr = res.data;
+          //      that.arr = res.data
+          //      console.log(arr)
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
     }
+  },
+  mounted() {
+    window.GetParams = this.GetParams;
   }
-   mounted(){
-        window.GetParams = this.GetParams;
-    }
-
-
 };
 </script>
 
