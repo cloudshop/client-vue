@@ -3,8 +3,8 @@
         <header class="header">
             <ul>
                 <li><span @click='back'>〈</span></li>
-                <li><input type="search" placeholder="请输入你要搜索商品的名称"></li>
-                <li><button>搜索</button></li>
+                <li><input type="search" placeholder="请输入你要搜索商品的名称" v-model="Search"></li>
+                <li><button @click="searchs">搜索</button></li>
             </ul>
         </header>
         <div class="main">
@@ -16,35 +16,53 @@
 export default {
   data(){
       return{
-        //  postFee:this.$router.params.name,
-
-        // mentype: this.$route.params.mentype,
+          Search: ""
       }
   },
   methods:{
       back(){   
-         var  val={
-                "func":"closeCurrent",
-                  "param":{
-                    'refreshParent':true
-                  },
-                };
-              var u = navigator.userAgent;
-              var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-              var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-              if(isiOS){
-                window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-              }else if(isAndroid){  
-                window.androidObject.JSCallAndroid(JSON.stringify(val));
-              }
+        var  val={
+        "func":"closeCurrent",
+            "param":{
+                'refreshParent':true
+            },
+        };
+        var u = navigator.userAgent;
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+        if(isiOS){
+            window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+        }else if(isAndroid){  
+            window.androidObject.JSCallAndroid(JSON.stringify(val));
+        }
      },
+      searchs(){
+        if(this.Search == '' ) return;
+        var data = {
+            "productName": this.Search
+        }
+        this.$axios.post("/product/search",data)
+        .then(function(res) {
+            console.log(res)
+            var typ = res.status;
+            // if (typ == "200") {
+            //     alert('支付成功')
+            // } else {
+            //     alert('支付失败')
+            // }
+        })
+        .catch(function(error) {
+            alert(error.response.data.title);
+        });
+      }
   },
   mounted:function(){
-      if(this.mentype == 'homepage'){
-          console.log(111)
-      }else{
-          console.log(222)
-      }
+    //   if(this.mentype == 'homepage'){
+    //       console.log(111)
+    //   }else{
+    //       console.log(222)
+    //   }
+
   }
 }
 </script>
@@ -69,7 +87,6 @@ export default {
     }
     .header li:nth-child(2){
         flex:5;
-    
     }
     .header li:nth-child(2) input{
         height: .6rem;
