@@ -114,7 +114,7 @@ export default {
       var  val={
         "func":"closeCurrent",
           "param":{
-            'refreshParent':true
+           // 'refreshParent':true
           },
       };
       var u = navigator.userAgent;
