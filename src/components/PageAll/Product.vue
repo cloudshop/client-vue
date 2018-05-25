@@ -327,13 +327,13 @@ import { Swipe, SwipeItem } from "mint-ui";
       GetParams(id){
           var that = this;    
           var iid = JSON.stringify(id);  
-          alert(id)
+         
           var strArr=iid.split(':');
           var subIdStr=strArr[1];
-          alert(subIdStr)
+         
          
          var valueStr = subIdStr.replace(/[^0-9]/ig,"");
-          alert(valueStr) 
+          
 
          
           var Goods = valueStr;
@@ -343,7 +343,7 @@ import { Swipe, SwipeItem } from "mint-ui";
           this.$axios.get('product/api/product/content?id=' + Goods)
           .then(function(response) {
               console.log(response.data)   
-              that.arr = response.data;
+              that.data = response.data;
           })
           .catch(function(error) {
               console.log(error);
