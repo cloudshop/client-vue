@@ -327,7 +327,7 @@ import { Swipe, SwipeItem } from "mint-ui";
       GetParams(id){
           var that = this;    
           var iid = JSON.stringify(id);  
-
+          alert(id)
           var strArr=iid.split(':');
           var a = parseInt(strArr[1].substring(1));
         //   var Goods = Number(a);
