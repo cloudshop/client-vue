@@ -156,6 +156,11 @@ export default {
       }
     }
   }
+   mounted(){
+        window.GetParams = this.GetParams;
+    }
+
+
 };
 </script>
 
