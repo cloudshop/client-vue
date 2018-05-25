@@ -31,8 +31,8 @@
                 <p class="tabCon_main_right_all_img"><img v-for="(item,index) in item.liststart" :key="index" src="../../assets/PageAll/星星选中.png" alt=""></p>
                 <p>送贡融积分 10</p>
               </div>
-              <!--<span class="tabCon_main_right_span">贡融券可抵扣 ￥10.00</span>-->
-              <!--<span class="tabCon_main_right_span">贡融积分可抵扣 ￥5.00</span>-->
+              <span class="tabCon_main_right_span">贡融券可抵扣 ￥10.00</span>
+              <span class="tabCon_main_right_span">贡融积分可抵扣 ￥5.00</span>
           </div>
         </div>
       </div>
@@ -71,23 +71,23 @@ export default {
   //       }
   //     });
   //   },
-  
-//   created() {
-//     var that = this;
-//     this.$axios
-//       .post("user/api/mercuries/getMercuryInfoProductList/5/",{
-//       })
-//       .then(function(res) {
-//         console.log(res);
-//         //     console.log(res.data.balance)
-//         that.arr = res.data;
-//         //      that.arr = res.data
-//         //      console.log(arr)
-//       })
-//       .catch(function(error) {
-//         console.log(error);
-//       });
-//   },
+  created() {
+    var that = this;
+    var data = "1515";
+    console.log(data);
+    this.$axios
+      .post("user/api/mercuries/getMercuryInfoProductList/1515")
+      .then(function(res) {
+        console.log(res);
+        //     console.log(res.data.balance)
+        that.arr = res.data;
+        //      that.arr = res.data
+        //      console.log(arr)
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  },
   components: {
     PageAll,
     PageDetailsChild
@@ -110,43 +110,27 @@ export default {
         window.androidObject.JSCallAndroid(JSON.stringify(val));
       }
     },
-    pushProduct(item, index) {
+    pushProduct(item) {
       var id = item.id;
       console.log(id);
 
       // var id =$(".id").text()
-      sessionStorage.setItem("GoodsID", id);
-      this.$router.push({ name: "Product", params: { name: "/Product" } });
-    },
-    GetParams(parmStr){
-          var that = this;
-         // alert(parmStr)
-         // this.id = JSON.parse(parmObj);
-         var paramObj = JSON.parse(parmStr);
-          var aid = paramObj.id
-         // alert(aid)
-          this.$axios({
-                method:'get',
-                url:"user/api/mercuries/getMercuryInfoProductList/"+'1515'+'/1/'+'10',
-                
-                headers:{'Content-Type': 'application/json',}
-          })
-          .then(function(response) {
-              console.log(response.data)   
-              that.arr = response.data;
-             // alert('success')
-          })
-          .catch(function(error) {
-              console.log(error);
-             // alert(error)
-        });
+      var val = {
+        func: "openURL",
+        param: {
+          URL: "/#/Product?id=" + id
         }
-  },
-   created(){},
-    mounted(){
-        window.GetParams = this.GetParams;
+      };
+      var u = navigator.userAgent;
+      var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+      if (isiOS) {
+        window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+      } else if (isAndroid) {
+        window.androidObject.JSCallAndroid(JSON.stringify(val));
+      }
     }
-
+  }
 };
 </script>
 
@@ -171,7 +155,7 @@ export default {
 .PageDetails_head {
   width: 100%;
   position: relative;
-  background: url('https://mrmoap.blob.core.chinacloudapi.cn/lorealparisadmin/20161114/eb4f1474-d7d4-4ab4-92e1-21474b718f5d.jpg');
+  background: url("https://mrmoap.blob.core.chinacloudapi.cn/lorealparisadmin/20161114/eb4f1474-d7d4-4ab4-92e1-21474b718f5d.jpg");
   background-size: 100% 130%;
   height: 2.4rem;
 }
@@ -447,6 +431,10 @@ input[type="text"] {
   font-size: 0.28rem;
   color: #2f2f2f;
   font-weight: normal;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 }
 .tabCon_main_right_all {
   display: flex;
@@ -458,7 +446,7 @@ input[type="text"] {
   color: #ff0103;
   margin-right: 0.24rem;
   font-weight: bold;
-  border-bottom: .2rem;
+  border-bottom: 0.2rem;
 }
 .tabCon_main_right_all p:nth-child(3) {
   font-size: 0.18rem;
@@ -479,7 +467,7 @@ input[type="text"] {
   margin-top: 0.11rem;
   display: inline-block;
 }
-.back{
-  font-size: .32rem
+.back {
+  font-size: 0.32rem;
 }
 </style>
