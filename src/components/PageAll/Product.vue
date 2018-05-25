@@ -133,9 +133,6 @@
           <span><img src="../../assets/Comment/店铺.png" alt=""></span>
           <span class='names'>店铺</span>
         </p>
-        <p class="details_footer_sc">
-
-        </p>
         <!-- <p class="details_footer_sc" @click='collect'>
           <span><em  class="iconfont collect">&#xe603;</em></span>
           <span class='names collect'>收藏</span>
