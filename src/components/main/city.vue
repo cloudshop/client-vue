@@ -95,22 +95,22 @@ export default {
       // 选择当前添加active
       this.showDistrictList.map( a => a.selected = false );
       this.showDistrictList[index].selected = true;
-      var val={
-        "func":"setNewCity",
-        "param":{
-          'province':this.Province,
-          'city':this.City,
-          'county':this.District
-          }
-      };
-      var u = navigator.userAgent;
-      var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
-      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-      if(isiOS){
-          window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-      }else if(isAndroid){  
-          window.androidObject.JSCallAndroid(JSON.stringify(val));
-      }
+    //   var val={
+    //     "func":"setNewCity",
+    //     "param":{
+    //       'province':this.Province,
+    //       'city':this.City,
+    //       'county':this.District
+    //       }
+    //   };
+    //   var u = navigator.userAgent;
+    //   var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+    //   var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+    //   if(isiOS){
+    //       window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+    //   }else if(isAndroid){  
+    //       window.androidObject.JSCallAndroid(JSON.stringify(val));
+    //   }
       var  val={
         "func":"closeCurrent",
           "param":{
