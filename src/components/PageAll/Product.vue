@@ -330,7 +330,8 @@ import { Swipe, SwipeItem } from "mint-ui";
 
           var strArr=iid.split(':');
           var a = parseInt(strArr[1].substring(1));
-          var Goods = Number(a);
+        //   var Goods = Number(a);
+          var Goods = a.toString();
           console.log(typeof Goods)
           console.log(Goods)
           this.$axios.get('product/api/product/content?id=' + Goods)
