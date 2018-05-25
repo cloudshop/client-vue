@@ -142,7 +142,7 @@ export default {
       console.log(shopID);
 
       this.$axios
-        .post("user/api/mercuries/getMercuryInfoProductList/" + shopID)
+        .post("user/api/mercuries/getMercuryInfoProductList/" + shopID + "/1/10")
         .then(function(res) {
           console.log(res);
           //     console.log(res.data.balance)
