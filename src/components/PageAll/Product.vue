@@ -13,7 +13,10 @@
     <mt-tab-container-item id="1">
       <mt-cell>
         <div class="details_banner">
-          <img :src="data.productContent.url[0]" alt="">
+          <!-- <img :src="data.productContent.url[0]" alt=""> -->
+          <mt-swipe :auto="4000" class='banner'>
+            <mt-swipe-item v-for='(item,index) in urlArr' :key='index'><img :src=item alt=""></mt-swipe-item> 
+          </mt-swipe>
         </div>
         <div class="details_cantent">
           <h4> {{data.productContent.productname}}</h4>
@@ -181,6 +184,7 @@
 </template>
 
 <script>
+import { Swipe, SwipeItem } from "mint-ui";
   export default {  
     name: 'page-navbar',  
     data() {  
@@ -192,7 +196,8 @@
         flag:false,
         val:1,
         data:"", //数据,
-        productname: ''
+        productname: '',
+        urlArr:[]
       } 
     }, 
      methods: {
@@ -329,13 +334,15 @@
          var Goods = sessionStorage.getItem("GoodsID")
          if(Goods==null)
          {
-             Goods='28';
+             Goods='30';
          }
         console.log(Goods)
         this.$axios.get('product/api/product/content?id=' + Goods)
          .then(function(response) {   
             that.data = response.data;
-            // console.log(response.data)
+            // console.log(response.data);
+            that.urlArr = response.data.productContent.url;
+            console.log(that.urlArr);
         })
         .catch(function(error) {
             console.log(error);
@@ -865,13 +872,10 @@
     justify-content: center;
     align-items: center;
   }
-  .details_footer_left p span{
+  /* .details_footer_left p span{
     margin-top:.08rem;
     margin-left:.02rem;
-  }
-  /*.details_footer_left .names{
-      margin-right:.1rem; 
-  }*/
+  } */
   .goShopping{
     color: #fff;
     background: #ff9d1e;
@@ -882,11 +886,12 @@
   }
   .details_footer_kf{
     width: 100%;
+    text-align: center;
   }
   /* 联系卖家图片 */
   .details_footer_kf span:nth-child(1) img{
-    width: 100%;
-    height: 100%;
+    width: 70%;
+    height: 70%;
     margin-top: .01rem;
   }
   .details_footer_kf span:nth-child(2){
@@ -896,12 +901,12 @@
   }
   .details_footer_dp{
     width: 100%;
+    text-align: center;
   }
   /* 店铺图片 */
   .details_footer_dp span:nth-child(1) img{
-    width: 100%;
-    height: 100%;
-    margin-top: .01rem;
+    width: 70%;
+    height: 70%;
   }
   .details_footer_dp span:nth-child(2){
     font-size: .2rem;
@@ -913,7 +918,6 @@
   .details_footer_sc span:nth-child(1) img{
     width: 100%;
     height: 100%;
-    margin-top: .01rem;
   }
   .details_footer_sc em{
     font-size:.4rem;
