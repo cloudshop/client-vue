@@ -52,7 +52,7 @@ $('.sure').click(function() {
     var tel2 = urltel.substring(13, 24);
     var p1 = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;
     // var datas = { 'login': tel, 'password': psd, 'verifyCode': yzm, 'recommend': "17600045817" }
-    var datas = { login: tel, password: psd, verifyCode: yzm, recommend: "17600045817" }
+    var datas = { login: tel, password: psd, verifyCode: yzm, recommend: tel2 }
 
     $.ajax({
         // url: 'https://bird.ioliu.cn/v2/?url=http://app.grjf365.com/api/uaa/api/register/app',
