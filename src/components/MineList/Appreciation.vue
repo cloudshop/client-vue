@@ -18,7 +18,7 @@
                     <dt><img :src="user.avatar" alt=""></dt>
                     <dd>
                         <h2>用户名</h2>
-                        <p>当前尚未开通</p>sss
+                        <p>当前尚未开通</p>
                     </dd>
                 </dl>
             </div>
