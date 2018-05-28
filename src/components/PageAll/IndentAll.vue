@@ -15,7 +15,7 @@
     <div class="indentAll_tab content">
       <div class="tabCon">
         <div class="page-loadmore-wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
-          <mt-loadmore :auto-fill="false" :bottom-method="loadBottom" @bottom-status-change="handleBottomChange" :bottom-all-loaded="allLoaded" ref="loadmore">
+          <mt-loadmore :auto-fill="false" :top-method="loadTop" @top-status-change="handleTopChange" :bottom-method="loadBottom" @bottom-status-change="handleBottomChange" :bottom-all-loaded="allLoaded" ref="loadmore">
             <div v-for='(item,index) in arr' :key="index">
               <!-- 已完成 -->
               <div class="tabCon_main">
@@ -62,6 +62,12 @@
                 </div>
               </div>
             </div>
+            <div slot="top" class="mint-loadmore-top">
+              <span v-show="topStatus !== 'loading'" :class="{ 'is-rotate': topStatus === 'drop' }">↓</span>
+              <span v-show="topStatus === 'loading'">
+                <mt-spinner type="snake"></mt-spinner>
+              </span>
+            </div>
             <div slot="bottom" class="mint-loadmore-bottom">
               <span v-show="bottomStatus !== 'loading'" :class="{ 'is-rotate': bottomStatus === 'drop' }">↓</span>
               <span v-show="bottomStatus === 'loading'">
@@ -92,6 +98,7 @@ export default {
     return {
       allLoaded: false,
       bottomStatus: '',
+      topStatus: '',
       wrapperHeight: 0,
       tabs: ["全部", "待付款", "已付款", "已发货", "已完成", "已取消"],
       tabNew: ["未付款", "已付款", "已发货", "已完成", "已取消"],
@@ -181,6 +188,9 @@ export default {
     handleBottomChange(status) {
       this.bottomStatus = status;
     },
+    handleTopChange(status) {
+      this.topStatus = status;
+    },
     loadBottom() {
       setTimeout(() => {
         if (this.pageNum === this.pageSize) {
@@ -189,6 +199,12 @@ export default {
           this.allLoaded = true;
         }
         this.$refs.loadmore.onBottomLoaded();
+      }, 1500);
+    },
+    loadTop() {
+      setTimeout(() => {
+        this.getDataList();
+        this.$refs.loadmore.onTopLoaded();
       }, 1500);
     },
     tab(index) {
@@ -410,17 +426,17 @@ export default {
   color: #ccc;
 }
 
-
-/*.page-loadmore-wrapper li{
-    height: 40px;
-}*/
-
+.mint-loadmore-top {
+  text-align: center;
+  font-size: 0.5rem;
+}
+.mint-loadmore-top span{
+ display: inline-block;
+}
 .mint-loadmore-bottom {
   text-align: center;
-  /*display: flex;
-    flex-direction: column;*/
+  font-size: 0.5rem;
 }
-
 .mint-loadmore-bottom span {
   display: inline-block;
 }
@@ -540,8 +556,8 @@ export default {
 }
 
 .tabCom_mainImg {
-  width: 25%;
-  height: .77rem;
+  width:.66rem;
+  height: .66rem;
   display: flex;
   align-items: center;
   justify-content: center;
