@@ -34,10 +34,9 @@
         <div class="details_bourn">
           <span class="details_checkeder">送至</span>
           <p class="details_p">
-            <span class="imgWz"><img src="../../assets/details/定位.png" alt=""></span>
-            <span>{{data.productContent.productname}}</span>
+            <!-- <span class="imgWz"><img src="../../assets/details/定位.png" alt=""></span> -->
+            <span>{{city}}</span>
           </p>
-          <span class="omit"><img src="../../assets/details/定位.png" alt=""></span>
         </div>
         <div class="details_comment">
           <p class="comment_top">评论（201）</p>
@@ -187,15 +186,18 @@ import { Swipe, SwipeItem } from "mint-ui";
     data() {  
       return {  
         selected: '1',
-        tabs: ["商品介绍", "规格参数","包装售后"],
-        tabContents: ["内容一", "内容二","内容三"],
-        num: 1,
+        tabs: ["商品介绍"],
+        tabContents: ["内容一", "内容二","产品售后"],
+        num: 0,
         flag:false,
+        address:false,
         val:1,
         data:"", //数据,
         productname: '',
-        urlArr:[],
-        id:''
+        urlArr:[],  //商品图片
+        specification:[],  //商品规格
+        shopIds:'',
+        city:''
       } 
     }, 
      methods: {
@@ -324,27 +326,39 @@ import { Swipe, SwipeItem } from "mint-ui";
       store(){
          this.$router.push({name:"PageDetails"}) 
       },
+      // 获取商店信息
+      getShop(shopIds){
+        var that = this;
+        this.$axios.get('user/api/mercuries/' + shopIds)
+         .then(function(response) {   
+          console.log(response.data.city);
+          that.city = response.data.city;
+        })
+        .catch(function(error) {
+            console.log(error);
+       });
+      },
       GetParams(id){
           var that = this;    
           var iid = JSON.stringify(id);  
          
           var strArr=iid.split(':');
-          var subIdStr=strArr[1];
-         
+          var subIdStr=strArr[1];  
          
          var valueStr = subIdStr.replace(/[^0-9]/ig,"");
-          
-
          
           var Goods = valueStr;
-          console.log(typeof Goods)
-          console.log(Goods)
+          console.log(typeof Goods);
+          console.log(Goods);
          
           this.$axios.get('product/api/product/content?id=' + Goods)
           .then(function(response) {
               console.log(response.data)   
               that.data = response.data;
               that.urlArr = response.data.productContent.url;
+              that.shopIds = response.data.productContent.shopid;
+              that.specification = response.data.attrbute;
+              that.getShop(that.shopIds);
           })
           .catch(function(error) {
               console.log(error);
@@ -385,9 +399,50 @@ import { Swipe, SwipeItem } from "mint-ui";
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.detailsPage_ulP .detailsPage_ul_li:hover {
+/* 详情商品介绍 */
+.product_img{
+  width: 100%;
+}
+.product_img img{
+  width: 60%;
+  margin-left: 20%;
+}
+.specification h3{
+  padding: 0 0.3rem;
+  line-height: 0.8rem;
+  font-size: 0.27rem;
+  font-weight: 600;
+  color: #777;
+}
+.specification p{
+  padding: 0 0.4rem;
+}
+.specification p span{
+  display: inline-block;
+  width: 12%;
+  text-align: center;
+  font-size: 0.24rem;
+  color: #777;
+}
+.shouhou{
+  font-size: 0.24rem;
+  line-height: 0.8rem;
+  padding-bottom: 1.2rem;
+  padding-left: 5%;
+  padding-right: 5%;
+  color: #777;
+}
+.tabCon h2{
+  text-align: center;
+  line-height: 1rem;
+  font-size: 0.27rem;
   color: blue;
 }
+
+.detailsPage_ulP .detailsPage_ul_li:hover{
+  color:blue;
+}
+
 .active {
   border: none !important;
   border: 0.1px solid #d81e06 !important;
