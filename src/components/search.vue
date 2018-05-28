@@ -23,6 +23,11 @@
                     <span class="tabCon_main_right_span">贡融积分可抵扣 ￥5.00</span> -->
                 </div>
             </div>
+            <div class="pageNull" v-show="faleg">
+                <p><img src="../assets/PageAll/no.png" alt=""></p>
+                <p>非常抱歉</p>
+                <p>没有搜索到该商品~</p>
+            </div>
         </div>
     </div>
 </template>
@@ -31,7 +36,8 @@ export default {
   data(){
       return{
           Search: "",
-          arr: []
+          arr: [],
+          faleg:false
       }
   },
   methods:{
@@ -59,7 +65,12 @@ export default {
         }
         this.$axios.post("/product/api/product/search",data)
         .then(function(res) {
-            res.data.length == 0 ? alert('未找到该商品') : that.arr = res.data
+            if( res.data.length == 0){
+                that.faleg=true
+            }else{
+                that.arr =  res.data
+                that.faleg=false
+            }
         })
         .catch(function(error) {
             alert('服务器繁忙，请稍后再试');
@@ -86,7 +97,8 @@ export default {
   watch:{
       Search(Val){
           if(Val.length==0){
-              this.arr = ''
+              this.arr = '',
+              this.faleg = false
           }
       }
   }
@@ -193,6 +205,33 @@ export default {
     color: #676767;
     margin-top: .11rem;
     display: inline-block;
+}
+.pageNull{
+    width: 100%;
+    display: flex;
+    margin-top: 2.02rem;
+    flex-direction:column;
+}
+.pageNull p:nth-child(1){
+    height: 3rem;
+    padding-left: 35%;
+}
+.pageNull p:nth-child(1) img{
+    width: 47%;
+}
+.pageNull p:nth-child(2){
+    display: flex;
+    justify-content: center;
+    font-size: .28rem;
+    color: #404040
+}
+.pageNull p:nth-child(3){
+    width: 100%;
+    margin-top: .18rem;
+    display: flex;
+    justify-content: center;
+    font-size: .24rem;
+     color: #676767
 }
 </style>
 
