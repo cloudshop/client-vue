@@ -325,8 +325,23 @@ import { Swipe, SwipeItem } from "mint-ui";
                 window.androidObject.JSCallAndroid(JSON.stringify(val));
               }
      },
-      store(){
-         this.$router.push({name:"PageDetails"}) 
+      store(shopIds){
+        //  this.$router.push({name:"PageDetails"});
+        var id = shopIds;
+        var val = {
+            func: "openURL",
+            param: {
+                URL: "/#/PageDetails?id=" + id
+            }
+        };
+        var u = navigator.userAgent;
+        var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+        if (isiOS) {
+            window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+        } else if (isAndroid) {
+            window.androidObject.JSCallAndroid(JSON.stringify(val));
+        }
       },
       // 获取商店信息
       getShop(shopIds){
