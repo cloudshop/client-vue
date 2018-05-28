@@ -11,7 +11,7 @@
         <!-- 内容 -->
         <div class="tabCon">
             <div class='content' >             
-                <div class="tabCon_main"  v-for='(item,index) in arr.mainContent' :key="index"  :data='item.id' @click='details(item.id)'>
+                <div class="tabCon_main"  v-for='(item,index) in arr' :key="index"  :data='item.id' @click='details(item.id)'>
                     <div class="tabCon_main_left">
                         <img :src="item.url" alt="">
                     </div>
@@ -25,6 +25,11 @@
                         <!-- <span class="tabCon_main_right_span">贡融券可抵扣 ￥10.00</span>
                         <span class="tabCon_main_right_span">贡融积分可抵扣 ￥5.00</span> -->
                     </div>
+                </div>
+                <div class="pageNull" v-show="faleg">
+                    <p><img src="../../assets/PageAll/no.png" alt=""></p>
+                    <p>非常抱歉</p>
+                    <p>没有搜索到该商品~</p>
                 </div>
             </div>
         </div>
@@ -41,7 +46,9 @@ export default {
             id:null,
             seekContent:'',
             name:null,
-            flag:true
+            flag:true,
+            faleg:false,
+            
         }
     },
     methods: {
@@ -148,12 +155,19 @@ export default {
                 url:'product/api/product/all',
                 data:{
                 "categoryId":this.name,
+                "pageNum": 1,
+                "pageSize": 10,
                 "productName":this.seekContent
                 },
                 headers:{'Content-Type': 'application/json',}
             })
             .then(function(response) {
-                that.arr = response.data.mainContent;
+                if(response.data.mainContent.length == 0){
+                    that.faleg=true
+                }else{
+                    that.arr = response.data.mainContent;
+                    that.faleg=false
+                }
             })
             .catch((error)=>{
                 console.log(error);
@@ -196,6 +210,14 @@ export default {
               console.log(error);
         });
         }
+    },
+    watch:{
+      seekContent(Val){
+          if(Val.length==0){
+              this.arr = '',
+              this.faleg = false
+          }
+      }
     },
     created(){},
     mounted(){
@@ -354,5 +376,32 @@ input::-webkit-input-placeholder {
     color: #676767;
     margin-top: .11rem;
     display: inline-block;
+}
+.pageNull{
+    width: 100%;
+    display: flex;
+    margin-top: 2.02rem;
+    flex-direction:column;
+}
+.pageNull p:nth-child(1){
+    height: 3rem;
+    padding-left: 35%;
+}
+.pageNull p:nth-child(1) img{
+    width: 47%;
+}
+.pageNull p:nth-child(2){
+    display: flex;
+    justify-content: center;
+    font-size: .28rem;
+    color: #404040
+}
+.pageNull p:nth-child(3){
+    width: 100%;
+    margin-top: .18rem;
+    display: flex;
+    justify-content: center;
+    font-size: .24rem;
+     color: #676767
 }
 </style>
