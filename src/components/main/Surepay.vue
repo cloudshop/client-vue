@@ -11,7 +11,7 @@
             <p>订单总额：<span class="allmo">{{money | keep}}</span> 元</p>
             <p>
                 <ul>
-                    <li class="quanq" v-show="type">贡融卷：<span> <i>{{tick}}</i> 劵</span></li>
+                    <li class="quanq" v-show="type">贡融劵：<span> <i>{{tick}}</i> 劵</span></li>
                     <li class="yuee" v-show="typp">余额：<span> <i>{{banl}}</i> 元 </span></li>
                 </ul>
             </p>
