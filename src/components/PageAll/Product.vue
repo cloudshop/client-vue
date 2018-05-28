@@ -66,25 +66,26 @@
          ———————<img class="detailsPage_imgs" src="../../assets/details/图片.png" alt=""> 图文详情  ———————
         </div>
         <div class="tabCon">
-          <div v-for='(itemCon,index) in tabContents' :key='index' v-show=" index == num">
-            <!-- 商品图片 -->
-            <h2>商品图片</h2>
-            <ul class="product_img">
-              <li v-for="(item,index) in urlArr" :key='index'>
-                <img :src="item" alt="">
-              </li>
-            </ul>
-            <!-- 规格 -->
-            <h2>商品规格</h2>
-            <ul class="specification">
-              <li v-for="(item,index) in specification" :key='index'>
-                <h3>{{item.attname}}</h3>
-                <p><span v-for="(i,index) in item.attvalue" :key='index'>{{i.value}}</span></p>
-              </li>
-            </ul>
-            <!-- 售后 -->
-            <h2>售后服务</h2>
-          <p class="shouhou">商家售后服务</p>
+            <div v-for='(itemCon,index) in tabContents' :key='index' v-show=" index == num">
+                <!-- 商品图片 -->
+                <h2>商品图片</h2>
+                <ul class="product_img">
+                  <li v-for="(item,index) in urlArr" :key='index'>
+                    <img :src="item" alt="">
+                  </li>
+                </ul>
+                <!-- 规格 -->
+                <h2>商品规格</h2>
+                <ul class="specification">
+                  <li v-for="(item,index) in specification" :key='index'>
+                    <h3>{{item.attname}}</h3>
+                    <p><span v-for="(i,index) in item.attvalue" :key='index'>{{i.value}}</span></p>
+                  </li>
+                </ul>
+                <!-- 售后 -->
+                <h2>售后服务</h2>
+              <p class="shouhou">商家售后服务</p>
+            </div>
         </div>
     </mt-tab-container-item>
     <!-- 内容三 -->
