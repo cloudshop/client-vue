@@ -67,8 +67,24 @@
         </div>
         <div class="tabCon">
           <div v-for='(itemCon,index) in tabContents' :key='index' v-show=" index == num">
-            {{itemCon}}
-          </div>
+            <!-- 商品图片 -->
+            <h2>商品图片</h2>
+            <ul class="product_img">
+              <li v-for="(item,index) in urlArr" :key='index'>
+                <img :src="item" alt="">
+              </li>
+            </ul>
+            <!-- 规格 -->
+            <h2>商品规格</h2>
+            <ul class="specification">
+              <li v-for="(item,index) in specification" :key='index'>
+                <h3>{{item.attname}}</h3>
+                <p><span v-for="(i,index) in item.attvalue" :key='index'>{{i.value}}</span></p>
+              </li>
+            </ul>
+            <!-- 售后 -->
+            <h2>售后服务</h2>
+          <p class="shouhou">商家售后服务</p>
         </div>
     </mt-tab-container-item>
     <!-- 内容三 -->
@@ -196,7 +212,7 @@ import { Swipe, SwipeItem } from "mint-ui";
         productname: '',
         urlArr:[],  //商品图片
         specification:[],  //商品规格
-        shopIds:'',
+        shopIds:'', //店铺Id
         city:''
       } 
     }, 
@@ -308,21 +324,6 @@ import { Swipe, SwipeItem } from "mint-ui";
                 window.androidObject.JSCallAndroid(JSON.stringify(val));
               }
      },
-      // collect(){
-      //   var ProductID=sessionStorage.getItem("ProductID");
-      //   var Goods=sessionStorage.getItem("GoodsID"); // 商品id 
-      //   this.$axios.get('favorite/api/favProduct/'+Goods+'/1')
-      //    .then(function(response) {
-      //       if(response.data == true){
-      //          $('.collect').addClass("actives");
-      //       }else{
-      //          $('.collect').removeClass("actives");
-      //       }
-      //   })
-      //   .catch(function(error) {
-      //       console.log(error);
-      //  });   
-      // },
       store(){
          this.$router.push({name:"PageDetails"}) 
       },
@@ -339,31 +340,31 @@ import { Swipe, SwipeItem } from "mint-ui";
        });
       },
       GetParams(id){
-          var that = this;    
-          var iid = JSON.stringify(id);  
-         
-          var strArr=iid.split(':');
-          var subIdStr=strArr[1];  
-         
-         var valueStr = subIdStr.replace(/[^0-9]/ig,"");
-         
-          var Goods = valueStr;
-          console.log(typeof Goods);
-          console.log(Goods);
-         
-          this.$axios.get('product/api/product/content?id=' + Goods)
-          .then(function(response) {
-              console.log(response.data)   
-              that.data = response.data;
-              that.urlArr = response.data.productContent.url;
-              that.shopIds = response.data.productContent.shopid;
-              that.specification = response.data.attrbute;
-              that.getShop(that.shopIds);
-          })
-          .catch(function(error) {
-              console.log(error);
-        });
-        }
+        var that = this;    
+        var iid = JSON.stringify(id);  
+        
+        var strArr=iid.split(':');
+        var subIdStr=strArr[1];  
+        
+        var valueStr = subIdStr.replace(/[^0-9]/ig,"");
+        
+        var Goods = valueStr;
+        console.log(typeof Goods);
+        console.log(Goods);
+        
+        this.$axios.get('product/api/product/content?id=' + Goods)
+        .then(function(response) {
+            console.log(response.data)   
+            that.data = response.data;
+            that.urlArr = response.data.productContent.url;
+            that.shopIds = response.data.productContent.shopid;
+            that.specification = response.data.attrbute;
+            that.getShop(that.shopIds);
+        })
+        .catch(function(error) {
+            console.log(error);
+      });
+      }
     },
     created(){
     //   console.log(this.data.productContent)   
@@ -436,7 +437,7 @@ import { Swipe, SwipeItem } from "mint-ui";
   text-align: center;
   line-height: 1rem;
   font-size: 0.27rem;
-  color: blue;
+  color: #333;
 }
 
 .detailsPage_ulP .detailsPage_ul_li:hover{
