@@ -11,12 +11,12 @@
             <p class="money">消费金额: <input type="text" placeholder="请输入消费金额" v-model="mon" maxlength="6"></p>
             <p class="type">
                 <ul>
-                    <li><img src="../../assets/Mine/贡融券.png" alt="">贡融卷：<span class="ticke">{{arr.ticket}}</span></li>
+                    <li><img src="../../assets/Mine/贡融券.png" alt="">贡融劵：<span class="ticke">{{arr.ticket}}</span></li>
                     <li><img src="../../assets/Mine/余额.png" alt="">余额&#12288;：<span class="bana">{{arr.balance}}</span></li>
                 </ul>
             </p>
             <p class="changetype">
-                <span><input type="checkbox" name="change" id="yn" checked>是否用贡融卷支付</span>
+                <span><input type="checkbox" name="change" id="yn" checked>是否用贡融劵支付</span>
             </p>
             <p class="next">
                 <input type="button" value="下一步" class="btn" @click="bun">
