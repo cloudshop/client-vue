@@ -1,16 +1,16 @@
 <template>
   <div class='PageDetails'>
     <!-- 店铺首页PageDetails -->
-    <div class='PageDetails_head'>
+    <div class='PageDetails_head' :style="{background: 'url('+brr.imgIntroduces+')',backgroundSize:'100% 100%'}">
       <div class="PageDetails_header">
         <span @click='back' class="back">〈</span>
         <input type="text" placeholder="内容推荐" @click="searchPage">
         <span><img src="../../assets/PageDetails/主页.png" alt=""></span>
         <span><img src="../../assets/PageDetails/消息.png" alt=""></span>
       </div>
-      <div class="PageDetails_main"  v-for='(iv,index) in brr' :key="index">
+      <div class="PageDetails_main">
         <!-- <p class="PageDetails_main_img"><img src="" alt=""></p> -->
-        <p class="PageDetails_main_main"><span>{{iv.name}}</span><span></span></p>
+        <p class="PageDetails_main_main"><span>{{brr.name}}</span><span></span></p>
       </div>
       <!-- 关注店铺 -->
       <!-- <p class="PageDetails_attention"> -->
@@ -162,7 +162,6 @@ export default {
           this.pageNum = len;
           this.arr = res.data.productList;
           this.brr = res.data.mercury;
-          $('.PageDetails_head').css({"background-url": res.data.mercury.imgIntroduces})
         })
         .catch(function(error) {
           console.log(error);
@@ -203,6 +202,7 @@ export default {
     loadTop() {
       setTimeout(() => {
         this.page = 1;
+        this.allLoaded= true;
         this.getDatas();
         this.$refs.loadmore.onTopLoaded();
       }, 1500);
@@ -310,13 +310,11 @@ input[type="text"] {
 
 .PageDetails_main {
   width: 100%;
-  /* height: .75rem; */
   display: flex;
 }
 
 .PageDetails_main_img {
   width: 20%;
-  background: url(../../assets/HomePage/bg.gif);
 }
 
 .PageDetails_main_main {
