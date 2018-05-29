@@ -12,6 +12,7 @@ const RemainingSum = r => require.ensure( [], () => r (require('@/components/Min
 const Stamps = r => require.ensure( [], () => r (require('@/components/MineList/Stamps.vue')));
 const myQRCode = r => require.ensure( [], () => r (require('@/components/myQRCode')));
 const Information = r => require.ensure( [], () => r (require('@/components/MineList/Information.vue')));
+const searchShop = r => require.ensure( [], () => r (require('@/components/PageAll/searchShop.vue'))); // 店铺搜索
 const NickName = r => require.ensure( [], () => r (require('@/components/MineList/NickName.vue')));
 const MyAddress = r => require.ensure( [], () => r (require('@/components/MineList/MyAddress.vue')));
 const AddAddress = r => require.ensure( [], () => r (require('@/components/MineList/AddAddress.vue')));
@@ -392,6 +393,11 @@ const routes = [{
                 path: '/addressYes',
                 name: 'addressYes',
                 component: addressYes
+            },
+            { // 店铺搜索
+                path: '/searchShop',
+                name: 'searchShop',
+                component: searchShop
             },
         ]
     },
