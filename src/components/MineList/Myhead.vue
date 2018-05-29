@@ -24,11 +24,18 @@
                </div> 
             </div>
         </div>
+        <div class="msg" v-show="bo">
+            <div class="succeed">
+                <h3>提示</h3>
+                <p>请上传头像</p>
+                <span @click="bo=false">确定</span>
+            </div>
+        </div>
         <div class="msg" v-show="bol">
             <div class="succeed">
-            <h3>提示</h3>
-            <p>修改成功</p>
-            <span @click="backMine">确定</span>
+                <h3>提示</h3>
+                <p>修改成功</p>
+                <span @click="backMine">确定</span>
             </div>
         </div>
    </div>
@@ -42,7 +49,8 @@ export default {
 	      imageUrl5: "",
 	      bol : false,
 	      headImg:"",
-	      id:""
+          id:"",
+          bo:false
 	    };
 	},
 	created(){
@@ -80,22 +88,25 @@ export default {
 	        return isJPG && isLt2M;
 	    },
 	    sub(){
-	        this.bol = true;
-	        this.bol = true;
-	        var data = {
-	        	id:this.id,
-	            avatar:this.idcardfront5,
-	            type: 0
-	        };
-	        console.log(data);
-	        this.$axios
-	            .post("user/api/user-annexes-useregis/updaUserInfo",data)
-	            .then(function(res) {
-	                console.log(res);
-	            })
-	            .catch(function(error){
-	                console.log(error);
-	            });
+	        if (this.idcardfront5 == undefined) {
+                this.bo = true;
+            } else {
+                this.bol = true;
+                var data = {
+                    id:this.id,
+                    avatar:this.idcardfront5,
+                    type: 0
+                };
+                console.log(data);
+                this.$axios
+                    .post("user/api/user-annexes-useregis/updaUserInfo",data)
+                    .then(function(res) {
+                        console.log(res);
+                    })
+                    .catch(function(error){
+                        console.log(error);
+                    });
+            }
 	    }
 	}
 };
