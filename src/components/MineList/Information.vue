@@ -49,14 +49,14 @@ export default {
         {
           name: "确定",
           method: this.confirms,
-          nickname:"",
-          statusString:"",
-          bo:"",
-          id:"",
-	  b:""
         }
       ],
-      sheetVisible: false
+      sheetVisible: false,
+      nickname:"",
+      statusString:"",
+      bo:"",
+      id:"",
+      b:""
     };
   },
   created() {

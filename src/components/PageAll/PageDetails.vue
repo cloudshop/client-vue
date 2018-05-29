@@ -1,7 +1,7 @@
 <template>
   <div class='PageDetails'>
     <!-- 店铺首页PageDetails -->
-    <div class='PageDetails_head'>
+    <div class='PageDetails_head' :style="{background: 'url('+brr.imgIntroduces+')',backgroundSize:'100% 100%'}">
       <div class="PageDetails_header">
         <span @click='back' class="back">〈</span>
         <input type="text" placeholder="内容推荐" @click="searchPage">
@@ -10,7 +10,7 @@
       </div>
       <div class="PageDetails_main">
         <!-- <p class="PageDetails_main_img"><img src="" alt=""></p> -->
-        <p class="PageDetails_main_main"><span>巴黎欧莱雅官方旗舰店</span><span>59.3万人</span></p>
+        <p class="PageDetails_main_main"><span>{{brr.name}}</span><span></span></p>
       </div>
       <!-- 关注店铺 -->
       <!-- <p class="PageDetails_attention"> -->
@@ -23,18 +23,18 @@
         <mt-loadmore :auto-fill="false" :top-method="loadTop" @top-status-change="handleTopChange" :bottom-method="loadBottom" bottom-status-change="handleBottomChange" :bottom-all-loaded="allLoaded" ref="loadmore">
           <div class="tabCon_main" v-for='(item,index) in arr' :key="index" @click="pushProduct(item)">
             <div class="tabCon_main_left">
-              <img src="../../assets/Classify/bg.gif" alt="">
+              <img :src="item.url" alt="">
             </div>
             <div class="tabCon_main_right">
               <h4 class="h4">{{item.name}}</h4>
               <!-- {{item.id}} -->
               <div class="tabCon_main_right_all">
                 <p>￥{{item.listprice}}</p>
-                <p class="tabCon_main_right_all_img"><img v-for="(item,index) in item.liststart" :key="index" src="../../assets/PageAll/星星选中.png" alt=""></p>
-                <p>送贡融积分 10</p>
+                <!-- <p class="tabCon_main_right_all_img"><img v-for="(item,index) in item.liststart" :key="index" src="../../assets/PageAll/星星选中.png" alt=""></p> -->
+                <!-- <p>送贡融积分 10</p> -->
               </div>
-              <span class="tabCon_main_right_span">贡融券可抵扣 ￥10.00</span>
-              <span class="tabCon_main_right_span">贡融积分可抵扣 ￥5.00</span>
+              <!-- <span class="tabCon_main_right_span">贡融券可抵扣 ￥10.00</span>
+              <span class="tabCon_main_right_span">贡融积分可抵扣 ￥5.00</span> -->
             </div>
           </div>
           <div slot="top" class="mint-loadmore-top">
@@ -66,6 +66,7 @@ export default {
       active: -1,
       selected: "1",
       arr: null,
+      brr: null,
       num: 1,
       shopID: '',
       allLoaded: false,
@@ -160,6 +161,7 @@ export default {
           let len = res.data.productList.length;
           this.pageNum = len;
           this.arr = res.data.productList;
+          this.brr = res.data.mercury;
         })
         .catch(function(error) {
           console.log(error);
@@ -175,7 +177,6 @@ export default {
           for (let i = 0; i < len; i++) {
             this.arr.push(res.data.productList[i])
           }
-
         })
         .catch(function(error) {
           console.log(error);
@@ -201,6 +202,7 @@ export default {
     loadTop() {
       setTimeout(() => {
         this.page = 1;
+        this.allLoaded= true;
         this.getDatas();
         this.$refs.loadmore.onTopLoaded();
       }, 1500);
@@ -237,7 +239,6 @@ export default {
 .PageDetails_head {
   width: 100%;
   position: relative;
-  background: url("https://mrmoap.blob.core.chinacloudapi.cn/lorealparisadmin/20161114/eb4f1474-d7d4-4ab4-92e1-21474b718f5d.jpg");
   background-size: 100% 130%;
   height: 2.4rem;
 }
@@ -309,13 +310,11 @@ input[type="text"] {
 
 .PageDetails_main {
   width: 100%;
-  /* height: .75rem; */
   display: flex;
 }
 
 .PageDetails_main_img {
   width: 20%;
-  background: url(../../assets/HomePage/bg.gif);
 }
 
 .PageDetails_main_main {
