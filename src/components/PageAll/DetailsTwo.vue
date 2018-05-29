@@ -15,7 +15,7 @@
       <div class='content'>
         <div class="page-loadmore-wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
           <mt-loadmore :auto-fill="false" :top-method="loadTop" @top-status-change="handleTopChange" :bottom-method="loadBottom" bottom-status-change="handleBottomChange" :bottom-all-loaded="allLoaded" ref="loadmore">
-            <div class="tabCon_main" v-for='(item,index) in arr' :key="index" :data='item.id' @click='details(item.id)'>
+            <div class="tabCon_main" v-for='(item,index) in arr' :key="index" :data='item.id' @click='details(item.id)'  v-show="falgs">
               <div class="tabCon_main_left">
                 <img :src="item.url" alt="">
               </div>
@@ -23,7 +23,7 @@
                 <h4 class="h4">{{item.NAME}}</h4>
                 <div class="tabCon_main_right_all">
                   <p>￥{{item.listPrice}}</p>
-                  <p class="tabCon_main_right_all_img"><img v-for="(item,index) in item.liststart" :key="index" src="../../assets/PageAll/星星选中.png" alt=""></p>
+                  <!--<p class="tabCon_main_right_all_img"><img v-for="(item,index) in item.liststart" :key="index" src="../../assets/PageAll/星星选中.png" alt=""></p>-->
                   <!-- <p>送贡融积分 10</p> -->
                 </div>
                 <!-- <span class="tabCon_main_right_span">贡融券可抵扣 ￥10.00</span>
@@ -76,7 +76,7 @@ export default {
       pageNum: 0,
       pageSize: 5,
       page: 1,
-      
+      falgs: true
     }
   },
   methods: {
@@ -114,7 +114,8 @@ export default {
         })
         .then(function(response) {
           if (response.data.mainContent.length == 0) {
-            that.faleg = true
+            that.faleg = true;
+            that.falgs = false
           } else {
             that.arr = response.data.mainContent;
             that.faleg = false
