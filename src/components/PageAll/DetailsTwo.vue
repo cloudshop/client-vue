@@ -153,7 +153,7 @@ export default {
           'pageSize': this.pageSize
         })
         .then((res) => {
-          let len = res.data.length;
+          let len = res.data.mainContent.length;
           this.pageNum = len;
           this.arr = res.data.mainContent;
         })
