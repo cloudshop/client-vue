@@ -31,13 +31,13 @@
         <!--  <span>官方标配，</span>-->
         <!--  <span>1件</span>-->
         <!--</div>-->
-        <div class="details_bourn">
-          <span class="details_checkeder">送至</span>
-          <p class="details_p">
+        <!--<div class="details_bourn">-->
+        <!--  <span class="details_checkeder">送至</span>-->
+        <!--  <p class="details_p">-->
             <!-- <span class="imgWz"><img src="../../assets/details/定位.png" alt=""></span> -->
-            <span>{{city}}</span>
-          </p>
-        </div>
+        <!--    <span>{{city}}</span>-->
+        <!--  </p>-->
+        <!--</div>-->
         <div class="details_comment">
           <p class="comment_top">评论（201）</p>
           <div class="comment_main">
