@@ -76,7 +76,7 @@ export default {
             }
         })
         .catch(function(error) {
-            alert('服务器繁忙，请稍后再试');
+            alert(error.response.data.title)
         });
       },
       commodity(id){
