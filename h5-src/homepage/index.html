@@ -259,8 +259,6 @@
         });
         $('.data-list').on("click", "li", function () {
             var id = $(this).attr("data")
-            sessionStorage.setItem("shopIdSearch",id)
-            console.log(id)
             var val = {
                 func: "openURL",
                 param: {
