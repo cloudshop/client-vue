@@ -322,38 +322,39 @@ export default {
       sessionStorage.setItem("productName",this.productName);  // 姓名
       sessionStorage.setItem("count",this.count); // 几个
       sessionStorage.setItem("productUrl",this.productUrl); // 图片路径
-      var that = this;
-      var params = {
-        "buyerMessage": 0, // 买家留言
-        "buyerNick": "",  // 买家昵称
-        "shopId": this.shopId, // 店铺id
-        "payment":this.payment,  // 商品合计
-        "postFee": 0, // 运费
-        "paymentType": 1, // 1 余额支付 2 支付宝支付
-        "proOrderItems":[
-          {
-            "productSkuId": this.productSkuId, // 商品id
-            "count": this.count, // 数量
-            "price":  this.price   // 价钱     
-          }
-        ]
-      }
-      this.$axios({
-        method:'POST',
-        url:'order/api/depproorders/0',
-        data: params
-        })
-        .then((response)=> {
-          console.log(response.data)
-          that.$router.push({name:"ConfirmAnOrder"}) 
-        })
-        .catch((error)=>{
-          if(error.response.data.status == 500){
-            alert('服务器繁忙，请耐心等待')
-          }else{
-            alert(error.response.data.title)
-          }
-        });
+    //   var that = this;
+    //   var params = {
+    //     "buyerMessage": 0, // 买家留言
+    //     "buyerNick": "",  // 买家昵称
+    //     "shopId": this.shopId, // 店铺id
+    //     "payment":this.payment,  // 商品合计
+    //     "postFee": 0, // 运费
+    //     "paymentType": 1, // 1 余额支付 2 支付宝支付
+    //     "proOrderItems":[
+    //       {
+    //         "productSkuId": this.productSkuId, // 商品id
+    //         "count": this.count, // 数量
+    //         "price":  this.price   // 价钱     
+    //       }
+    //     ]
+    //   }
+    //   this.$axios({
+    //     method:'POST',
+    //     url:'order/api/depproorders/0',
+    //     data: params
+    //     })
+    //     .then((response)=> {
+    //       console.log(response.data)
+    //       that.$router.push({name:"ConfirmAnOrder"}) 
+    //     })
+    //     .catch((error)=>{
+    //       if(error.response.data.status == 500){
+    //         alert('服务器繁忙，请耐心等待')
+    //       }else{
+    //         alert(error.response.data.title)
+    //       }
+    //     });
+        this.$router.push({name:"ConfirmAnOrder"}) 
       },
       goings(){
         var  val={
