@@ -14,8 +14,8 @@
     <div class="tabCon">
       <div class='content'>
         <div class="page-loadmore-wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
-          <mt-loadmore :auto-fill="false" :top-method="loadTop" @top-status-change="handleTopChange" :bottom-method="loadBottom" bottom-status-change="handleBottomChange" :bottom-all-loaded="allLoaded" ref="loadmore">
-            <div class="tabCon_main" v-for='(item,index) in arr' :key="index" :data='item.id' @click='details(item.id)'  v-show="falgs">
+          <mt-loadmore :auto-fill="false" :top-method="loadTop" @top-status-change="handleTopChange" :bottom-method="loadBottom"            @bottom-status-change="handleBottomChange" :bottom-all-loaded="allLoaded" ref="loadmore">
+            <div class="tabCon_main" v-for='(item,index) in arr' :key="index" :data='item.id' @click='details(item.id)' v-show="falgs">
               <div class="tabCon_main_left">
                 <img :src="item.url" alt="">
               </div>
@@ -44,8 +44,8 @@
             <div slot="bottom" class="mint-loadmore-bottom">
               <span v-show="bottomStatus !== 'loading'" :class="{ 'is-rotate': bottomStatus === 'drop' }">↑</span>
               <span v-show="bottomStatus === 'loading'">
-              <mt-spinner type="snake"></mt-spinner>
-            </span>
+                <mt-spinner type="snake"></mt-spinner>
+              </span>
             </div>
           </mt-loadmore>
         </div>
@@ -147,26 +147,28 @@ export default {
     getDatas() {
       let url = "product/api/product/all"
       this.$axios
-        .post(url ,{
-            'categoryId': this.id.DetailsTwo,
-            'pageNum': this.page,
-            'pageSize': this.pageSize})
+        .post(url, {
+          'categoryId': this.id.DetailsTwo,
+          'pageNum': this.page,
+          'pageSize': this.pageSize
+        })
         .then((res) => {
           let len = res.data.length;
           this.pageNum = len;
           this.arr = res.data;
         })
-        .catch((error)=> {
+        .catch((error) => {
           console.log(error);
         });
     },
     getMoreData() {
       let url = "product/api/product/all"
       this.$axios
-        .post(url ,{
-            'categoryId': this.id.DetailsTwo,
-            'pageNum': this.page,
-            'pageSize': this.pageSize})
+        .post(url, {
+          'categoryId': this.id.DetailsTwo,
+          'pageNum': this.page,
+          'pageSize': this.pageSize
+        })
         .then((res) => {
           let len = res.data.length;
           this.pageNum = len;
@@ -175,7 +177,7 @@ export default {
           }
 
         })
-        .catch((error)=> {
+        .catch((error) => {
           console.log(error);
         });
     },
@@ -199,6 +201,7 @@ export default {
     loadTop() {
       setTimeout(() => {
         this.page = 1;
+        this.allLoaded = false;
         this.getDatas();
         this.$refs.loadmore.onTopLoaded();
       }, 1500);
@@ -429,13 +432,16 @@ input::-webkit-input-placeholder {
   text-align: center;
   font-size: 0.5rem;
 }
-.mint-loadmore-top span{
- display: inline-block;
+
+.mint-loadmore-top span {
+  display: inline-block;
 }
+
 .mint-loadmore-bottom {
   text-align: center;
   font-size: 0.5rem;
 }
+
 .mint-loadmore-bottom span {
   display: inline-block;
 }
