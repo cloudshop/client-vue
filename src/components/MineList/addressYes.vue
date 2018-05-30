@@ -1,37 +1,37 @@
 <template>
   <div class="addressYes">
-      <div class="header">
-          <ul>
-              <li @click='PreviousMenu'>&lt;</li>
-              <li>修改收货地址</li>
-              <li>&nbsp;</li>
-          </ul>
-      </div>
-      <div class="main">
-        <ul v-for="(item,index) in arr" :key='index' class="list" @click="addressNew(item.contact,item.phone,item.city)">
-          <li>
-            <span class="name"><em>{{item.contact}}</em></span>
-            <span class="tel"><rp>{{item.phone}}</rp></span>
-          </li>
-          <li class="address">
-              {{item.city}}
-          </li>
-          <li>
-            <span class="addlist">       
+    <div class="header">
+      <ul>
+        <li @click='PreviousMenu'>&lt;</li>
+        <li>修改收货地址</li>
+        <li>&nbsp;</li>
+      </ul>
+    </div>
+    <div class="main">
+      <ul v-for="(item,index) in arr" :key='index' class="list">
+        <li>
+          <span class="name"><em>{{item.contact}}</em></span>
+          <span class="tel"><rp>{{item.phone}}</rp></span>
+        </li>
+        <li class="address">
+          {{item.city}}
+        </li>
+        <li>
+          <span class="addlist">       
                 <input type="radio" :id="'adress-0'+item.id" name="sex" :checked="item.checked"/>
-                <label :for="'adress-0'+item.id" @click="re(item)"></label>默认地址
-            </span>   
-          </li>
-         </ul>
-      </div>
-      <div class="bottom">
-           <router-link :to="{ name: 'AddAddress',params:{bol:true} }" tag='button'>＋新建地址</router-link>
-      </div>
+                <label :for="'adress-0'+item.id" @click="changDefaultAdd(item)"></label>默认地址
+            </span>
+        </li>
+      </ul>
+    </div>
+    <div class="bottom">
+      <router-link :to="{ name: 'AddAddress',params:{bol:true} }" tag='button'>＋新建地址</router-link>
+    </div>
   </div>
 </template>
 <script>
 import AddAddress from "../MineList/AddAddress";
-import { Header, Cell, Actionsheet, Popup } from "mint-ui";
+import { Header, Cell, Actionsheet, Popup, Toast } from "mint-ui";
 export default {
   data() {
     return {
@@ -41,38 +41,35 @@ export default {
       init: null,
       name: "",
       type: "",
-      Addressid:"",
-      bol:""
+      Addressid: "",
+      bol: ""
     };
   },
   created() {
-    var that = this;
-      this.$axios.get("user/api/delivery-addresses-list")
-      .then(function(res) {
-        that.arr = [];
-        var le = res.data.length;
-        for (var i = 0; i < le; i++) {
-          that.arr.push(res.data[i]);
-          console.log(that.arr)
-          for(var j=0;j<that.arr.length;j++){
-            if(that.arr[i].default_address==0){
-              that.arr[i].checked = true;
-              break;
-            }else{
-              that.arr[i].checked = false;
-            }    
-          }
-        }
-      })
-    .catch(function(error) {
-      console.log(error);
-    });
-    console.log(this.router.params);
+    this.getAddressList()
   },
-  mounted: function() {},
   methods: {
-    addressNew:function(contact,phone,city){
-       this.$router.push({name:"ConfirmAnOrder",params:{'contact':contact,'phone':phone,'city':city}}) 
+    getAddressList() {
+      this.$axios.get("user/api/delivery-addresses-list")
+        .then((res) => {
+          this.arr = [];
+          var le = res.data.length;
+          for (var i = 0; i < le; i++) {
+            this.arr.push(res.data[i]);
+            // console.log(that.arr)
+            for (var j = 0; j < this.arr.length; j++) {
+              if (this.arr[i].default_address == 0) {
+                this.arr[i].checked = true;
+                break;
+              } else {
+                this.arr[i].checked = false;
+              }
+            }
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     closeAddress: function() {
       this.$parent.$parent.address = false;
@@ -81,28 +78,16 @@ export default {
       this.EditAddress = true;
     },
     //更改默认地址
-    re(a) {
-    	this.Addressid = a.id;
-  	  console.log(this.Addressid)
-      var b = $(a.target);
-      var datas = {
-        "defaultAddress": 0,
-        "id": this.Addressid,
-        "userAnnex": {
-          "avatar": "string"
-        }
-      };
-      console.log(datas);
+    changDefaultAdd(item) {
       this.$axios
         .get(
-          "user/api/user-annexes-updateAddress/" + this.Addressid,
-          datas
+          "user/api/user-annexes-updateAddress/" + item.id
         )
-        .then(function(res) {
-          console.log(res);
-          alert("修改默认地址成功");
+        .then((res) => {
+          Toast('修改默认地址成功');
+          setTimeout((() => this.$router.push({ name: "ConfirmAnOrder" })), 1500)
         })
-        .catch(function(error) {
+        .catch((error) => {
           console.log(error);
         });
     },
@@ -118,23 +103,25 @@ export default {
     AddAddress
   }
 };
+
 </script>
-
-
 <style scoped>
 .addlist i {
   display: none;
 }
+
 html,
 body {
   width: 100%;
   height: 100%;
   display: flex;
 }
+
 .addressYes {
   width: 100%;
   height: 100%;
 }
+
 .header {
   width: 100%;
   height: 0.96rem;
@@ -143,22 +130,27 @@ body {
   top: 0;
   border-bottom: 1px solid #e7e7e7;
 }
+
 .header ul {
   display: flex;
 }
+
 .header li {
   flex: 1;
   line-height: 0.96rem;
   text-align: center;
 }
+
 .header li:nth-child(1) {
   text-align: left;
   padding-left: 0.3rem;
   font-size: 0.32rem;
 }
+
 .header li:nth-child(2) {
   font-size: 0.32rem;
 }
+
 .main {
   flex: 1;
   width: 100%;
@@ -166,30 +158,39 @@ body {
 
   overflow: auto;
 }
+
 .main ul {
   margin-top: 0.2rem;
 }
+
 .main ul:nth-child(1) {
   margin-top: 0.96rem;
 }
+
 .main ul:last-child {
   margin-bottom: 0.96rem;
 }
+
 .main li {
   background: #fff;
 }
+
 .main li:nth-child(1) {
   padding-top: 0.35rem;
 }
+
 .main li:nth-child(1) span {
   font-size: 0.28rem;
 }
+
 .name {
   padding-left: 0.3rem;
 }
+
 .tel {
   padding-left: 0.5rem;
 }
+
 .main li:nth-child(2) {
   font-size: 0.24rem;
   color: #667766;
@@ -198,6 +199,7 @@ body {
   padding-bottom: 0.35rem;
   border-bottom: 1px solid #e7e7e7;
 }
+
 .main li:nth-child(3) {
   height: 0.8rem;
   line-height: 0.8rem;
@@ -206,10 +208,12 @@ body {
   font-size: 0.24rem;
   position: relative;
 }
+
 .main li:nth-child(3) input {
   display: none;
   padding-left: 0.3rem;
 }
+
 .main li:nth-child(3) p {
   display: inline-block;
   width: 80%;
@@ -219,6 +223,7 @@ body {
   text-align: right;
   padding-right: 0.3rem;
 }
+
 .main li:nth-child(3) p img {
   vertical-align: middle;
   width: 0.5rem;
@@ -226,15 +231,19 @@ body {
   margin-top: -0.1rem;
   margin-right: 0.2rem;
 }
+
 .main li:nth-child(3) p img:nth-child(2) {
   margin-left: 0.5rem;
 }
+
 .main li:nth-child(3) p b {
   font-weight: normal;
 }
-input[type="radio"] + label::before {
+
+input[type="radio"]+label::before {
   box-sizing: border-box;
-  content: " "; /*不换行空格*/
+  content: " ";
+  /*不换行空格*/
   display: inline-block;
   vertical-align: middle;
   width: 2em;
@@ -245,7 +254,8 @@ input[type="radio"] + label::before {
   border-radius: 50%;
   margin-top: -0.1rem;
 }
-input[type="radio"]:checked + label::before {
+
+input[type="radio"]:checked+label::before {
   /* background-color: #909194;
     background-clip: content-box; */
   background: red;
@@ -253,6 +263,7 @@ input[type="radio"]:checked + label::before {
 
   background-size: 100% 100%;
 }
+
 button {
   display: inline-block;
   width: 90%;
@@ -263,6 +274,7 @@ button {
   margin-left: 5%;
   background: #ff0103;
 }
+
 .bottom {
   width: 100%;
   height: 0.96rem;
@@ -270,6 +282,7 @@ button {
   position: absolute;
   bottom: 0;
 }
+
 .del {
   display: none;
   position: fixed;
@@ -280,6 +293,7 @@ button {
   z-index: 999;
   text-align: center;
 }
+
 .del div {
   width: 70%;
   height: 2rem;
@@ -291,6 +305,7 @@ button {
   border-top-left-radius: 0.2rem;
   border-top-right-radius: 0.2rem;
 }
+
 .del p {
   width: 70%;
   background: #fff;
@@ -303,11 +318,14 @@ button {
   border-bottom-right-radius: 0.2rem;
   overflow: hidden;
 }
+
 .del span {
   flex: 1;
 }
+
 .del span:last-child {
   background: #ff0103;
   color: #fff;
 }
+
 </style>
