@@ -62,10 +62,8 @@ export default {
         if(this.Search == '' ) return;
         var test = window.location.href;
         var urls = test.split('?')[1].split('=')[1];
-        console.log(test)
-        console.log(urls)
         var data = {
-            "shopId": shopIdSearch, 
+            "shopId": urls, 
             "productName": this.Search
         }
         this.$axios.post("/product/api/product/shop/search",data)
