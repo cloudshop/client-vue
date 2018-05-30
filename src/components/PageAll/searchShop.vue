@@ -10,10 +10,10 @@
         <div class="main">
             <div class="tabCon_main"  v-for='(item,index) in arr' :key="index"  :data='item.id' @click="commodity(item.productid)">
                 <div class="tabCon_main_left">
-                    <img :src="item.imgurl" alt="">
+                    <img :src="item.url" alt="">
                 </div>
                 <div class="tabCon_main_right">
-                    <h4 class="h4">{{item.productname}}</h4>
+                    <h4 class="h4">{{item.name}}</h4>
                     <div class="tabCon_main_right_all">
                         <p>￥{{item.listprice}}</p>
                         <!-- <p class="tabCon_main_right_all_img"><img v-for="(item,index) in 5" :key="index" src="../assets/PageAll/星星选中.png" alt=""></p> -->
