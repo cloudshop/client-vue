@@ -155,7 +155,7 @@ export default {
         .then((res) => {
           let len = res.data.length;
           this.pageNum = len;
-          this.arr = res.data;
+          this.arr = res.data.mainContent;
         })
         .catch((error) => {
           console.log(error);
@@ -170,10 +170,10 @@ export default {
           'pageSize': this.pageSize
         })
         .then((res) => {
-          let len = res.data.length;
+          let len = res.data.mainContent.length;
           this.pageNum = len;
           for (let i = 0; i < len; i++) {
-            this.arr.push(res.data[i])
+            this.arr.push(res.data.mainContent[i])
           }
 
         })
