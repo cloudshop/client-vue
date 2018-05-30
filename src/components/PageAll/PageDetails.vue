@@ -20,7 +20,7 @@
     </div>
     <div class='content'>
       <div class="page-loadmore-wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
-        <mt-loadmore :auto-fill="false" :top-method="loadTop" @top-status-change="handleTopChange" :bottom-method="loadBottom" bottom-status-change="handleBottomChange" :bottom-all-loaded="allLoaded" ref="loadmore">
+        <mt-loadmore :auto-fill="false" :top-method="loadTop" @top-status-change="handleTopChange" :bottom-method="loadBottom" @bottom-status-change="handleBottomChange" :bottom-all-loaded="allLoaded" ref="loadmore">
           <div class="tabCon_main" v-for='(item,index) in arr' :key="index" @click="pushProduct(item)">
             <div class="tabCon_main_left">
               <img :src="item.url" alt="">
