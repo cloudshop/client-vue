@@ -60,8 +60,10 @@ export default {
       searchs(){ 
         var that = this;
         if(this.Search == '' ) return;
-        var shopIdSearch = sessionStorage.getItem("shopIdSearch")
-        console.log(shopIdSearch)
+        var test = window.location.href;
+        var urls = test.split('?')[1].split('=')[1];
+        console.log(test)
+        console.log(urls)
         var data = {
             "shopId": shopIdSearch, 
             "productName": this.Search
