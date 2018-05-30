@@ -97,7 +97,7 @@ export default {
       var val = {
         func: "openURL",
         param: {
-          URL: "/#/searchShop"
+          URL: "/#/searchShop?id=" + this.shopID
         }
       };
       var u = navigator.userAgent;
