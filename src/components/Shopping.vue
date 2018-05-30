@@ -699,7 +699,7 @@ input[type="checkbox"]:checked + label::before {
   font-size: 0.24rem;
   color: #2f2f2f;
   margin-bottom: 0.4rem;
-  height: 65px;  
+  height: 100%;  
   width: 100%;  
   overflow: hidden;  
   text-overflow: ellipsis;  
