@@ -60,8 +60,9 @@ export default {
       searchs(){ 
         var that = this;
         if(this.Search == '' ) return;
+        var shopIdSearch = sessionStorage.getItem("shopIdSearch")
         var data = {
-            "shopId": 1515, 
+            "shopId": shopIdSearch, 
             "productName": this.Search
         }
         this.$axios.post("/product/api/product/shop/search",data)
