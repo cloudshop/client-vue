@@ -61,6 +61,7 @@ export default {
         var that = this;
         if(this.Search == '' ) return;
         var shopIdSearch = sessionStorage.getItem("shopIdSearch")
+        console.log(shopIdSearch)
         var data = {
             "shopId": shopIdSearch, 
             "productName": this.Search
