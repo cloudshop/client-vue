@@ -94,6 +94,7 @@ export default {
       this.active = index;
     },
     searchPage() {
+    console.log(this.shopID)
       var val = {
         func: "openURL",
         param: {
