@@ -62,6 +62,22 @@
                <span class="yes" @click="q">确定</span>
            </p>
        </div>  
+       <div class="password">
+          <div class="password_bottom">
+              <span @click="del">×</span>
+              <p class="password_p">
+                  <input type="password" maxlength="6" id="psd" v-model="psd" placeholder="请输入支付密码">
+              </p>
+          </div>
+      </div>
+      <div class="msg" v-show="bol">
+              <div class="succeed">
+                <h3>提示</h3>
+                <p>支付成功</p>
+                <!-- <router-link to="/RemainingSum">取消</router-link> -->
+                <span @click="sure">确定</span>
+              </div>
+      </div>
   </div>
 </template>
 
@@ -82,13 +98,18 @@ export default {
       money: null,
       type: null, // 类型
       took: null,
-      web: null
+      web: "",
+      psd: "",
+      bol:false
     };
   },
   methods: {
-    // display(e) {
-
-    // },
+    del() {
+      $(".password").fadeOut(200);
+    },
+    sure(){
+        this.bol = false;
+    },
     //取消事件
     cancel() {
       $(".del").hide();
@@ -130,139 +151,163 @@ export default {
       }
     },
     pay() {
-        var that = this
-        var re = $('input:radio[name="sex"]:checked').val();
-        if (re == "余额") {
-          var paramss = {
-            payment: that.payment,
-            postFee: that.postFee,
-            paymentType: 1,
-            buyerMessage: that.buyerMessage,
-            buyerNick: that.buyerNick,
-            shopId: Number(that.shopId),
-            proOrderItems: [
-              {
-                productSkuId: Number(that.productSkuId),
-                count: Number(that.count),
-                price: Number(that.price)
-              }
-            ]
-          };
-          this.$axios({
-            method: "post",
-            url: "order/api/depproorders/1",
-            data: paramss
+      var that = this;
+      var re = $('input:radio[name="sex"]:checked').val();
+      if (re == "余额") {
+        var paramss = {
+          payment: that.payment,
+          postFee: that.postFee,
+          paymentType: 1,
+          buyerMessage: that.buyerMessage,
+          buyerNick: that.buyerNick,
+          shopId: Number(that.shopId),
+          proOrderItems: [
+            {
+              productSkuId: Number(that.productSkuId),
+              count: Number(that.count),
+              price: Number(that.price)
+            }
+          ]
+        };
+        $(".password").fadeIn(300);
+        this.$axios({
+          method: "post",
+          url: "order/api/depproorders/1",
+          data: paramss
+        })
+          .then(function(response) {
+            that.web = response.data;
           })
-            .then(function(response) {
-              that.web = response.data;
-            this.$axios({
-                method: "post",
-                url: "wallet/api/wallets/balance/pay",
-                data: {
-                  orderNo: that.web,
-                  password: 123456
-                }
-              })
-                .then(function(res) {
-                  if (res.data == "") {
-                    that.payStatus("success");
-                  }
-                })
-                .catch(error => {
-                  console.log(error);
-                });
-            })
-            .catch(error => {
-              console.log(error);
-            });
-        } else if (re == "支付宝") {
-          var paramss = {
-            payment: that.payment,
-            postFee: that.postFee,
-            paymentType: 2,
-            buyerMessage: that.buyerMessage,
-            buyerNick: that.buyerNick,
-            shopId: Number(that.shopId),
-            proOrderItems: [
-              {
-                productSkuId: Number(that.productSkuId),
-                count: Number(that.count),
-                price: Number(that.price)
+
+          //     .then(function(res) {
+          //       if (res.data == "") {
+          //         that.payStatus("success");
+          //       }
+          //     })
+          //     .catch(error => {
+          //       console.log(error);
+          //     });
+          // })
+          .catch(error => {
+            console.log(error);
+          });
+      } else if (re == "支付宝") {
+        var paramss = {
+          payment: that.payment,
+          postFee: that.postFee,
+          paymentType: 2,
+          buyerMessage: that.buyerMessage,
+          buyerNick: that.buyerNick,
+          shopId: Number(that.shopId),
+          proOrderItems: [
+            {
+              productSkuId: Number(that.productSkuId),
+              count: Number(that.count),
+              price: Number(that.price)
+            }
+          ]
+        };
+        this.$axios({
+          method: "post",
+          url: "order/api/depproorders/1",
+          data: paramss
+        })
+          .then(function(response) {
+            that.took = response.data;
+            var val = {
+              func: "pay",
+              param: {
+                payType: "Ali",
+                orderStr: that.took
               }
-            ]
-          };
-          this.$axios({
-            method: "post",
-            url: "order/api/depproorders/1",
-            data: paramss
+            };
+            var u = navigator.userAgent;
+            var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+            if (isiOS) {
+              window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+            } else if (isAndroid) {
+              window.androidObject.JSCallAndroid(JSON.stringify(val));
+            }
           })
-            .then(function(response) {
-              that.took = response.data;
-              var val = {
-                func: "pay",
-                param: {
-                  payType: "Ali",
-                  orderStr: that.took
-                }
-              };
-              var u = navigator.userAgent;
-              var isAndroid =
-                u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
-              var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-              if (isiOS) {
-                window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-              } else if (isAndroid) {
-                window.androidObject.JSCallAndroid(JSON.stringify(val));
+          .catch(error => {
+            console.log(error);
+          });
+      }
+      if (re == "微信") {
+        var paramss = {
+          payment: that.payment,
+          postFee: that.postFee,
+          paymentType: 3,
+          buyerMessage: that.buyerMessage,
+          buyerNick: that.buyerNick,
+          shopId: Number(that.shopId),
+          proOrderItems: [
+            {
+              productSkuId: Number(that.productSkuId),
+              count: Number(that.count),
+              price: Number(that.price)
+            }
+          ]
+        };
+        this.$axios({
+          method: "post",
+          url: "order/api/depproorders/1",
+          data: paramss
+        })
+          .then(function(response) {
+            that.took = response.data;
+            var val = {
+              func: "pay",
+              param: {
+                payType: "Wechat",
+                orderStr: that.took
               }
-            })
-            .catch(error => {
-              console.log(error);
-            });
-        }
-       if(re == '微信'){
-          var paramss = {
-            payment: that.payment,
-            postFee: that.postFee,
-            paymentType: 3,
-            buyerMessage: that.buyerMessage,
-            buyerNick: that.buyerNick,
-            shopId: Number(that.shopId),
-            proOrderItems: [
-              {
-                productSkuId: Number(that.productSkuId),
-                count: Number(that.count),
-                price: Number(that.price)
-              }
-            ]
-          };
-          this.$axios({
-            method: "post",
-            url: "order/api/depproorders/1",
-            data: paramss
+            };
+            var u = navigator.userAgent;
+            var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+            if (isiOS) {
+              window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+            } else if (isAndroid) {
+              window.androidObject.JSCallAndroid(JSON.stringify(val));
+            }
           })
-            .then(function(response) {
-              that.took = response.data;
-              var val = {
-                func: "pay",
-                param: {
-                  payType: "Wechat",
-                  orderStr: that.took
-                }
-              };
-              var u = navigator.userAgent;
-              var isAndroid =
-                u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
-              var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-              if (isiOS) {
-                window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-              } else if (isAndroid) {
-                window.androidObject.JSCallAndroid(JSON.stringify(val));
-              }
-            })
-            .catch(error => {
-              console.log(error);
-            });
-        }
+          .catch(error => {
+            console.log(error);
+          });
+      }
+    }
+  },
+  watch: {
+    psd(curVal) {
+      var that = this;
+      if (curVal.length == 6) {
+        console.log(that.web);
+        var aa = curVal;
+        this.$axios({
+          method: "post",
+          url: "wallet/api/wallets/balance/pay",
+          data: {
+            orderNo: that.web,
+            password: aa
+          }
+        })
+        .then(function(res) {
+          console.log(res)
+          var typ = res.status
+            if(typ== '200'){
+                that.bol = true;  
+            }else{
+              alert('错误')
+            }
+        })
+        .catch(function(error) {
+            console.log(error);
+            var show = error.response.data.title
+            alert(show)
+          });
+      }
     }
   },
   created() {
@@ -445,5 +490,58 @@ input[type="radio"]:checked + label::before {
   background: url("../../assets/manage/change.png");
 
   background-size: 100% 100%;
+}
+.password {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+}
+.password_bottom {
+  width: 100%;
+  height: 50%;
+  background: #fff;
+  position: fixed;
+  bottom: 0;
+}
+.password_p {
+  width: 100%;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  /* background: #ccc; */
+  text-align: center;
+}
+.password_p input {
+  text-align: center;
+  width: 3rem;
+  height: 0.7rem;
+  border: 1px solid #ccc;
+}
+.password_bottom span {
+  display: inline-block;
+  width: 1rem;
+  height: 0.8rem;
+  line-height: 0.8rem;
+  text-align: center;
+  position: absolute;
+  float: right;
+  font-size: 0.5rem;
+  right: 0;
+  color: #ccc;
+}
+.succeed{
+  width: 86%;
+  height: 2.5rem;
+  position: absolute;
+  left: 7%;
+  top: 40%;
+  z-index: 10;
+  background: #fff;
+  border-radius: 0.1rem;
+}
+.succeed router-link{
+  float: left;
+  display: inline-block;
 }
 </style>
