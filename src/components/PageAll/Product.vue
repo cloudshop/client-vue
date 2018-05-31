@@ -149,10 +149,10 @@
           <span><img src="../../assets/Comment/店铺.png" alt=""></span>
           <span class='names'>店铺</span>
         </p>
-        <!-- <p class="details_footer_sc" @click='collect'>
+        <p class="details_footer_sc" @click='collect'>
           <span><em  class="iconfont collect">&#xe603;</em></span>
           <span class='names collect'>收藏</span>
-        </p> -->
+        </p>
       </div>
       <!-- 加入购物车   立即购买 -->
       <span class="goShopping" @click='addShopping'>加入购物车</span>
@@ -354,6 +354,22 @@ import { Swipe, SwipeItem } from "mint-ui";
         .catch(function(error) {
             console.log(error);
        });
+      },
+      collect(){
+        var ProductID=sessionStorage.getItem("ProductID");
+        var Goods=sessionStorage.getItem("GoodsID"); // 商品id 
+        this.$axios.get('favorite/api/favProduct/'+Goods+'/1')
+        .then(function(response) {
+            if(response.data == true){
+               alert('收藏成功')
+               $('.collect').addClass("actives");
+            }else{
+               $('.collect').removeClass("actives");
+            }
+        })
+        .catch(function(error) {
+            console.log(error);
+        });   
       },
       GetParams(id){
         var that = this;    
