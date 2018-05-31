@@ -12,11 +12,10 @@
         <!-- <p class="PageDetails_main_img"><img src="" alt=""></p> -->
         <p class="PageDetails_main_main"><span>{{brr.name}}</span><span></span></p>
       </div>
-      <!-- 关注店铺 -->
-      <!-- <p class="PageDetails_attention"> -->
-      <!-- <img src="../../assets/PageDetails/矩形10.png" alt=""> -->
-      <!-- <span><img src="../../assets/PageDetails/关注.png" alt=""></span><span>关注</span> -->
-      <!-- </p> -->
+      <div class="PageDetails_attention" @click="attentionShop">
+        <p class="PageDetails_attentionUp"  v-show="falgUp"><img src="../../assets/PageDetails/关注.png" alt=""><span>关注</span></p>
+        <p class="PageDetails_attentionDown" v-show="falgDown">已关注</p>
+      </div>
     </div>
     <div class='content'>
       <div class="page-loadmore-wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
@@ -77,6 +76,8 @@ export default {
       pageSize: 5,
       page: 1,
       status: 0,
+      falgUp: true,
+      falgDown: false
     };
   },
 
@@ -183,6 +184,24 @@ export default {
           console.log(error);
         });
     },
+    attentionShop(){ // 店铺收藏
+        var Goods=sessionStorage.getItem("GoodsID"); // 商品id 
+        this.$axios.get('favorite/api/favProduct/'+Goods+'/2')
+        .then(function(response) {
+          console.log(response)
+            if(response.data == true){
+               alert('收藏店铺成功')
+               this.falgDown=true;
+               this.falgUp=false;
+            }else{
+              this.falgDown=false;
+               this.falgUp=true;
+            }
+        })
+        .catch(function(error) {
+            console.log(error);
+        });   
+    },
     handleBottomChange(status) {
       this.bottomStatus = status;
     },
@@ -216,6 +235,35 @@ export default {
 
 </script>
 <style scoped>
+
+.PageDetails_attentionUp{
+  width: .82rem;
+  height: .4rem;
+  text-align: center;
+  line-height:.4rem; 
+  color: #fff;
+  background: red;
+  border-radius: .1rem;
+  position: absolute ;
+  right: .2rem;
+  bottom: .1rem;
+}
+.PageDetails_attentionUp img {
+  width: 35%;
+}
+.PageDetails_attentionDown{
+  width: .82rem;
+  height: .4rem;
+  color: red;
+  font-size: .24rem;
+  border-radius: .1rem;
+  background: #fff;
+  text-align: center;
+  line-height:.4rem; 
+  position: absolute;
+  right: .2rem;
+  bottom: .1rem;
+}
 .commodityAll {
   height: 10rem;
 }
@@ -270,6 +318,7 @@ export default {
   background: rgba(0,0,0,0.5);
   height: 0.6rem;
   flex: 1;
+  margin-right: .1rem;
 }
 
 .mt-tab-container {
@@ -285,6 +334,9 @@ input[type="text"] {
   display: flex;
   justify-content: center;
   align-items: center;
+  background: rgba(0,0,0,0.5);
+  border-radius: 55%;
+  margin-right: .1rem;
 }
 
 .PageDetails_header span:nth-child(4) {
@@ -292,6 +344,8 @@ input[type="text"] {
   display: flex;
   justify-content: center;
   align-items: center;
+  background: rgba(0,0,0,0.5);
+  border-radius: 55%;
 }
 
 .PageDetails_header span:nth-child(3) img {
@@ -340,6 +394,7 @@ input[type="text"] {
 }
 
 .PageDetails_attention {
+  height: .4rem;
   position: relative;
 }
 
@@ -611,9 +666,11 @@ input[type="text"] {
 }
 
 .back {
-  background: rgba(0,0,0,0.5);
   font-size: 0.32rem;
-  padding: .2rem;
+  padding: .16rem .1rem;
+  border-radius: 47%;
+  color: #fff;
+  margin-right: .1rem;
 }
 
 .mint-loadmore-top {
