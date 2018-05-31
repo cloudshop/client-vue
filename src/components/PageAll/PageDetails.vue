@@ -267,6 +267,7 @@ export default {
 .PageDetails_header input {
   border-radius: 0.3rem;
   border: none;
+  background: rgba(0,0,0,0.5);
   height: 0.6rem;
   flex: 1;
 }
@@ -610,7 +611,9 @@ input[type="text"] {
 }
 
 .back {
+  background: rgba(0,0,0,0.5)
   font-size: 0.32rem;
+  padding: .2rem;
 }
 
 .mint-loadmore-top {
