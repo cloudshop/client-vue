@@ -6,7 +6,7 @@
                   <mt-button icon="back" @click="callBack"></mt-button>
               </a>
             </div> 
-             <h1 class="mint-header-title">重置手机密码</h1>
+             <h1 class="mint-header-title">重置登录密码</h1>
             <div class="mint-header-button is-right"></div>
      </header>
     <div class="register_main" v-show="flag">
