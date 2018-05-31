@@ -175,8 +175,8 @@ export default {
           url: "order/api/depproorders/1",
           data: paramss
         })
-          .then(function(response) {
-            that.web = response.data;
+          .then(function(res) {
+            that.web =res.request.response;
           })
 
           //     .then(function(res) {
