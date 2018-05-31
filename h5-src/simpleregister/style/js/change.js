@@ -56,7 +56,7 @@ $('.sure').click(function() {
 
     $.ajax({
         // url: 'https://bird.ioliu.cn/v2/?url=http://app.grjf365.com/api/uaa/api/register/app',
-        url: 'http://app.grjf365.com:9080/uaa/api/register/app',
+        url: 'uaa/api/register/app',
         type: 'post',
         //callback: 'cb',
         headers: {
