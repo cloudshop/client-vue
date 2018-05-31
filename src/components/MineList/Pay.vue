@@ -75,7 +75,7 @@
                 <h3>提示</h3>
                 <p>支付成功</p>
                 <!-- <router-link to="/RemainingSum">取消</router-link> -->
-                <span @click="sure">确定</span>
+                <span @click="q">确定</span>
               </div>
       </div>
   </div>
@@ -284,6 +284,8 @@ export default {
       var that = this;
       if (curVal.length == 6) {
         console.log(that.web);
+        $(".password").fadeOut(300);
+        $('#psd').val('')
         var aa = curVal;
         this.$axios({
           method: "post",
@@ -530,6 +532,15 @@ input[type="radio"]:checked + label::before {
   right: 0;
   color: #ccc;
 }
+.msg{
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.3);
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 10;
+}
 .succeed{
   width: 86%;
   height: 2.5rem;
@@ -544,4 +555,23 @@ input[type="radio"]:checked + label::before {
   float: left;
   display: inline-block;
 }
+h3{
+  font-size: 0.3rem;
+  line-height: 0.9rem;
+  padding: 0 0.4rem;
+}
+.msg p{
+  line-height: 0.8rem;
+  font-size: 0.25rem;
+  font-weight: 600;
+  padding-left: .3rem;
+}
+.msg span{
+  display: block;
+  text-align: right;
+  padding: 0 0.4rem;
+  color: red;
+  font-weight: 600;
+}
+
 </style>
