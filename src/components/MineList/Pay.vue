@@ -284,7 +284,7 @@ export default {
       var that = this;
       if (curVal.length == 6) {
         console.log(that.web);
-        $(".password").fadeOut(300);
+        $(".password").fadeOut(100);
         $('#psd').val('')
         var aa = curVal;
         this.$axios({
