@@ -145,7 +145,7 @@
           <span><img src="../../assets/Comment/联系客服.png" alt=""></span>
           <span class='names'>联系卖家</span>
         </p>
-        <p class="details_footer_dp" @click='store'>
+        <p class="details_footer_dp" @click='back'>
           <span><img src="../../assets/Comment/店铺.png" alt=""></span>
           <span class='names'>店铺</span>
         </p>
