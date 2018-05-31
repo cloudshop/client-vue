@@ -203,7 +203,7 @@ export default {
     loadTop() {
       setTimeout(() => {
         this.page = 1;
-        this.allLoaded= true;
+        this.allLoaded= false;
         this.getDatas();
         this.$refs.loadmore.onTopLoaded();
       }, 1500);
