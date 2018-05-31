@@ -611,7 +611,7 @@ input[type="text"] {
 }
 
 .back {
-  background: rgba(0,0,0,0.5)
+  background: rgba(0,0,0,0.5);
   font-size: 0.32rem;
   padding: .2rem;
 }
