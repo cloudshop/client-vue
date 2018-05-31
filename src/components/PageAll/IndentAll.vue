@@ -26,7 +26,7 @@
                     <span class="tabCom_mainImg" @click="userId"><img src="../../assets/PageAll/删除.png" alt=""></span></p>
                 </div>
                 <div class="tabCon_main_center" v-for='(data,ind) in item.proOrderItems' :key='ind'>
-                  <div class="tabCon_main_centerImg"><img src="" alt=""></div>
+                  <div class="tabCon_main_centerImg"><img :src="data.url" alt=""></div>
                   <div class="tabCon_main_center_div">{{data.skuName}}</div>
                 </div>
                 <div class="tabCon_main_money">
@@ -579,9 +579,13 @@ export default {
 .tabCon_main_centerImg {
   width: 1.2rem;
   height: 1.2rem;
-  background: #676767;
   border-radius: .05rem;
   margin: .2rem .3rem;
+}
+
+.tabCon_main_centerImg img{
+  width: 100%;
+  height: 100%;
 }
 
 .tabCon_main_center div:nth-child(1) img {
