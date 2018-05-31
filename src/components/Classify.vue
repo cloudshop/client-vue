@@ -2,12 +2,12 @@
 <div>
       
         <header class='header'>
-            <img src="../assets/Classify/扫码黑色.png" alt="">
+            <!--<img src="../assets/Classify/扫码黑色.png" alt="">-->
              <div class='ipt'>
                   <input type="text" placeholder="内容推荐" @click='GoogleSearch'>
                   <i class='sou'></i>
             </div> 
-            <img src="../assets/Classify/消息黑色.png" alt="">  
+            <!--<img src="../assets/Classify/消息黑色.png" alt="">  -->
         </header>
       <div class='content'>
         <!-- 列表 -->
