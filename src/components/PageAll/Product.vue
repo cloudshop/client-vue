@@ -141,11 +141,11 @@
     <div class="details_footer">
       <!--  联系卖家   店铺   收藏 -->
       <div class="details_footer_left">
-        <p class="details_footer_kf">
+        <p class="details_footer_kf"  @click='conectSeller'>
           <span><img src="../../assets/Comment/联系客服.png" alt=""></span>
           <span class='names'>联系卖家</span>
         </p>
-        <p class="details_footer_dp" @click='store'>
+        <p class="details_footer_dp" @click='back'>
           <span><img src="../../assets/Comment/店铺.png" alt=""></span>
           <span class='names'>店铺</span>
         </p>
@@ -218,6 +218,9 @@ import { Swipe, SwipeItem } from "mint-ui";
       } 
     }, 
      methods: {
+      conectSeller(){
+       window.location.href=("http://192.168.1.105/login")
+      },
       tab(index) {
         this.num = index
       },
@@ -373,16 +376,17 @@ import { Swipe, SwipeItem } from "mint-ui";
       },
       GetParams(id){
         var that = this;    
-        var iid = JSON.stringify(id);  
+        // var iid = JSON.stringify(id);  
         
-        var strArr=iid.split(':');
-        var subIdStr=strArr[1];  
+        // var strArr=iid.split(':');
+        // var subIdStr=strArr[1];  
         
-        var valueStr = subIdStr.replace(/[^0-9]/ig,"");
+        // var valueStr = subIdStr.replace(/[^0-9]/ig,"");
         
-        var Goods = valueStr;
-        console.log(typeof Goods);
-        console.log(Goods);
+        // var Goods = valueStr;
+        var Goods = 41;
+        // console.log(typeof Goods);
+        // console.log(Goods);
         
         this.$axios.get('product/api/product/content?id=' + Goods)
         .then(function(response) {
@@ -423,7 +427,8 @@ import { Swipe, SwipeItem } from "mint-ui";
        
     // },
    mounted(){
-        window.GetParams = this.GetParams;
+      this.GetParams()
+        // window.GetParams = this.GetParams;
     }
 
     
