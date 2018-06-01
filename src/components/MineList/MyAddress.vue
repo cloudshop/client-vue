@@ -167,11 +167,7 @@ export default {
       });
     },
     PreviousMenu() {
-      if (this.$route.params.address == "/ConfirmAnOrder") {
-        this.$router.push({ name: "ConfirmAnOrder" });
-      } else {
         this.$router.push({ name: "Information" });
-      }
     }
   },
   components: {
