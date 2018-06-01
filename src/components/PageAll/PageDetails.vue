@@ -5,8 +5,8 @@
       <div class="PageDetails_header">
         <span @click='back' class="back">〈</span>
         <input type="text" placeholder="内容推荐" @click="searchPage">
-        <span><img src="../../assets/PageDetails/主页.png" alt=""></span>
-        <span><img src="../../assets/PageDetails/消息.png" alt=""></span>
+        <!--<span><img src="../../assets/PageDetails/主页.png" alt=""></span>-->
+        <!--<span><img src="../../assets/PageDetails/消息.png" alt=""></span>-->
       </div>
       <div class="PageDetails_main">
         <!-- <p class="PageDetails_main_img"><img src="" alt=""></p> -->
@@ -235,6 +235,10 @@ export default {
 
 </script>
 <style scoped>
+.PageDetails_attention {
+  height: .4rem;
+  position: relative;
+}
 
 .PageDetails_attentionUp{
   width: .82rem;
@@ -246,10 +250,21 @@ export default {
   border-radius: .1rem;
   position: absolute ;
   right: .2rem;
-  bottom: .1rem;
+}
+.PageDetails_attentionUp span{
+  display: inline-block;
+  display: flex;
+  margin-right: .05rem;
+  justify-content: flex-end;
 }
 .PageDetails_attentionUp img {
-  width: 35%;
+  position: absolute;
+  width: 30%;
+  height: 50%;
+  display: flex;
+  top: .1rem;
+  left: .05rem;
+  justify-content: flex-start;
 }
 .PageDetails_attentionDown{
   width: .82rem;
@@ -391,25 +406,6 @@ input[type="text"] {
   margin-right: 0.05rem;
   color: #fff;
   margin-top: 0.2rem;
-}
-
-.PageDetails_attention {
-  height: .4rem;
-  position: relative;
-}
-
-.PageDetails_attention img {
-  width: 14%;
-  right: 0;
-  bottom: 0.3rem;
-  position: absolute;
-}
-
-.PageDetails_attention span {
-  color: #fff;
-  right: 0.1rem;
-  bottom: 0.38rem;
-  position: absolute;
 }
 
 .mint-navbar .mint-tab-item.is-selected .mint-tab-item-label {
