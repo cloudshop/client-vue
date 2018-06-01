@@ -2,7 +2,7 @@
   <div>
       <header class="header">
           <ul> 
-              <router-link :to="{ path: '/MyAddress' }" tag='li'>&lt;</router-link>
+              <li @click="backadd">&lt;</li>
               <li>编辑收货地址</li>
               <li><span @click="del">删除</span></li>
           </ul>
@@ -61,6 +61,9 @@ export default {
     this.id = this.dataObj.id;
   },
   methods: {
+    backadd(){
+      this.$router.go(-1)
+    },
     backMine() {
       this.$router.push({name:"MyAddress",params:{obj:this.obj}});
     },
