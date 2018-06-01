@@ -1038,18 +1038,15 @@ a,
 }
 .details_footer_sc {
   width: 100%;
-}
-.details_footer_sc span:nth-child(1) img {
-  width: 100%;
-  height: 100%;
+  text-align: center;
 }
 .details_footer_sc em {
   font-size: 0.4rem;
 }
+
 .details_footer_sc span:nth-child(2) {
   font-size: 0.2rem;
   color: #696969;
-  margin-top: 0.01rem;
 }
 .names {
   white-space: nowrap;
