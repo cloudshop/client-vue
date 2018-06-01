@@ -47,7 +47,7 @@
                     <div class="contents_right_moneyAll">
                       <div class="contents_right_money">￥ {{data.unitPrice}}</div>
                       <div class="contents_right_delete"> 
-                        <a href="javascript:;" @click="removeAll">删除</a>
+                        <a href="javascript:;" @click="removeAll(data.skuid)">删除</a>
                         <!-- <span class="contents_right_shu">|</span>
                         <a href="javascript:;" @click="collect(item.id,index)">加入收藏</a> -->
                       </div>
@@ -58,7 +58,7 @@
                <div class='marks' v-show='dele'>
               <div class="mark_s">
                 <p>确定删除此商品?</p>
-                <div class="btn_all"><button class="no" @click='no'>取消</button><button class="sure" @click='sure(index,item.id,data.skuid)'>删除</button></div>
+                <div class="btn_all"><button class="no" @click='no'>取消</button><button class="sure" @click='sure(index,item.id)'>删除</button></div>
               </div>
             </div>
             </div>
@@ -118,6 +118,7 @@ export default {
       empty:true, 
       emptys:false,
       dele:false,
+      skuid:''
     };
   },
   watch:{
@@ -199,8 +200,9 @@ export default {
     // 删除
     no(){
         this.dele=false;
+        this.skuid = ''
     },
-    sure(index,id,skuids){
+    sure(index,id){
        // if(this.serviceList[id].sku[index].checkboxChild == true){
       //   var Money = this.serviceList[id].sku[index].unitPrice*this.serviceList[id].sku[index].count;
       //   this.totalPrice -= Money;
@@ -209,12 +211,13 @@ export default {
       //   }, 0); 
       // }
       var delSkuid = [];
-      delSkuid.push(this.serviceList[id].sku[index].skuid);
+      delSkuid.push(this.skuid);
+      console.log(delSkuid)
       this.$axios.post('shoppingcart/api/shoppingcar/del',delSkuid)
       .then((res)=>{
         if(res.data == 'success'){
           this.dele=false;
-          this.serviceList[id].sku.splice(index,1);
+          location.reload()
         }
       })
       .catch((error)=>{
@@ -226,8 +229,9 @@ export default {
       }
     },
     // 删除操作
-    removeAll(){
+    removeAll(skuid){
       this.dele = true;
+      this.skuid = skuid;
     },
     // ++
     add(index,id){
