@@ -72,9 +72,10 @@ export default {
                 }
             }else{
                 alert('两次密码输入不符')
-                // document.getElementById("setPassword").value="";
-                // document.getElementById("affirmPassword").value="";
-                location.reload()
+                document.getElementById("setPassword").value="";
+                document.getElementById("affirmPassword").value="";
+                this.setPassword='';
+                this.affirmPassword='';
             }
         },
         Register(){
