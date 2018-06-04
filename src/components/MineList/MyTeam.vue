@@ -209,7 +209,7 @@ export default {
       var Ename = b.parent().prev().find('.Ename').text()
       sessionStorage.setItem("myteam", c)
       sessionStorage.setItem("ename",Ename)
-      this.$router.push({path:'/MyTeam2 '})
+      this.$router.push({path:'/MyTeam2'})
       //Ename
     }
   }
