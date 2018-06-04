@@ -126,9 +126,15 @@
       <!--更多 end-->
       <!--附近商家 start-->
       <p class="titleBox">附近商家</p>
-      
+      <!-- <div id="pullrefresh"> -->
+            <!-- <div class="mui-scroll"> -->
+                <!--数据列表-->
+                 <ul class="data-list" id="listdata"></ul>
+                <!-- <ul class="mui-table-view mui-table-view-chevron"></ul> -->
+            <!-- </div> -->
+        <!-- </div> -->
         <!--数据列表-->
-        <ul class="data-list" id="listdata"></ul>
+       
       
       <!--附近商家 end-->
     </div>
@@ -145,6 +151,7 @@
       container: '#minirefresh',
       down: {
         style: 'circle',
+      
         callback: pulldownRefresh
       },
       up: {
@@ -173,6 +180,7 @@
         dataType: "json",
         contentType: "application/json",
         success: function(data) {
+            function a(){ console.log(123) }
             dataSize = data.length;
           var template = ''
           if (data.length >= 1) {
@@ -180,11 +188,9 @@
             var personCount = Math.trunc(Math.random()*1000);
             var startPercent = Math.trunc(Math.random()*100);
               template += `<li class="shopList flex spaceBetween" data="${item.id}" ><img class="listLf" src="${item['img_license']}" /><div class="flex1 flexNowrap listRig"><div class="flex spaceBetween listRig_name"><p class="listRig_name_title">${item.name}</p></div><div class="listRig_mid"><p class="star fl"><span class="star-in fl" style="width:${startPercent}%;"></span></p><span class="color67 font20">| &nbsp;&nbsp;${personCount}人光临</span></div><div class="flex spaceBetween color67 font20"><p class="flex1 overflow">${item.city}</p><p>${item.provice}km</p></div></div></li>`;
-            // console.log(template)
             })
 
             $("#listdata").append(template)
-            // return dataSize
           } else {
 
           }
@@ -250,6 +256,7 @@
   var arr;
   window.brr = '123123123';
   $(document).ready(function() {
+   
     $.ajax({
       type: "GET",
       url: "http://app.grjf365.com/api/advertising/api/findNotDelByLoc",
@@ -291,9 +298,11 @@
         }
       }
     });
+
+
   });
   var list = document.getElementsByClassName('lis')
-  $(".bd").on("click", "li", function() {
+  mui(".bd").on("tap", "li", function() {
     console.log($(this).attr("data"))
     var b = $(this).attr("data")
     var reg = /(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?/;
@@ -332,7 +341,7 @@
     }
 
   });
-  $('.data-list').on("click", "li", function() {
+  mui('.data-list').on("tap", "li", function() {
     var id = $(this).attr("data")
     console.log($('.data-list'))
     console.log(id)
@@ -352,7 +361,8 @@
     }
 
   })
-  $(".look").click(function() {
+  mui(".look").on("tap",function() {
+
     var val = {
       func: 'scan',
       param: {}
@@ -366,7 +376,7 @@
       window.androidObject.JSCallAndroid(JSON.stringify(val));
     }
   })
-  $(".news").click(function() {
+  mui(".news").on("tap",function() {
     var val = {
       func: "openURL",
       param: {
@@ -382,7 +392,7 @@
       window.androidObject.JSCallAndroid(JSON.stringify(val));
     }
   })
-  $('.searchBox').click(function() {
+  mui('.searchBox').on("tap",function() {
     var val = {
       func: "openURL",
       param: {
@@ -398,7 +408,7 @@
       window.androidObject.JSCallAndroid(JSON.stringify(val));
     }
   })
-  $('.loaction').click(function() {
+  mui('.loaction').on("tap",function() {
     var val = {
       func: "openURL",
       param: {
