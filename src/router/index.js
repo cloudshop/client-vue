@@ -16,7 +16,8 @@ const searchShop = r => require.ensure( [], () => r (require('@/components/PageA
 const NickName = r => require.ensure( [], () => r (require('@/components/MineList/NickName.vue')));
 const MyAddress = r => require.ensure( [], () => r (require('@/components/MineList/MyAddress.vue')));
 const AddAddress = r => require.ensure( [], () => r (require('@/components/MineList/AddAddress.vue')));
-const MyTeam = r => require.ensure( [], () => r (require('@/components/MineList/MyTeam.vue')));
+const MyTeam = r => require.ensure( [], () => r (require('@/components/MineList/MyTeam.vue')));  //我的团队
+const MyTeam2 = r => require.ensure([], () => r(require('@/components/MineList/MyTeam2.vue'))); //我的团队二级页面
 const ID = r => require.ensure( [], () => r (require('@/components/MineList/ID.vue')));
 const Integral = r => require.ensure( [], () => r (require('@/components/MineList/Integral.vue')));
 const SellerCenter = r => require.ensure( [], () => r (require('@/components/MineList/SellerCenter')));
@@ -284,10 +285,15 @@ const routes = [{
                 name: 'AddAddress',
                 component: AddAddress
             },
-            { //编辑我的地址
+            { //我的团队
                 path: '/MyTeam',
                 name: 'MyTeam',
                 component: MyTeam
+            },
+            { //我的团队二级页面
+                path: '/MyTeam2',
+                name: 'MyTeam2',
+                component: MyTeam2
             },
             { //账号与安全页面
                 path: '/ID',

@@ -4,7 +4,7 @@
     <div class='PageDetails_head' :style="{background: 'url('+brr.imgIntroduces+')',backgroundSize:'100% 100%'}">
       <div class="PageDetails_header">
         <span @click='back' class="back">〈</span>
-        <input type="text" placeholder="内容推荐" @click="searchPage">
+        <input type="text" placeholder="内容推荐." @click="searchPage">
         <!--<span><img src="../../assets/PageDetails/主页.png" alt=""></span>-->
         <!--<span><img src="../../assets/PageDetails/消息.png" alt=""></span>-->
       </div>
