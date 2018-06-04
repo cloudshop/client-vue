@@ -279,6 +279,12 @@ export default {
   right: .2rem;
   bottom: .1rem;
 }
+
+.PageDetails_attention {
+  height: .4rem;
+  position: relative;
+  top: .2rem;
+}
 .commodityAll {
   height: 10rem;
 }
