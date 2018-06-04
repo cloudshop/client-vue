@@ -159,7 +159,7 @@
   var dataSize = 0;
   function pullupRefresh() {
     setTimeout(function() {
-      
+       mui('#minirefresh').pullRefresh().endPullupToRefresh((count>dataSize)); //参数为true代表没有更多数据了。
       $.ajax({
         type: 'POST',
         url: "http://app.grjf365.com:9080/user/api/mercuries/info-list/MercuryInfo",
@@ -174,7 +174,6 @@
         contentType: "application/json",
         success: function(data) {
             dataSize = data.length;
-            console.log(data)
           var template = ''
           if (data.length >= 1) {
             $.each(data, function(i, item) {
@@ -189,7 +188,7 @@
           } else {
 
           }
-           mui('#minirefresh').pullRefresh().endPullupToRefresh((count<dataSize)); //参数为true代表没有更多数据了。
+          
         },
         error: function() {
           console.log('暂无数据')
@@ -227,8 +226,7 @@
         } else {
 
         }
-         console.log(dataSize,'12312')
-           mui('#minirefresh').pullRefresh().endPullupToRefresh((count<dataSize)); //参数为true代表没有更多数据了。
+          
       },
       error: function() {
         console.log('暂无数据')
@@ -337,6 +335,7 @@
   $('.data-list').on("click", "li", function() {
     var id = $(this).attr("data")
     console.log($('.data-list'))
+    console.log(id)
     var val = {
       func: "openURL",
       param: {
