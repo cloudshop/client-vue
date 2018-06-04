@@ -78,6 +78,8 @@ export default {
             alert('两次密码输入不符')
             document.getElementById("setPassword").value="";
             document.getElementById("affirmPassword").value="";
+            this.setPassword='';
+            this.affirmPassword='';
           }else {
             var data = {'login':this.phone,'password':this.setPassword,'verifyCode':this.authCode}
             this.$axios.post('uaa/api/account/update-password',data)

@@ -33,8 +33,8 @@
                   <p>共{{item.proOrderItems.length}}件商品</p>
                   <p>实付款：<span>￥{{item.payment}}</span></p>
                 </div>
-                <div class="tabCon_main_agin" v-show='item.status==4?true:false'>
-                  <p @click="evaluate">晒单评价</p>
+                <div class="tabCon_main_agin" v-show='item.status==4?true:false'  v-for="(ivew,ind) in item.proOrderItems" :key='ind'>
+                  <p @click="evaluate(ivew.productSkuId)">晒单评价</p>
                   <p @click='agin'>再次购买</p>
                 </div>
                 <div class="tabCon_main_agin" v-show='item.status==1?true:false'>
@@ -369,8 +369,8 @@ export default {
         }
       }
     },
-    evaluate() { // 评价  
-      this.$router.push({ name: "sunorder" })
+    evaluate(skuids) { // 评价  
+      this.$router.push({ name: "sunorder", params: {skuId:skuids}})
     }
   },
   mounted() {
