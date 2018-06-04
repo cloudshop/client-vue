@@ -59,34 +59,15 @@
     </mt-tab-container-item>
     <!-- 内容二 -->
     <mt-tab-container-item id="2">
-        <ul class="detailsPage_ul">
-          <li class="detailsPage_ul_li" v-for="(item,index) in tabs" :key='index'  @click="tab(index)">{{item}}</li>
-        </ul>
-        <div class="detailsPage_img">
-         ———————<img class="detailsPage_imgs" src="../../assets/details/图片.png" alt=""> 图文详情  ———————
-        </div>
-        <div class="tabCon">
-            <div v-for='(itemCon,index) in tabContents' :key='index' v-show=" index == num">
-                <!-- 商品图片 -->
-                <h2>商品图片</h2>
-                <ul class="product_img">
-                  <li v-for="(item,index) in urlArr" :key='index'>
-                    <img :src="item" alt="">
-                  </li>
-                </ul>
-                <!-- 规格 -->
-                <h2>商品规格</h2>
-                <ul class="specification">
-                  <li v-for="(item,index) in specification" :key='index'>
-                    <h3>{{item.attname}}</h3>
-                    <p><span v-for="(i,index) in item.attvalue" :key='index'>{{i.value}}</span></p>
-                  </li>
-                </ul>
-                <!-- 售后 -->
-                <h2>售后服务</h2>
-              <p class="shouhou">商家售后服务</p>
-            </div>
-        </div>
+      <!-- <ul class="detailsPage_ul">
+        <li class="detailsPage_ul_li" v-for="(item,index) in tabs" :key='index'  @click="tab(index)">{{item}}</li>
+      </ul> -->
+      <div class="detailsPage_img">
+        ———————<img class="detailsPage_imgs" src="../../assets/details/图片.png" alt=""> 图文详情  ———————
+      </div>
+      <div class="tabCons">
+        <p v-html= "details"></p>
+      </div> 
     </mt-tab-container-item>
     <!-- 内容三 -->
     <mt-tab-container-item id="3">
@@ -204,7 +185,7 @@ import { Swipe, SwipeItem } from "mint-ui";
       return {  
         selected: '1',
         tabs: ["商品介绍"],
-        tabContents: ["内容一", "内容二","产品售后"],
+        // tabContents: ["内容一", "内容二","产品售后"],
         num: 0,
         flag:false,
         address:false,
@@ -214,7 +195,8 @@ import { Swipe, SwipeItem } from "mint-ui";
         urlArr:[],  //商品图片
         specification:[],  //商品规格
         shopIds:'', //店铺Id
-        city:''
+        city:'',    //店铺地址
+        details:'',  //商品详情描述
       } 
     }, 
      methods: {
@@ -390,6 +372,7 @@ import { Swipe, SwipeItem } from "mint-ui";
             that.data = response.data;
             that.urlArr = response.data.productContent.url;
             that.shopIds = response.data.productContent.shopid;
+            that.details = response.data.productContent.details;
             that.specification = response.data.attrbute;
             that.getShop(that.shopIds);
         })
@@ -862,9 +845,21 @@ a,
   width: 4%;
   margin: 0 0.14rem;
 }
-.tabCon {
+/* 店铺详情描述 */
+.tabCons{
+  width: 100%;
   background: #fff;
   height: auto;
+  padding: 0.5rem 0 1rem 0;
+}
+.tabCons p{
+  padding: 0 6%;
+  font-size: 0.27rem;
+  line-height: 0.5rem;
+  color: #555;
+}
+.tabCons img{
+  width: 100%!important;
 }
 /* 评论 */
 
