@@ -74,8 +74,8 @@ export default {
                 alert('两次密码输入不符')
                 document.getElementById("setPassword").value="";
                 document.getElementById("affirmPassword").value="";
-                this.setPassword='';
-                this.affirmPassword='';
+                 this.setPassword='';
+                 this.affirmPassword='';
             }
         },
         Register(){
