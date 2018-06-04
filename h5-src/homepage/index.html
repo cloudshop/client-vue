@@ -15,7 +15,8 @@
   <script type="text/javascript" src="js/TouchSlide.1.1.js"></script>
   <script type="text/javascript" src="js/IOSAndroid.js"></script>
   <script type="text/javascript">
-    document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+  document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+
   </script>
 </head>
 
@@ -161,9 +162,6 @@
   function pullupRefresh() {
     setTimeout(function() {
       mui('#minirefresh').pullRefresh().endPullupToRefresh((++count > 2)); //参数为true代表没有更多数据了。
-      var table = document.body.querySelector('#listdata');
-      var cells = document.body.querySelectorAll('.shopList');
-
       $.ajax({
         type: 'POST',
         url: "http://app.grjf365.com:9080/user/api/mercuries/info-list/MercuryInfo",
@@ -179,12 +177,9 @@
           if (data.length >= 1) {
             $.each(data, function(i, item) {
               template += '<li class="shopList flex spaceBetween" data="' + item.id + '" ><img class="listLf" src=' + item['img_license'] + ' /><div class="flex1 flexNowrap listRig"><div class="flex spaceBetween listRig_name"><p class="listRig_name_title">' + item['name'] + '</p></div><div class="listRig_mid"><p class="star fl"><span class="star-in fl" style="width:75%;"></span></p><span class="color67 font20">| &nbsp;&nbsp;123人光临</span></div><div class="flex spaceBetween color67 font20"><p class="flex1 overflow">' + item['city'] + '</p><p>8.8km</p></div></div></li>';
-              console.log(template)
-              // counterArr[counterIndex]++;
             })
 
-
-            table.appendChild(template);
+            $("#listdata").append(template)
 
           } else {
 
@@ -195,19 +190,10 @@
           console.log('暂无数据')
         }
       });
-      // var newCount = cells.length>0?5:10;//首次加载20条，满屏
-      // for (var i = cells.length, len = i + newCount; i < len; i++) {
-      //     var li = document.createElement('li');
-      //     li.className = 'shopList flex spaceBetween';
-      //     li.innerHTML = '<a class="mui-navigate-right">Item ' + (i + 1) + '</a>';
-      //     table.appendChild(li);
-      // }
     }, 1500);
   }
 
   function addData() {
-    var table = document.body.querySelector('#listdata');
-    var cells = document.body.querySelectorAll('.shopList');
     $.ajax({
       type: 'POST',
       url: "http://app.grjf365.com:9080/user/api/mercuries/info-list/MercuryInfo",
@@ -219,14 +205,15 @@
       dataType: "json",
       contentType: "application/json",
       success: function(data) {
+        // console.log(data)
         var template = ''
         if (data.length >= 1) {
           $.each(data, function(i, item) {
             template += '<li class="shopList flex spaceBetween" data="' + item.id + '" ><img class="listLf" src=' + item['img_license'] + ' /><div class="flex1 flexNowrap listRig"><div class="flex spaceBetween listRig_name"><p class="listRig_name_title">' + item['name'] + '</p></div><div class="listRig_mid"><p class="star fl"><span class="star-in fl" style="width:75%;"></span></p><span class="color67 font20">| &nbsp;&nbsp;123人光临</span></div><div class="flex spaceBetween color67 font20"><p class="flex1 overflow">' + item['city'] + '</p><p>8.8km</p></div></div></li>';
-            console.log(template)
-            // counterArr[counterIndex]++;
+
           })
-          table.appendChild(template);
+          $("#listdata").append(template)
+
         } else {
 
         }
@@ -235,13 +222,6 @@
         console.log('暂无数据')
       }
     });
-    // for(var i = cells.length, len = i + 5; i < len; i++) {
-    //     var li = document.createElement('li');
-    //     li.className = 'shopList flex spaceBetween';
-    //     li.innerHTML = '<a class="mui-navigate-right">Item ' + (i + 1) + '</a>';
-    //     //下拉刷新，新纪录插到最前面；
-    //     table.insertBefore(li, table.firstChild);
-    // }
   }
   /**
    * 下拉刷新具体业务实现
@@ -253,35 +233,6 @@
       mui.toast("为您找到5个商家");
     }, 1500);
   }
-  /* 
-        var appendTestData = Common.appendTestData,
-            // 记录一个最新
-            maxDataSize = 30,
-            listDom = document.querySelector('#listdata'),
-            requestDelayTime = 600;
-
-        var miniRefresh = new MiniRefresh({
-            container: '#minirefresh',
-            down: {
-                callback: function () {
-                    setTimeout(function () {
-                        // 每次下拉刷新后，上拉的状态会被自动重置
-                        appendTestData(listDom, 10, true);
-                        miniRefresh.endDownLoading(true);
-                    }, requestDelayTime);
-                }
-            },
-            up: {
-                isAuto: true,
-                callback: function () {
-                    setTimeout(function () {
-                        appendTestData(listDom, 10);
-                        miniRefresh.endUpLoading(listDom.children.length >= maxDataSize ? true : false);
-                    }, requestDelayTime);
-                }
-            }
-        });
-        */
 
   </script>
   <script type="text/javascript">
