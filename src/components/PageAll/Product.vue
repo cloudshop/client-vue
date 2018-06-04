@@ -376,7 +376,11 @@ import { Swipe, SwipeItem } from "mint-ui";
             that.data = response.data;
             that.urlArr = response.data.productContent.url;
             that.shopIds = response.data.productContent.shopid;
-            that.details = response.data.productContent.details;
+            let reg = /img+/gi;
+            let str =  response.data.productContent.details.replace(reg,'img style="width:100%"');
+            that.details = str;
+            console.log(str)
+            // that.details = that.details.replace(reg,'style="width:100%"')
             that.specification = response.data.attrbute;
             that.getShop(that.shopIds);
         })
