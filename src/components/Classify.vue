@@ -43,12 +43,12 @@ export default {
       return {
         num:0,
         arr:'',
-        id:'35',   //列表ID
+        id:'100',   //列表ID
      }
     },
     created(){
       var that = this;
-      this.$axios.get('product/api/categoryTree/subnode/35')
+      this.$axios.get('product/api/categoryTree/subnode/100')
              .then(function(response) {
                that.arr = response.data;
            })
