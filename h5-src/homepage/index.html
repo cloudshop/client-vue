@@ -126,12 +126,10 @@
       <!--更多 end-->
       <!--附近商家 start-->
       <p class="titleBox">附近商家</p>
-      <div class="mui-scroll">
+      
         <!--数据列表-->
         <ul class="data-list" id="listdata"></ul>
-        <!-- <ul class="mui-table-view mui-table-view-chevron"></ul> -->
-      </div>
-      <!-- <ul class="data-list" id="listdata"></ul> -->
+      
       <!--附近商家 end-->
     </div>
     <div class="placeHolder"></div>
@@ -157,40 +155,50 @@
     }
   });
 
-  var count = 0;
-
+  var count = 10;
+  var dataSize = 0;
   function pullupRefresh() {
     setTimeout(function() {
-      mui('#minirefresh').pullRefresh().endPullupToRefresh((++count > 2)); //参数为true代表没有更多数据了。
+      
       $.ajax({
         type: 'POST',
         url: "http://app.grjf365.com:9080/user/api/mercuries/info-list/MercuryInfo",
         async: true,
         data: JSON.stringify({
+            // "langitude": $('#langitude').val(),
+            //  "lantitude": $('#lantitude').val()
           "langitude": "116.66847",
           "lantitude": "39.88372"
         }),
         dataType: "json",
         contentType: "application/json",
         success: function(data) {
+            dataSize = data.length;
+            console.log(data)
           var template = ''
           if (data.length >= 1) {
             $.each(data, function(i, item) {
-              template += '<li class="shopList flex spaceBetween" data="' + item.id + '" ><img class="listLf" src=' + item['img_license'] + ' /><div class="flex1 flexNowrap listRig"><div class="flex spaceBetween listRig_name"><p class="listRig_name_title">' + item['name'] + '</p></div><div class="listRig_mid"><p class="star fl"><span class="star-in fl" style="width:75%;"></span></p><span class="color67 font20">| &nbsp;&nbsp;123人光临</span></div><div class="flex spaceBetween color67 font20"><p class="flex1 overflow">' + item['city'] + '</p><p>8.8km</p></div></div></li>';
+            var personCount = Math.trunc(Math.random()*1000);
+            var startPercent = Math.trunc(Math.random()*100);
+              template += `<li class="shopList flex spaceBetween" data="${item.id}" ><img class="listLf" src="${item['img_license']}" /><div class="flex1 flexNowrap listRig"><div class="flex spaceBetween listRig_name"><p class="listRig_name_title">${item.name}</p></div><div class="listRig_mid"><p class="star fl"><span class="star-in fl" style="width:${startPercent}%;"></span></p><span class="color67 font20">| &nbsp;&nbsp;${personCount}人光临</span></div><div class="flex spaceBetween color67 font20"><p class="flex1 overflow">${item.city}</p><p>${item.provice}km</p></div></div></li>`;
+            // console.log(template)
             })
 
             $("#listdata").append(template)
-
+            // return dataSize
           } else {
 
           }
-
+           mui('#minirefresh').pullRefresh().endPullupToRefresh((count<dataSize)); //参数为true代表没有更多数据了。
         },
         error: function() {
           console.log('暂无数据')
         }
       });
     }, 1500);
+
+   
+   
   }
 
   function addData() {
@@ -205,22 +213,27 @@
       dataType: "json",
       contentType: "application/json",
       success: function(data) {
-        // console.log(data)
+        dataSize = data.length;
         var template = ''
         if (data.length >= 1) {
           $.each(data, function(i, item) {
-            template += '<li class="shopList flex spaceBetween" data="' + item.id + '" ><img class="listLf" src=' + item['img_license'] + ' /><div class="flex1 flexNowrap listRig"><div class="flex spaceBetween listRig_name"><p class="listRig_name_title">' + item['name'] + '</p></div><div class="listRig_mid"><p class="star fl"><span class="star-in fl" style="width:75%;"></span></p><span class="color67 font20">| &nbsp;&nbsp;123人光临</span></div><div class="flex spaceBetween color67 font20"><p class="flex1 overflow">' + item['city'] + '</p><p>8.8km</p></div></div></li>';
-
-          })
-          $("#listdata").append(template)
+            var personCount = Math.trunc(Math.random()*1000);
+            var startPercent = Math.trunc(Math.random()*100);
+              template += `<li class="shopList flex spaceBetween" data="${item.id}" ><img class="listLf" src="${item['img_license']}" /><div class="flex1 flexNowrap listRig"><div class="flex spaceBetween listRig_name"><p class="listRig_name_title">${item.name}</p></div><div class="listRig_mid"><p class="star fl"><span class="star-in fl" style="width:${startPercent}%;"></span></p><span class="color67 font20">| &nbsp;&nbsp;${personCount}人光临</span></div><div class="flex spaceBetween color67 font20"><p class="flex1 overflow">${item.city}</p><p>${item.provice}km</p></div></div></li>`;
+          
+            })
+          $("#listdata").push(template)
 
         } else {
 
         }
+         console.log(dataSize,'12312')
+           mui('#minirefresh').pullRefresh().endPullupToRefresh((count<dataSize)); //参数为true代表没有更多数据了。
       },
       error: function() {
         console.log('暂无数据')
       }
+
     });
   }
   /**
@@ -230,7 +243,7 @@
     setTimeout(function() {
       addData();
       mui('#minirefresh').pullRefresh().endPulldownToRefresh();
-      mui.toast("为您找到5个商家");
+      mui.toast("为您找到更多商家");
     }, 1500);
   }
 
@@ -323,6 +336,7 @@
   });
   $('.data-list').on("click", "li", function() {
     var id = $(this).attr("data")
+    console.log($('.data-list'))
     var val = {
       func: "openURL",
       param: {
