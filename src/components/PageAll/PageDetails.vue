@@ -229,6 +229,7 @@ export default {
     }
   },
   mounted() {
+    this.GetParams()
     window.GetParams = this.GetParams;
   }
 };
