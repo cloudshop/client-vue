@@ -34,7 +34,7 @@
       <div class='More'>
         <div class='Single'>
           <dl>
-            <dt><img :src=p roductUrl alt=""></dt>
+            <dt><img :src=productUrl  alt=""></dt>
             <dd>
               <p>{{productName}}</p>
               <div class='price'><b>￥{{price}}</b><em>X{{count}}</em></div>
@@ -331,7 +331,7 @@ header {
 .More ul li h2 input {
   border: 1px solid #e7e7e7;
   width: .59rem;
-  height: .34rem;
+  height: .35rem;
   display: inline-block;
   text-align: center;
 }
