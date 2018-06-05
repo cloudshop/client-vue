@@ -10,15 +10,19 @@
       </div>
     </div>
     <ul class="indentAll_tab_ul">
-      <li v-for="(item,index) in tabs" :key="index" @click="tab(index)">{{item}}</li>
+      <li v-for="(item,index) in tabs" :key="index" @click="toggleTab(index)">{{item}}</li>
     </ul>
     <div class="indentAll_tab content">
       <div class="tabCon">
+         <div class="tabCon_main" v-show="noindentData">
+                <p class="noOrder">亲，你还没有相关的订单,赶快去下单吧！</p>
+              </div>
         <div class="page-loadmore-wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
           <mt-loadmore :auto-fill="false" :top-method="loadTop" @top-status-change="handleTopChange" :bottom-method="loadBottom" @bottom-status-change="handleBottomChange" :bottom-all-loaded="allLoaded" ref="loadmore">
             <div v-for='(item,index) in arr' :key="index">
               <!-- 已完成 -->
-              <div class="tabCon_main">
+             
+              <div class="tabCon_main" v-show="!noindentData">
                 <div class="tabCon_main_top">
                   <p><span class="tabCom_mainImg"><img src="../../assets/PageAll/店铺.png" alt=""></span><span class="font">{{item.shopName}}</span></p>
                   <p><span class="font2">{{tabNew[item.status-1]}}
@@ -113,13 +117,15 @@ export default {
       psd: "",
       abc: '',
       flage: true,
-      orderStringNo: ''
+      orderStringNo: '',
+      noindentData:false
     }
   },
   created() {
     this.getDataList();
   },
   watch: {
+
     psd(curVal) {
       if (curVal.length == 6) {
         var abc = $('#psd').val()
@@ -154,9 +160,11 @@ export default {
       const url = 'order/api/manage/findOrderByStatus';
       this.$axios.post(url, { "page": this.page, "size": this.pageSize, "status": this.status })
         .then((res) => {
-          console.log(res.data.proOrder)
-          this.total = res.data.proOrderAmount
+
+         
           this.arr = res.data.proOrder;
+          this.noindentData = this.arr.length === 0 ? true : false ;
+
           this.pageNum = res.data.proOrder.length;
           if (res.data.proOrder.length === this.pageSize) {
             this.page += 1
@@ -209,7 +217,7 @@ export default {
         this.$refs.loadmore.onTopLoaded();
       }, 1500);
     },
-    tab(index) {
+    toggleTab(index) {
       this.status = index;
       this.page = 0;
       this.arr = [];
@@ -502,6 +510,7 @@ export default {
   height: .74rem;
   margin-top: .12rem;
   background: #FFF;
+  border-bottom: 2px solid #ffffff;
 }
 
 .indentAll_tab_ul li {
@@ -721,5 +730,9 @@ export default {
   font-size: .30rem;
   border-radius: 0 0 0 .1rem;
 }
-
+.noOrder{
+  text-align: center;
+  font-size: 0.28rem;
+  margin-top: 2rem;
+}
 </style>
