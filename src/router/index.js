@@ -1,12 +1,12 @@
 ﻿import Vue from 'vue'
 import Router from 'vue-router'
 
-const Index = r => require.ensure( [], () => r (require('@/components/index')));
-const HomePage = r => require.ensure( [], () => r (require('@/components/HomePage')));
+const HomePage = () => import(/* webpackChunkName: "HomePage" */ '@/components/HomePage')
+const Classify = () => import(/* webpackChunkName: "Classify" */ '@/components/Classify') //分类
+const Shopping = () => import(/* webpackChunkName: "Shopping" */ '@/components/Shopping') 
+const Mine = () => import(/* webpackChunkName: "Mine" */ '@/components/Mine')
+
 const city = r => require.ensure( [], () => r (require('@/components/main/city')));
-const Classify = () => import('@/components/Classify') //分类
-const Shopping = r => require.ensure( [], () => r (require('@/components/Shopping')));
-const Mine = r => require.ensure( [], () => r (require('@/components/Mine')));
 const search = r => require.ensure( [], () => r (require('@/components/search')));
 const RemainingSum = r => require.ensure( [], () => r (require('@/components/MineList/RemainingSum.vue')));
 const Stamps = r => require.ensure( [], () => r (require('@/components/MineList/Stamps.vue')));
