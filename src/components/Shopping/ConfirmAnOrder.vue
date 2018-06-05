@@ -331,7 +331,7 @@ header {
 .More ul li h2 input {
   border: 1px solid #e7e7e7;
   width: .59rem;
-  height: .34rem;
+  height: .35rem;
   display: inline-block;
   text-align: center;
 }
