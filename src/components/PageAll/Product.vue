@@ -131,7 +131,7 @@
           <span class='names'>店铺</span>
         </p>
         <p class="details_footer_sc" @click='collect'>
-          <span><em  class="iconfont collect">&#xe603;</em></span>
+          <span><img src="../../assets/Comment/收藏.png"/></span>
           <span class='names collect'>收藏</span>
         </p>
       </div>
@@ -978,9 +978,6 @@ a,
 }
 .details_footer_left p img{
   width: 70%;
-}
-.details_footer_left p .iconfont{
-  font-size: 0.4rem;
 }
 /*加入购物车*/
 .goShopping{
