@@ -127,7 +127,7 @@
           <span class='names'>联系卖家</span>
         </p>
         <p class="details_footer_dp" @click='store'>
-          <span><img src="../../assets/Comment/店铺.png" alt=""></span>
+          <span><a href="tel:400-158-1319"><img src="../../assets/Comment/店铺.png" alt=""></a></span>
           <span class='names'>店铺</span>
         </p>
         <p class="details_footer_sc" @click='collect'>
