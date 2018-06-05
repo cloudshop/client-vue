@@ -105,7 +105,6 @@ const router = new Router({
 	  { path: '/Integral', name: 'Integral', component: Integral },  //贡融积分
 	  { path: '/OrdinaryBusiness', name: 'OrdinaryBusiness', component: OrdinaryBusiness },  //申请成为商家
 	  { path: '/SellerCenter', name: 'SellerCenter', component: SellerCenter },  // 商户中心
-	  { path: '/OrdinaryBusiness', name: 'OrdinaryBusiness', component: OrdinaryBusiness },  //
 	  { path: '/Appreciation', name: 'Appreciation', component: Appreciation },  //申请成为商家
 	  { path: '/MyAddress', name: 'MyAddress', component: MyAddress },  //我的地址
 	  { path: '/MyTeam', name: 'MyTeam', component: MyTeam },  //编辑我的地址
