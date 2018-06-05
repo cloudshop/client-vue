@@ -322,10 +322,15 @@ import { Swipe, SwipeItem } from "mint-ui";
         var u = navigator.userAgent;
         var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
         var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-        if (isiOS) {
-            window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-        } else if (isAndroid) {
-            window.androidObject.JSCallAndroid(JSON.stringify(val));
+        try{
+          if (isiOS) {
+              window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+          } else if (isAndroid) {
+              window.androidObject.JSCallAndroid(JSON.stringify(val));
+          }
+        }catch(e){
+          window.location.href=(window.location.origin+ "/#/PageDetails?id=" + id)
+          console.log('亲，浏览器不支持上面的跳转写法，换个方式试试')
         }
       },
       // 获取商店信息
@@ -357,32 +362,39 @@ import { Swipe, SwipeItem } from "mint-ui";
         });   
       },
       GetParams(id){
-        var that = this;    
-        var iid = JSON.stringify(id);  
-        
-        var strArr=iid.split(':');
-        var subIdStr=strArr[1];  
-        
-        var valueStr = subIdStr.replace(/[^0-9]/ig,"");
-        
-        var Goods = valueStr;
-    
-        // console.log(typeof Goods);
-        // console.log(Goods);
-        
+        let iid = JSON.stringify(id);  
+        let strArr=iid.split(':');
+        let subIdStr=strArr[1];  
+        let valueStr = subIdStr.replace(/[^0-9]/ig,"");
+        let Goods = valueStr;
         this.$axios.get('product/api/product/content?id=' + Goods)
-        .then(function(response) {
-            // console.log(response.data)   
-            that.data = response.data;
-            that.urlArr = response.data.productContent.url;
-            that.shopIds = response.data.productContent.shopid;
+        .then((response)=> {
+            this.data = response.data;
+            this.urlArr = response.data.productContent.url;
+            this.shopIds = response.data.productContent.shopid;
             let reg = /img+/gi;
             let str =  response.data.productContent.details.replace(reg,'img style="width:100%"');
-            that.details = str;
-            // console.log(str)
-            // that.details = that.details.replace(reg,'style="width:100%"')
-            that.specification = response.data.attrbute;
-            that.getShop(that.shopIds);
+            this.details = str;
+            this.specification = response.data.attrbute;
+            this.getShop(this.shopIds);
+        })
+        .catch(function(error) {
+            console.log(error);
+      });
+      },
+      GetParams2(href){
+        let valueStr = href.split("=");
+        let Goods = valueStr[1];
+        this.$axios.get('product/api/product/content?id=' + Goods)
+        .then((response)=> {
+            this.data = response.data;
+            this.urlArr = response.data.productContent.url;
+            this.shopIds = response.data.productContent.shopid;
+            let reg = /img+/gi;
+            let str =  response.data.productContent.details.replace(reg,'img style="width:100%"');
+            this.details = str;
+            this.specification = response.data.attrbute;
+            this.getShop(this.shopIds);
         })
         .catch(function(error) {
             console.log(error);
@@ -390,29 +402,24 @@ import { Swipe, SwipeItem } from "mint-ui";
       }
     },
     created(){
-    //   console.log(this.data.productContent)   
-    //     var that = this; //商品内容
-    // //    var Goods = sessionStorage.getItem("GoodsID") ? sessionStorage.getItem("GoodsID") : 32; // 商品id 
-    //      var Goods = sessionStorage.getItem("GoodsID")
-    //      if(Goods==null)
-    //      {
-    //          Goods='30';
-    //      }
-    //     console.log(Goods)
-    //     this.$axios.get('product/api/product/content?id=' + Goods)
-    //      .then(function(response) {   
-    //         that.data = response.data;
-    //         // console.log(response.data);
-    //         that.urlArr = response.data.productContent.url;
-    //         console.log(that.urlArr);
-    //     })
-    //     .catch(function(error) {
-    //         console.log(error);
-    //    }); 
+
+      let u = navigator.userAgent;
+      let isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+      let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+      try{
+        if (isiOS) {
+            window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+        } else if (isAndroid) {
+            window.androidObject.JSCallAndroid(JSON.stringify(val));
+        }
+        window.GetParams = this.GetParams;
+      }
+      catch(e){
+        let href = window.location.hash
+        this.GetParams2(href)
+      }
     },
-    // methods:{
-       
-    // },
+   
    mounted(){
       // this.GetParams()
         window.GetParams = this.GetParams;
