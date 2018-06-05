@@ -356,6 +356,8 @@
         window.androidObject.JSCallAndroid(JSON.stringify(val));
       }}
       catch(err){
+
+        window.location.href=(window.location.origin+"/#/PageDetails?id=" + id)
         console.log('亲，浏览器不支持上面的的写法跳转，换个方式试试')
       }
 
