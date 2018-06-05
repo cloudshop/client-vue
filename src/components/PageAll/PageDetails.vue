@@ -13,7 +13,7 @@
         <p class="PageDetails_main_main"><span>{{brr.name}}</span><span></span></p>
       </div>
       <div class="PageDetails_attention" @click="attentionShop">
-        <p class="PageDetails_attentionUp"  v-show="falgUp"><img src="../../assets/PageDetails/关注.png" alt=""><span>关注</span></p>
+        <p class="PageDetails_attentionUp" v-show="falgUp"><img src="../../assets/PageDetails/关注.png" alt=""><span>关注</span></p>
         <p class="PageDetails_attentionDown" v-show="falgDown">已关注</p>
       </div>
     </div>
@@ -81,9 +81,7 @@ export default {
     };
   },
 
-  created() {
 
-  },
 
   components: {
     PageAll,
@@ -95,7 +93,7 @@ export default {
       this.active = index;
     },
     searchPage() {
-    console.log(this.shopID)
+      console.log(this.shopID)
       var val = {
         func: "openURL",
         param: {
@@ -146,12 +144,16 @@ export default {
       }
     },
     GetParams(id) {
-      // var that = this;
-      // var iid = JSON.stringify(id);
-      // var strArr = iid.split(":");
-      // var subIdStr = strArr[1];
-      // var valueStr = subIdStr.replace(/[^0-9]/gi, "");
-      let valueStr = id.split("=");
+      var that = this;
+      var iid = JSON.stringify(id);
+      var strArr = iid.split(":");
+      var subIdStr = strArr[1];
+      var valueStr = subIdStr.replace(/[^0-9]/gi, "");
+      this.shopID = valueStr;
+      this.getDatas()
+    },
+    GetParams2(href) {
+      let valueStr = href.split("=");
       this.shopID = valueStr[1];
       this.getDatas()
     },
@@ -185,23 +187,23 @@ export default {
           console.log(error);
         });
     },
-    attentionShop(){ // 店铺收藏
-        var Goods=sessionStorage.getItem("GoodsID"); // 商品id 
-        this.$axios.get('favorite/api/favProduct/'+Goods+'/2')
+    attentionShop() { // 店铺收藏
+      var Goods = sessionStorage.getItem("GoodsID"); // 商品id 
+      this.$axios.get('favorite/api/favProduct/' + Goods + '/2')
         .then(function(response) {
           console.log(response)
-            if(response.data == true){
-               alert('收藏店铺成功')
-               this.falgDown=true;
-               this.falgUp=false;
-            }else{
-              this.falgDown=false;
-               this.falgUp=true;
-            }
+          if (response.data == true) {
+            alert('收藏店铺成功')
+            this.falgDown = true;
+            this.falgUp = false;
+          } else {
+            this.falgDown = false;
+            this.falgUp = true;
+          }
         })
         .catch(function(error) {
-            console.log(error);
-        });   
+          console.log(error);
+        });
     },
     handleBottomChange(status) {
       this.bottomStatus = status;
@@ -223,17 +225,35 @@ export default {
     loadTop() {
       setTimeout(() => {
         this.page = 1;
-        this.allLoaded= false;
+        this.allLoaded = false;
         this.getDatas();
         this.$refs.loadmore.onTopLoaded();
       }, 1500);
     }
   },
   mounted() {
-    let href = window.location.hash
-    console.log(window.location)
-    this.GetParams(href)
-    window.GetParams = this.GetParams;
+
+
+    var u = navigator.userAgent;
+    var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+    try {
+      if (isiOS) {
+        window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+      } else if (isAndroid) {
+        window.androidObject.JSCallAndroid(JSON.stringify(val));
+      }
+      window.GetParams = this.GetParams;
+    } catch (err) {
+      let href = window.location.hash
+      console.log(window.location.hash)
+
+      this.GetParams2(href)
+    }
+
+  },
+    created() {
+
   }
 };
 
@@ -244,23 +264,25 @@ export default {
   position: relative;
 }
 
-.PageDetails_attentionUp{
+.PageDetails_attentionUp {
   width: .82rem;
   height: .4rem;
   text-align: center;
-  line-height:.4rem; 
+  line-height: .4rem;
   color: #fff;
   background: red;
   border-radius: .1rem;
-  position: absolute ;
+  position: absolute;
   right: .2rem;
 }
-.PageDetails_attentionUp span{
+
+.PageDetails_attentionUp span {
   display: inline-block;
   display: flex;
   margin-right: .05rem;
   justify-content: flex-end;
 }
+
 .PageDetails_attentionUp img {
   position: absolute;
   width: 30%;
@@ -270,7 +292,8 @@ export default {
   left: .05rem;
   justify-content: flex-start;
 }
-.PageDetails_attentionDown{
+
+.PageDetails_attentionDown {
   width: .82rem;
   height: .4rem;
   color: red;
@@ -278,7 +301,7 @@ export default {
   border-radius: .1rem;
   background: #fff;
   text-align: center;
-  line-height:.4rem; 
+  line-height: .4rem;
   position: absolute;
   right: .2rem;
   bottom: .1rem;
@@ -289,6 +312,7 @@ export default {
   position: relative;
   top: .2rem;
 }
+
 .commodityAll {
   height: 10rem;
 }
@@ -340,7 +364,7 @@ export default {
 .PageDetails_header input {
   border-radius: 0.3rem;
   border: none;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
   height: 0.6rem;
   flex: 1;
   margin-right: .1rem;
@@ -359,7 +383,7 @@ input[type="text"] {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
   border-radius: 55%;
   margin-right: .1rem;
 }
@@ -369,7 +393,7 @@ input[type="text"] {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
   border-radius: 55%;
 }
 
@@ -683,13 +707,16 @@ input[type="text"] {
   text-align: center;
   font-size: 0.5rem;
 }
-.mint-loadmore-top span{
- display: inline-block;
+
+.mint-loadmore-top span {
+  display: inline-block;
 }
+
 .mint-loadmore-bottom {
   text-align: center;
   font-size: 0.5rem;
 }
+
 .mint-loadmore-bottom span {
   display: inline-block;
 }
