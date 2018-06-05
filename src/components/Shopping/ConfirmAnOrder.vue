@@ -34,7 +34,7 @@
       <div class='More'>
         <div class='Single'>
           <dl>
-            <dt><img :src=p roductUrl alt=""></dt>
+            <dt><img :src=productUrl  alt=""></dt>
             <dd>
               <p>{{productName}}</p>
               <div class='price'><b>￥{{price}}</b><em>X{{count}}</em></div>
