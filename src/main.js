@@ -18,7 +18,7 @@ import animate from './init/css/animate.css'
 Vue.use(bus)
 Vue.use(MintUI)
 Vue.use(animate)
-Vue.use(ElementUI)
+//Vue.use(ElementUI)
 
 import Vuex from 'vuex'
 Vue.use(Vuex)
