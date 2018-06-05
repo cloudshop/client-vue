@@ -11,13 +11,12 @@
       <div class="PageDetails_main">
         <!-- <p class="PageDetails_main_img"><img src="" alt=""></p> -->
         <p class="PageDetails_main_shopname">{{brr.name}}</p>
-         <div class="PageDetails_attention" @click="attentionShop">
-       <!--  <p class="PageDetails_main_main"><span>{{brr.name}}</span><span></span></p> -->
-        <p class="PageDetails_attentionUp" v-show="falgUp"><img src="../../assets/PageDetails/关注.png" alt=""><span>关注</span></p>
-        <p class="PageDetails_attentionDown" v-show="falgDown">已关注</p>
+        <div class="PageDetails_attention" @click="attentionShop">
+          <!--  <p class="PageDetails_main_main"><span>{{brr.name}}</span><span></span></p> -->
+          <p class="PageDetails_attentionUp" v-show="falgUp"><img src="../../assets/PageDetails/关注.png" alt=""><span>关注</span></p>
+          <p class="PageDetails_attentionDown" v-show="falgDown">已关注</p>
+        </div>
       </div>
-      </div>
-     
     </div>
     <div class='content'>
       <div class="page-loadmore-wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
@@ -254,7 +253,7 @@ export default {
     }
 
   },
-    created() {
+  created() {
 
   }
 };
@@ -347,7 +346,7 @@ export default {
   width: 96%;
   margin-left: 2%;
   display: flex;
-  padding-top: 0.3rem ;
+  padding-top: 0.3rem;
 }
 
 .PageDetails_header span:nth-child(1) {
@@ -417,30 +416,30 @@ input[type="text"] {
 
 .PageDetails_main {
   width: 100%;
-    
-    position: absolute;
-    display: flex;
-    bottom: 0.2rem;
-    justify-content: space-between;
+
+  position: absolute;
+  display: flex;
+  bottom: 0.2rem;
+  justify-content: space-between;
 }
 
 .PageDetails_main_img {
   width: 20%;
 }
-.PageDetails_main_shopname{
-   color: #fff;
+
+.PageDetails_main_shopname {
+  color: #fff;
   font-size: 0.32rem;
   margin-left: 0.2rem;
 }
+
 .PageDetails_main_main {
   display: flex;
   flex: 1;
   flex-direction: column;
 }
 
-.PageDetails_main_main span:nth-child(1) {
- 
-}
+.PageDetails_main_main span:nth-child(1) {}
 
 .PageDetails_main_main span:nth-child(2) {
   display: flex;
