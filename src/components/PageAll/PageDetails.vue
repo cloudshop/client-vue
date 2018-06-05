@@ -10,12 +10,14 @@
       </div>
       <div class="PageDetails_main">
         <!-- <p class="PageDetails_main_img"><img src="" alt=""></p> -->
-        <p class="PageDetails_main_main"><span>{{brr.name}}</span><span></span></p>
-      </div>
-      <div class="PageDetails_attention" @click="attentionShop">
+        <p class="PageDetails_main_shopname">{{brr.name}}</p>
+         <div class="PageDetails_attention" @click="attentionShop">
+       <!--  <p class="PageDetails_main_main"><span>{{brr.name}}</span><span></span></p> -->
         <p class="PageDetails_attentionUp" v-show="falgUp"><img src="../../assets/PageDetails/关注.png" alt=""><span>关注</span></p>
         <p class="PageDetails_attentionDown" v-show="falgDown">已关注</p>
       </div>
+      </div>
+     
     </div>
     <div class='content'>
       <div class="page-loadmore-wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
@@ -310,7 +312,7 @@ export default {
 .PageDetails_attention {
   height: .4rem;
   position: relative;
-  top: .2rem;
+  /*top: .2rem;*/
 }
 
 .commodityAll {
@@ -345,7 +347,7 @@ export default {
   width: 96%;
   margin-left: 2%;
   display: flex;
-  padding: 0.45rem 0;
+  padding-top: 0.3rem ;
 }
 
 .PageDetails_header span:nth-child(1) {
@@ -415,13 +417,21 @@ input[type="text"] {
 
 .PageDetails_main {
   width: 100%;
-  display: flex;
+    
+    position: absolute;
+    display: flex;
+    bottom: 0.2rem;
+    justify-content: space-between;
 }
 
 .PageDetails_main_img {
   width: 20%;
 }
-
+.PageDetails_main_shopname{
+   color: #fff;
+  font-size: 0.32rem;
+  margin-left: 0.2rem;
+}
 .PageDetails_main_main {
   display: flex;
   flex: 1;
@@ -429,9 +439,7 @@ input[type="text"] {
 }
 
 .PageDetails_main_main span:nth-child(1) {
-  color: #fff;
-  font-size: 0.32rem;
-  margin-left: 0.2rem;
+ 
 }
 
 .PageDetails_main_main span:nth-child(2) {
@@ -697,10 +705,10 @@ input[type="text"] {
 
 .back {
   font-size: 0.32rem;
-  padding: .16rem .1rem;
+  /*padding: .16rem .1rem;*/
   border-radius: 47%;
   color: #fff;
-  margin-right: .1rem;
+  margin-right: .2rem;
 }
 
 .mint-loadmore-top {
