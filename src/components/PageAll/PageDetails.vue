@@ -146,12 +146,13 @@ export default {
       }
     },
     GetParams(id) {
-      var that = this;
-      var iid = JSON.stringify(id);
-      var strArr = iid.split(":");
-      var subIdStr = strArr[1];
-      var valueStr = subIdStr.replace(/[^0-9]/gi, "");
-      this.shopID = valueStr;
+      // var that = this;
+      // var iid = JSON.stringify(id);
+      // var strArr = iid.split(":");
+      // var subIdStr = strArr[1];
+      // var valueStr = subIdStr.replace(/[^0-9]/gi, "");
+      let valueStr = id.split("=");
+      this.shopID = valueStr[1];
       this.getDatas()
     },
     getDatas() {
@@ -229,7 +230,9 @@ export default {
     }
   },
   mounted() {
-    this.GetParams()
+    let href = window.location.hash
+    console.log(window.location)
+    this.GetParams(href)
     window.GetParams = this.GetParams;
   }
 };
