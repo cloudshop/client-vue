@@ -38,17 +38,17 @@
       <!--banner end-->
       <!--头部定位 start-->
       <div class="header flex spaceBetween">
-        <a href="javascript:;" class="loaction">北京市
+        <a href="javascript:;" class="loaction" id="loaction">北京市
                     <img class="arrowRight" src="images/city@2x.png" />
                 </a>
         <input type="hidden" value="116.66847" id="langitude" />
         <input type="hidden" value="39.88372" id="lantitude" />
-        <a href="JavaScript:;" class="searchBox flex1">
+        <a href="JavaScript:;" class="searchBox flex1" id="searchBox">
                     <img class="headSearch" src="images/seek@2x.png" />
                     <span>请输入关键字</span>
                 </a>
         <div class="headRight">
-          <a class="look" style="margin-right:0.11rem;">
+          <a class="look" id="look" style="margin-right:0.11rem;">
                         <img  src="images/scanning@2x.png" />
                     </a>
           <!--<a class="look">-->
@@ -126,15 +126,9 @@
       <!--更多 end-->
       <!--附近商家 start-->
       <p class="titleBox">附近商家</p>
-      <!-- <div id="pullrefresh"> -->
-            <!-- <div class="mui-scroll"> -->
-                <!--数据列表-->
-                 <ul class="data-list" id="listdata"></ul>
-                <!-- <ul class="mui-table-view mui-table-view-chevron"></ul> -->
-            <!-- </div> -->
-        <!-- </div> -->
-        <!--数据列表-->
-       
+     
+      <!--数据列表-->
+      <ul class="data-list" id="listdata"></ul>
       
       <!--附近商家 end-->
     </div>
@@ -151,7 +145,7 @@
       container: '#minirefresh',
       down: {
         style: 'circle',
-      
+
         callback: pulldownRefresh
       },
       up: {
@@ -164,29 +158,30 @@
 
   var count = 10;
   var dataSize = 0;
+
   function pullupRefresh() {
     setTimeout(function() {
-       mui('#minirefresh').pullRefresh().endPullupToRefresh((count>dataSize)); //参数为true代表没有更多数据了。
+      mui('#minirefresh').pullRefresh().endPullupToRefresh((count > dataSize)); //参数为true代表没有更多数据了。
       $.ajax({
         type: 'POST',
         url: "http://app.grjf365.com:9080/user/api/mercuries/info-list/MercuryInfo",
         async: true,
         data: JSON.stringify({
-            // "langitude": $('#langitude').val(),
-            //  "lantitude": $('#lantitude').val()
+          // "langitude": $('#langitude').val(),
+          //  "lantitude": $('#lantitude').val()
           "langitude": "116.66847",
           "lantitude": "39.88372"
         }),
         dataType: "json",
         contentType: "application/json",
         success: function(data) {
-            function a(){ console.log(123) }
-            dataSize = data.length;
+
+          dataSize = data.length;
           var template = ''
           if (data.length >= 1) {
             $.each(data, function(i, item) {
-            var personCount = Math.trunc(Math.random()*1000);
-            var startPercent = Math.trunc(Math.random()*100);
+              var personCount = Math.trunc(Math.random() * 1000);
+              var startPercent = Math.trunc(Math.random() * 100);
               template += `<li class="shopList flex spaceBetween" data="${item.id}" ><img class="listLf" src="${item['img_license']}" /><div class="flex1 flexNowrap listRig"><div class="flex spaceBetween listRig_name"><p class="listRig_name_title">${item.name}</p></div><div class="listRig_mid"><p class="star fl"><span class="star-in fl" style="width:${startPercent}%;"></span></p><span class="color67 font20">| &nbsp;&nbsp;${personCount}人光临</span></div><div class="flex spaceBetween color67 font20"><p class="flex1 overflow">${item.city}</p><p>${item.provice}km</p></div></div></li>`;
             })
 
@@ -194,7 +189,7 @@
           } else {
 
           }
-          
+
         },
         error: function() {
           console.log('暂无数据')
@@ -202,8 +197,8 @@
       });
     }, 1500);
 
-   
-   
+
+
   }
 
   function addData() {
@@ -222,17 +217,17 @@
         var template = ''
         if (data.length >= 1) {
           $.each(data, function(i, item) {
-            var personCount = Math.trunc(Math.random()*1000);
-            var startPercent = Math.trunc(Math.random()*100);
-              template += `<li class="shopList flex spaceBetween" data="${item.id}" ><img class="listLf" src="${item['img_license']}" /><div class="flex1 flexNowrap listRig"><div class="flex spaceBetween listRig_name"><p class="listRig_name_title">${item.name}</p></div><div class="listRig_mid"><p class="star fl"><span class="star-in fl" style="width:${startPercent}%;"></span></p><span class="color67 font20">| &nbsp;&nbsp;${personCount}人光临</span></div><div class="flex spaceBetween color67 font20"><p class="flex1 overflow">${item.city}</p><p>${item.provice}km</p></div></div></li>`;
-          
-            })
+            var personCount = Math.trunc(Math.random() * 1000);
+            var startPercent = Math.trunc(Math.random() * 100);
+            template += `<li class="shopList flex spaceBetween" data="${item.id}" ><img class="listLf" src="${item['img_license']}" /><div class="flex1 flexNowrap listRig"><div class="flex spaceBetween listRig_name"><p class="listRig_name_title">${item.name}</p></div><div class="listRig_mid"><p class="star fl"><span class="star-in fl" style="width:${startPercent}%;"></span></p><span class="color67 font20">| &nbsp;&nbsp;${personCount}人光临</span></div><div class="flex spaceBetween color67 font20"><p class="flex1 overflow">${item.city}</p><p>${item.provice}km</p></div></div></li>`;
+
+          })
           $("#listdata").push(template)
 
         } else {
 
         }
-          
+
       },
       error: function() {
         console.log('暂无数据')
@@ -256,7 +251,7 @@
   var arr;
   window.brr = '123123123';
   $(document).ready(function() {
-   
+
     $.ajax({
       type: "GET",
       url: "http://app.grjf365.com/api/advertising/api/findNotDelByLoc",
@@ -300,36 +295,77 @@
     });
 
 
-  });
-  var list = document.getElementsByClassName('lis')
-  mui(".bd").on("tap", "li", function() {
-    console.log($(this).attr("data"))
-    var b = $(this).attr("data")
-    var reg = /(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?/;
-    // console.log(reg.test(a));
-    if (reg.test(b) == true) {
-      arr = '外链' + b;
-      var linkval = {
-        func: "openURL",
-        param: {
-          URL: b,
-          showClose: true
+
+    var list = document.getElementsByClassName('lis')
+    mui(".bd").on("tap", "li", function() {
+      // console.log($(this).attr("data"))
+      var b = $(this).attr("data")
+      var reg = /(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?/;
+      // console.log(reg.test(a));
+      if (reg.test(b) == true) {
+        arr = '外链' + b;
+        var linkval = {
+          func: "openURL",
+          param: {
+            URL: b,
+            showClose: true
+          }
+        };
+        IOSAndroid(linkval);
+
+
+      } else {
+        arr = '内链' + b;
+        var index = b.indexOf("?")
+        var id = b.slice(index + 1, b.length);
+        var val = {
+          func: "openURL",
+          param: {
+            URL: "/#/Product?ProductId=" + id
+          }
+        };
+        // console.log(val)
+        var u = navigator.userAgent;
+        var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+        if (isiOS) {
+          window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+        } else if (isAndroid) {
+          window.androidObject.JSCallAndroid(JSON.stringify(val));
         }
-      };
-      IOSAndroid(linkval);
+      }
 
-
-    } else {
-      arr = '内链' + b;
-      var index = b.indexOf("?")
-      var id = b.slice(index + 1, b.length);
+    });
+    mui('.data-list').on("tap", "li", function() {
+      var id = $(this).attr("data")
+      // console.log($('.data-list'))
+      // console.log(id)
       var val = {
         func: "openURL",
         param: {
-          URL: "/#/Product?ProductId=" + id
+          URL: "/#/PageDetails?id=" + id
         }
       };
-      console.log(val)
+      var u = navigator.userAgent;
+      var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+      try{
+      if (isiOS) {
+        window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+      } else if (isAndroid) {
+        window.androidObject.JSCallAndroid(JSON.stringify(val));
+      }}
+      catch(err){
+        console.log(123)
+      }
+
+    })
+    mui(".header").on("tap", "#look", function() {
+
+      var val = {
+        func: 'scan',
+        param: {}
+      };
       var u = navigator.userAgent;
       var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
       var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
@@ -338,91 +374,55 @@
       } else if (isAndroid) {
         window.androidObject.JSCallAndroid(JSON.stringify(val));
       }
-    }
-
-  });
-  mui('.data-list').on("tap", "li", function() {
-    var id = $(this).attr("data")
-    console.log($('.data-list'))
-    console.log(id)
-    var val = {
-      func: "openURL",
-      param: {
-        URL: "/#/PageDetails?id=" + id
+    })
+    mui(".header").on("tap", "news", function() {
+      var val = {
+        func: "openURL",
+        param: {
+          URL: "/#/news"
+        }
+      };
+      var u = navigator.userAgent;
+      var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+      if (isiOS) {
+        window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+      } else if (isAndroid) {
+        window.androidObject.JSCallAndroid(JSON.stringify(val));
       }
-    };
-    var u = navigator.userAgent;
-    var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
-    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-    if (isiOS) {
-      window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-    } else if (isAndroid) {
-      window.androidObject.JSCallAndroid(JSON.stringify(val));
-    }
-
-  })
-  mui(".look").on("tap",function() {
-
-    var val = {
-      func: 'scan',
-      param: {}
-    };
-    var u = navigator.userAgent;
-    var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
-    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-    if (isiOS) {
-      window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-    } else if (isAndroid) {
-      window.androidObject.JSCallAndroid(JSON.stringify(val));
-    }
-  })
-  mui(".news").on("tap",function() {
-    var val = {
-      func: "openURL",
-      param: {
-        URL: "/#/news"
+    })
+    mui('.header').on("tap", '#searchBox', function() {
+      var val = {
+        func: "openURL",
+        param: {
+          URL: "/#/search"
+        }
+      };
+      var u = navigator.userAgent;
+      var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+      if (isiOS) {
+        window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+      } else if (isAndroid) {
+        window.androidObject.JSCallAndroid(JSON.stringify(val));
       }
-    };
-    var u = navigator.userAgent;
-    var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
-    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-    if (isiOS) {
-      window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-    } else if (isAndroid) {
-      window.androidObject.JSCallAndroid(JSON.stringify(val));
-    }
-  })
-  mui('.searchBox').on("tap",function() {
-    var val = {
-      func: "openURL",
-      param: {
-        URL: "/#/search"
+    })
+    mui(".header").on("tap", "#loaction", function() {
+      var val = {
+        func: "openURL",
+        param: {
+          URL: "/#/city"
+        }
+      };
+      var u = navigator.userAgent;
+      var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+      if (isiOS) {
+        window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+      } else if (isAndroid) {
+        window.androidObject.JSCallAndroid(JSON.stringify(val));
       }
-    };
-    var u = navigator.userAgent;
-    var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
-    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-    if (isiOS) {
-      window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-    } else if (isAndroid) {
-      window.androidObject.JSCallAndroid(JSON.stringify(val));
-    }
-  })
-  mui('.loaction').on("tap",function() {
-    var val = {
-      func: "openURL",
-      param: {
-        URL: "/#/city"
-      }
-    };
-    var u = navigator.userAgent;
-    var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
-    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-    if (isiOS) {
-      window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-    } else if (isAndroid) {
-      window.androidObject.JSCallAndroid(JSON.stringify(val));
-    }
+    });
   });
 
   </script>
@@ -442,7 +442,7 @@
       },
       contentType: "application/json",
       success: function(data) {
-        console.log(data)
+        // console.log(data)
       }
     });
   }
