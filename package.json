@@ -1,15 +1,12 @@
 {
-  "name": "jianwen",
+  "name": "vue-app",
   "version": "1.0.0",
   "description": "A Vue.js project",
-  "author": "wangjianwen <531372563@qq.com>",
+  "author": "Bob Ying <124599792@qq.com>",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
-    "unit": "jest --config test/unit/jest.conf.js --coverage",
-    "e2e": "node test/e2e/runner.js",
-    "test": "npm run unit && npm run e2e",
     "build": "node build/build.js",
     "analyz": "NODE_ENV=production npm_config_report=true npm run build"
   },
@@ -25,8 +22,7 @@
     "simple-oauth2": "^1.5.2",
     "vue": "^2.5.2",
     "vue-auto-focus": "^1.0.0",
-    "vue-router": "^3.0.1",
-    "compression-webpack-plugin": "1.1.11"
+    "vue-router": "^3.0.1"
   },
   "devDependencies": {
     "animate.css": "^3.6.1",
@@ -67,6 +63,7 @@
     "portfinder": "^1.0.13",
     "postcss-import": "^11.0.0",
     "postcss-loader": "^2.0.8",
+    "postcss-url": "^7.2.1",
     "qs": "^6.5.1",
     "rimraf": "^2.6.0",
     "selenium-server": "^3.0.1",
@@ -88,7 +85,7 @@
     "webpack-merge": "^4.1.0"
   },
   "engines": {
-    "node": ">= 4.0.0",
+    "node": ">= 6.0.0",
     "npm": ">= 3.0.0"
   },
   "browserslist": [
