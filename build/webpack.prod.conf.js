@@ -113,6 +113,23 @@ const webpackConfig = merge(baseWebpackConfig, {
             children: true,
             minChunks: 3
         }),
+        new webpack.optimize.CommonsChunkPlugin({
+          name: "commons",
+          // (the commons chunk name)
+
+          filename: "commons.js",
+          // (the filename of the commons chunk)
+
+          // minChunks: 3,
+          // (Modules must be shared between 3 entries)
+
+          // chunks: ["pageA", "pageB"],
+          // (Only use these entries)
+        }),
+        new webpack.ProvidePlugin({
+            jQuery: "jquery",
+            $: "jquery"
+        }),
 
         // copy custom static assets
         new CopyWebpackPlugin([{
