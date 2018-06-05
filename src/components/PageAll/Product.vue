@@ -414,8 +414,8 @@ import { Swipe, SwipeItem } from "mint-ui";
        
     // },
    mounted(){
-      this.GetParams()
-        // window.GetParams = this.GetParams;
+      // this.GetParams()
+        window.GetParams = this.GetParams;
     }
 
     
