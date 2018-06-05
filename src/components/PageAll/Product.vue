@@ -1,4 +1,4 @@
-<template>
+﻿<template>
 <div class='content'>
   <mt-navbar v-model="selected">
     <!--<router-link :to="{ path: '/Classify' }" tag='span'  class="spans">〈</router-link>-->
@@ -952,102 +952,50 @@ a,
   margin-bottom: 0.26rem;
 }
 /* 底部 */
-.details_footer {
+.details_footer{
   width: 100%;
-  height: 0.88rem;
+  height: .88rem;
   background: #fff;
   position: fixed;
   display: flex;
   bottom: 0;
 }
-/* 底部  左边字 */
-.details_footer span {
-  /* height: .88rem; */
+.details_footer span{
   display: inline-block;
+  text-align: center;
 }
-/* 底部   左边图标 */
-.details_footer span:nth-child(1) {
-  width: 35%;
-}
-.details_footer span:nth-child(2) {
-  width: 28%;
-  font-size: 0.32rem;
+.details_footer_left{
   display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.details_footer span:nth-child(3) {
-  width: 28%;
-  font-size: 0.32rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.details_footer_left {
-  display: flex;
-  justify-content: space-between;
-  align-items: color;
   width: 44%;
 }
-.details_footer_left p {
+.details_footer_left p{
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-size: .2rem;
 }
-/* .details_footer_left p span{
-    margin-top:.08rem;
-    margin-left:.02rem;
-  } */
-.goShopping {
-  color: #fff;
-  background: #ff9d1e;
-}
-.newBuy {
-  color: #fff;
-  background: #df443b;
-}
-.details_footer_kf {
-  width: 100%;
-  text-align: center;
-}
-/* 联系卖家图片 */
-.details_footer_kf span:nth-child(1) img {
+.details_footer_left p img{
   width: 70%;
-  height: 70%;
-  margin-top: 0.01rem;
 }
-.details_footer_kf span:nth-child(2) {
-  font-size: 0.1rem;
-  color: #696969;
-  margin-top: 0.01rem;
-}
-.details_footer_dp {
-  width: 100%;
-  text-align: center;
-}
-/* 店铺图片 */
-.details_footer_dp span:nth-child(1) img {
-  width: 70%;
-  height: 70%;
-}
-.details_footer_dp span:nth-child(2) {
-  font-size: 0.2rem;
-  color: #696969;
-}
-.details_footer_sc {
-  width: 100%;
-  text-align: center;
-}
-.details_footer_sc em {
+.details_footer_left p .iconfont{
   font-size: 0.4rem;
 }
-
-.details_footer_sc span:nth-child(2) {
-  font-size: 0.2rem;
-  color: #696969;
+/*加入购物车*/
+.goShopping{
+  width: 28%;
+  color: #fff;
+  background: #ff9d1e;
+  line-height: .8rem;
+  font-size: .32rem;
 }
-.names {
-  white-space: nowrap;
+/*立即购买*/
+.newBuy{
+  width: 28%;
+  color: #fff;
+  background: #df443b;
+  line-height: .8rem;
+  font-size: .32rem;
 }
 </style>
