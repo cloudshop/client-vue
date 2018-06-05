@@ -358,28 +358,28 @@ import { Swipe, SwipeItem } from "mint-ui";
       },
       GetParams(id){
         var that = this;    
-        // var iid = JSON.stringify(id);  
+        var iid = JSON.stringify(id);  
         
-        // var strArr=iid.split(':');
-        // var subIdStr=strArr[1];  
+        var strArr=iid.split(':');
+        var subIdStr=strArr[1];  
         
-        // var valueStr = subIdStr.replace(/[^0-9]/ig,"");
+        var valueStr = subIdStr.replace(/[^0-9]/ig,"");
         
-        // var Goods = valueStr;
-        var Goods = 41;
+        var Goods = valueStr;
+    
         // console.log(typeof Goods);
         // console.log(Goods);
         
         this.$axios.get('product/api/product/content?id=' + Goods)
         .then(function(response) {
-            console.log(response.data)   
+            // console.log(response.data)   
             that.data = response.data;
             that.urlArr = response.data.productContent.url;
             that.shopIds = response.data.productContent.shopid;
             let reg = /img+/gi;
             let str =  response.data.productContent.details.replace(reg,'img style="width:100%"');
             that.details = str;
-            console.log(str)
+            // console.log(str)
             // that.details = that.details.replace(reg,'style="width:100%"')
             that.specification = response.data.attrbute;
             that.getShop(that.shopIds);
