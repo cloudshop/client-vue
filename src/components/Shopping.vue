@@ -118,7 +118,9 @@ export default {
       empty:true, 
       emptys:false,
       dele:false,
-      skuid:''
+      skuid:'',
+      productName:'',
+      productUrl:''
     };
   },
   watch:{
