@@ -4,10 +4,8 @@
     <div class="classify_search_header">
       <div class="classify_search_ss">
         <em @click='back'>&lt;</em>
-        <p><a><img src="../../assets/HomePage/搜索.png" alt=""></a>
-          <input type="text" placeholder="  请输入搜索关键词" v-model="seekContent">
-        </p>
-        <span @click='seekAll'>搜索</span>
+        <span>商品列表</span>
+
       </div>
     </div>
     <!-- 内容 -->
@@ -273,12 +271,11 @@ input::-webkit-input-placeholder {
 }
 
 .classify_search_ss span {
-  float: left;
-  background: #1c90db;
   padding: .14rem .24rem;
-  color: #fff;
   margin-top: .2rem;
   border-radius: 0 .12rem .12rem 0;
+  display: inline-block;
+  margin-left: -.3rem;
 }
 
 .classify_search_option_ul {
