@@ -136,7 +136,7 @@
         </p>
       </div>
       <!-- 加入购物车   立即购买 -->
-      <span class="goShopping" @click='addShopping'>加入购物车</span>
+      <span class="goShopping" @click='SelectiveTypeOpen'>加入购物车</span>
       <span class="newBuy" @click='SelectiveTypeOpen'>立即购买</span>
     </div>
   </mt-tab-container>
