@@ -1,7 +1,7 @@
 <template>
   <div class='PageDetails'>
     <!-- 店铺首页PageDetails -->
-    <div class='PageDetails_head' :style="{background: 'url('+brr.imgIntroduces+')',backgroundSize:'100% 100%'}">
+    <div class='PageDetails_head' :style="{backgroundImage: 'url('+brr.imgIntroduces+')' }">
       <div class="PageDetails_header">
         <span @click='back' class="back">〈</span>
         <input type="text" placeholder="内容推荐." @click="searchPage">
@@ -19,7 +19,8 @@
       </div>
     </div>
     <div class='content'>
-      <div class="page-loadmore-wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
+      <p class="nogoods" v-show="noDatas">亲，这个商家还没有商品哦，去其他店铺逛逛吧！</p>
+      <div class="page-loadmore-wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }" v-show="!noDatas">
         <mt-loadmore :auto-fill="false" :top-method="loadTop" @top-status-change="handleTopChange" :bottom-method="loadBottom" @bottom-status-change="handleBottomChange" :bottom-all-loaded="allLoaded" ref="loadmore">
           <div class="tabCon_main" v-for='(item,index) in arr' :key="index" @click="pushProduct(item)">
             <div class="tabCon_main_left">
@@ -37,6 +38,7 @@
               <span class="tabCon_main_right_span">贡融积分可抵扣 ￥5.00</span> -->
             </div>
           </div>
+          <p class="ihaveend-line" v-show="iHaveEndLine">——我是有底线的！——</p>
           <div slot="top" class="mint-loadmore-top">
             <span v-show="topStatus !== 'loading'" :class="{ 'is-rotate': topStatus === 'drop' }">↓</span>
             <span v-show="topStatus === 'loading'">
@@ -51,6 +53,7 @@
           </div>
         </mt-loadmore>
       </div>
+      
     </div>
   </div>
 </template>
@@ -78,12 +81,11 @@ export default {
       page: 1,
       status: 0,
       falgUp: true,
-      falgDown: false
+      falgDown: false,
+      noDatas:false,
+      iHaveEndLine:false
     };
   },
-
-
-
   components: {
     PageAll,
     PageDetailsChild,
@@ -126,7 +128,7 @@ export default {
     },
     pushProduct(item) {
       var id = item.id;
-      console.log(id);
+      // console.log(id);
 
       // var id =$(".id").text()
       var val = {
@@ -138,10 +140,16 @@ export default {
       var u = navigator.userAgent;
       var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
       var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-      if (isiOS) {
-        window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-      } else if (isAndroid) {
-        window.androidObject.JSCallAndroid(JSON.stringify(val));
+      try{
+        if (isiOS) {
+          window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+        } else if (isAndroid) {
+          window.androidObject.JSCallAndroid(JSON.stringify(val));
+        }
+      }
+      catch(e){
+        window.location.href=(window.location.origin+"/#/Product?id=" + id)
+        console.log('亲，浏览器不支持上面的跳转写法，换个方式试试')
       }
     },
     GetParams(id) {
@@ -165,6 +173,7 @@ export default {
         .then((res) => {
           // console.log(res);
           let len = res.data.productList.length;
+          this.noDatas = len === 0 ? true : false;
           this.pageNum = len;
           this.arr = res.data.productList;
           this.brr = res.data.mercury;
@@ -179,6 +188,8 @@ export default {
         .get(url + `${this.shopID}/${this.page}/${this.pageSize}`)
         .then((res) => {
           let len = res.data.productList.length;
+          this.iHaveEndLine = len < this.pageSize ? true : false ;
+          console.log( this.iHaveEndLine)
           this.pageNum = len;
           for (let i = 0; i < len; i++) {
             this.arr.push(res.data.productList[i])
@@ -234,7 +245,6 @@ export default {
   },
   mounted() {
 
-
     var u = navigator.userAgent;
     var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
     var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
@@ -247,8 +257,7 @@ export default {
       window.GetParams = this.GetParams;
     } catch (err) {
       let href = window.location.hash
-      console.log(window.location.hash)
-
+      // console.log(window.location.hash)
       this.GetParams2(href)
     }
 
@@ -338,8 +347,11 @@ export default {
 .PageDetails_head {
   width: 100%;
   position: relative;
-  background-size: 100% 130%;
   height: 2.4rem;
+  background-color: #22b77a;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: top center;
 }
 
 .PageDetails_header {
@@ -631,15 +643,16 @@ input[type="text"] {
 }
 
 .tabCon_main {
-  width: 98%;
-  margin-left: 1%;
+  /*width: 98%;*/
+  /*margin-left: 1%;*/
   display: flex;
+  padding: 0.15rem;
 }
 
 .tabCon_main_left {
   width: 1.82rem;
   height: 1.82rem;
-  padding: 0.15rem;
+  padding-right: 0.15rem;
 }
 
 .tabCon_main_left img {
@@ -652,7 +665,7 @@ input[type="text"] {
 .tabCon_main_right {
   flex: 1;
   height: 1.82rem;
-  padding: 0.18rem 0;
+  /*padding: 0.18rem 0;*/
 }
 
 .h4 {
@@ -727,5 +740,14 @@ input[type="text"] {
 .mint-loadmore-bottom span {
   display: inline-block;
 }
-
+.nogoods{
+  text-align: center;
+    font-size: 0.26rem;
+    margin-top: 2rem;
+}
+.ihaveend-line{
+  text-align: center;
+  font-size: 0.3rem;
+  margin: 1rem 0;
+}
 </style>
