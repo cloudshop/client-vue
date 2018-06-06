@@ -149,8 +149,9 @@
         callback: pulldownRefresh
       },
       up: {
-        auto: true,
+        auto: false,
         contentrefresh: '正在加载...',
+        contentnomore:"我是有底线的",
         callback: pullupRefresh
       }
     }
@@ -158,11 +159,7 @@
 
   var count = 10;
   var dataSize = 0;
-
-  function pullupRefresh() {
-    setTimeout(function() {
-      mui('#minirefresh').pullRefresh().endPullupToRefresh((count > dataSize)); //参数为true代表没有更多数据了。
-      $.ajax({
+ $.ajax({
         type: 'POST',
         url: "http://app.grjf365.com:9080/user/api/mercuries/info-list/MercuryInfo",
         async: true,
@@ -195,13 +192,47 @@
           console.log('暂无数据')
         }
       });
+  function pullupRefresh() {
+    setTimeout(function() {
+      mui('#minirefresh').pullRefresh().endPullupToRefresh((count > dataSize)); //参数为true代表没有更多数据了。
+      $.ajax({
+        type: 'POST',
+        url: "http://app.grjf365.com:9080/user/api/mercuries/info-list/MercuryInfo",
+        async: true,
+        data: JSON.stringify({
+          // "langitude": $('#langitude').val(),
+          //  "lantitude": $('#lantitude').val()
+          "langitude": "116.66847",
+          "lantitude": "39.88372"
+        }),
+        dataType: "json",
+        contentType: "application/json",
+        success: function(data) {
+
+          dataSize = data.length;
+          var template = ''
+          if (data.length >= 1) {
+            $.each(data, function(i, item) {
+              var personCount = Math.trunc(Math.random() * 1000);
+              var startPercent = Math.trunc(Math.random() * 100);
+              template += `<li class="shopList flex spaceBetween" data="${item.id}" ><img class="listLf" src="${item['img_license']}" /><div class="flex1 flexNowrap listRig"><div class="flex spaceBetween listRig_name"><p class="listRig_name_title">${item.name}</p></div><div class="listRig_mid"><p class="star fl"><span class="star-in fl" style="width:${startPercent}%;"></span></p><span class="color67 font20">| &nbsp;&nbsp;${personCount}人光临</span></div><div class="flex spaceBetween color67 font20"><p class="flex1 overflow">${item.city}</p><p>${item.provice}km</p></div></div></li>`;
+            })
+
+            $("#listdata").push(template)
+          } else {
+
+          }
+
+        },
+        error: function() {
+          console.log('暂无数据')
+        }
+      });
     }, 1500);
-
-
-
   }
 
   function addData() {
+
     $.ajax({
       type: 'POST',
       url: "http://app.grjf365.com:9080/user/api/mercuries/info-list/MercuryInfo",
