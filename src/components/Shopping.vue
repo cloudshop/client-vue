@@ -303,6 +303,10 @@ export default {
         this.payment = this.price*this.count;
         this.productName = this.serviceList[pitchId].sku[index].skuName; // 商品名称
         this.productUrl = this.serviceList[pitchId].sku[index].url; // 图片
+        console.log('↓↓↓↓↓↓')
+        console.log(this.serviceList)
+        console.log(this.serviceList[pitchId].sku[index].skuName)
+        
       }
     },
     // 全选 选中计算
@@ -324,6 +328,7 @@ export default {
     },
     // 点击结算
     toTal(){
+  
       sessionStorage.setItem("price",this.price); // 价钱
       sessionStorage.setItem("productName",this.productName);  // 姓名
       sessionStorage.setItem("count",this.count); // 几个
