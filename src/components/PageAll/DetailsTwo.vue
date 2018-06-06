@@ -240,6 +240,8 @@ input::-webkit-input-placeholder {
 
 .classify_search_ss {
   height: .96rem;
+  width: 100%;
+  text-align: center;
 }
 
 .classify_search_ss em {
