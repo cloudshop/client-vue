@@ -87,19 +87,6 @@ const webpackConfig = merge(baseWebpackConfig, {
         // split vendor js into its own file
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor',
-            minChunks: function (module) {
-            // 一个模块被提取到 vendor chunk 时……
-              return (
-                // 如果它在 node_modules 中
-                /node_modules/.test(module.context) &&
-                // 如果 request 是一个 CSS 文件，则无需外置化提取
-                !/\.css$/.test(module.request)
-              )
-            }
-         }),
-
-         new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor',
             minChunks(module) {
                 // any required modules inside node_modules are extracted to vendor
                 return (
