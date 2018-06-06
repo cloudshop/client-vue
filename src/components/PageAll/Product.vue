@@ -256,6 +256,7 @@ import { Swipe, SwipeItem } from "mint-ui";
          sessionStorage.setItem("productName",this.data.productContent.productname);
          sessionStorage.setItem("Productskuid", this.data.productContent.id); // 新改的
          sessionStorage.setItem("shopID", this.data.productContent.shopid); 
+         sessionStorage.setItem("productUrl", this.data.productContent.url[0]); 
       },
       addShopping(){
         var that = this;
