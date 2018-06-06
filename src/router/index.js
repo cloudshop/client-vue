@@ -1,12 +1,12 @@
 ﻿import Vue from 'vue'
 import Router from 'vue-router'
 
-const HomePage = () => import(/* webpackChunkName: "HomePage" */ '@/components/HomePage')
-const Classify = () => import(/* webpackChunkName: "Classify" */ '@/components/Classify') //分类
-const Shopping = () => import(/* webpackChunkName: "Shopping" */ '@/components/Shopping') 
-const Mine = () => import(/* webpackChunkName: "Mine" */ '@/components/Mine')
-
+const Index = r => require.ensure( [], () => r (require('@/components/index')));
+const HomePage = r => require.ensure( [], () => r (require('@/components/HomePage')));
 const city = r => require.ensure( [], () => r (require('@/components/main/city')));
+const Classify = () => import('@/components/Classify') //分类
+const Shopping = r => require.ensure( [], () => r (require('@/components/Shopping')));
+const Mine = r => require.ensure( [], () => r (require('@/components/Mine')));
 const search = r => require.ensure( [], () => r (require('@/components/search')));
 const RemainingSum = r => require.ensure( [], () => r (require('@/components/MineList/RemainingSum.vue')));
 const Stamps = r => require.ensure( [], () => r (require('@/components/MineList/Stamps.vue')));
@@ -67,98 +67,105 @@ const grpay = r => require.ensure([], () => r(require('@/components/main/Grpay.v
 const Surepay = r => require.ensure([], () => r(require('@/components/main/Surepay.vue'))); //扫码付2
 Vue.use(Router)
 
-const routes = [
-	        { // 首页页面
+const routes = [{
+        path: '/',
+        redirect: 'HomePage'
+    },
+    {
+        path: '/',
+        name: 'index',
+        component: Index,
+        children: [{ //首页页面
                 path: '/HomePage',
                 name: 'HomePage',
                 component: HomePage
             },
-            { // 分类页面
+            { //分类页面
                 path: '/Classify',
                 name: 'Classify',
                 component: Classify
             },
-            { // city
+            { //city
                 path: '/city',
                 name: 'city',
                 component: city
             },
-            { // 购物车页面
+            { //购物车页面
                 path: '/Shopping',
                 name: 'Shopping',
                 component: Shopping
             },
-            { // 我的页面
+            { //我的页面
                 path: '/Mine',
                 name: 'Mine',
                 component: Mine,
             },
-            { // 中间部分
+            { //中间部分
                 path: '/myQRCode',
                 name: 'myQRCode',
                 component: myQRCode
             },
-            { // 个人信息页面
+            { //个人信息页面
                 path: '/Information',
                 name: 'Information',
                 component: Information,
             },
-            { // 分享业绩页面
+            { //分享业绩页面
                 path: '/ShareResults',
                 name: 'ShareResults',
                 component: ShareResults,
             },
-            { // 消息页面
+            { //消息页面
                 path: '/News',
                 name: 'News',
                 component: News,
             },
             // { //消息客服页面
-            // path: '/Talk',
-            // name: 'Talk',
-            // component: Talk,
+            //     path: '/Talk',
+            //     name: 'Talk',
+            //     component: Talk,
             // },
             // { //定位页面
-            // path: '/Location',
-            // name: 'Location',
-            // component: Location,
+            //     path: '/Location',
+            //     name: 'Location',
+            //     component: Location,
             // },
-            { // 消费支付页面
+            { //消费支付页面
                 path: '/CreditCard',
                 name: 'CreditCard',
                 component: CreditCard,
             },
-            { // 支付方式
+            { //支付方式
                 path: '/Pay',
                 name: 'Pay',
                 component: Pay,
             },
-            { // 消费支付页面确认？？
+            { //消费支付页面确认？？
                 path: '/CreditCardOK',
                 name: 'CreditCardOK',
                 component: CreditCardOK,
             },
-            { // 确认订单
+            { //确认订单
                 path: '/ConfirmAnOrder',
                 name: 'ConfirmAnOrder',
                 component: ConfirmAnOrder,
             },
-            { // 登陆页面
+            { //登陆页面
                 path: '/Login',
                 name: 'Login',
                 component: Login
             },
-            { // 验证码
+            { //验证码
                 path: '/Register',
                 name: 'Register',
                 component: Register
             },
-            { // 验证码
+            { //验证码
                 path: '/RegisterNew',
                 name: 'RegisterNew',
                 component: RegisterNew
             },
-            { // 设置密码
+            { //设置密码
                 path: '/SetPsd',
                 name: 'SetPsd',
                 component: SetPsd
@@ -178,12 +185,12 @@ const routes = [
                 name: 'ClassifySearch',
                 component: ClassifySearch
             },
-            { // 商品清单
+            { //商品清单
                 path: '/DetailsTwo',
                 name: 'DetailsTwo',
                 component: DetailsTwo
             },
-            { // 全部订单
+            { //全部订单
                 path: '/IndentAll',
                 name: 'IndentAll',
                 component: IndentAll
@@ -208,7 +215,7 @@ const routes = [
                 name: 'Product',
                 component: Product
             },
-            { // 我的收藏
+            { //我的收藏
                 path: '/Collection',
                 name: 'Collection',
                 component: Collection
@@ -228,77 +235,77 @@ const routes = [
                 name: 'ConfirmAnOrderChild',
                 component: ConfirmAnOrderChild
             },
-            { // 商家平台使用缴纳
+            { //商家平台使用缴纳
                 path: '/MerchantsPayCost',
                 name: 'MerchantsPayCost',
                 component: MerchantsPayCost
             },
-            { // 修改昵称
+            { //修改昵称
                 path: '/NickName',
                 name: 'NickName',
                 component: NickName
             },
-            { // 余额
+            { //余额
                 path: '/RemainingSum',
                 name: 'RemainingSum',
                 component: RemainingSum
             },
-            { // 贡融券
+            { //贡融券
                 path: '/Stamps',
                 name: 'Stamps',
                 component: Stamps
             },
-            { // 贡融积分
+            { //贡融积分
                 path: '/Integral',
                 name: 'Integral',
                 component: Integral
             },
-            { // 商户中心
+            { //商户中心
                 path: '/SellerCenter',
                 name: 'SellerCenter',
                 component: SellerCenter
             },
-            { // 申请成为商家
+            { //申请成为商家
                 path: '/OrdinaryBusiness',
                 name: 'OrdinaryBusiness',
                 component: OrdinaryBusiness
             },
-            { // 申请成为商家
+            { //申请成为商家
                 path: '/Appreciation',
                 name: 'Appreciation',
                 component: Appreciation
             },
-            { // 我的地址
+            { //我的地址
                 path: '/MyAddress',
                 name: 'MyAddress',
                 component: MyAddress
             },
-            { // 编辑我的地址
+            { //编辑我的地址
                 path: '/AddAddress',
                 name: 'AddAddress',
                 component: AddAddress
             },
-            { // 我的团队
+            { //我的团队
                 path: '/MyTeam',
                 name: 'MyTeam',
                 component: MyTeam
             },
-            { // 我的团队二级页面
+            { //我的团队二级页面
                 path: '/MyTeam2',
                 name: 'MyTeam2',
                 component: MyTeam2
             },
-            { // 账号与安全页面
+            { //账号与安全页面
                 path: '/ID',
                 name: 'ID',
                 component: ID
             },
-            { // 积分赠送页面
+            { //积分赠送页面
                 path: '/giving',
                 name: 'giving',
                 component: giving
             },
-            { // 积分赠送页面-确认订单
+            { //积分赠送页面-确认订单
                 path: '/giving2',
                 name: 'giving2',
                 component: giving2
@@ -309,9 +316,9 @@ const routes = [
                 component: IntegralDiscount
             },
             // { // 修改折扣
-            // path: '/zhekou',
-            // name: 'zhekou',
-            // component: zhekou
+            //     path: '/zhekou',
+            //     name: 'zhekou',
+            //     component: zhekou
             // },
             { // 积分换购
                 path: '/Redemption',
@@ -328,7 +335,7 @@ const routes = [
                 name: 'recevingCode',
                 component: recevingCode
             },
-            { // 搜索
+            { //搜索
                 path: '/search',
                 name: 'search',
                 component: search
@@ -398,6 +405,8 @@ const routes = [
                 name: 'searchShop',
                 component: searchShop
             },
+        ]
+    },
 ]
 
 // 页面刷新时，重新赋值token
