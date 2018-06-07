@@ -172,7 +172,7 @@ export default {
   },
   mounted() {
     this.GoodsID = sessionStorage.getItem("GoodsID");
-    this.shopID = sessionStorage.getItem("shopID");
+    this.shopID = localStorage.getItem("shopID");
   }
 };
 
