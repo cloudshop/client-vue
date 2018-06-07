@@ -79,7 +79,8 @@ export default {
   },
   methods: {
     details(id) {
-      sessionStorage.setItem("GoodsID", id);
+      // console.log(123)
+      // sessionStorage.setItem("GoodsID", id);
       var val = {
         "func": "openURL",
         "param": {
@@ -89,10 +90,16 @@ export default {
       var u = navigator.userAgent;
       var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
       var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-      if (isiOS) {
-        window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
-      } else if (isAndroid) {
-        window.androidObject.JSCallAndroid(JSON.stringify(val));
+      try{
+        if (isiOS) {
+          window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+        } else if (isAndroid) {
+          window.androidObject.JSCallAndroid(JSON.stringify(val));
+        }
+      }
+      catch(e){
+        let href = window.location.origin
+        window.location.href= (href+'/#/Product?id=' + id)
       }
     },
     seekAll() {
@@ -297,7 +304,6 @@ input::-webkit-input-placeholder {
 .classify_search_ss span {
   padding: .14rem .24rem;
   margin-top: .2rem;
-  font-size:.28rem;
   border-radius: 0 .12rem .12rem 0;
   display: inline-block;
   margin-left: -.3rem;

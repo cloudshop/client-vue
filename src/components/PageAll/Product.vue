@@ -137,7 +137,7 @@
       </div>
       <!-- 加入购物车   立即购买 -->
       <span class="goShopping" @click='SelectiveTypeOpen'>加入购物车</span>
-      <span class="newBuy" @click='SelectiveTypeOpen'>立即购买</span>
+      <span class="newBuy" @click='ConfirmAnOrder'>立即购买</span>
     </div>
   </mt-tab-container>
   <!-- 第一个蒙版 -->
@@ -170,7 +170,7 @@
                     </em>
                   </p>
                 </div>
-                <button @click='ConfirmAnOrder'>确定</button>  
+                <button @click='addShopping'>确定</button>  
             </div>
         </div>
   </transition>
