@@ -30,7 +30,7 @@ const CreditCardOK = () => import(/* webpackChunkName: "CreditCardOK" */ '@/comp
 const Collection = () => import(/* webpackChunkName: "Collection" */ '@/components/Sher/Collection.vue') //
 const IndentAll = () => import(/* webpackChunkName: "IndentAll" */ '@/components/PageAll/IndentAll.vue') //
 const DetailsTwo = () => import(/* webpackChunkName: "DetailsTwo" */ '@/components/PageAll/DetailsTwo.vue') //
-const giving = () => import(/* webpackChunkName: "giving" */ '@/components/Sher/giving.vue') //
+const giving = () => import(/* webpackChunkName: "giving" */ '@/components/Sher/Giving.vue') //
 const giving2 = () => import(/* webpackChunkName: "giving2" */ '@/components/Sher/Giving2.vue') //
 const IntegralDiscount = () => import(/* webpackChunkName: "IntegralDiscount" */ '@/components/IntegralDiscount/IntegralDiscount.vue') //
 const Redemption = () => import(/* webpackChunkName: "Redemption" */ '@/components/redemption/Redemption.vue') //
@@ -47,8 +47,8 @@ const ConfirmAnOrderChild = () => import(/* webpackChunkName: "ConfirmAnOrderChi
 const Login = () => import(/* webpackChunkName: "setpaypsd" */ '@/components/Login/Login.vue') //
 const Register = () => import(/* webpackChunkName: "Register" */ '@/components/Login/Register.vue') //
 const SetPsd = () => import(/* webpackChunkName: "SetPsd" */ '@/components/Login/SetPsd.vue') //
-const ChangePsd = () => import(/* webpackChunkName: "ChangePsd" */ '@/components/Login/ChangePsd.vue') //
-const ChangePsd2 = () => import(/* webpackChunkName: "ChangePsd2" */ '@/components/Login/ChangePsd2.vue') //
+const ChangePsd = () => import(/* webpackChunkName: "ChangePsd" */ '@/components/Login/Changepsd.vue') //
+const ChangePsd2 = () => import(/* webpackChunkName: "ChangePsd2" */ '@/components/Login/Changepsd2.vue') //
 const ClassifySearch = () => import(/* webpackChunkName: "ClassifySearch" */ '@/components/PageAll/ClassifySearch.vue') //
 const PageAll = () => import(/* webpackChunkName: "PageAll" */ '@/components/PageAll/PageAll.vue') //
 const PageDetails= () => import(/* webpackChunkName: "PageDetails" */ '@/components/PageAll/PageDetails.vue')
@@ -64,7 +64,7 @@ const Servershop2= () => import(/* webpackChunkName: "Servershop2" */ '@/compone
 const Xorders= () => import(/* webpackChunkName: "Xorders" */ '@/components/MineList/Xorders.vue')    //线下订单
 const Cash= () => import(/* webpackChunkName: "Cash" */ '@/components/MineList/Cash.vue')    //提现
 const recevingCode= () => import(/* webpackChunkName: "recevingCode" */ '@/components/MineList/recevingCode.vue')    // 收款码
-const grpay= () => import(/* webpackChunkName: "grpay" */ '@/components/main/grpay.vue') //扫码付
+const grpay= () => import(/* webpackChunkName: "grpay" */ '@/components/main/Grpay.vue') //扫码付
 const Surepay= () => import(/* webpackChunkName: "Surepay" */ '@/components/main/Surepay.vue') //扫码付2
 Vue.use(Router)
 
