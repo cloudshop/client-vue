@@ -142,15 +142,21 @@ export default {
       this.id = JSON.parse(id);
       this.getDatas()
     },
+     GetParams2(href) {
+      let valueStr = href.split("=");
+      this.id  = valueStr[1];
+      this.getDatas()
+    },
     getDatas() {
       let url = "product/api/product/all"
       this.$axios
         .post(url, {
-          'categoryId': this.id.DetailsTwo,
+          'categoryId': this.id,
           'pageNum': this.page,
           'pageSize': this.pageSize
         })
         .then((res) => {
+          console.log(res)
           let len = res.data.mainContent.length;
           this.pageNum = len;
           this.arr = res.data.mainContent;
@@ -215,7 +221,23 @@ export default {
   },
   created() {},
   mounted() {
-    window.GetParams = this.GetParams;
+    var u = navigator.userAgent;
+      var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; // android终端
+      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+      try{
+        if (isiOS) {
+          window.webkit.messageHandlers.GongrongAppModel.postMessage(val);
+        } else if (isAndroid) {
+          window.androidObject.JSCallAndroid(JSON.stringify(val));
+        }
+        window.GetParams = this.GetParams;
+      }
+      catch(e){
+         let href = window.location.hash
+        // console.log(window.location.hash)
+        this.GetParams2(href)
+      }
+    
   }
 };
 

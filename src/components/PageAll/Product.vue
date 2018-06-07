@@ -201,7 +201,7 @@ import { Swipe, SwipeItem } from "mint-ui";
     }, 
      methods: {
       conectSeller(){
-       window.location.href=("http://192.168.1.105/login")
+       // window.location.href=("http://192.168.1.105/login")
       },
       tab(index) {
         this.num = index
@@ -389,6 +389,7 @@ import { Swipe, SwipeItem } from "mint-ui";
         this.$axios.get('product/api/product/content?id=' + Goods)
         .then((response)=> {
             this.data = response.data;
+            console.log(this.data)
             this.urlArr = response.data.productContent.url;
             this.shopIds = response.data.productContent.shopid;
             let reg = /img+/gi;
