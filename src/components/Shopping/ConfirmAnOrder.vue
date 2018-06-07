@@ -150,15 +150,15 @@ export default {
     }
   },
   created() {
-    // this.productName = sessionStorage.getItem("productName"); // 姓名
-    // this.productUrl = sessionStorage.getItem("productUrl"); // 图片路径
-    // this.price = sessionStorage.getItem("price"); // 价钱
-    // this.count = sessionStorage.getItem("count"); // 几个
-    // this.productSkuId = sessionStorage.getItem("Productskuid"); // 
     this.productName = localStorage.getItem("productName"); // 姓名
     this.productUrl = localStorage.getItem("productUrl"); // 图片路径
     this.price = localStorage.getItem("price"); // 价钱
     this.count = localStorage.getItem("count"); // 几个
+    this.productSkuId = localStorage.getItem("Productskuid"); // 
+    // this.productName = localStorage.getItem("productName"); // 姓名
+    // this.productUrl = localStorage.getItem("productUrl"); // 图片路径
+    // this.price = localStorage.getItem("price"); // 价钱
+    // this.count = localStorage.getItem("count"); // 几个
     var that = this;
     this.$axios.get('wallet/api/wallets/user')
       .then(function(res) {
