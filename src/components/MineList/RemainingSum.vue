@@ -270,6 +270,7 @@ header {
   height: 3.7rem;
   position: fixed;
   top: 0.94rem;
+  z-index:999;
 }
 
 .banner p {
