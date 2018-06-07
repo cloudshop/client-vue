@@ -38,36 +38,34 @@ const ShareResults = () => import(/* webpackChunkName: "ShareResults" */ '@/comp
 const Pay = () => import(/* webpackChunkName: "Pay" */ '@/components/MineList/Pay.vue') //
 const News = () => import(/* webpackChunkName: "News" */ '@/components/main/News.vue') //
 const setpaypsd = () => import(/* webpackChunkName: "setpaypsd" */ '@/components/My/paypsd.vue') //
-
-
-const IDcard = r => require.ensure( [], () => r (require('@/components/My/IDcard.vue')));
-const Myhead = r => require.ensure( [], () => r (require('@/components/MineList/Myhead.vue')));
-const addressYes = r => require.ensure( [], () => r (require('@/components/MineList/addressYes.vue'))); // 修改收货地址
-const Approve = r => require.ensure( [], () => r (require('@/components/MineList/Approve.vue')));//实名认证
-const ConfirmAnOrder = r => require.ensure( [], () => r (require('@/components/Shopping/ConfirmAnOrder.vue')));
-const ConfirmAnOrderChild = r => require.ensure( [], () => r (require('@/components/Shopping/ConfirmAnOrderChild.vue')));
-const Login = r => require.ensure( [], () => r (require('@/components/Login/Login.vue')));
-const Register = r => require.ensure( [], () => r (require('@/components/Login/Register.vue')));
-const SetPsd = r => require.ensure( [], () => r (require('@/components/Login/SetPsd.vue')));
-const ChangePsd = r => require.ensure( [], () => r (require('@/components/Login/Changepsd.vue')));
-const ChangePsd2 = r => require.ensure( [], () => r (require('@/components/Login/Changepsd2.vue')));
-const ClassifySearch = r => require.ensure( [], () => r (require('@/components/PageAll/ClassifySearch.vue')));
-const PageAll = r => require.ensure( [], () => r (require('@/components/PageAll/PageAll.vue')));
-const PageDetails = r => require.ensure( [], () => r (require('@/components/PageAll/PageDetails.vue')));
-const PageDetailsChild = r => require.ensure( [], () => r (require('@/components/PageAll/PageDetailsChild.vue')));
-const Product = r => require.ensure( [], () => r (require('@/components/PageAll/Product.vue')));
-const RegisterNew = r => require.ensure( [], () => r (require('@/components/Login/RegisterNew.vue')));
-const sunorder = r => require.ensure( [], () => r (require('@/components/Sher/Sunorder.vue')));
-const top = r => require.ensure( [], () => r (require('@/components/Sher/Topup.vue')));
-const Offline = r => require.ensure( [], () => r (require('@/components/Sher/Offline.vue')));
-const Agreement = r => require.ensure( [], () => r (require('@/components/Sher/Agreement.vue')));
-const Servershop = r => require.ensure( [], () => r (require('@/components/MineList/Servershop.vue')));      //服务商首页
-const Servershop2 = r => require.ensure( [], () => r (require('@/components/MineList/servershop2.vue')));    //支付服务商两万元
-const Xorders = r => require.ensure([], () => r(require('@/components/MineList/Xorders.vue'))); //线下订单
-const Cash = r => require.ensure([], () => r(require('@/components/MineList/Cash.vue'))); //提现
-const recevingCode = r => require.ensure([], () => r(require('@/components/MineList/recevingCode.vue'))); // 收款码
-const grpay = r => require.ensure([], () => r(require('@/components/main/Grpay.vue'))); //扫码付
-const Surepay = r => require.ensure([], () => r(require('@/components/main/Surepay.vue'))); //扫码付2
+const IDcard = () => import(/* webpackChunkName: "IDcard" */ '@/components/My/IDcard.vue') //
+const Myhead = () => import(/* webpackChunkName: "Myhead" */ '@/components/MineList/Myhead.vue') //
+const addressYes = () => import(/* webpackChunkName: "addressYes" */ '@/components/MineList/addressYes.vue') // 修改收货地址
+const Approve = () => import(/* webpackChunkName: "Approve" */ '@/components/MineList/Approve.vue') // 实名认证
+const ConfirmAnOrder = () => import(/* webpackChunkName: "ConfirmAnOrder" */ '@/components/Shopping/ConfirmAnOrder.vue') //
+const ConfirmAnOrderChild = () => import(/* webpackChunkName: "ConfirmAnOrderChild" */ '@/components/Shopping/ConfirmAnOrderChild.vue') //
+const Login = () => import(/* webpackChunkName: "setpaypsd" */ '@/components/Login/Login.vue') //
+const Register = () => import(/* webpackChunkName: "Register" */ '@/components/Login/Register.vue') //
+const SetPsd = () => import(/* webpackChunkName: "SetPsd" */ '@/components/Login/SetPsd.vue') //
+const ChangePsd = () => import(/* webpackChunkName: "ChangePsd" */ '@/components/Login/ChangePsd.vue') //
+const ChangePsd2 = () => import(/* webpackChunkName: "ChangePsd2" */ '@/components/Login/ChangePsd2.vue') //
+const ClassifySearch = () => import(/* webpackChunkName: "ClassifySearch" */ '@/components/PageAll/ClassifySearch.vue') //
+const PageAll = () => import(/* webpackChunkName: "PageAll" */ '@/components/PageAll/PageAll.vue') //
+const PageDetails= () => import(/* webpackChunkName: "PageDetails" */ '@/components/PageAll/PageDetails.vue')
+const PageDetailsChild= () => import(/* webpackChunkName: "PageDetailsChild" */ '@/components/PageAll/PageDetailsChild.vue')
+const Product= () => import(/* webpackChunkName: "Product" */ '@/components/PageAll/Product.vue')
+const RegisterNew= () => import(/* webpackChunkName: "RegisterNew" */ '@/components/Login/RegisterNew.vue')
+const sunorder= () => import(/* webpackChunkName: "sunorder" */ '@/components/Sher/Sunorder.vue')
+const top= () => import(/* webpackChunkName: "top" */ '@/components/Sher/Topup.vue')
+const Offline= () => import(/* webpackChunkName: "Offline" */ '@/components/Sher/Offline.vue')
+const Agreement= () => import(/* webpackChunkName: "Agreement" */ '@/components/Sher/Agreement.vue')
+const Servershop= () => import(/* webpackChunkName: "Servershop" */ '@/components/MineList/Servershop.vue')      //服务商首页
+const Servershop2= () => import(/* webpackChunkName: "Servershop2" */ '@/components/MineList/servershop2.vue')    //支付服务商两万元
+const Xorders= () => import(/* webpackChunkName: "Xorders" */ '@/components/MineList/Xorders.vue')    //线下订单
+const Cash= () => import(/* webpackChunkName: "Cash" */ '@/components/MineList/Cash.vue')    //提现
+const recevingCode= () => import(/* webpackChunkName: "recevingCode" */ '@/components/MineList/recevingCode.vue')    // 收款码
+const grpay= () => import(/* webpackChunkName: "grpay" */ '@/components/main/grpay.vue') //扫码付
+const Surepay= () => import(/* webpackChunkName: "Surepay" */ '@/components/main/Surepay.vue') //扫码付2
 Vue.use(Router)
 
 const routes = [{
@@ -407,7 +405,7 @@ const routes = [{
                 path: '/searchShop',
                 name: 'searchShop',
                 component: searchShop
-            },
+            }
         ]
     },
 ]
