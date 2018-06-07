@@ -329,10 +329,10 @@ export default {
     // 点击结算
     toTal(){
   
-      sessionStorage.setItem("price",this.price); // 价钱
-      sessionStorage.setItem("productName",this.productName);  // 姓名
-      sessionStorage.setItem("count",this.count); // 几个
-      sessionStorage.setItem("productUrl",this.productUrl); // 图片路径
+      localStorage.setItem("price",this.price); // 价钱
+      localStorage.setItem("productName",this.productName);  // 姓名
+      localStorage.setItem("count",this.count); // 几个
+      localStorage.setItem("productUrl",this.productUrl); // 图片路径
     //   var that = this;
     //   var params = {
     //     "buyerMessage": 0, // 买家留言
