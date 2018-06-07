@@ -2,41 +2,44 @@
 import Router from 'vue-router'
 
 const Index = r => require.ensure( [], () => r (require('@/components/index')));
-const HomePage = r => require.ensure( [], () => r (require('@/components/HomePage')));
-const city = r => require.ensure( [], () => r (require('@/components/main/city')));
-const Classify = () => import('@/components/Classify') //分类
-const Shopping = r => require.ensure( [], () => r (require('@/components/Shopping')));
-const Mine = r => require.ensure( [], () => r (require('@/components/Mine')));
-const search = r => require.ensure( [], () => r (require('@/components/search')));
-const RemainingSum = r => require.ensure( [], () => r (require('@/components/MineList/RemainingSum.vue')));
-const Stamps = r => require.ensure( [], () => r (require('@/components/MineList/Stamps.vue')));
-const myQRCode = r => require.ensure( [], () => r (require('@/components/myQRCode')));
-const Information = r => require.ensure( [], () => r (require('@/components/MineList/Information.vue')));
-const searchShop = r => require.ensure( [], () => r (require('@/components/PageAll/searchShop.vue'))); // 店铺搜索
-const NickName = r => require.ensure( [], () => r (require('@/components/MineList/NickName.vue')));
-const MyAddress = r => require.ensure( [], () => r (require('@/components/MineList/MyAddress.vue')));
-const AddAddress = r => require.ensure( [], () => r (require('@/components/MineList/AddAddress.vue')));
-const MyTeam = r => require.ensure( [], () => r (require('@/components/MineList/MyTeam.vue')));  //我的团队
-const MyTeam2 = r => require.ensure([], () => r(require('@/components/MineList/MyTeam2.vue'))); //我的团队二级页面
-const ID = r => require.ensure( [], () => r (require('@/components/MineList/ID.vue')));
-const Integral = r => require.ensure( [], () => r (require('@/components/MineList/Integral.vue')));
-const SellerCenter = r => require.ensure( [], () => r (require('@/components/MineList/SellerCenter')));
-const OrdinaryBusiness = r => require.ensure( [], () => r (require('@/components/MineList/OrdinaryBusiness.vue')));
-const Appreciation = r => require.ensure( [], () => r (require('@/components/MineList/Appreciation.vue')));
-const MerchantsPayCost = r => require.ensure( [], () => r (require('@/components/MineList/MerchantsPayCost.vue')));
-const CreditCard = r => require.ensure( [], () => r (require('@/components/MineList/CreditCard.vue')));
-const CreditCardOK = r => require.ensure( [], () => r (require('@/components/MineList/CreditCardOK.vue')));
-const Collection = r => require.ensure( [], () => r (require('@/components/Sher/Collection.vue')));
-const IndentAll = r => require.ensure( [], () => r (require('@/components/PageAll/IndentAll.vue')));
-const DetailsTwo = r => require.ensure( [], () => r (require('@/components/PageAll/DetailsTwo.vue')));
-const giving = r => require.ensure( [], () => r (require('@/components/Sher/Giving.vue')));
-const giving2 = r => require.ensure( [], () => r (require('@/components/Sher/Giving2.vue')));
-const IntegralDiscount = r => require.ensure( [], () => r (require('@/components/IntegralDiscount/IntegralDiscount.vue')));
-const Redemption = r => require.ensure( [], () => r (require('@/components/redemption/Redemption.vue')));
-const ShareResults = r => require.ensure( [], () => r (require('@/components/MineList/ShareResults.vue')));
-const Pay = r => require.ensure( [], () => r (require('@/components/MineList/Pay.vue')));
-const News = r => require.ensure( [], () => r (require('@/components/main/News.vue')));
-const setpaypsd = r => require.ensure( [], () => r (require('@/components/My/paypsd.vue')));
+const HomePage = () => import(/* webpackChunkName: "HomePage" */ '@/components/HomePage') //
+const Classify = () => import(/* webpackChunkName: "Classify" */ '@/components/Classify') //分类
+const Shopping = () => import(/* webpackChunkName: "Shopping" */ '@/components/Shopping') //
+const Mine = () => import(/* webpackChunkName: "Mine" */ '@/components/Mine') //
+
+const city = () => import(/* webpackChunkName: "city" */ '@/components/main/city') //
+const search = () => import(/* webpackChunkName: "search" */ '@/components/search') //
+const RemainingSum = () => import(/* webpackChunkName: "RemainingSum" */ '@/components/MineList/RemainingSum') //
+const Stamps = () => import(/* webpackChunkName: "Stamps" */ '@/components/MineList/Stamps') //
+const myQRCode = () => import(/* webpackChunkName: "myQRCode" */ '@/components/myQRCode') //
+const Information = () => import(/* webpackChunkName: "Information" */ '@/components/MineList/Information.vue') //
+const searchShop = () => import(/* webpackChunkName: "searchShop" */ '@/components/PageAll/searchShop.vue') //
+const NickName = () => import(/* webpackChunkName: "NickName" */ '@/components/MineList/NickName.vue') //
+const MyAddress = () => import(/* webpackChunkName: "MyAddress" */ '@/components/MineList/MyAddress.vue') //
+const AddAddress = () => import(/* webpackChunkName: "AddAddress" */ '@/components/MineList/AddAddress.vue') //
+const MyTeam = () => import(/* webpackChunkName: "MyTeam" */ '@/components/MineList/MyTeam.vue')  //我的团队
+const MyTeam2 = () => import(/* webpackChunkName: "MyTeam2" */ '@/components/MineList/MyTeam2.vue') //我的团队二级页面
+const ID = () => import(/* webpackChunkName: "ID" */ '@/components/MineList/ID.vue') //
+const Integral = () => import(/* webpackChunkName: "Integral" */ '@/components/MineList/Integral.vue') //
+const SellerCenter = () => import(/* webpackChunkName: "SellerCenter" */ '@/components/MineList/SellerCenter') //
+const OrdinaryBusiness = () => import(/* webpackChunkName: "OrdinaryBusiness" */ '@/components/MineList/OrdinaryBusiness.vue') //
+const Appreciation = () => import(/* webpackChunkName: "Appreciation" */ '@/components/MineList/Appreciation.vue') //
+const MerchantsPayCost = () => import(/* webpackChunkName: "MerchantsPayCost" */ '@/components/MineList/MerchantsPayCost.vue') //
+const CreditCard = () => import(/* webpackChunkName: "CreditCard" */ '@/components/MineList/CreditCard.vue') //
+const CreditCardOK = () => import(/* webpackChunkName: "CreditCardOK" */ '@/components/MineList/CreditCardOK.vue') //
+const Collection = () => import(/* webpackChunkName: "Collection" */ '@/components/Sher/Collection.vue') //
+const IndentAll = () => import(/* webpackChunkName: "IndentAll" */ '@/components/PageAll/IndentAll.vue') //
+const DetailsTwo = () => import(/* webpackChunkName: "DetailsTwo" */ '@/components/PageAll/DetailsTwo.vue') //
+const giving = () => import(/* webpackChunkName: "giving" */ '@/components/Sher/giving.vue') //
+const giving2 = () => import(/* webpackChunkName: "giving2" */ '@/components/Sher/Giving2.vue') //
+const IntegralDiscount = () => import(/* webpackChunkName: "IntegralDiscount" */ '@/components/IntegralDiscount/IntegralDiscount.vue') //
+const Redemption = () => import(/* webpackChunkName: "Redemption" */ '@/components/redemption/Redemption.vue') //
+const ShareResults = () => import(/* webpackChunkName: "ShareResults" */ '@/components/MineList/ShareResults.vue') //
+const Pay = () => import(/* webpackChunkName: "Pay" */ '@/components/MineList/Pay.vue') //
+const News = () => import(/* webpackChunkName: "News" */ '@/components/main/News.vue') //
+const setpaypsd = () => import(/* webpackChunkName: "setpaypsd" */ '@/components/My/paypsd.vue') //
+
+
 const IDcard = r => require.ensure( [], () => r (require('@/components/My/IDcard.vue')));
 const Myhead = r => require.ensure( [], () => r (require('@/components/MineList/Myhead.vue')));
 const addressYes = r => require.ensure( [], () => r (require('@/components/MineList/addressYes.vue'))); // 修改收货地址
