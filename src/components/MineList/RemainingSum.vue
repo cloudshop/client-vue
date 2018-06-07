@@ -255,9 +255,6 @@ header {
   height: 100%;
   display: flex;
   flex-direction: column;
-  position: absolute;
-  top: 0;
-  bottom: 0;
   overflow: hidden;
   background: #f5f5f5;
 }
