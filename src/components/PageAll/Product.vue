@@ -251,12 +251,12 @@ import { Swipe, SwipeItem } from "mint-ui";
         else{
           this.$router.push({name:"ConfirmAnOrder",}) 
         }
-         sessionStorage.setItem("price",this.data.productContent.price); 
-         sessionStorage.setItem("count",this.val);
-         sessionStorage.setItem("productName",this.data.productContent.productname);
-         sessionStorage.setItem("Productskuid", this.data.productContent.id); // 新改的
-         sessionStorage.setItem("shopID", this.data.productContent.shopid); 
-         sessionStorage.setItem("productUrl", this.data.productContent.url[0]); 
+         localStorage.setItem("price",this.data.productContent.price); 
+         localStorage.setItem("count",this.val);
+         localStorage.setItem("productName",this.data.productContent.productname);
+         localStorage.setItem("Productskuid", this.data.productContent.id); // 新改的
+         localStorage.setItem("shopID", this.data.productContent.shopid); 
+         localStorage.setItem("productUrl", this.data.productContent.url[0]); 
       },
       addShopping(){
         var that = this;

@@ -297,6 +297,7 @@ input::-webkit-input-placeholder {
 .classify_search_ss span {
   padding: .14rem .24rem;
   margin-top: .2rem;
+  font-size:.28rem;
   border-radius: 0 .12rem .12rem 0;
   display: inline-block;
   margin-left: -.3rem;
