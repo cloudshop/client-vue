@@ -11,7 +11,7 @@
       <div class="PageDetails_main">
         <!-- <p class="PageDetails_main_img"><img src="" alt=""></p> -->
         <p class="PageDetails_main_shopname">{{brr.name}}</p>
-        <div class="PageDetails_attention" @click="attentionShop">
+        <div class="PageDetails_attention" @click="attentionShop" v-show="false">
           <!--  <p class="PageDetails_main_main"><span>{{brr.name}}</span><span></span></p> -->
           <p class="PageDetails_attentionUp" v-show="falgUp"><img src="../../assets/PageDetails/关注.png" alt=""><span>关注</span></p>
           <p class="PageDetails_attentionDown" v-show="falgDown">已关注</p>
