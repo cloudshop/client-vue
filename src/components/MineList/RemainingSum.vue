@@ -255,9 +255,6 @@ header {
   height: 100%;
   display: flex;
   flex-direction: column;
-  position: absolute;
-  top: 0;
-  bottom: 0;
   overflow: hidden;
   background: #f5f5f5;
 }
@@ -273,6 +270,7 @@ header {
   height: 3.7rem;
   position: fixed;
   top: 0.94rem;
+  z-index:999;
 }
 
 .banner p {
