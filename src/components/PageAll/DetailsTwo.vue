@@ -307,6 +307,7 @@ input::-webkit-input-placeholder {
   border-radius: 0 .12rem .12rem 0;
   display: inline-block;
   margin-left: -.3rem;
+  font-size:.32rem;
 }
 
 .classify_search_option_ul {
