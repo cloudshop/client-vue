@@ -316,7 +316,7 @@ header {
 .More ul li h2 span {
   border: 1px solid #e7e7e7;
   width: .41rem;
-  height: .38rem;
+  height: .39rem;
   display: inline-block;
   text-align: center;
   line-height: .41rem;
@@ -335,7 +335,7 @@ header {
 .More ul li h2 input {
   border: 1px solid #e7e7e7;
   width: .59rem;
-  height: .35rem;
+  height: .36rem;
   display: inline-block;
   text-align: center;
 }
