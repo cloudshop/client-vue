@@ -14,11 +14,12 @@ import bus from './plugin/bus';
 import $ from 'jquery'
 import './init/font/iconfont.css'
 import animate from './init/css/animate.css'
+import { Upload } from 'element-ui'
 
 Vue.use(bus)
 Vue.use(MintUI)
 Vue.use(animate)
-//Vue.use(ElementUI)
+Vue.use(Upload)
 
 import Vuex from 'vuex'
 Vue.use(Vuex)
