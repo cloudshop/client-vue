@@ -104,7 +104,7 @@ export default {
       bottomStatus: '',
       topStatus: '',
       wrapperHeight: 0,
-      tabs: ["全部", "待付款", "已付款", "已发货", "已完成", "已取消"],
+      tabs: ["全部", "待付款", "待发货", "待收货", "已完成", "已取消"],
       tabNew: ["未付款", "已付款", "已发货", "已完成", "已取消"],
       arr: [],
       num: 0,
