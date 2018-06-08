@@ -15,7 +15,7 @@
           <!--  <p class="PageDetails_main_main"><span>{{brr.name}}</span><span></span></p> -->
           <p class="PageDetails_attentionUp" v-show="falgUp"><img src="../../assets/PageDetails/关注.png" alt=""><span>关注</span></p>
           <p class="PageDetails_attentionDown" v-show="falgDown">已关注</p>
-        </div>
+        </div> 
       </div>
     </div>
     <div class='content'>
