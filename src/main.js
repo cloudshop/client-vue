@@ -14,6 +14,7 @@ import bus from './plugin/bus';
 import $ from 'jquery'
 import './init/font/iconfont.css'
 import animate from './init/css/animate.css'
+import 'element-ui/lib/theme-chalk/index.css'
 import { Upload } from 'element-ui'
 
 Vue.use(bus)
