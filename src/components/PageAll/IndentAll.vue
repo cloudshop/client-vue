@@ -27,7 +27,8 @@
                   <p><span class="tabCom_mainImg"><img src="../../assets/PageAll/店铺.png" alt=""></span><span class="font">{{item.shopName}}</span></p>
                   <p><span class="font2">{{tabNew[item.status-1]}}
                       </span>
-                    <span class="tabCom_mainImg" @click="userId"><img src="../../assets/PageAll/删除.png" alt=""></span></p>
+
+                    <span class="tabCom_mainImg"  @click="openConfirm(item.orderid)" ><img src="../../assets/PageAll/删除.png" alt=""></span></p>
                 </div>
                 <div class="tabCon_main_center" v-for='(data,ind) in item.proOrderItems' :key='ind'>
                   <div class="tabCon_main_centerImg"><img :src="data.url" alt=""></div>
@@ -55,15 +56,7 @@
                 <div class="tabCon_main_agin" v-show='item.status==5?true:false'>
                   <p>再次购买</p>
                 </div>
-                <div class='mark' v-show='dele'>
-                  <div class="mark_">
-                    <p>确定删除此订单?</p>
-                    <div class="btn_all">
-                      <div class="no" @click='nos'>取消</div>
-                      <div class="sure" @click='sures(item.orderid)'>删除</div>
-                    </div>
-                  </div>
-                </div>
+               
               </div>
             </div>
             <div slot="top" class="mint-loadmore-top">
@@ -93,10 +86,13 @@
   </div>
 </template>
 <script>
-import { Loadmore } from 'mint-ui';
+import { Loadmore , MessageBox ,Indicator , Toast} from 'mint-ui';
 export default {
   component: {
-    Loadmore
+    Loadmore,
+    MessageBox,
+    Indicator,
+    Toast
   },
   data() {
     return {
@@ -108,7 +104,6 @@ export default {
       tabNew: ["未付款", "已付款", "已发货", "已完成", "已取消"],
       arr: [],
       num: 0,
-      dele: false,
       total: 0, //总页数
       pageNum: 1,
       pageSize: 5,
@@ -152,6 +147,22 @@ export default {
     }
   },
   methods: {
+    openConfirm(id) {
+        MessageBox.confirm('确定删除此订单?', '提示').then(()=>{
+          Indicator.open();
+          const url = '/order/api/manage/deleteOrder/';
+          setTimeout(()=>{
+             this.$axios.get(url+id)
+            .then((response)=> {
+              this.getDataList()
+              Indicator.close();
+            })
+            .catch((error)=> {
+              Toast(error.response.data.title);
+            });
+          },1000)
+        });
+      },
     del() {
       $(".password").fadeOut(200);
       $("#psd").val('');
@@ -161,7 +172,6 @@ export default {
       this.$axios.post(url, { "page": this.page, "size": this.pageSize, "status": this.status })
         .then((res) => {
 
-         
           this.arr = res.data.proOrder;
           this.noindentData = this.arr.length === 0 ? true : false ;
 
@@ -243,22 +253,6 @@ export default {
       } else if (isAndroid) {
         window.androidObject.JSCallAndroid(JSON.stringify(val));
       }
-    },
-    sures(userid) {
-      var that = this;
-      this.$axios({
-          method: 'get',
-          url: '/order/api/manage/deleteOrder/' + userid
-        })
-        .then(function(response) {
-          if (response.data == true) {
-            that.dele = false;
-            location.reload()
-          }
-        })
-        .catch(function(error) {
-          alert(error.response.data.title);
-        });
     },
     receiving(orderNo, index) {
       var that = this;
@@ -734,5 +728,14 @@ export default {
   text-align: center;
   font-size: 0.28rem;
   margin-top: 2rem;
+}
+.mint-msgbox-title{
+  font-size: 20px!important;
+}
+.mint-msgbox .mint-msgbox-message{
+  font-size: .28rem!important;
+}
+.mint-msgbox-btn {
+  font-size: 0.28rem!important;
 }
 </style>
