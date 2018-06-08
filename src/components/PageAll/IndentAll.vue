@@ -605,6 +605,7 @@ export default {
 .tabCon_main_center_div {
   flex: 1;
   margin: .2rem .2rem .2rem 0;
+  font-size: 0.25rem;
 }
 
 .tabCon_main_money {
