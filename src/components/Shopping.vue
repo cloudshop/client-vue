@@ -328,7 +328,7 @@ export default {
     },
     // 点击结算
     toTal(){
-  
+    localStorage.setItem("shopId",this.shopId); // 价钱
       localStorage.setItem("price",this.price); // 价钱
       localStorage.setItem("productName",this.productName);  // 姓名
       localStorage.setItem("count",this.count); // 几个
