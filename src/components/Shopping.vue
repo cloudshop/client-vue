@@ -781,7 +781,7 @@ span {
   color: #428bca;
   width: .5rem;
   height: .3rem;
-
+  font-size: 0.24rem;
 }
 .contents_right_shu {
   padding: 0 0.12rem;

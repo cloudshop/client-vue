@@ -3,7 +3,7 @@
     <!-- 店铺首页PageDetails -->
     <div class='PageDetails_head' :style="{backgroundImage: 'url('+brr.imgIntroduces+')' }">
       <div class="PageDetails_header">
-        <span @click='back' class="back">〈</span>
+        <span @click='back' class="back">&lt;</span>
         <input type="text" placeholder="内容推荐." @click="searchPage">
         <!--<span><img src="../../assets/PageDetails/主页.png" alt=""></span>-->
         <!--<span><img src="../../assets/PageDetails/消息.png" alt=""></span>-->

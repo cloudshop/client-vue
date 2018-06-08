@@ -163,11 +163,11 @@ header {
 }
 .list li b {
   float: right;
-  font-size: 0.4rem;
+  font-size: 0.32rem;
   display: inline-block;
   position: absolute;
   right: 0.6rem;
-  font-weight: 400;
+  font-weight: 200;
 }
 .list li:nth-child(7) b{
   font-size: 0.27rem;
