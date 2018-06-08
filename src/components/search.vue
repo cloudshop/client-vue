@@ -2,7 +2,7 @@
     <div>
         <header class="header">
             <ul>
-                <li><span @click='back'>〈</span></li>
+                <li><span @click='back'>&lt;</span></li>
                 <li><input type="search" placeholder="请输入你要搜索商品的名称" v-model="Search"></li>
                 <li><button @click="searchs">搜索</button></li>
             </ul>
