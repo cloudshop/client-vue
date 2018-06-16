@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import Foot from './main/Foot'
+import Foot from './public/Foot'
 export default {
     data(){
       return {
@@ -159,7 +159,7 @@ export default {
         display: inline-block;
         width:.4rem;
         height:.4rem;
-        background:url(../assets/HomePage/搜索.png);
+        background:url(../assets/images/public/search.png);
         background-size:100% 100%;
         position: absolute;
         left:.4rem;

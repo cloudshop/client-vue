@@ -35,8 +35,8 @@ const credentials = {
         secret: 'w1eb_app'
     },
     auth: {
-        tokenHost: window.location.origin,
-        tokenPath: 'api/auth/login/app'
+        tokenHost: "http://app.grjf365.com:9080",
+        tokenPath: 'auth/login/app'
     },
     http: {
         headers: {
