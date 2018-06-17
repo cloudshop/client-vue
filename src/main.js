@@ -3,7 +3,9 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import './init/css/reset.css'
 import axios  from  './helpers/client'
+import animate from './init/css/animate.css'
 
 import Vuex from 'vuex'
 Vue.use(Vuex)
