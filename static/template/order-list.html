@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>订单列表</title>
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <!-- 引入YDUI样式 -->
+    <link rel="stylesheet" href="dist/YDUI/css/ydui.css">
+    <!-- 引入YDUI样式 -->
+    <link rel="stylesheet" href="css/box-flex.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/iconfont.css">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- 引入jQuery 2.0+ -->
+    <script src="dist/jquery.min.js"></script>
+    <!-- 自适应解决方案类库 -->
+    <script src="js/adaptive.js"></script>
+    <!-- 自适应解决方案类库 -->
+    <script type="text/javascript">
+    adaPtive(); //铺页面调用             
+    //页面加载时调用
+    $(function() { direction(); });
+    //用户变化屏幕方向时调用
+    $(window).on('orientationchange', function(e) { direction(); });
+    //调用adaptive
+    function adaPtive(max) {
+        window['adaptive'].desinWidth = 640;
+        window['adaptive'].baseFont = 24;
+        window['adaptive'].scaleType = 1;
+        window['adaptive'].maxWidth = 640;
+        window['adaptive'].init();
+    }
+    //判断手机屏幕方向
+    function direction() { if (window.orientation == 90 || window.orientation == -90) { adaPtive(320); return false; } else if (window.orientation == 0 || window.orientation == 180) { adaPtive(); return false; } }
+    </script>
+</head>
+
+<body>
+    <div class="g-flexview">
+        <!-- header -->
+        <header class="m-navbar my-header">
+            <a href="#" class="navbar-item">
+                <i class="back-ico"></i>
+            </a>
+            <div class="navbar-center">
+                <span class="navbar-title">我的订单</span>
+            </div>
+        </header>
+        <!-- header -->
+        <!-- pro-main -->
+        <div class="orl-main g-scrollview">
+            <div id="J_Tab" class="m-tab">
+                <ul class="tab-nav">
+                    <li class="tab-nav-item tab-active"><a href="javascript:;">全部</a></li>
+                    <li class="tab-nav-item"><a href="javascript:;">待付款</a></li>
+                    <li class="tab-nav-item"><a href="javascript:;">待发货</a></li>
+                    <li class="tab-nav-item"><a href="javascript:;">待收货</a></li>
+                    <li class="tab-nav-item"><a href="javascript:;">待评价</a></li>
+                </ul>
+                <div class="tab-panel">
+                    <!-- 全部 -->
+                    <div class="tab-panel-item tab-active">
+                        <!-- orl-list 已评价-->
+                        <div class="orl-list clearfix">
+                            <div class="m-cell">
+                                <div class="cell-item">
+                                    <a class="cell-left cell-arrow"><em class="shop-icon"><img src="images/orl_shop_icon.jpg" alt=""></em><p class="shop-name">马方家居用品店</p></a>
+                                    <div class="cell-right">
+                                        <h3>已评价</h3></div>
+                                </div>
+                            </div>
+                            <div class="orl-cont clearfix">
+                                <div class="orl-cont-img fl">
+                                    <img src="images/orl_produce_img.jpg" alt="">
+                                </div>
+                                <div class="orl-cont-p fl">
+                                    <p>清风原木纯品抽纸3层16包家用卫生纸餐巾婴儿面巾纸家庭装..</p>
+                                </div>
+                                <div class="orl-cont-price fr">
+                                    <span class="price">￥0</span>
+                                    <span class="num">X1</span>
+                                </div>
+                            </div>
+                            <div class="orl-post clearfix">
+                                <div class="orl-post-num fl">订单编号：SPO675120170312582651</div>
+                                <div class="orl-post-price fr">实付:<span class="now-price">￥0</span><span class="post-price">(免运费)</span></div>
+                            </div>
+                            <div class="orl-button clearfix">
+                                <a href="javascript:;" class="btn btn-hollow">删除订单</a>
+                                <a href="javascript:;" class="btn btn-hollow">查看物流</a>
+                                <a href="javascript:;" class="btn btn-hollow">再次购买</a>
+                            </div>
+                        </div>
+                        <!-- orl-list -->
+                        <!-- orl-list 交易成功-->
+                        <div class="orl-list clearfix">
+                            <div class="m-cell">
+                                <div class="cell-item">
+                                    <a class="cell-left cell-arrow"><em class="shop-icon"><img src="images/orl_shop_icon.jpg" alt=""></em><p class="shop-name">马方家居用品店</p></a>
+                                    <div class="cell-right">
+                                        <h3>交易成功</h3></div>
+                                </div>
+                            </div>
+                            <div class="orl-cont clearfix">
+                                <div class="orl-cont-img fl">
+                                    <img src="images/orl_produce_img.jpg" alt="">
+                                </div>
+                                <div class="orl-cont-p fl">
+                                    <p>清风原木纯品抽纸3层16包家用卫生纸餐巾婴儿面巾纸家庭装..</p>
+                                </div>
+                                <div class="orl-cont-price fr">
+                                    <span class="price">￥0</span>
+                                    <span class="num">X1</span>
+                                </div>
+                            </div>
+                            <div class="orl-post clearfix">
+                                <div class="orl-post-num fl">订单编号：SPO675120170312582651</div>
+                                <div class="orl-post-price fr">实付:<span class="now-price">￥0</span><span class="post-price">(免运费)</span></div>
+                            </div>
+                            <div class="orl-button clearfix">
+                                <a href="javascript:;" class="btn btn-hollow">查看物流</a>
+                                <a href="javascript:;" class="btn btn-hollow default">去评价</a>
+                            </div>
+                        </div>
+                        <!-- orl-list -->
+                        <!-- orl-list 未付款-->
+                        <div class="orl-list clearfix">
+                            <div class="m-cell">
+                                <div class="cell-item">
+                                    <a class="cell-left cell-arrow"><em class="shop-icon"><img src="images/orl_shop_icon.jpg" alt=""></em><p class="shop-name">马方家居用品店</p></a>
+                                    <div class="cell-right">
+                                        <h3>未付款</h3></div>
+                                </div>
+                            </div>
+                            <div class="orl-cont clearfix">
+                                <div class="orl-cont-img fl">
+                                    <img src="images/orl_produce_img.jpg" alt="">
+                                </div>
+                                <div class="orl-cont-p fl">
+                                    <p>清风原木纯品抽纸3层16包家用卫生纸餐巾婴儿面巾纸家庭装..</p>
+                                </div>
+                                <div class="orl-cont-price fr">
+                                    <span class="price">￥0</span>
+                                    <span class="num">X1</span>
+                                </div>
+                            </div>
+                            <div class="orl-post clearfix">
+                                <div class="orl-post-num fl">订单编号：SPO675120170312582651</div>
+                                <div class="orl-post-price fr">实付:<span class="now-price">￥0</span><span class="post-price">(免运费)</span></div>
+                            </div>
+                            <div class="orl-button clearfix">
+                                <a href="javascript:;" class="btn btn-hollow">取消订单</a>
+                                <a href="javascript:;" class="btn btn-hollow default">去付款</a>
+                            </div>
+                        </div>
+                        <!-- orl-list -->
+                        <!-- orl-list 已付款，待发货-->
+                        <div class="orl-list clearfix">
+                            <div class="m-cell">
+                                <div class="cell-item">
+                                    <a class="cell-left cell-arrow"><em class="shop-icon"><img src="images/orl_shop_icon.jpg" alt=""></em><p class="shop-name">马方家居用品店</p></a>
+                                    <div class="cell-right">
+                                        <h3>已付款，待发货</h3></div>
+                                </div>
+                            </div>
+                            <div class="orl-cont clearfix">
+                                <div class="orl-cont-img fl">
+                                    <img src="images/orl_produce_img.jpg" alt="">
+                                </div>
+                                <div class="orl-cont-p fl">
+                                    <p>清风原木纯品抽纸3层16包家用卫生纸餐巾婴儿面巾纸家庭装..</p>
+                                </div>
+                                <div class="orl-cont-price fr">
+                                    <span class="price">￥0</span>
+                                    <span class="num">X1</span>
+                                </div>
+                            </div>
+                            <div class="orl-post clearfix">
+                                <div class="orl-post-num fl">订单编号：SPO675120170312582651</div>
+                                <div class="orl-post-price fr">实付:<span class="now-price">￥0</span><span class="post-price">(免运费)</span></div>
+                            </div>
+                            <div class="orl-button clearfix">
+                                <a href="javascript:;" class="btn btn-hollow default">联系商家</a>
+                            </div>
+                        </div>
+                        <!-- orl-list -->
+                        <!-- orl-list 已付款，已发货-->
+                        <div class="orl-list clearfix">
+                            <div class="m-cell">
+                                <div class="cell-item">
+                                    <a class="cell-left cell-arrow"><em class="shop-icon"><img src="images/orl_shop_icon.jpg" alt=""></em><p class="shop-name">马方家居用品店</p></a>
+                                    <div class="cell-right">
+                                        <h3>已付款，已发货</h3></div>
+                                </div>
+                            </div>
+                            <div class="orl-cont clearfix">
+                                <div class="orl-cont-img fl">
+                                    <img src="images/orl_produce_img.jpg" alt="">
+                                </div>
+                                <div class="orl-cont-p fl">
+                                    <p>清风原木纯品抽纸3层16包家用卫生纸餐巾婴儿面巾纸家庭装..</p>
+                                </div>
+                                <div class="orl-cont-price fr">
+                                    <span class="price">￥0</span>
+                                    <span class="num">X1</span>
+                                </div>
+                            </div>
+                            <div class="orl-post clearfix">
+                                <div class="orl-post-num fl">订单编号：SPO675120170312582651</div>
+                                <div class="orl-post-price fr">实付:<span class="now-price">￥0</span><span class="post-price">(免运费)</span></div>
+                            </div>
+                            <div class="orl-button clearfix">
+                                <a href="javascript:;" class="btn btn-hollow">查看物流</a>
+                                <a href="javascript:;" class="btn btn-hollow default">确认收货</a>
+                            </div>
+                        </div>
+                        <!-- orl-list -->
+                        <!-- orl-list 已取消-->
+                        <div class="orl-list clearfix">
+                            <div class="m-cell">
+                                <div class="cell-item">
+                                    <a class="cell-left cell-arrow"><em class="shop-icon"><img src="images/orl_shop_icon.jpg" alt=""></em><p class="shop-name">马方家居用品店</p></a>
+                                    <div class="cell-right">
+                                        <h3>已取消</h3></div>
+                                </div>
+                            </div>
+                            <div class="orl-cont clearfix">
+                                <div class="orl-cont-img fl">
+                                    <img src="images/orl_produce_img.jpg" alt="">
+                                </div>
+                                <div class="orl-cont-p fl">
+                                    <p>清风原木纯品抽纸3层16包家用卫生纸餐巾婴儿面巾纸家庭装..</p>
+                                </div>
+                                <div class="orl-cont-price fr">
+                                    <span class="price">￥0</span>
+                                    <span class="num">X1</span>
+                                </div>
+                            </div>
+                            <div class="orl-post clearfix">
+                                <div class="orl-post-num fl">订单编号：SPO675120170312582651</div>
+                                <div class="orl-post-price fr">实付:<span class="now-price">￥0</span><span class="post-price">(免运费)</span></div>
+                            </div>
+                            <div class="orl-button clearfix">
+                                <a href="javascript:;" class="btn btn-hollow">删除订单</a>
+                                <a href="javascript:;" class="btn btn-hollow default">再次购买</a>
+                            </div>
+                        </div>
+                        <!-- orl-list -->
+                        <a href="javascript:;" class="btn-block btn-hollow" style="height: .5rem;line-height: .5rem;font-size: .25rem; margin-top: .2rem;">加载更多</a>
+                    </div>
+                    <!-- 全部 -->
+                    <!-- 待付款 -->
+                    <div class="tab-panel-item">
+                        <!-- orl-list 未付款-->
+                        <div class="orl-list clearfix">
+                            <div class="m-cell">
+                                <div class="cell-item">
+                                    <a class="cell-left cell-arrow"><em class="shop-icon"><img src="images/orl_shop_icon.jpg" alt=""></em><p class="shop-name">马方家居用品店</p></a>
+                                    <div class="cell-right">
+                                        <h3>未付款</h3></div>
+                                </div>
+                            </div>
+                            <div class="orl-cont clearfix">
+                                <div class="orl-cont-img fl">
+                                    <img src="images/orl_produce_img.jpg" alt="">
+                                </div>
+                                <div class="orl-cont-p fl">
+                                    <p>清风原木纯品抽纸3层16包家用卫生纸餐巾婴儿面巾纸家庭装..</p>
+                                </div>
+                                <div class="orl-cont-price fr">
+                                    <span class="price">￥0</span>
+                                    <span class="num">X1</span>
+                                </div>
+                            </div>
+                            <div class="orl-post clearfix">
+                                <div class="orl-post-num fl">订单编号：SPO675120170312582651</div>
+                                <div class="orl-post-price fr">实付:<span class="now-price">￥0</span><span class="post-price">(免运费)</span></div>
+                            </div>
+                            <div class="orl-button clearfix">
+                                <a href="javascript:;" class="btn btn-hollow">取消订单</a>
+                                <a href="javascript:;" class="btn btn-hollow default">去付款</a>
+                            </div>
+                        </div>
+                        <!-- orl-list -->
+                        <!-- orl-list 未付款-->
+                        <div class="orl-list clearfix">
+                            <div class="m-cell">
+                                <div class="cell-item">
+                                    <a class="cell-left cell-arrow"><em class="shop-icon"><img src="images/orl_shop_icon.jpg" alt=""></em><p class="shop-name">马方家居用品店</p></a>
+                                    <div class="cell-right">
+                                        <h3>未付款</h3></div>
+                                </div>
+                            </div>
+                            <div class="orl-cont clearfix">
+                                <div class="orl-cont-img fl">
+                                    <img src="images/orl_produce_img.jpg" alt="">
+                                </div>
+                                <div class="orl-cont-p fl">
+                                    <p>清风原木纯品抽纸3层16包家用卫生纸餐巾婴儿面巾纸家庭装..</p>
+                                </div>
+                                <div class="orl-cont-price fr">
+                                    <span class="price">￥0</span>
+                                    <span class="num">X1</span>
+                                </div>
+                            </div>
+                            <div class="orl-post clearfix">
+                                <div class="orl-post-num fl">订单编号：SPO675120170312582651</div>
+                                <div class="orl-post-price fr">实付:<span class="now-price">￥0</span><span class="post-price">(免运费)</span></div>
+                            </div>
+                            <div class="orl-button clearfix">
+                                <a href="javascript:;" class="btn btn-hollow">取消订单</a>
+                                <a href="javascript:;" class="btn btn-hollow default">去付款</a>
+                            </div>
+                        </div>
+                        <!-- orl-list -->
+                         <a href="javascript:;" class="btn-block btn-hollow" style="height: .5rem;line-height: .5rem;font-size: .25rem; margin-top: .2rem;">加载更多</a>
+                    </div>
+                    <!-- 待付款 -->
+                    <!-- 待发货 -->
+                    <div class="tab-panel-item">
+                        <!-- orl-list 已付款，待发货-->
+                        <div class="orl-list clearfix">
+                            <div class="m-cell">
+                                <div class="cell-item">
+                                    <a class="cell-left cell-arrow"><em class="shop-icon"><img src="images/orl_shop_icon.jpg" alt=""></em><p class="shop-name">马方家居用品店</p></a>
+                                    <div class="cell-right">
+                                        <h3>已付款，待发货</h3></div>
+                                </div>
+                            </div>
+                            <div class="orl-cont clearfix">
+                                <div class="orl-cont-img fl">
+                                    <img src="images/orl_produce_img.jpg" alt="">
+                                </div>
+                                <div class="orl-cont-p fl">
+                                    <p>清风原木纯品抽纸3层16包家用卫生纸餐巾婴儿面巾纸家庭装..</p>
+                                </div>
+                                <div class="orl-cont-price fr">
+                                    <span class="price">￥0</span>
+                                    <span class="num">X1</span>
+                                </div>
+                            </div>
+                            <div class="orl-post clearfix">
+                                <div class="orl-post-num fl">订单编号：SPO675120170312582651</div>
+                                <div class="orl-post-price fr">实付:<span class="now-price">￥0</span><span class="post-price">(免运费)</span></div>
+                            </div>
+                            <div class="orl-button clearfix">
+                                <a href="javascript:;" class="btn btn-hollow default">联系商家</a>
+                            </div>
+                        </div>
+                        <!-- orl-list -->
+                         <!-- orl-list 已付款，待发货-->
+                        <div class="orl-list clearfix">
+                            <div class="m-cell">
+                                <div class="cell-item">
+                                    <a class="cell-left cell-arrow"><em class="shop-icon"><img src="images/orl_shop_icon.jpg" alt=""></em><p class="shop-name">马方家居用品店</p></a>
+                                    <div class="cell-right">
+                                        <h3>已付款，待发货</h3></div>
+                                </div>
+                            </div>
+                            <div class="orl-cont clearfix">
+                                <div class="orl-cont-img fl">
+                                    <img src="images/orl_produce_img.jpg" alt="">
+                                </div>
+                                <div class="orl-cont-p fl">
+                                    <p>清风原木纯品抽纸3层16包家用卫生纸餐巾婴儿面巾纸家庭装..</p>
+                                </div>
+                                <div class="orl-cont-price fr">
+                                    <span class="price">￥0</span>
+                                    <span class="num">X1</span>
+                                </div>
+                            </div>
+                            <div class="orl-post clearfix">
+                                <div class="orl-post-num fl">订单编号：SPO675120170312582651</div>
+                                <div class="orl-post-price fr">实付:<span class="now-price">￥0</span><span class="post-price">(免运费)</span></div>
+                            </div>
+                            <div class="orl-button clearfix">
+                                <a href="javascript:;" class="btn btn-hollow default">联系商家</a>
+                            </div>
+                        </div>
+                        <!-- orl-list -->
+                         <a href="javascript:;" class="btn-block btn-hollow" style="height: .5rem;line-height: .5rem;font-size: .25rem; margin-top: .2rem;">加载更多</a>
+                    </div>
+                    <!-- 待发货 -->
+                    <!-- 待收货 -->
+                    <div class="tab-panel-item">
+                        <!-- orl-list 已付款，已发货-->
+                        <div class="orl-list clearfix">
+                            <div class="m-cell">
+                                <div class="cell-item">
+                                    <a class="cell-left cell-arrow"><em class="shop-icon"><img src="images/orl_shop_icon.jpg" alt=""></em><p class="shop-name">马方家居用品店</p></a>
+                                    <div class="cell-right">
+                                        <h3>已付款，已发货</h3></div>
+                                </div>
+                            </div>
+                            <div class="orl-cont clearfix">
+                                <div class="orl-cont-img fl">
+                                    <img src="images/orl_produce_img.jpg" alt="">
+                                </div>
+                                <div class="orl-cont-p fl">
+                                    <p>清风原木纯品抽纸3层16包家用卫生纸餐巾婴儿面巾纸家庭装..</p>
+                                </div>
+                                <div class="orl-cont-price fr">
+                                    <span class="price">￥0</span>
+                                    <span class="num">X1</span>
+                                </div>
+                            </div>
+                            <div class="orl-post clearfix">
+                                <div class="orl-post-num fl">订单编号：SPO675120170312582651</div>
+                                <div class="orl-post-price fr">实付:<span class="now-price">￥0</span><span class="post-price">(免运费)</span></div>
+                            </div>
+                            <div class="orl-button clearfix">
+                                <a href="javascript:;" class="btn btn-hollow">查看物流</a>
+                                <a href="javascript:;" class="btn btn-hollow default">确认收货</a>
+                            </div>
+                        </div>
+                        <!-- orl-list -->
+                         <!-- orl-list 已付款，已发货-->
+                        <div class="orl-list clearfix">
+                            <div class="m-cell">
+                                <div class="cell-item">
+                                    <a class="cell-left cell-arrow"><em class="shop-icon"><img src="images/orl_shop_icon.jpg" alt=""></em><p class="shop-name">马方家居用品店</p></a>
+                                    <div class="cell-right">
+                                        <h3>已付款，已发货</h3></div>
+                                </div>
+                            </div>
+                            <div class="orl-cont clearfix">
+                                <div class="orl-cont-img fl">
+                                    <img src="images/orl_produce_img.jpg" alt="">
+                                </div>
+                                <div class="orl-cont-p fl">
+                                    <p>清风原木纯品抽纸3层16包家用卫生纸餐巾婴儿面巾纸家庭装..</p>
+                                </div>
+                                <div class="orl-cont-price fr">
+                                    <span class="price">￥0</span>
+                                    <span class="num">X1</span>
+                                </div>
+                            </div>
+                            <div class="orl-post clearfix">
+                                <div class="orl-post-num fl">订单编号：SPO675120170312582651</div>
+                                <div class="orl-post-price fr">实付:<span class="now-price">￥0</span><span class="post-price">(免运费)</span></div>
+                            </div>
+                            <div class="orl-button clearfix">
+                                <a href="javascript:;" class="btn btn-hollow">查看物流</a>
+                                <a href="javascript:;" class="btn btn-hollow default">确认收货</a>
+                            </div>
+                        </div>
+                        <!-- orl-list -->
+                         <a href="javascript:;" class="btn-block btn-hollow" style="height: .5rem;line-height: .5rem;font-size: .25rem; margin-top: .2rem;">加载更多</a>
+                    </div>
+                    <!-- 待收货 -->
+                    <!-- 待评价 -->
+                    <div class="tab-panel-item">
+                        <!-- orl-list 已付款，已发货-->
+                        <div class="orl-list clearfix">
+                            <div class="m-cell">
+                                <div class="cell-item">
+                                    <a class="cell-left cell-arrow"><em class="shop-icon"><img src="images/orl_shop_icon.jpg" alt=""></em><p class="shop-name">马方家居用品店</p></a>
+                                    <div class="cell-right">
+                                        <h3>已付款，已发货</h3></div>
+                                </div>
+                            </div>
+                            <div class="orl-cont clearfix">
+                                <div class="orl-cont-img fl">
+                                    <img src="images/orl_produce_img.jpg" alt="">
+                                </div>
+                                <div class="orl-cont-p fl">
+                                    <p>清风原木纯品抽纸3层16包家用卫生纸餐巾婴儿面巾纸家庭装..</p>
+                                </div>
+                                <div class="orl-cont-price fr">
+                                    <span class="price">￥0</span>
+                                    <span class="num">X1</span>
+                                </div>
+                            </div>
+                            <div class="orl-post clearfix">
+                                <div class="orl-post-num fl">订单编号：SPO675120170312582651</div>
+                                <div class="orl-post-price fr">实付:<span class="now-price">￥0</span><span class="post-price">(免运费)</span></div>
+                            </div>
+                            <div class="orl-button clearfix">
+                                <a href="javascript:;" class="btn btn-hollow">查看物流</a>
+                                <a href="javascript:;" class="btn btn-hollow default">确认收货</a>
+                            </div>
+                        </div>
+                        <!-- orl-list -->
+                        <!-- orl-list 已取消-->
+                        <div class="orl-list clearfix">
+                            <div class="m-cell">
+                                <div class="cell-item">
+                                    <a class="cell-left cell-arrow"><em class="shop-icon"><img src="images/orl_shop_icon.jpg" alt=""></em><p class="shop-name">马方家居用品店</p></a>
+                                    <div class="cell-right">
+                                        <h3>已取消</h3></div>
+                                </div>
+                            </div>
+                            <div class="orl-cont clearfix">
+                                <div class="orl-cont-img fl">
+                                    <img src="images/orl_produce_img.jpg" alt="">
+                                </div>
+                                <div class="orl-cont-p fl">
+                                    <p>清风原木纯品抽纸3层16包家用卫生纸餐巾婴儿面巾纸家庭装..</p>
+                                </div>
+                                <div class="orl-cont-price fr">
+                                    <span class="price">￥0</span>
+                                    <span class="num">X1</span>
+                                </div>
+                            </div>
+                            <div class="orl-post clearfix">
+                                <div class="orl-post-num fl">订单编号：SPO675120170312582651</div>
+                                <div class="orl-post-price fr">实付:<span class="now-price">￥0</span><span class="post-price">(免运费)</span></div>
+                            </div>
+                            <div class="orl-button clearfix">
+                                <a href="javascript:;" class="btn btn-hollow">删除订单</a>
+                                <a href="javascript:;" class="btn btn-hollow default">再次购买</a>
+                            </div>
+                        </div>
+                        <!-- orl-list -->
+                         <a href="javascript:;" class="btn-block btn-hollow" style="height: .5rem;line-height: .5rem;font-size: .25rem; margin-top: .2rem;">加载更多</a>
+                    </div>
+                    <!-- 待评价 -->
+                </div>
+            </div>
+        </div>
+        <!-- pro-main -->
+        <!-- footer -->
+        <footer class="m-tabbar">
+          
+            <a href="#" class="tabbar-item tabbar-active">
+                <span class="tabbar-icon">
+                    <i class="iconfont icon2-unie623"></i>                 
+                </span>
+                <span class="tabbar-txt">商家首页</span>
+
+             </a>
+          
+            <a href="#" class="tabbar-item">
+                <span class="tabbar-icon">
+                    <i class="iconfont icon2-icon2"></i>                 
+                </span>
+                <span class="tabbar-txt">我的</span>
+
+            </a>
+        </footer>
+        <!-- footer -->
+    </div>
+    <!-- 引入YDUI脚本 -->
+    <script type="text/javascript" src="dist/YDUI/js/ydui.js"></script>
+    <script>
+    var $tab = $('#J_Tab');
+
+    $tab.tab({
+        nav: '.tab-nav-item',
+        panel: '.tab-panel-item',
+        activeClass: 'tab-active'
+    });
+
+    
+    </script>
+</body>
+
+</html>

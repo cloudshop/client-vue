@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>物流信息</title>
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <!-- 引入YDUI样式 -->
+    <link rel="stylesheet" href="dist/YDUI/css/ydui.css">
+    <!-- 引入YDUI样式 -->
+    <link rel="stylesheet" href="css/box-flex.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/iconfont.css">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- 引入jQuery 2.0+ -->
+    <script src="dist/jquery.min.js"></script>
+    <!-- 自适应解决方案类库 -->
+    <script src="js/adaptive.js"></script>
+    <!-- 自适应解决方案类库 -->
+    <script type="text/javascript">
+    adaPtive(); //铺页面调用             
+    //页面加载时调用
+    $(function() { direction(); });
+    //用户变化屏幕方向时调用
+    $(window).on('orientationchange', function(e) { direction(); });
+    //调用adaptive
+    function adaPtive(max) {
+        window['adaptive'].desinWidth = 640;
+        window['adaptive'].baseFont = 24;
+        window['adaptive'].scaleType = 1;
+        window['adaptive'].maxWidth = 640;
+        window['adaptive'].init();
+    }
+    //判断手机屏幕方向
+    function direction() { if (window.orientation == 90 || window.orientation == -90) { adaPtive(320); return false; } else if (window.orientation == 0 || window.orientation == 180) { adaPtive(); return false; } }
+    </script>
+</head>
+
+<body>
+    <div class="g-flexview">
+        <!-- header -->
+        <header class="m-navbar my-header">
+            <a href="#" class="navbar-item">
+                <i class="back-ico"></i>
+            </a>
+            <div class="navbar-center">
+                <span class="navbar-title">物流信息</span>
+            </div>
+        </header>
+        <!-- header -->
+        <!-- ori-main -->
+        <div class="logi-main g-scrollview">
+        	<!-- logi-cont-info -->
+           <div class="logi-cont-info clearfix">
+           		<div class="logi-img"><img src="images/logi_info_img.jpg" alt=""></div>
+           		<div class="logi-js">
+           			<div class="logi-company">
+           				<span>物流公司：</span>
+           				<em>天天快递</em>
+           			</div>
+           			<div class="logi-num clearfix">
+           				<span>运单编号：</span>
+           				<em>123456789</em>
+           				<a href="javascript:;" class="btn btn-hollow">复制</a>
+           			</div>
+           			<div class="logi-phone">
+           				<span>物流电话：</span>
+           				<em>4001888888</em>
+           			</div>
+           		</div>
+           </div>
+           <!-- logi-cont-info -->
+			<div class="logi-gz clearfix">
+				<h3>订单跟踪</h3>
+				<div class="logi-gz-cont clearfix">
+					<ul class="clearfix">
+						<li class="success">
+							<p>已签收，签收人是前台</p>
+							<span>2017-09-29 14:14:31</span>
+						</li>
+						<li>
+							<p>【安庆石化分部】的派件员【冯成和】正在派件中哦</p>
+							<span>2017-09-29 14:14:31</span>
+						</li>
+						<li>
+							<p>【安庆石化分部】的派件员【冯成和】正在派件中哦</p>
+							<span>2017-09-29 14:14:31</span>
+						</li>
+						<li>
+							<p>【安庆石化分部】的派件员【冯成和】正在派件中哦</p>
+							<span>2017-09-29 14:14:31</span>
+						</li>
+						<li>
+							<p>【安庆石化分部】的派件员【冯成和】正在派件中哦</p>
+							<span>2017-09-29 14:14:31</span>
+						</li>
+						<li>
+							<p>【安庆石化分部】的派件员【冯成和】正在派件中哦</p>
+							<span>2017-09-29 14:14:31</span>
+						</li>
+						<li>
+							<p>【安庆石化分部】的派件员【冯成和】正在派件中哦</p>
+							<span>2017-09-29 14:14:31</span>
+						</li>
+
+					</ul>
+					<div class="logi-more">
+						展开
+					</div>
+				</div>
+			</div>
+        </div>
+        <!-- ori-main -->
+       
+    </div>
+    <!-- 引入YDUI脚本 -->
+    <script type="text/javascript" src="dist/YDUI/js/ydui.js"></script>
+    <script>
+    var $tab = $('#J_Tab');
+
+    $tab.tab({
+        nav: '.tab-nav-item',
+        panel: '.tab-panel-item',
+        activeClass: 'tab-active'
+    });
+
+    $tab.find('.tab-nav-item').on('open.ydui.tab', function(e) {
+        console.log('索引：%s - [%s]正在打开', e.index, $(this).text());
+    });
+
+    $tab.find('.tab-nav-item').on('opened.ydui.tab', function(e) {
+        console.log('索引：%s - [%s]已经打开了', e.index, $(this).text());
+    });
+    </script>
+</body>
+
+</html>

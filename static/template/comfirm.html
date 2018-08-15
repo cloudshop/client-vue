@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>生成订单</title>
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <!-- 引入YDUI样式 -->
+    <link rel="stylesheet" href="dist/YDUI/css/ydui.css">
+    <!-- 引入YDUI样式 -->
+    <link rel="stylesheet" href="css/box-flex.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/iconfont.css">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- 引入jQuery 2.0+ -->
+    <script src="dist/jquery.min.js"></script>
+    <!-- 自适应解决方案类库 -->
+    <script src="js/adaptive.js"></script>
+    <!-- 自适应解决方案类库 -->
+    <script type="text/javascript">
+    adaPtive(); //铺页面调用             
+    //页面加载时调用
+    $(function() { direction(); });
+    //用户变化屏幕方向时调用
+    $(window).on('orientationchange', function(e) { direction(); });
+    //调用adaptive
+    function adaPtive(max) {
+        window['adaptive'].desinWidth = 640;
+        window['adaptive'].baseFont = 24;
+        window['adaptive'].scaleType = 1;
+        window['adaptive'].maxWidth = 640;
+        window['adaptive'].init();
+    }
+    //判断手机屏幕方向
+    function direction() { if (window.orientation == 90 || window.orientation == -90) { adaPtive(320); return false; } else if (window.orientation == 0 || window.orientation == 180) { adaPtive(); return false; } }
+    </script>
+</head>
+
+<body>
+    <div class="g-flexview">
+        <!-- header -->
+        <header class="m-navbar my-header">
+            <a href="#" class="navbar-item">
+                <i class="back-ico"></i>
+            </a>
+            <div class="navbar-center">
+                <span class="navbar-title">生成订单</span>
+            </div>
+        </header>
+        <!-- header -->
+        <!-- ori-main -->
+        <div class="cart-main g-scrollview">
+            <div class="cart-list clearfix">
+                <!-- orl-list -->
+                <div class="orl-list clearfix">
+                    <div class="m-cell">
+                        <div class="cell-item">
+                            <a class="cell-left cell-arrow">
+                               <em class="shop-icon"><img src="images/orl_shop_icon.jpg" alt=""></em>
+                                <p class="shop-name">马方家居用品店</p>
+                            </a>
+                            <div class="cell-right">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="orl-cont clearfix">
+                      
+                        <div class="orl-cont-img fl">
+                            <img src="images/orl_produce_img.jpg" alt="">
+                        </div>
+                        <div class="orl-cont-p fl">
+                            <p>清风原木纯品抽纸3层16包家用卫生纸餐巾婴儿面巾纸家庭装..</p>
+                            <div class="orl-cont-sx clearfix">
+                                <em>更多属性</em><em>更多属性</em><em>更多属性</em><em>更多属性</em>
+                            </div>
+                        </div>
+                        <div class="orl-cont-price fr">
+                            <span class="price">￥35</span>
+                            <span class="num">X2</span>
+                        </div>
+                     
+                    </div>
+                     <div class="orl-cont clearfix">
+                       
+                        <div class="orl-cont-img fl">
+                            <img src="images/orl_produce_img.jpg" alt="">
+                        </div>
+                        <div class="orl-cont-p fl">
+                            <p>清风原木纯品抽纸3层16包家用卫生纸餐巾婴儿面巾纸家庭装..</p>
+                            <div class="orl-cont-sx clearfix">
+                                <em>更多属性</em><em>更多属性</em><em>更多属性</em><em>更多属性</em>
+                            </div>
+                        </div>
+                        <div class="orl-cont-price fr">
+                            <span class="price">￥35</span>
+                            <span class="num">X2</span>
+                        </div>
+                       
+                    </div>
+                </div>
+                 <!-- orl-list --> 
+                    <!-- orl-list -->
+                <div class="orl-list clearfix">
+                    <div class="m-cell">
+                        <div class="cell-item">
+                            <a class="cell-left cell-arrow">
+                                <em class="shop-icon"><img src="images/orl_shop_icon.jpg" alt=""></em>
+                                <p class="shop-name">马方家居用品店</p>
+                            </a>
+                            <div class="cell-right">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="orl-cont clearfix">
+                       
+                        <div class="orl-cont-img fl">
+                            <img src="images/orl_produce_img.jpg" alt="">
+                        </div>
+                        <div class="orl-cont-p fl">
+                            <p>清风原木纯品抽纸3层16包家用卫生纸餐巾婴儿面巾纸家庭装..</p>
+                            <div class="orl-cont-sx clearfix">
+                                <em>更多属性</em><em>更多属性</em><em>更多属性</em><em>更多属性</em>
+                            </div>
+                        </div>
+                        <div class="orl-cont-price fr">
+                            <span class="price">￥35</span>
+                            <span class="num">X2</span>
+                        </div>
+                      
+                    </div>
+                     <div class="orl-cont clearfix">
+                      
+                        <div class="orl-cont-img fl">
+                            <img src="images/orl_produce_img.jpg" alt="">
+                        </div>
+                        <div class="orl-cont-p fl">
+                            <p>清风原木纯品抽纸3层16包家用卫生纸餐巾婴儿面巾纸家庭装..</p>
+                            <div class="orl-cont-sx clearfix">
+                                <em>更多属性</em><em>更多属性</em><em>更多属性</em><em>更多属性</em>
+                            </div>
+                        </div>
+                        <div class="orl-cont-price fr">
+                            <span class="price">￥35</span>
+                            <span class="num">X2</span>
+                        </div>
+                       
+                    </div>
+                </div>
+                 <!-- orl-list -->         
+            </div>
+            <div class="ori-list-info default clearfix">
+                <ul>
+                    <li>
+                        <span class="num">订单编号：</span>
+                        <p>SPO67512017031</p>
+                        <a href="javascript:;" class="btn btn-hollow">复制</a>
+                        <span class="state">(下单未付款)</span>
+                    </li>
+                    <li>
+                        <span class="num">支付方式：</span>
+                        <p>微信</p>
+                        <span class="state"> (已付款)</span>
+                    </li>
+                    <li>
+                        <span class="num">下单时间：</span>
+                        <p>2017-09-26 08:28:10</p>
+                        <span class="state">(已付款)</span>
+                    </li>
+                   
+                  
+                    <li>
+                        <span class="num">快递方式：</span>
+                        <p>天天快递或同城</p>
+                        <span class="state">(已发货)</span>
+                    </li>
+                    <li>
+                        <span class="num">运单编号：</span>
+                        <p>580404333646</p>
+                        <span class="state">(已发货)</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- ori-main -->
+        <!-- footer -->
+        <footer class="m-tabbar cart-footer clearfix">
+            <h3 class="flex-1">
+                合计：
+                <span>优惠:￥-50.00</span>
+                <span>运费:￥5.00</span>
+                <span>应付:<em>￥80.00</em>(含运费)</span>
+            </h3>
+            <a href="javascript:;" class="btn btn-primary ">提交</a>
+        </footer>
+        <!-- footer -->
+    </div>
+    <!-- 引入YDUI脚本 -->
+    <script type="text/javascript" src="dist/YDUI/js/ydui.js"></script>
+   
+</body>
+
+</html>

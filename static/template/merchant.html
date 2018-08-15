@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>商家页面</title>
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <!-- 引入YDUI样式 -->
+    <link rel="stylesheet" href="dist/YDUI/css/ydui.css">
+    <!-- 引入YDUI样式 -->
+    <link rel="stylesheet" href="css/box-flex.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/iconfont.css">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- 引入jQuery 2.0+ -->
+    <script src="dist/jquery.min.js"></script>
+    <!-- 自适应解决方案类库 -->
+    <script src="js/adaptive.js"></script>
+    <!-- 自适应解决方案类库 -->
+    <script type="text/javascript">
+    adaPtive(); //铺页面调用             
+    //页面加载时调用
+    $(function() { direction(); });
+    //用户变化屏幕方向时调用
+    $(window).on('orientationchange', function(e) { direction(); });
+    //调用adaptive
+    function adaPtive(max) {
+        window['adaptive'].desinWidth = 640;
+        window['adaptive'].baseFont = 24;
+        window['adaptive'].scaleType = 1;
+        window['adaptive'].maxWidth = 640;
+        window['adaptive'].init();
+    }
+    //判断手机屏幕方向
+    function direction() { if (window.orientation == 90 || window.orientation == -90) { adaPtive(320); return false; } else if (window.orientation == 0 || window.orientation == 180) { adaPtive(); return false; } }
+    </script>
+    <script src="dist/raty/jquery.raty.min.js"></script>
+</head>
+
+<body>
+    <div class="g-flexview">
+        <header class="m-navbar my-header">
+            <a href="#" class="navbar-item">
+                 <i class="back-ico"></i>
+            </a>
+            <div class="navbar-center">
+                <span class="navbar-title">XXXX店</span>
+            </div>
+            <div class="navbar-item nav-like">
+                <a href="#">
+                    <i class="icon-like-outline"></i>
+                    
+                </a>
+                <a href="#">
+                    <i class="icon-qrscan"></i>
+                   
+                </a>
+                <a href="#">
+                    <i class="icon-share3"></i>
+                   
+                </a>
+            </div>
+        </header>
+        <!-- mer-main -->
+        <div class="mer-main g-scrollview">
+            <!-- m-slider -->
+            <div class="m-slider mer-swiper" id="J_Slider">
+                <div class="slider-wrapper">
+                    <div class="slider-item">
+                        <a href="#">
+                            <img src="images/mer_banner_01.jpg">
+                        </a>
+                    </div>
+                    <div class="slider-item">
+                        <a href="#">
+                              <img src="images/mer_banner_01.jpg">
+                        </a>
+                    </div>
+                    <div class="slider-item">
+                        <a href="#">
+                             <img src="images/mer_banner_01.jpg">
+                        </a>
+                    </div>
+                </div>
+                <div class="slider-pagination"></div>
+                <!-- 分页标识 -->
+            </div>
+            <!-- m-slider -->
+            <!-- mer-shop -->
+            <div class="mer-shop clearfix">
+                <div class="mer-shop-img fl">
+                    <img src="images/mer_shop_logo.png" alt="">
+                </div>
+                <div class="mer-shop-js fl">
+                    <h3><p>长沙红星美凯龙</p><i class="icon-hezuo">合作</i></h3>
+                    <div class="mer-shop-area"><i class="img-logo"><img src="images/mer_logo_area.png" alt=""></i>
+                        <p>长沙红星美凯龙1栋203/距离365米</p>
+                    </div>
+                    <div class="mer-shop-logo"><i class="img-logo"><img src="images/mer_logo_te.png" alt=""></i>
+                        <p>共有361个特价商品</p>
+                    </div>
+                    <div class="mer-shop-logo"><i class="img-logo"><img src="images/mer_logo_fan.png" alt=""></i>
+                        <p>全店85折,享受平台返利</p>
+                    </div>
+                    <div class="mer-shop-logo"><i class="img-logo"><img src="images/mer_logo_you.png" alt=""></i>
+                        <p>全店85折,享受平台返利</p>
+                    </div>
+                </div>
+                <div class="mer-shop-phone clearfix fr">
+                    <div class="mer-shop-tel">
+                        <a href="#"><img src="images/mer_logo_phone.jpg" alt=""></a>
+                        <a href="#"><img src="images/mer_logo_message.jpg" alt=""></a>
+                    </div>
+                </div>
+                <div class="mer-shop-pj">
+                    <p>店铺评价：<em>385人</em></p>
+                    <div id="star" class="star" data-num="3"></div>
+                    <div class="hinit">3.0分</div>
+                </div>
+            </div>
+            <!-- mer-shop -->
+            <!-- mer-hot -->
+            <div class="mer-hot clearfix">
+                <div class="m-cell">
+                    <a class="cell-item" href="javascript:;">
+                        <div class="cell-left"><i class="img_hot"><img src="images/mer_logo_hot.jpg" alt=""></i>商家推荐</div>
+                        <div class="cell-right cell-arrow">更多商品</div>
+                    </a>
+                    <div class="mer-hot-cont clearfix">
+                        <div class="mer-hot-left fl">
+                            <a href="#">
+                                <div class="mer-hot-img">
+                                    <img src="images/mer_tuijian_img.png" alt="">
+                                </div>
+                                <div class="mer-hot-name">
+                                    <p>韩千炉韩式自助烤肉</p>
+                                </div>
+                                <div class="mer-hot-price">
+                                    <span>¥59.9</span>
+                                    <del>原价￥ 66.99 </del>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="mer-hot-right fl clearfix">
+                            <div class="mer-tj-left">
+                                <h3>天天特价</h3>
+                                <div class="mer-tj-price">
+                                    <span>¥59.9</span>
+                                    <del>原价￥ 66.99 </del>
+                                </div>
+                            </div>
+                            <div class="mer-tj-right fr">
+                                <img src="images/mer_youhui_img.png" alt="">
+                            </div>
+                        </div>
+                        <div class="mer-hot-right fl clearfix">
+                            <div class="mer-tj-left fl">
+                                <h3>一元吃</h3>
+                                <div class="mer-tj-price">
+                                    <span>¥59.9</span>
+                                    <del>原价￥ 66.99 </del>
+                                </div>
+                            </div>
+                            <div class="mer-tj-right">
+                                <img src="images/mer_yiyuan_img.jpg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- mer-hot -->
+            <div class="mer-cont">
+                <p style="padding-left: .5rem"> 阿斯蒂芬：夺工苦茜大本营读书法读书法</p>
+                <p style="padding-left: .5rem"> 阿斯蒂芬：村顶戴奇才枯顶替顶替顶替飘落无可奈何 </p>
+                <p style="padding-left: .5rem"> 胜多负少：阿斯蒂芬 大师傅大规模 顶替顶戴阿斯蒂芬 大规模工 </p>
+                <img src="images/mer_cont_img.jpg" alt="">
+            </div>
+        </div>
+        <!-- mer-main -->
+        <!-- footer -->
+        <footer class="m-tabbar">
+            <a href="#" class="tabbar-item">
+                <span class="tabbar-icon">
+                        <i class="icon-home-outline"></i>
+                </span>
+                <span class="tabbar-txt">首页</span>
+            </a>
+            <a href="#" class="tabbar-item tabbar-active">
+                <span class="tabbar-icon">
+                    <i class="iconfont icon2-fenlei default"></i>                 
+                </span>
+                <span class="tabbar-txt">分类</span>
+
+             </a>
+            <a href="#" class="tabbar-item">
+                <span class="tabbar-icon">
+                    <i class="icon-shopcart-outline"></i>
+                    <span class="badge badge-danger">2</span>
+                </span>
+                <span class="tabbar-txt">购物车</span>
+
+            </a>
+            <a href="#" class="tabbar-item">
+                <span class="tabbar-icon">
+                    <i class="iconfont icon2-icon2"></i>                 
+                </span>
+                <span class="tabbar-txt">我的</span>
+
+            </a>
+        </footer>
+        <!-- footer -->
+    </div>
+    <script>
+    $('.star').raty({
+        starOff: 'images/star-off.png',
+        starOn: 'images/star-on.png',
+        width: '1.4rem',
+        readOnly: true,
+        score: function() {
+            return $(this).attr("data-num");
+        },
+    });
+    </script>
+    <!-- 引入YDUI脚本 -->
+    <script type="text/javascript" src="dist/YDUI/js/ydui.js"></script>
+    <script>
+    $('#J_Slider').slider({
+        speed: 200,
+        autoplay: 2000,
+        lazyLoad: true
+    });
+    </script>
+</body>
+
+</html>

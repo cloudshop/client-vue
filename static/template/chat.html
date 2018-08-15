@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>聊天框</title>
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <!-- 引入YDUI样式 -->
+    <link rel="stylesheet" href="dist/YDUI/css/ydui.css">
+    <!-- 引入YDUI样式 -->
+    <link rel="stylesheet" href="css/box-flex.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/iconfont.css">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- 引入jQuery 2.0+ -->
+    <script src="dist/jquery.min.js"></script>
+    <!-- 自适应解决方案类库 -->
+    <script src="js/adaptive.js"></script>
+    <!-- 自适应解决方案类库 -->
+    <script type="text/javascript">
+    adaPtive(); //铺页面调用             
+    //页面加载时调用
+    $(function() { direction(); });
+    //用户变化屏幕方向时调用
+    $(window).on('orientationchange', function(e) { direction(); });
+    //调用adaptive
+    function adaPtive(max) {
+        window['adaptive'].desinWidth = 640;
+        window['adaptive'].baseFont = 24;
+        window['adaptive'].scaleType = 1;
+        window['adaptive'].maxWidth = 640;
+        window['adaptive'].init();
+    }
+    //判断手机屏幕方向
+    function direction() { if (window.orientation == 90 || window.orientation == -90) { adaPtive(320); return false; } else if (window.orientation == 0 || window.orientation == 180) { adaPtive(); return false; } }
+    </script>
+</head>
+
+<body>
+    <div class="g-flexview">
+        <!-- header -->
+        <header class="m-navbar my-header">
+            <a href="#" class="navbar-item">
+                <i class="back-ico"></i>
+            </a>
+            <div class="navbar-center">
+                <span class="navbar-title">物流信息</span>
+            </div>
+        </header>
+        <!-- header -->
+        <!-- ori-main -->
+        <div class="chat-main g-scrollview">
+        	<div class="chat-phone clearfix">
+                <a class="phone-nl">
+                    <i><img src="images/chat_phone.jpg" alt=""></i>
+                     <p>拨打电话</p>
+                </a>   
+            </div>
+            <div class="chat-cont clearfix">
+                <div class="chat-time">
+                    09:56
+                </div>
+                 <!-- 订单对话框 -->
+                <div class="chat-list order chat-right clearfix">
+                    <div class="chat-head">
+                        <img src="images/mer_shop_logo.png" alt="">
+                    </div>
+                    <div class="chat-nl clearfix">
+                        <div class="aui-chat-arrow"></div>
+                        <h3>订单号:123456789</h3>
+
+                        <div class="chat-nl-cont clearfix">
+                            <div class="chat-nl-img fl">
+                                <img src="images/logi_info_img.jpg" alt="">
+                            </div>
+                            <div class="chat-nl-p fl clearfix">
+                                页面面面碳面面面碳面碳页面碳央 
+                            </div>
+                            <div class="chat-pj fl clearfix">
+                                <p>已评价</p>
+                                <div class="time">09-26 08:28</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <!-- 订单对话框 -->
+                <!-- 物流对话框 -->
+                <div class="chat-list chat-left clearfix">
+                    <div class="chat-head">
+                        <img src="images/mer_shop_logo.png" alt="">
+                    </div>
+                    <div class="chat-nl clearfix">
+                        <div class="aui-chat-arrow"></div>
+                     
+
+                        <div class="chat-nl-cont clearfix">
+                           
+                            <div class="chat-nl-default clearfix">
+                                页面面面碳面面面碳面碳页面碳央 页面面面碳面面面碳面碳页面碳央
+                            </div>
+                            <div class="chat-nl-wl">
+                                <a href="#">查看物流进度</a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                 <!-- 物流对话框 -->
+                <!-- 普通对话框 -->
+                 <div class="chat-list chat-left clearfix">
+                    <div class="chat-head">
+                        <img src="images/mer_shop_logo.png" alt="">
+                    </div>
+                    <div class="chat-nl clearfix">
+                        <div class="aui-chat-arrow"></div>
+                     
+
+                        <div class="chat-nl-cont clearfix">
+                           
+                            <div class="chat-nl-default clearfix">
+                                 你好！
+                            </div>
+                          
+                            
+                        </div>
+                    </div>
+                </div>
+                 <!-- 普通对话框 -->
+                 <!-- 普通对话框 -->
+                 <div class="chat-list chat-left clearfix">
+                    <div class="chat-head">
+                        <img src="images/mer_shop_logo.png" alt="">
+                    </div>
+                    <div class="chat-nl clearfix">
+                        <div class="aui-chat-arrow"></div>
+                     
+
+                        <div class="chat-nl-cont clearfix">
+                           
+                            <div class="chat-nl-default clearfix">
+                                 <img src="images/mer_youhui_img.png" alt="">
+                            </div>
+                          
+                            
+                        </div>
+                    </div>
+                </div>
+                 <!-- 普通对话框 -->
+            </div>
+        </div>
+        <!-- ori-main -->
+        <!-- footer -->
+        <footer class="m-tabbar chat-footer">
+           <div class="footer-nl flex flex-align-center">
+               <input type="text" class="flex-1">
+               <div class="chat-button"><img src="images/footer_btn.jpg" alt=""></div>
+           </div>
+        </footer>
+        <!-- footer -->
+    </div>
+    <!-- 引入YDUI脚本 -->
+    <script type="text/javascript" src="dist/YDUI/js/ydui.js"></script>
+  
+  
+</body>
+
+</html>

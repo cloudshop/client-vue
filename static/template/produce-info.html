@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>商品详情</title>
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <!-- 引入YDUI样式 -->
+    <link rel="stylesheet" href="dist/YDUI/css/ydui.css">
+    <!-- 引入YDUI样式 -->
+    <link rel="stylesheet" href="css/box-flex.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/iconfont.css">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- 引入jQuery 2.0+ -->
+    <script src="dist/jquery.min.js"></script>
+    <!-- 自适应解决方案类库 -->
+    <script src="js/adaptive.js"></script>
+    <!-- 自适应解决方案类库 -->
+    <script type="text/javascript">
+    adaPtive(); //铺页面调用             
+    //页面加载时调用
+    $(function() { direction(); });
+    //用户变化屏幕方向时调用
+    $(window).on('orientationchange', function(e) { direction(); });
+    //调用adaptive
+    function adaPtive(max) {
+        window['adaptive'].desinWidth = 720;
+        window['adaptive'].baseFont = 24;
+        window['adaptive'].scaleType = 1;
+        window['adaptive'].maxWidth = 720;
+        window['adaptive'].init();
+    }
+    //判断手机屏幕方向
+    function direction() { if (window.orientation == 90 || window.orientation == -90) { adaPtive(320); return false; } else if (window.orientation == 0 || window.orientation == 180) { adaPtive(); return false; } }
+    </script>
+    <script src="dist/raty/jquery.raty.min.js"></script>
+</head>
+
+<body>
+    <div class="g-flexview">
+        <!-- header -->
+        <header class="m-navbar my-header">
+            <a href="#" class="navbar-item">
+                <i class="back-ico"></i>
+            </a>
+            <div class="navbar-center">
+                <span class="navbar-title">商品详情</span>
+            </div>
+            <div class="navbar-item nav-like">
+                <a href="#">
+                    <i class="icon-share3"></i>
+                   
+                </a>
+            </div>
+        </header>
+        <!-- header -->
+        <!-- pro-main -->
+        <div class="proinfo-main g-scrollview">
+            <!-- m-slider -->
+            <div class="m-slider mer-swiper" id="J_Slider">
+                <div class="slider-wrapper">
+                    <div class="slider-item">
+                        <a href="#">
+                            <img src="images/proinfo_banner_01.jpg">
+                        </a>
+                    </div>
+                    <div class="slider-item">
+                        <a href="#">
+                              <img src="images/proinfo_banner_01.jpg">
+                        </a>
+                    </div>
+                    <div class="slider-item">
+                        <a href="#">
+                             <img src="images/proinfo_banner_01.jpg">
+                        </a>
+                    </div>
+                </div>
+                <div class="slider-pagination"></div>
+                <!-- 分页标识 -->
+            </div>
+            <!-- m-slider -->
+            <!--proinfo-cp -->
+            <div class="proinfo-cp clearfix">
+                <h3>Swisse  液体胶原蛋白 500ml瓶</h3>
+                <div class="proinfo-price">
+                    <span class="now-price">￥158.00</span>
+                    <del>￥160.00</del>
+                </div>
+            </div>
+            <!--proinfo-cp -->
+            <!-- proinfo-xq -->
+            <div class="proinfo-xq clearfix">
+                <span>已售：<em>354件</em></span>
+                <span>库存：<em>500件</em></span>
+                <span><em>361人</em>评价</span>
+                <span> 
+                    <div id="star" class="star" data-num="3"></div>
+                    <div class="hinit">3.0分</div>
+                </span>
+            </div>
+            <!-- proinfo-xq -->
+            <!-- proinfo-sx -->
+            <div class="proinfo-sx clearfix">
+                <span class="hot"><a href="javascript:;" class="btn btn-hollow">商品多属性</a></span>
+                <span><a href="javascript:;" class="btn btn-hollow">商品多属性</a></span>
+                <span><a href="javascript:;" class="btn btn-hollow">商品多属性</a></span>
+                <span><a href="javascript:;" class="btn btn-hollow">商品多属性</a></span>
+                <span><a href="javascript:;" class="btn btn-hollow">商品多属性</a></span>
+                <span><a href="javascript:;" class="btn btn-hollow">商品多属性</a></span>
+                <span><a href="javascript:;" class="btn btn-hollow">商品多属性</a></span>
+                <span><a href="javascript:;" class="btn btn-hollow">商品多属性</a></span>
+            </div>
+            <!-- proinfo-sx -->
+            <!-- mer-shop -->
+            <div class="mer-shop clearfix">
+                <div class="mer-shop-img fl">
+                    <img src="images/mer_shop_logo.png" alt="">
+                </div>
+                <div class="mer-shop-js fl">
+                    <h3><p>长沙红星美凯龙</p><i class="icon-hezuo">合作</i></h3>
+                    <div class="mer-shop-area"><i class="img-logo"><img src="images/mer_logo_area.png" alt=""></i>
+                        <p>长沙红星美凯龙1栋203/距离365米</p>
+                    </div>
+                    <div class="mer-shop-logo"><i class="img-logo"><img src="images/mer_logo_te.png" alt=""></i>
+                        <p>共有361个特价商品</p>
+                    </div>
+                    <div class="mer-shop-logo"><i class="img-logo"><img src="images/mer_logo_fan.png" alt=""></i>
+                        <p>全店85折,享受平台返利</p>
+                    </div>
+                    <div class="mer-shop-logo"><i class="img-logo"><img src="images/mer_logo_you.png" alt=""></i>
+                        <p>全店85折,享受平台返利</p>
+                    </div>
+                </div>
+                <div class="mer-shop-phone clearfix fr">
+                    <div class="mer-shop-tel">
+                        <a href="#"><img src="images/mer_logo_phone.jpg" alt=""></a>
+                        <a href="#"><img src="images/mer_logo_message.jpg" alt=""></a>
+                    </div>
+                </div>
+                <div class="mer-shop-pj">
+                    <a href="javascript:;" class="btn btn-hollow"> 
+                        <i class="iconfont icon2-unie623"></i>进店逛逛
+                    </a>
+                </div>
+            </div>
+            <!-- mer-shop -->
+            <div class="proinfo-tab clearfix">
+                <div id="J_Tab" class="m-tab">
+                    <ul class="tab-nav">
+                        <li class="tab-nav-item tab-active"><a href="javascript:;">商品详情</a></li>
+                        <li class="tab-nav-item"><a href="javascript:;">更多评价(208)</a></li>
+                    </ul>
+                    <div class="tab-panel">
+                        <div class="tab-panel-item tab-active">
+                            <img src="images/mer_cont_img.jpg" alt="">
+                        </div>
+                        <div class="tab-panel-item tab-pj">
+                            <div class="pj-title">
+                                <p>评价<em>（208）</em></p>
+                            </div>
+                            <!-- pj-li -->
+                            <div class="pj-li clearfix">
+                                <div class="m-cell pj-top">
+                                    <div class="cell-item">
+                                        <div class="cell-left">
+                                            <div class="pj-head fl">
+                                                <img src="images/mer_shop_logo.png" alt="">
+                                            </div>
+                                            <div class="pj-name fl">
+                                                <p>玄***玄</p>
+                                                <span>VIP0</span>
+                                            </div>
+                                            <div class="pj-raty fl">
+                                                <div id="star" class="star-1" data-num="3"></div>
+                                            </div>
+                                        </div>
+                                        <div class="cell-right">2016年03月17日</div>
+                                    </div>
+                                </div>
+                                <div class="pj-bottom flex">
+                                    <div class="pj-nl flex-1">
+                                        <p> 味道很喜欢，服务也很棒，环境好，美顶顶替顶替顶替佣 兵 佣兵顶替 顶替顶顶替顶替顶替夺顶替村顶替顶替顶替顶替顶 替顶替…………
+                                        </p>
+                                    </div>
+                                    <div class="pj-img">
+                                        <img src="images/pj_img.jpg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- pj-li -->
+                            <!-- pj-li -->
+                            <div class="pj-li clearfix">
+                                <div class="m-cell pj-top">
+                                    <div class="cell-item">
+                                        <div class="cell-left">
+                                            <div class="pj-head fl">
+                                                <img src="images/mer_shop_logo.png" alt="">
+                                            </div>
+                                            <div class="pj-name fl">
+                                                <p>玄***玄</p>
+                                                <span>VIP0</span>
+                                            </div>
+                                            <div class="pj-raty fl">
+                                                <div id="star" class="star-1" data-num="3"></div>
+                                            </div>
+                                        </div>
+                                        <div class="cell-right">2016年03月17日</div>
+                                    </div>
+                                </div>
+                                <div class="pj-bottom flex">
+                                    <div class="pj-nl flex-1">
+                                        <p> 味道很喜欢，服务也很棒，环境好，美顶顶替顶替顶替佣 兵 佣兵顶替 顶替顶顶替顶替顶替夺顶替村顶替顶替顶替顶替顶 替顶替…………
+                                        </p>
+                                    </div>
+                                    <div class="pj-img">
+                                        <img src="images/pj_img.jpg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- pj-li -->
+                            <!-- pj-li -->
+                            <div class="pj-li clearfix">
+                                <div class="m-cell pj-top">
+                                    <div class="cell-item">
+                                        <div class="cell-left">
+                                            <div class="pj-head fl">
+                                                <img src="images/mer_shop_logo.png" alt="">
+                                            </div>
+                                            <div class="pj-name fl">
+                                                <p>玄***玄</p>
+                                                <span>VIP0</span>
+                                            </div>
+                                            <div class="pj-raty fl">
+                                                <div id="star" class="star-1" data-num="3"></div>
+                                            </div>
+                                        </div>
+                                        <div class="cell-right">2016年03月17日</div>
+                                    </div>
+                                </div>
+                                <div class="pj-bottom flex">
+                                    <div class="pj-nl flex-1">
+                                        <p> 味道很喜欢，服务也很棒，环境好，美顶顶替顶替顶替佣 兵 佣兵顶替 顶替顶顶替顶替顶替夺顶替村顶替顶替顶替顶替顶 替顶替…………
+                                        </p>
+                                    </div>
+                                    <div class="pj-img">
+                                        <img src="images/pj_img.jpg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- pj-li -->
+                            <a href="javascript:;" class="btn-block btn-hollow" style="height: .5rem;line-height: .5rem;font-size: .25rem; margin-top: .2rem;">加载更多</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="m-tabbar proi-footer">
+            <div class="footer-left flex flex-1">
+                 <a href="#" class="tabbar-item">
+                <span class="tabbar-icon">
+                    <i class="iconfont icon2-unie623"></i>                 
+                </span>
+                <span class="tabbar-txt">商家首页</span>
+            </a>
+            <a href="#" class="tabbar-item">
+                <span class="tabbar-icon">
+                    <i class="iconfont icon2-fenlei default"></i>                 
+                </span>
+                <span class="tabbar-txt">分类</span>
+
+             </a>
+            <a href="#" class="tabbar-item">
+                <span class="tabbar-icon">
+                    <i class="icon-shopcart-outline"></i>
+                    <span class="badge badge-danger">2</span>
+                </span>
+                <span class="tabbar-txt">购物车</span>
+
+            </a>
+            </div>
+           <div class="footer-right flex">
+                <a href="javascript:;" class="btn flex-1 btn-hollow car">加入购物车</a>
+            <a href="javascript:;" class="btn flex-1 btn-hollow sale">立即购买</a>
+           </div>
+          
+        </footer>
+        <!-- footer -->
+    </div>
+    <script>
+    $('.star').raty({
+        starOff: 'images/star-off.png',
+        starOn: 'images/star-on.png',
+        width: '1rem',
+        readOnly: true,
+        score: function() {
+            return $(this).attr("data-num");
+        },
+    });
+    $('.star-1').raty({
+        starOff: 'images/star-off.png',
+        starOn: 'images/star-on.png',
+        width: '1rem',
+        readOnly: true,
+        score: function() {
+            return $(this).attr("data-num");
+        },
+    });
+    </script>
+    <!-- 引入YDUI脚本 -->
+    <script type="text/javascript" src="dist/YDUI/js/ydui.js"></script>
+    <script>
+    $('#J_Slider').slider({
+        speed: 200,
+        autoplay: 2000,
+        lazyLoad: true
+    });
+    </script>
+    <script>
+    var $tab = $('#J_Tab');
+
+    $tab.tab({
+        nav: '.tab-nav-item',
+        panel: '.tab-panel-item',
+        activeClass: 'tab-active'
+    });
+
+    $tab.find('.tab-nav-item').on('open.ydui.tab', function(e) {
+        console.log('索引：%s - [%s]正在打开', e.index, $(this).text());
+    });
+
+    $tab.find('.tab-nav-item').on('opened.ydui.tab', function(e) {
+        console.log('索引：%s - [%s]已经打开了', e.index, $(this).text());
+    });
+    </script>
+</body>
+
+</html>

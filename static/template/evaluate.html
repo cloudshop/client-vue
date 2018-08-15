@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>发表评价</title>
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <!-- 引入YDUI样式 -->
+    <link rel="stylesheet" href="dist/YDUI/css/ydui.css">
+    <!-- 引入YDUI样式 -->
+    <link rel="stylesheet" href="css/box-flex.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/iconfont.css">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- 引入jQuery 2.0+ -->
+    <script src="dist/jquery.min.js"></script>
+    <!-- 自适应解决方案类库 -->
+    <script src="js/adaptive.js"></script>
+    <!-- 自适应解决方案类库 -->
+    <script type="text/javascript">
+    adaPtive(); //铺页面调用             
+    //页面加载时调用
+    $(function() { direction(); });
+    //用户变化屏幕方向时调用
+    $(window).on('orientationchange', function(e) { direction(); });
+    //调用adaptive
+    function adaPtive(max) {
+        window['adaptive'].desinWidth = 640;
+        window['adaptive'].baseFont = 24;
+        window['adaptive'].scaleType = 1;
+        window['adaptive'].maxWidth = 640;
+        window['adaptive'].init();
+    }
+    //判断手机屏幕方向
+    function direction() { if (window.orientation == 90 || window.orientation == -90) { adaPtive(320); return false; } else if (window.orientation == 0 || window.orientation == 180) { adaPtive(); return false; } }
+    </script>
+    <script src="dist/raty/jquery.raty.min.js"></script>
+</head>
+
+<body>
+    <div class="g-flexview">
+        <!-- header -->
+        <header class="m-navbar my-header">
+            <a href="#" class="navbar-item">
+                <i class="back-ico"></i>
+            </a>
+            <div class="navbar-center">
+                <span class="navbar-title">发表评价</span>
+            </div>
+        </header>
+        <!-- header -->
+        <!-- ori-main -->
+        <div class="eva-main g-scrollview">
+            <div class="eva-text clearfix">
+                <div class="m-celltitle">发表评论</div>
+                <div class="m-cell">
+                    <div class="cell-item">
+                        <div class="cell-right">
+                            <textarea class="cell-textarea" placeholder="亲，有什么需要评论的么？"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="eva-list">
+                <div class="orl-list clearfix">
+                    <div class="orl-cont clearfix">
+                        <div class="orl-cont-img fl">
+                            <img src="images/orl_produce_img.jpg" alt="">
+                        </div>
+                        <div class="orl-cont-p fl">
+                            <p>清风原木纯品抽纸3层16包家用卫生纸餐巾婴儿面巾纸家庭装..</p>
+                            <div class="orl-cont-sx clearfix">
+                                <em>更多属性</em><em>更多属性</em><em>更多属性</em><em>更多属性</em>
+                            </div>
+                        </div>
+                        <div class="orl-cont-price fr clearfix">
+                            <span class="price">￥35</span>
+                            <span class="num">X2</span>
+                        </div>
+                        <div class="orl-pf fl">
+                            <h3>商品评分:</h3>
+                            <div id="star" class="star"></div>
+                        </div>
+                    </div>
+                    <div class="orl-cont clearfix">
+                        <div class="orl-cont-img fl">
+                            <img src="images/orl_produce_img.jpg" alt="">
+                        </div>
+                        <div class="orl-cont-p fl">
+                            <p>清风原木纯品抽纸3层16包家用卫生纸餐巾婴儿面巾纸家庭装..</p>
+                            <div class="orl-cont-sx clearfix">
+                                <em>更多属性</em><em>更多属性</em><em>更多属性</em><em>更多属性</em>
+                            </div>
+                        </div>
+                        <div class="orl-cont-price fr">
+                            <span class="price">￥35</span>
+                            <span class="num">X2</span>
+                        </div>
+                         <div class="orl-pf fl">
+                            <h3>商品评分:</h3>
+                            <div id="star" class="star"></div>
+                        </div>
+                    </div>
+                    <div class="m-cell flex flex-v clearfix">
+                        <div class="cell-item flex-1">
+                            <a class="cell-left cell-arrow">
+                              <em class="shop-icon"><img src="images/orl_shop_icon.jpg" alt=""></em>
+                                <p class="shop-name">马方家居用品店</p>
+                            </a>
+                            <div class="cell-right">
+                            </div>
+                        </div>
+                         <div class="orl-pf flex-1" style="padding-left: .18rem;">
+                            <h3>店铺综合评分:</h3>
+                            <div id="star" class="star"></div>
+                        </div>
+                    </div>
+
+                    <a class="btn-block btn-danger">提交评价</a>
+                </div>
+            </div>
+        </div>
+        <!-- ori-main -->
+       
+    </div>
+
+   
+    <script>
+
+    $('.star').raty({
+        starOff: 'images/star-off.png',
+        starOn: 'images/star-on.png',
+        width:'3rem'
+    });
+    </script>
+</body>
+
+</html>

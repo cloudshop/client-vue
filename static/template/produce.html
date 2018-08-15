@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>产品分类</title>
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <!-- 引入YDUI样式 -->
+    <link rel="stylesheet" href="dist/YDUI/css/ydui.css">
+    <!-- 引入YDUI样式 -->
+    <link rel="stylesheet" href="css/box-flex.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/iconfont.css">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- 引入jQuery 2.0+ -->
+    <script src="dist/jquery.min.js"></script>
+    <!-- 自适应解决方案类库 -->
+    <script src="js/adaptive.js"></script>
+    <!-- 自适应解决方案类库 -->
+    <script type="text/javascript">
+    adaPtive(); //铺页面调用             
+    //页面加载时调用
+    $(function() { direction(); });
+    //用户变化屏幕方向时调用
+    $(window).on('orientationchange', function(e) { direction(); });
+    //调用adaptive
+    function adaPtive(max) {
+        window['adaptive'].desinWidth = 720;
+        window['adaptive'].baseFont = 24;
+        window['adaptive'].scaleType = 1;
+        window['adaptive'].maxWidth = 720;
+        window['adaptive'].init();
+    }
+    //判断手机屏幕方向
+    function direction() { if (window.orientation == 90 || window.orientation == -90) { adaPtive(320); return false; } else if (window.orientation == 0 || window.orientation == 180) { adaPtive(); return false; } }
+    </script>
+</head>
+
+<body>
+    <div class="g-flexview">
+        <!-- header -->
+        <header class="m-navbar my-header">
+            <a href="#" class="navbar-item">
+                <i class="back-ico"></i>
+            </a>
+            <div class="navbar-center">
+                <span class="navbar-title">XXXX店</span>
+            </div>
+        </header>
+        <!-- header -->
+        <!-- pro-main -->
+        <div class="pro-main">
+            <div class="pro-search">
+                <div class="cell-item">
+                    <div class="icon-search"></div>
+                    <div class="cell-right">
+                        <input type="text" class="cell-input" placeholder="输入商品关键字" autocomplete="off">
+                        <a href="javascript:;" class="btn btn-warning">搜索</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- pro-main -->
+        <div class="pro-scroll g-scrollview">
+            <div class="m-scrolltab" id="J_ScrollTab">
+                <div class="scrolltab-nav">
+                    <a href="javascript:;" class="scrolltab-item">
+                        <div class="scrolltab-icon">
+                            <!-- 你的图标 -->
+                        </div>
+                        <div class="scrolltab-title">常用分类</div>
+                    </a>
+                    <a href="javascript:;" class="scrolltab-item">
+                        <div class="scrolltab-icon">
+                            <!-- 你的图标 -->
+                        </div>
+                        <div class="scrolltab-title">服装饰品</div>
+                    </a>
+                    <a href="javascript:;" class="scrolltab-item">
+                        <div class="scrolltab-icon">
+                            <!-- 你的图标 -->
+                        </div>
+                        <div class="scrolltab-title">护理化妆</div>
+                    </a>
+                </div>
+                <div class="scrolltab-content">
+                    <div class="scrolltab-content-item">
+                        <div class="produce-banner clearfix">
+                            <a href="#">
+                               <img src="images/produce_banner.jpg" alt="">
+                           </a>
+                        </div>
+                        <strong class="scrolltab-content-title">常用分类</strong>
+                        <div class="produce-list flex">
+                            <div class="produce-list-left"><a href="#"><img src="images/produce_list_img.jpg" alt=""></a></div>
+                            <div class="produce-list-right flex-1 ">
+                                <h3>模压标菜奇才顶替顶替顶替阿斯蒂芬</h3>
+                                <p>农家人自种环保健康</p>
+                                <div class="price_list flex flex-1 flex-h flex-align-center">
+                                    <span class="price">￥5.99 </span>
+                                    <del class="last">原价￥ 6.99 </del>
+                                    <span class="sale">已售305</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="produce-list flex">
+                            <div class="produce-list-left"><a href="#"><img src="images/produce_list_img02.jpg" alt=""></a></div>
+                            <div class="produce-list-right flex-1 ">
+                                <h3>模压标菜奇才顶替顶替顶替阿斯蒂芬</h3>
+                                <p>农家人自种环保健康</p>
+                                <div class="price_list flex flex-1 flex-h flex-align-center">
+                                    <span class="price">￥5.99 </span>
+                                    <del class="last">原价￥ 6.99 </del>
+                                    <span class="sale">已售305</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="produce-list flex">
+                            <div class="produce-list-left"><a href="#"><img src="images/produce_list_img.jpg" alt=""></a></div>
+                            <div class="produce-list-right flex-1 ">
+                                <h3>模压标菜奇才顶替顶替顶替阿斯蒂芬</h3>
+                                <p>农家人自种环保健康</p>
+                                <div class="price_list flex flex-1 flex-h flex-align-center">
+                                    <span class="price">￥5.99 </span>
+                                    <del class="last">原价￥ 6.99 </del>
+                                    <span class="sale">已售305</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="produce-list flex">
+                            <div class="produce-list-left"><a href="#"><img src="images/produce_list_img.jpg" alt=""></a></div>
+                            <div class="produce-list-right flex-1 ">
+                                <h3>模压标菜奇才顶替顶替顶替阿斯蒂芬</h3>
+                                <p>农家人自种环保健康</p>
+                                <div class="price_list flex flex-1 flex-h flex-align-center">
+                                    <span class="price">￥5.99 </span>
+                                    <del class="last">原价￥ 6.99 </del>
+                                    <span class="sale">已售305</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="produce-list flex">
+                            <div class="produce-list-left"><a href="#"><img src="images/produce_list_img.jpg" alt=""></a></div>
+                            <div class="produce-list-right flex-1 ">
+                                <h3>模压标菜奇才顶替顶替顶替阿斯蒂芬</h3>
+                                <p>农家人自种环保健康</p>
+                                <div class="price_list flex flex-1 flex-h flex-align-center">
+                                    <span class="price">￥5.99 </span>
+                                    <del class="last">原价￥ 6.99 </del>
+                                    <span class="sale">已售305</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="produce-list flex">
+                            <div class="produce-list-left"><a href="#"><img src="images/produce_list_img.jpg" alt=""></a></div>
+                            <div class="produce-list-right flex-1 ">
+                                <h3>模压标菜奇才顶替顶替顶替阿斯蒂芬</h3>
+                                <p>农家人自种环保健康</p>
+                                <div class="price_list flex flex-1 flex-h flex-align-center">
+                                    <span class="price">￥5.99 </span>
+                                    <del class="last">原价￥ 6.99 </del>
+                                    <span class="sale">已售305</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 对应分类内容 -->
+                    </div>
+                    <div class="scrolltab-content-item">
+                        <strong class="scrolltab-content-title">服装饰品</strong>
+                        <!-- 对应分类内容 -->
+                        <div class="produce-list flex">
+                            <div class="produce-list-left"><a href="#"><img src="images/produce_list_img.jpg" alt=""></a></div>
+                            <div class="produce-list-right flex-1 ">
+                                <h3>模压标菜奇才顶替顶替顶替阿斯蒂芬</h3>
+                                <p>农家人自种环保健康</p>
+                                <div class="price_list flex flex-1 flex-h flex-align-center">
+                                    <span class="price">￥5.99 </span>
+                                    <del class="last">原价￥ 6.99 </del>
+                                    <span class="sale">已售305</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="produce-list flex">
+                            <div class="produce-list-left"><a href="#"><img src="images/produce_list_img02.jpg" alt=""></a></div>
+                            <div class="produce-list-right flex-1 ">
+                                <h3>模压标菜奇才顶替顶替顶替阿斯蒂芬</h3>
+                                <p>农家人自种环保健康</p>
+                                <div class="price_list flex flex-1 flex-h flex-align-center">
+                                    <span class="price">￥5.99 </span>
+                                    <del class="last">原价￥ 6.99 </del>
+                                    <span class="sale">已售305</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="produce-list flex">
+                            <div class="produce-list-left"><a href="#"><img src="images/produce_list_img.jpg" alt=""></a></div>
+                            <div class="produce-list-right flex-1 ">
+                                <h3>模压标菜奇才顶替顶替顶替阿斯蒂芬</h3>
+                                <p>农家人自种环保健康</p>
+                                <div class="price_list flex flex-1 flex-h flex-align-center">
+                                    <span class="price">￥5.99 </span>
+                                    <del class="last">原价￥ 6.99 </del>
+                                    <span class="sale">已售305</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="produce-list flex">
+                            <div class="produce-list-left"><a href="#"><img src="images/produce_list_img.jpg" alt=""></a></div>
+                            <div class="produce-list-right flex-1 ">
+                                <h3>模压标菜奇才顶替顶替顶替阿斯蒂芬</h3>
+                                <p>农家人自种环保健康</p>
+                                <div class="price_list flex flex-1 flex-h flex-align-center">
+                                    <span class="price">￥5.99 </span>
+                                    <del class="last">原价￥ 6.99 </del>
+                                    <span class="sale">已售305</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="produce-list flex">
+                            <div class="produce-list-left"><a href="#"><img src="images/produce_list_img.jpg" alt=""></a></div>
+                            <div class="produce-list-right flex-1 ">
+                                <h3>模压标菜奇才顶替顶替顶替阿斯蒂芬</h3>
+                                <p>农家人自种环保健康</p>
+                                <div class="price_list flex flex-1 flex-h flex-align-center">
+                                    <span class="price">￥5.99 </span>
+                                    <del class="last">原价￥ 6.99 </del>
+                                    <span class="sale">已售305</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="scrolltab-content-item">
+                        <strong class="scrolltab-content-title">护理化妆</strong>
+                        <!-- 对应分类内容 -->
+                        <div class="scrolltab-content-item">
+                            <!--  <strong class="scrolltab-content-title">空调</strong> -->
+                            <div class="produce-list flex">
+                                <div class="produce-list-left"><a href="#"><img src="images/produce_list_img.jpg" alt=""></a></div>
+                                <div class="produce-list-right flex-1 ">
+                                    <h3>模压标菜奇才顶替顶替顶替阿斯蒂芬</h3>
+                                    <p>农家人自种环保健康</p>
+                                    <div class="price_list flex flex-1 flex-h flex-align-center">
+                                        <span class="price">￥5.99 </span>
+                                        <del class="last">原价￥ 6.99 </del>
+                                        <span class="sale">已售305</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="produce-list flex">
+                                <div class="produce-list-left"><a href="#"><img src="images/produce_list_img02.jpg" alt=""></a></div>
+                                <div class="produce-list-right flex-1 ">
+                                    <h3>模压标菜奇才顶替顶替顶替阿斯蒂芬</h3>
+                                    <p>农家人自种环保健康</p>
+                                    <div class="price_list flex flex-1 flex-h flex-align-center">
+                                        <span class="price">￥5.99 </span>
+                                        <del class="last">原价￥ 6.99 </del>
+                                        <span class="sale">已售305</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="produce-list flex">
+                                <div class="produce-list-left"><a href="#"><img src="images/produce_list_img.jpg" alt=""></a></div>
+                                <div class="produce-list-right flex-1 ">
+                                    <h3>模压标菜奇才顶替顶替顶替阿斯蒂芬</h3>
+                                    <p>农家人自种环保健康</p>
+                                    <div class="price_list flex flex-1 flex-h flex-align-center">
+                                        <span class="price">￥5.99 </span>
+                                        <del class="last">原价￥ 6.99 </del>
+                                        <span class="sale">已售305</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="produce-list flex">
+                                <div class="produce-list-left"><a href="#"><img src="images/produce_list_img.jpg" alt=""></a></div>
+                                <div class="produce-list-right flex-1 ">
+                                    <h3>模压标菜奇才顶替顶替顶替阿斯蒂芬</h3>
+                                    <p>农家人自种环保健康</p>
+                                    <div class="price_list flex flex-1 flex-h flex-align-center">
+                                        <span class="price">￥5.99 </span>
+                                        <del class="last">原价￥ 6.99 </del>
+                                        <span class="sale">已售305</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+ 
+            </div>
+            
+        </div>
+        <!-- footer -->
+        <footer class="m-tabbar">
+            <a href="#" class="tabbar-item">
+                <span class="tabbar-icon">
+                        <i class="icon-home-outline"></i>
+                </span>
+                <span class="tabbar-txt">首页</span>
+            </a>
+            <a href="#" class="tabbar-item tabbar-active">
+                <span class="tabbar-icon">
+                    <i class="iconfont icon2-unie623"></i>                 
+                </span>
+                <span class="tabbar-txt">商家首页</span>
+
+             </a>
+            <a href="#" class="tabbar-item">
+                <span class="tabbar-icon">
+                    <i class="icon-shopcart-outline"></i>
+                    <span class="badge badge-danger">2</span>
+                </span>
+                <span class="tabbar-txt">购物车</span>
+
+            </a>
+            <a href="#" class="tabbar-item">
+                <span class="tabbar-icon">
+                    <i class="iconfont icon2-icon2"></i>                 
+                </span>
+                <span class="tabbar-txt">我的</span>
+
+            </a>
+        </footer>
+        <!-- footer -->
+    </div>        
+        <!-- 引入YDUI脚本 -->
+        <script type="text/javascript" src="dist/YDUI/js/ydui.js"></script>
+        <script>
+       
+
+        $('#J_ScrollTab').scrollTab({
+
+        });
+        </script>
+</body>
+
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>订单详情</title>
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <!-- 引入YDUI样式 -->
+    <link rel="stylesheet" href="dist/YDUI/css/ydui.css">
+    <!-- 引入YDUI样式 -->
+    <link rel="stylesheet" href="css/box-flex.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/iconfont.css">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- 引入jQuery 2.0+ -->
+    <script src="dist/jquery.min.js"></script>
+    <!-- 自适应解决方案类库 -->
+    <script src="js/adaptive.js"></script>
+    <!-- 自适应解决方案类库 -->
+    <script type="text/javascript">
+    adaPtive(); //铺页面调用             
+    //页面加载时调用
+    $(function() { direction(); });
+    //用户变化屏幕方向时调用
+    $(window).on('orientationchange', function(e) { direction(); });
+    //调用adaptive
+    function adaPtive(max) {
+        window['adaptive'].desinWidth = 640;
+        window['adaptive'].baseFont = 24;
+        window['adaptive'].scaleType = 1;
+        window['adaptive'].maxWidth = 640;
+        window['adaptive'].init();
+    }
+    //判断手机屏幕方向
+    function direction() { if (window.orientation == 90 || window.orientation == -90) { adaPtive(320); return false; } else if (window.orientation == 0 || window.orientation == 180) { adaPtive(); return false; } }
+    </script>
+</head>
+
+<body>
+    <div class="g-flexview">
+        <!-- header -->
+        <header class="m-navbar my-header">
+            <a href="#" class="navbar-item">
+                <i class="back-ico"></i>
+            </a>
+            <div class="navbar-center">
+                <span class="navbar-title">我的订单</span>
+            </div>
+        </header>
+        <!-- header -->
+        <!-- ori-main -->
+        <div class="ori-main g-scrollview">
+            <div class="ori-banner clearfix">
+                <h3 class="fl">已评价</h3>
+                <div class="or-banner-img fr">
+                    <img src="images/ori_banner_img.jpg" alt="">
+                </div>
+            </div>
+            <div class="m-cell ori-post">
+                <a class="cell-item" href="javascript:;">
+                    <div class="cell-left">
+                        <span class="img-bus"><img src="images/ori_img_bus.jpg" /></span>
+                        <div class="ori-post-info clearfix success">
+                            <h3>已签收，签收人是前台</h3>
+                            <p>2017-09-29 14:14:13</p>
+                        </div>
+                    </div>
+                    <div class="cell-right cell-arrow"></div>
+                </a>
+                <a class="cell-item" href="javascript:;">
+                    <div class="cell-left"><span class="img-area"><img src="images/ori_img_area.jpg" /></span>
+                        <div class="ori-post-info clearfix">
+                            <h3>已送达</h3>
+                            <h3>安庆 宜秀区 中兴大道菱北办事处后1号楼605</h3>
+                        </div>
+                    </div>
+                    <div class="cell-right cell-arrow"></div>
+                </a>
+            </div>
+            <div class="orl-list clearfix">
+                <div class="m-cell">
+                    <div class="cell-item">
+                        <a class="cell-left cell-arrow"><em class="shop-icon"><img src="images/orl_shop_icon.jpg" alt=""></em><p class="shop-name">马方家居用品店</p></a>
+                        <div class="cell-right">
+                        </div>
+                    </div>
+                </div>
+                <div class="orl-cont clearfix">
+                    <div class="orl-cont-img fl">
+                        <img src="images/orl_produce_img.jpg" alt="">
+                    </div>
+                    <div class="orl-cont-p fl">
+                        <p>清风原木纯品抽纸3层16包家用卫生纸餐巾婴儿面巾纸家庭装..</p>
+                        <div class="orl-cont-sx clearfix">
+                            <em>更多属性</em><em>更多属性</em><em>更多属性</em><em>更多属性</em>
+                        </div>
+                    </div>
+                    <div class="orl-cont-price fr">
+                        <span class="price">￥35</span>
+                        <span class="num">X2</span>
+                    </div>
+                </div>
+                <div class="orl-post clearfix">
+                    <div class="orl-post-num fl"><img src="images/ori_money.jpg" alt=""></div>
+                    <div class="orl-post-price fr">
+                        <div class="orl-post-item clearfix">
+                            优惠:<span class="now-price">￥-50.00</span>
+                        </div>
+                        <div class="orl-post-item clearfix">
+                            运费:<span class="now-price">￥5.00</span>
+                        </div>
+                        <div class="orl-post-item clearfix">
+                            实付:<span class="now-price default">￥80.00</span><span class="post-price">(免运费)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="orl-button clearfix">
+                    <a href="javascript:;" class="btn btn-hollow">删除订单</a>
+                    <a href="javascript:;" class="btn btn-hollow">查看物流</a>
+                    <a href="javascript:;" class="btn btn-hollow default">再次购买</a>
+                </div>
+            </div>
+              <a href="javascript:;" class="btn-block btn-hollow" style="height: .5rem;line-height: .5rem;font-size: .25rem; margin: 0 0 .1rem 0;">加载更多</a>
+            <!--  orl-message  -->
+            <div class="ori-message clearfix">
+                <div class="m-grids-2">
+                    <a href="#" class="grids-item">
+                        <div class="grids-txt"><em class="message-icon"><img src="images/ori_message_icon.jpg" alt=""></em><span>联系卖家</span></div>
+                    </a>
+                    <a href="#" class="grids-item">
+                        <div class="grids-txt"><em class="message-icon"><img src="images/ori_phone_icon.jpg" alt=""></em><span>拨打电话</span></div>
+                    </a>
+                </div>
+            </div>
+            <!--  orl-message  -->
+            <!-- ori-list-info -->
+            <div class="ori-list-info clearfix">
+                <ul>
+                    <li>
+                        <span class="num">订单编号：</span>
+                        <p>SPO67512017031</p>
+                        <a href="javascript:;" class="btn btn-hollow">复制</a>
+                        <span class="state">(下单未付款)</span>
+                    </li>
+                    <li>
+                        <span class="num">支付方式：</span>
+                        <p>微信</p>
+                        <span class="state"> (已付款)</span>
+                    </li>
+                    <li>
+                        <span class="num">下单时间：</span>
+                        <p>2017-09-26 08:28:10</p>
+                        <span class="state">(已付款)</span>
+                    </li>
+                    <li>
+                        <span class="num">发货时间：</span>
+                        <p>2017-09-26 08:28:10 </p>
+                        <span class="state"> (已发货)</span>
+                    </li>
+                    <li>
+                        <span class="num">成交时间：</span>
+                        <p>2017-09-26 08:28:10</p>
+                        <span class="state">(交易成功)</span>
+                    </li>
+                    <li>
+                        <span class="num">快递方式：</span>
+                        <p>天天快递或同城</p>
+                        <span class="state">(已发货)</span>
+                    </li>
+                    <li>
+                        <span class="num">运单编号：</span>
+                        <p>580404333646</p>
+                        <span class="state">(已发货)</span>
+                    </li>
+                </ul>
+            </div>
+            <!-- ori-list-info -->
+        </div>
+        <!-- ori-main -->
+      
+    </div>
+    <!-- 引入YDUI脚本 -->
+    <script type="text/javascript" src="dist/YDUI/js/ydui.js"></script>
+    <script>
+    var $tab = $('#J_Tab');
+
+    $tab.tab({
+        nav: '.tab-nav-item',
+        panel: '.tab-panel-item',
+        activeClass: 'tab-active'
+    });
+
+    $tab.find('.tab-nav-item').on('open.ydui.tab', function(e) {
+        console.log('索引：%s - [%s]正在打开', e.index, $(this).text());
+    });
+
+    $tab.find('.tab-nav-item').on('opened.ydui.tab', function(e) {
+        console.log('索引：%s - [%s]已经打开了', e.index, $(this).text());
+    });
+    </script>
+</body>
+
+</html>

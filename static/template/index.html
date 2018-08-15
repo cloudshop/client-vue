@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <!-- 引入YDUI样式 -->
+    <link rel="stylesheet" href="dist/YDUI/css/ydui.css">
+    <!-- 引入YDUI样式 -->
+    <link rel="stylesheet" href="css/box-flex.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/iconfont.css">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- 引入jQuery 2.0+ -->
+    <script src="dist/jquery.min.js"></script>
+    <!-- 自适应解决方案类库 -->
+    <script src="js/adaptive.js"></script>
+    <!-- 自适应解决方案类库 -->
+    <script type="text/javascript">
+    adaPtive(); //铺页面调用             
+    //页面加载时调用
+    $(function() { direction(); });
+    //用户变化屏幕方向时调用
+    $(window).on('orientationchange', function(e) { direction(); });
+    //调用adaptive
+    function adaPtive(max) {
+        window['adaptive'].desinWidth = 640;
+        window['adaptive'].baseFont = 24;
+        window['adaptive'].scaleType = 1;
+        window['adaptive'].maxWidth = 640;
+        window['adaptive'].init();
+    }
+    //判断手机屏幕方向
+    function direction() { if (window.orientation == 90 || window.orientation == -90) { adaPtive(320); return false; } else if (window.orientation == 0 || window.orientation == 180) { adaPtive(); return false; } }
+    </script>
+    <script src="dist/raty/jquery.raty.min.js"></script>
+</head>
+
+<body>
+    <div class="g-flexview">
+        <header class="m-navbar my-header">
+            <a href="#" class="navbar-item default">
+                 <i class="back-ico"></i>
+            </a>
+            <div class="navbar-center input-center flex-align-start flex">
+                <div class="index-input flex-1">
+                    <div class="icon-search"></div>
+                    <div class="index-right">
+                        <input type="text" placeholder="输入商家、品类、商圈" autocomplete="off">
+                    </div>
+                </div>
+            </div>
+            <div class="navbar-item nav-like default">
+                <a href="#">
+                   <i class="iconfont icon2-ling"></i>               
+                </a>
+            </div>
+        </header>
+        <!-- mer-main -->
+        <div class="index-main g-scrollview">
+            <!-- m-slider -->
+            <div class="m-slider index-swiper clearfix">
+                <div class="slider-wrapper">
+                    <div class="slider-item">
+                        <a href="#">
+                            <img src="images/index_banner_01.jpg">
+                        </a>
+                    </div>
+                    <div class="slider-item">
+                        <a href="#">
+                              <img src="images/index_banner_01.jpg">
+                        </a>
+                    </div>
+                    <div class="slider-item">
+                        <a href="#">
+                             <img src="images/index_banner_01.jpg">
+                        </a>
+                    </div>
+                </div>
+                <div class="slider-pagination"></div>
+                <!-- 分页标识 -->
+            </div>
+            <!-- m-slider -->
+            <!-- m-slider -->
+            <div class="m-slider menu-swiper clearfix">
+                <div class="slider-wrapper">
+                    <div class="slider-item">
+                        <div class="m-grids-5">
+                            <a href="#" class="grids-item">
+                                <div class="grids-icon"><img src="images/index_logo_01.jpg"></div>
+                                <div class="grids-txt"><span>美食</span></div>
+                            </a>
+                            <a href="#" class="grids-item">
+                                <div class="grids-icon"><img src="images/index_logo_02.jpg"></div>
+                                <div class="grids-txt"><span>电影</span></div>
+                            </a>
+                            <a href="#" class="grids-item">
+                                <div class="grids-icon"><img src="images/index_logo_03.jpg"></div>
+                                <div class="grids-txt"><span>酒店</span></div>
+                            </a>
+                            <a href="#" class="grids-item">
+                                <div class="grids-icon"><img src="images/index_logo_04.jpg"></div>
+                                <div class="grids-txt"><span>休闲娱乐</span></div>
+                            </a>
+                            <a href="#" class="grids-item">
+                                <div class="grids-icon"><img src="images/index_logo_05.jpg"></div>
+                                <div class="grids-txt"><span>外卖</span></div>
+                            </a>
+                            <a href="#" class="grids-item">
+                                <div class="grids-icon"><img src="images/index_logo_06.jpg"></div>
+                                <div class="grids-txt"><span>自助餐</span></div>
+                            </a>
+                            <a href="#" class="grids-item">
+                                <div class="grids-icon"><img src="images/index_logo_07.jpg"></div>
+                                <div class="grids-txt"><span>KTV</span></div>
+                            </a>
+                            <a href="#" class="grids-item">
+                                <div class="grids-icon"><img src="images/index_logo_08.jpg"></div>
+                                <div class="grids-txt"><span>火车票机票</span></div>
+                            </a>
+                            <a href="#" class="grids-item">
+                                <div class="grids-icon"><img src="images/index_logo_09.jpg"></div>
+                                <div class="grids-txt"><span>小吃快餐</span></div>
+                            </a>
+                            <a href="#" class="grids-item">
+                                <div class="grids-icon"><img src="images/index_logo_10.jpg"></div>
+                                <div class="grids-txt"><span>美容美体</span></div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="slider-item">
+                        <div class="m-grids-5">
+                            <a href="#" class="grids-item">
+                                <div class="grids-icon"><img src="images/index_logo_01.jpg"></div>
+                                <div class="grids-txt"><span>美食</span></div>
+                            </a>
+                            <a href="#" class="grids-item">
+                                <div class="grids-icon"><img src="images/index_logo_02.jpg"></div>
+                                <div class="grids-txt"><span>电影</span></div>
+                            </a>
+                            <a href="#" class="grids-item">
+                                <div class="grids-icon"><img src="images/index_logo_03.jpg"></div>
+                                <div class="grids-txt"><span>酒店</span></div>
+                            </a>
+                            <a href="#" class="grids-item">
+                                <div class="grids-icon"><img src="images/index_logo_04.jpg"></div>
+                                <div class="grids-txt"><span>休闲娱乐</span></div>
+                            </a>
+                            <a href="#" class="grids-item">
+                                <div class="grids-icon"><img src="images/index_logo_05.jpg"></div>
+                                <div class="grids-txt"><span>外卖</span></div>
+                            </a>
+                            <a href="#" class="grids-item">
+                                <div class="grids-icon"><img src="images/index_logo_06.jpg"></div>
+                                <div class="grids-txt"><span>自助餐</span></div>
+                            </a>
+                            <a href="#" class="grids-item">
+                                <div class="grids-icon"><img src="images/index_logo_07.jpg"></div>
+                                <div class="grids-txt"><span>KTV</span></div>
+                            </a>
+                            <a href="#" class="grids-item">
+                                <div class="grids-icon"><img src="images/index_logo_08.jpg"></div>
+                                <div class="grids-txt"><span>火车票机票</span></div>
+                            </a>
+                            <a href="#" class="grids-item">
+                                <div class="grids-icon"><img src="images/index_logo_09.jpg"></div>
+                                <div class="grids-txt"><span>小吃快餐</span></div>
+                            </a>
+                            <a href="#" class="grids-item">
+                                <div class="grids-icon"><img src="images/index_logo_10.jpg"></div>
+                                <div class="grids-txt"><span>美容美体</span></div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="slider-item">
+                        <div class="m-grids-5">
+                            <a href="#" class="grids-item">
+                                <div class="grids-icon"><img src="images/index_logo_01.jpg"></div>
+                                <div class="grids-txt"><span>美食</span></div>
+                            </a>
+                            <a href="#" class="grids-item">
+                                <div class="grids-icon"><img src="images/index_logo_02.jpg"></div>
+                                <div class="grids-txt"><span>电影</span></div>
+                            </a>
+                            <a href="#" class="grids-item">
+                                <div class="grids-icon"><img src="images/index_logo_03.jpg"></div>
+                                <div class="grids-txt"><span>酒店</span></div>
+                            </a>
+                            <a href="#" class="grids-item">
+                                <div class="grids-icon"><img src="images/index_logo_04.jpg"></div>
+                                <div class="grids-txt"><span>休闲娱乐</span></div>
+                            </a>
+                            <a href="#" class="grids-item">
+                                <div class="grids-icon"><img src="images/index_logo_05.jpg"></div>
+                                <div class="grids-txt"><span>外卖</span></div>
+                            </a>
+                            <a href="#" class="grids-item">
+                                <div class="grids-icon"><img src="images/index_logo_06.jpg"></div>
+                                <div class="grids-txt"><span>自助餐</span></div>
+                            </a>
+                            <a href="#" class="grids-item">
+                                <div class="grids-icon"><img src="images/index_logo_07.jpg"></div>
+                                <div class="grids-txt"><span>KTV</span></div>
+                            </a>
+                            <a href="#" class="grids-item">
+                                <div class="grids-icon"><img src="images/index_logo_08.jpg"></div>
+                                <div class="grids-txt"><span>火车票机票</span></div>
+                            </a>
+                            <a href="#" class="grids-item">
+                                <div class="grids-icon"><img src="images/index_logo_09.jpg"></div>
+                                <div class="grids-txt"><span>小吃快餐</span></div>
+                            </a>
+                            <a href="#" class="grids-item">
+                                <div class="grids-icon"><img src="images/index_logo_10.jpg"></div>
+                                <div class="grids-txt"><span>美容美体</span></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="slider-pagination"></div>
+                <!-- 分页标识 -->
+            </div>
+            <!-- m-slider -->
+            <!-- index-hot -->
+            <div class="index-hot clearfix">
+                <div class="m-cell">
+                    <a class="cell-item" href="javascript:;">
+                        <div class="cell-left"><i class="img_hot"><img src="images/mer_logo_hot.jpg" alt=""></i>推荐商家</div>
+                        <div class="cell-right cell-arrow">查看更多</div>
+                    </a>
+                    <div class="index-hot-cont clearfix">
+                        <div class="index-hot-list flex">
+                            <div class="index-hot-js flex-1 flex flex-pack-center flex-v">
+                                <h3>9元K歌</h3>
+                                <p>100%送红包</p>
+                            </div>
+                            <div class="index-hot-img">
+                                <img src="images/index_nine.jpg" alt="">
+                            </div>
+                        </div>
+                        <div class="index-hot-list flex">
+                            <div class="index-hot-js flex-1 flex flex-pack-center flex-v">
+                                <h3 class="one">瘦身送福利</h3>
+                                <p>100%送红包</p>
+                            </div>
+                            <div class="index-hot-img">
+                                <img src="images/index_nine_01.jpg" alt="">
+                            </div>
+                        </div>
+                        <div class="index-hot-list flex">
+                            <div class="index-hot-js flex-1 flex flex-pack-center flex-v">
+                                <h3 class="two">惠住酒店</h3>
+                                <p>100%送红包</p>
+                            </div>
+                            <div class="index-hot-img">
+                                <img src="images/index_nine_02.jpg" alt="">
+                            </div>
+                        </div>
+                        <div class="index-hot-list flex">
+                            <div class="index-hot-js flex-1 flex flex-pack-center flex-v">
+                                <h3 class="three">鲜花1折起</h3>
+                                <p>100%送红包</p>
+                            </div>
+                            <div class="index-hot-img">
+                                <img src="images/index_nine_03.jpg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- index-hot -->
+            <div class="index-near clearfix">
+                <div class="m-cell">
+                    <a class="cell-item" href="javascript:;">
+                        <div class="cell-left"><i class="img_hot"><img src="images/mer_logo_area.png" alt=""></i>附近商家</div>
+                        <div class="cell-right cell-arrow">查看更多</div>
+                    </a>
+                    <div class="index-near-cont clearfix">
+                       <!-- mer-shop -->
+                        <div class="mer-shop clearfix">
+                            <div class="mer-shop-img fl">
+                                <a href="#"><img src="images/mer_shop_logo.png" alt=""></a>
+                            </div>
+                            <div class="mer-shop-js fl">
+                                <h3><p>长沙红星美凯龙</p><i class="icon-hezuo">合作</i></h3>
+                                <div class="mer-shop-area"><i class="img-logo"><img src="images/mer_logo_area.png" alt=""></i>
+                                    <p>长沙红星美凯龙1栋203/距离365米</p>
+                                </div>
+                                <div class="mer-shop-logo"><i class="img-logo"><img src="images/mer_logo_te.png" alt=""></i>
+                                    <p>共有361个特价商品</p>
+                                </div>
+                                <div class="mer-shop-logo"><i class="img-logo"><img src="images/mer_logo_fan.png" alt=""></i>
+                                    <p>全店85折,享受平台返利</p>
+                                </div>
+                                <div class="mer-shop-logo"><i class="img-logo"><img src="images/mer_logo_you.png" alt=""></i>
+                                    <p>全店85折,享受平台返利</p>
+                                </div>
+                            </div>
+                            <div class="mer-shop-phone clearfix fr">
+                                <div class="mer-shop-tel">
+                                    <a href="#"><img src="images/mer_logo_phone.jpg" alt=""></a>
+                                    <a href="#"><img src="images/mer_logo_message.jpg" alt=""></a>
+                                </div>
+                            </div>
+                            <div class="mer-shop-pj">
+                                <p>店铺评价：<em>385人</em></p>
+                               <div id="star" class="star star-1" data-num="3"></div>
+                                <div class="hinit">3.0分</div>
+                            </div>
+                        </div>
+                         <!-- mer-shop -->
+                          <!-- mer-shop -->
+                        <div class="mer-shop clearfix">
+                            <div class="mer-shop-img fl">
+                                 <a href="#"><img src="images/mer_shop_logo.png" alt=""></a>
+                            </div>
+                            <div class="mer-shop-js fl">
+                                <h3><p>长沙红星美凯龙</p><i class="icon-hezuo">合作</i></h3>
+                                <div class="mer-shop-area"><i class="img-logo"><img src="images/mer_logo_area.png" alt=""></i>
+                                    <p>长沙红星美凯龙1栋203/距离365米</p>
+                                </div>
+                                <div class="mer-shop-logo"><i class="img-logo"><img src="images/mer_logo_te.png" alt=""></i>
+                                    <p>共有361个特价商品</p>
+                                </div>
+                                <div class="mer-shop-logo"><i class="img-logo"><img src="images/mer_logo_fan.png" alt=""></i>
+                                    <p>全店85折,享受平台返利</p>
+                                </div>
+                                <div class="mer-shop-logo"><i class="img-logo"><img src="images/mer_logo_you.png" alt=""></i>
+                                    <p>全店85折,享受平台返利</p>
+                                </div>
+                            </div>
+                            <div class="mer-shop-phone clearfix fr">
+                                <div class="mer-shop-tel">
+                                    <a href="#"><img src="images/mer_logo_phone.jpg" alt=""></a>
+                                    <a href="#"><img src="images/mer_logo_message.jpg" alt=""></a>
+                                </div>
+                            </div>
+                            <div class="mer-shop-pj">
+                                <p>店铺评价：<em>385人</em></p>
+                               <div id="star" class="star star-1" data-num="3"></div>
+                                <div class="hinit">3.0分</div>
+                            </div>
+                        </div>
+                         <!-- mer-shop -->
+                          <!-- mer-shop -->
+                        <div class="mer-shop clearfix">
+                            <div class="mer-shop-img fl">
+                                 <a href="#"><img src="images/mer_shop_logo.png" alt=""></a>
+                            </div>
+                            <div class="mer-shop-js fl">
+                                <h3><p>长沙红星美凯龙</p><i class="icon-hezuo">合作</i></h3>
+                                <div class="mer-shop-area"><i class="img-logo"><img src="images/mer_logo_area.png" alt=""></i>
+                                    <p>长沙红星美凯龙1栋203/距离365米</p>
+                                </div>
+                                <div class="mer-shop-logo"><i class="img-logo"><img src="images/mer_logo_te.png" alt=""></i>
+                                    <p>共有361个特价商品</p>
+                                </div>
+                                <div class="mer-shop-logo"><i class="img-logo"><img src="images/mer_logo_fan.png" alt=""></i>
+                                    <p>全店85折,享受平台返利</p>
+                                </div>
+                                <div class="mer-shop-logo"><i class="img-logo"><img src="images/mer_logo_you.png" alt=""></i>
+                                    <p>全店85折,享受平台返利</p>
+                                </div>
+                            </div>
+                            <div class="mer-shop-phone clearfix fr">
+                                <div class="mer-shop-tel">
+                                    <a href="#"><img src="images/mer_logo_phone.jpg" alt=""></a>
+                                    <a href="#"><img src="images/mer_logo_message.jpg" alt=""></a>
+                                </div>
+                            </div>
+                            <div class="mer-shop-pj">
+                                <p>店铺评价：<em>385人</em></p>
+                               <div id="star" class="star star-1" data-num="3"></div>
+                                <div class="hinit">3.0分</div>
+                            </div>
+                        </div>
+                         <!-- mer-shop -->
+                          <!-- mer-shop -->
+                        <div class="mer-shop clearfix">
+                            <div class="mer-shop-img fl">
+                                 <a href="#"><img src="images/mer_shop_logo.png" alt=""></a>
+                            </div>
+                            <div class="mer-shop-js fl">
+                                <h3><p>长沙红星美凯龙</p><i class="icon-hezuo">合作</i></h3>
+                                <div class="mer-shop-area"><i class="img-logo"><img src="images/mer_logo_area.png" alt=""></i>
+                                    <p>长沙红星美凯龙1栋203/距离365米</p>
+                                </div>
+                                <div class="mer-shop-logo"><i class="img-logo"><img src="images/mer_logo_te.png" alt=""></i>
+                                    <p>共有361个特价商品</p>
+                                </div>
+                                <div class="mer-shop-logo"><i class="img-logo"><img src="images/mer_logo_fan.png" alt=""></i>
+                                    <p>全店85折,享受平台返利</p>
+                                </div>
+                                <div class="mer-shop-logo"><i class="img-logo"><img src="images/mer_logo_you.png" alt=""></i>
+                                    <p>全店85折,享受平台返利</p>
+                                </div>
+                            </div>
+                            <div class="mer-shop-phone clearfix fr">
+                                <div class="mer-shop-tel">
+                                    <a href="#"><img src="images/mer_logo_phone.jpg" alt=""></a>
+                                    <a href="#"><img src="images/mer_logo_message.jpg" alt=""></a>
+                                </div>
+                            </div>
+                            <div class="mer-shop-pj">
+                                <p>店铺评价：<em>385人</em></p>
+                               <div id="star" class="star star-1" data-num="3"></div>
+                                <div class="hinit">3.0分</div>
+                            </div>
+                        </div>
+                         <!-- mer-shop -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- mer-main -->
+        <!-- footer -->
+        <footer class="m-tabbar">
+            <a href="#" class="tabbar-item tabbar-active">
+                <span class="tabbar-icon">
+                        <i class="icon-home-outline"></i>
+                </span>
+                <span class="tabbar-txt">首页</span>
+            </a>
+            <a href="#" class="tabbar-item">
+                <span class="tabbar-icon">
+                    <i class="iconfont icon2-unie623"></i>                 
+                </span>
+                <span class="tabbar-txt">商家首页</span>
+
+             </a>
+            <a href="#" class="tabbar-item">
+                <span class="tabbar-icon">
+                    <i class="icon-shopcart-outline"></i>
+                    <span class="badge badge-danger">2</span>
+                </span>
+                <span class="tabbar-txt">购物车</span>
+
+            </a>
+            <a href="#" class="tabbar-item">
+                <span class="tabbar-icon">
+                    <i class="iconfont icon2-icon2"></i>                 
+                </span>
+                <span class="tabbar-txt">我的</span>
+
+            </a>
+        </footer>
+        <!-- footer -->
+    </div>
+    <script>
+    $('.star').raty({
+        starOff: 'images/star-off.png',
+        starOn: 'images/star-on.png',
+        width: '1.4rem',
+        readOnly: true,
+        score: function() {
+            return $(this).attr("data-num");
+        },
+    });
+    $('.star-1').raty({
+        starOff: 'images/star-off.png',
+        starOn: 'images/star-on.png',
+        width: '1.4rem',
+        readOnly: true,
+        score: function() {
+            return $(this).attr("data-num");
+        },
+    });
+    </script>
+    <!-- 引入YDUI脚本 -->
+    <script type="text/javascript" src="dist/YDUI/js/ydui.js"></script>
+    <script>
+    $('.index-swiper').slider({
+        speed: 200,
+        autoplay: 2000,
+        lazyLoad: true
+    });
+
+    $('.menu-swiper').slider({
+        speed: 200,
+        autoplay: 30000,
+        lazyLoad: true
+    });
+    </script>
+</body>
+
+</html>
